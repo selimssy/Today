@@ -376,16 +376,7 @@
                             <label><input type="radio" name="gender" value="여"> 여</label>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>특징</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="feature" class="modal_input" placeholder="ex) 애교쟁이, 노즈워크 달인"></td>
-                    </tr>
+                  
                     <tr>
                         <td>
                             <button type="button" id="petRg-btn" class="m_button">등록</button>
@@ -471,8 +462,7 @@
         			"userId": "${login.userId}",
         			"petName": $("#pet_name").val(),
         			"age": $("#age").val(),
-        			"gender": $("input[name='gender']:checked").val(),
-        			"feature": $("#feature").val()
+        			"gender": $("input[name='gender']:checked").val()
         	}
         	
         	// formData에 json타입으로 petData 추가

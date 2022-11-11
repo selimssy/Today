@@ -90,8 +90,8 @@
 	
 	<!-- 새로운 펫 등록 -->
 	<insert id="registerPet">
-		INSERT INTO pet (user_id, pet_name, age, gender, feature, image_path)
-		VALUES (#{userId}, #{petName}, #{age}, #{gender}, #{feature}, #{imagePath})	
+		INSERT INTO pet (user_id, pet_name, age, gender, image_path)
+		VALUES (#{userId}, #{petName}, #{age}, #{gender}, #{imagePath})	
 	</insert>
 	
 	
