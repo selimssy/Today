@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ali.today.user.repository.IUserMapper">
+
+	<!-- DB 컬럼명과 VO 클래스의 필드명 맵핑작업 -->
+	<resultMap id="UserMap" type="com.ali.today.user.model.UserVO">		
+		<id property="userId" column="user_id" />
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="nickname" column="nickname"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="sessionId" column="session_id"/>
+		<result property="limitTime" column="limit_time"/>	
+	</resultMap>
+	
+	
+	<resultMap id="PetMap" type="com.ali.today.user.model.PetVO">		
+		<id property="petId" column="pet_id" />
+		<result property="userId" column="user_id"/>
+		<result property="petName" column="pet_name"/>
+		<result property="age" column="age"/>
+		<result property="gender" column="gender"/>
+		<result property="feature" column="feature"/>
+		<result property="imagePath" column="image_path"/>	
+	</resultMap>
+	
+	
+	
+	
+	<!-- 회원가입 SQL -->
+	<insert id="register">
+		INSERT INTO user (user_id, password, name, nickname)
+		VALUES (#{userId}, #{password}, #{name}, #{nickname})	
+	</insert>
+	
+	
+	<!-- 아이디 중복확인 SQL -->
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*)
+		FROM user
+		WHERE user_id = #{userId}
+	</select>
+	
+	
+	<!-- 회원탈퇴 SQL -->
+	<delete id="delete">
+		DELETE FROM user
+		WHERE user_id = #{userId}
+	</delete>
+	
+	
+	<!-- 회원조회 SQL -->
+	<select id="selectOne" resultMap="UserMap">
+		SELECT * FROM user
+		WHERE user_id = #{userId}
+	</select>
+	
+	
+	<!-- 전체회원 조회 SQL -->
+	<select id="selectAll" resultMap="UserMap">
+		SELECT * FROM user
+	</select>
+	
+	
+	<!-- 자동로그인을 체크할 경우 쿠키값(세션아이디)과 유지시간을 갱신 -->
+	<!-- Mapper에게 데이터 여러개를 보내줄 때는 1.객체 2.Map 둘 중 하나로 보내야!!★ (이 경우엔 Map)-->
+	<update id="keepLogin">
+		UPDATE user
+		SET session_id = #{sessionId},
+		    limit_time = #{limitTime}
+		WHERE user_id = #{userId}
+	</update>
+	
+	
+	
+	<!-- 자동로그인을 했던 회원이 사이트 재방문시 로컬에 저장된 쿠키값과 일치하는 회원의 정보를 조회하는 SQL -->
+	<select id="getUserWithSessionId" resultMap="UserMap">
+		SELECT * FROM user
+		WHERE session_id = #{sessionId} 
+	</select>
+	
+	
+	
+	
+	<!-- //////////////////////////////////////////////////////////////////////////// -->
+	
+	
+	<!-- 새로운 펫 등록 -->
+	<insert id="registerPet">
+		INSERT INTO pet (user_id, pet_name, age, gender, feature, image_path)
+		VALUES (#{userId}, #{petName}, #{age}, #{gender}, #{feature}, #{imagePath})	
+	</insert>
+	
+	
+	
+	<!-- 내 계정에 등록된 반려동물 조회 -->
+	<select id="selectAllPet" resultMap="PetMap">
+		SELECT * FROM pet WHERE user_id = #{userId}
+	</select>
+	
+	
+	<!-- 유저, 반려동물 세션정보 -->
+	<select id="" resultMap="UserMap">
+		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name 
+		FROM user u LEFT JOIN pet p
+		ON u.user_id = p.user_id
+		WHERE u.user_id='sarang' AND p.pet_id=2
+	</select>
+	
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ali.today.mypet.repository.IGalleryMapper">
+	
+	<!-- DB 컬럼명과 VO 클래스의 필드명 맵핑작업 -->
+	<resultMap id="GalleryMap" type="com.ali.today.mypet.model.GalleryVO">
+		
+		<id property="imgId" column="img_id" />
+		<result property="title" column="title"/>
+		<result property="date" column="date"/>
+		<result property="imagePath" column="image_path"/>
+		
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	<insert id="register">
+		INSERT INTO gallery (title, image_path)
+		VALUES (#{title}, #{imagePath})
+	</insert>
+	
+	
+	<select id="getGalleryList" resultMap="GalleryMap">
+		SELECT * FROM gallery
+		ORDER BY date DESC
+	</select>
+	
+	
+
+</mapper>
