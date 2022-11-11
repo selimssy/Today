@@ -106,7 +106,7 @@
 		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name 
 		FROM user u LEFT JOIN pet p
 		ON u.user_id = p.user_id
-		WHERE u.user_id='sarang' AND p.pet_id=2
+		WHERE u.user_id =#{userId} AND p.pet_id = #{petId}
 	</select>
 	
 </mapper>
