@@ -12,7 +12,8 @@
 		<result property="nickname" column="nickname"/>
 		<result property="regDate" column="reg_date"/>
 		<result property="sessionId" column="session_id"/>
-		<result property="limitTime" column="limit_time"/>	
+		<result property="limitTime" column="limit_time"/>
+		<collection property="pet" resultMap="PetMap"/>	
 	</resultMap>
 	
 	
@@ -102,11 +103,11 @@
 	
 	
 	<!-- 유저, 반려동물 세션정보 -->
-	<select id="" resultMap="UserMap">
-		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name 
+	<select id="UserPetInfo" resultMap="UserMap">
+		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name, p.age, p.gender, p.feature 
 		FROM user u LEFT JOIN pet p
 		ON u.user_id = p.user_id
-		WHERE u.user_id =#{userId} AND p.pet_id = #{petId}
+		WHERE u.user_id = #{userId} AND p.pet_id = #{petId}
 	</select>
 	
 </mapper>

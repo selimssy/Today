@@ -11,7 +11,7 @@ public interface IMypetMapper {
 	// 생애기록 카드 추가
 	void insertCard(LifetimeVO LifetimeVO);  
 	
-	// 생애기록 카드 목록 조회
-	List<LifetimeVO> getLifetimeCardList();
+	// 특정 반려동물 생애기록 카드 목록 조회
+	List<LifetimeVO> getLifetimeCardList(Integer petId);
 	
 }

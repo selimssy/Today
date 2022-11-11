@@ -40,4 +40,7 @@ public interface IUserService {
 	// 내 계정에 등록된 반려동물 조회
 	List<PetVO> selectAllPet(String userId);
 	
+	// 유저, 반려동물 세션정보 
+	UserVO UserPetInfo(PetVO pet);
+	
 }

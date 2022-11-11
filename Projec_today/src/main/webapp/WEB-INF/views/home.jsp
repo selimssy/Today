@@ -62,9 +62,13 @@
 		#petList{width: 800px; height: 450px; border: 5px solid #7AB730; display: none;}
         #petList h2{background: #7AB730;}
         #petList #petCards{display: flex; overflow-x: auto}
+        #petList #petCards a{text-decoration: none; color: #000;}
 
         #petRg_modal{display: none;}
-
+		
+		/* petId 안보이게 */
+		.pet_id{display:none}
+			
 
 
         .flex-container {
@@ -427,12 +431,13 @@
                     //let rows = response  
                     //console.log(row.length);
                     for(let i = 0; i < response.length; i++){
+                    	let pet_id = response[i]['petId']
                         let src = response[i]['imagePath']
                         let pet_name = response[i]['petName']
                         let age = response[i]['age']
                         let gender = response[i]['gender']
 
-                        let temp_html = "<div class='pet'><div class='pet_in'><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div>" 
+                        let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
 
                         $('#petCards').append(temp_html)
                     }
@@ -498,6 +503,43 @@
         })    
 
         
+        
+        
+        
+        
+        // 반려동물 선택 이벤트
+        $(document).on("click", ".pet", function () {
+            const user_id = "${login.userId}";
+            const pet_id = $(this).find( ".pet_id" ).text();
+    		console.log(user_id);
+            console.log(pet_id);
+    		const pet = {
+                        userId: user_id,
+                        petId: pet_id
+                    };
+
+            $.ajax({
+                type: "POST", 
+                url: "/today/user/selectPet", 
+                headers: {
+                    "Content-Type": "application/json"
+                }, 
+                dataType: "text", 
+                data: JSON.stringify(pet), 
+                success: function(result) { 
+                    console.log("통신 성공!: ");
+                    if(result === "success") {
+                        location.href="/today/mypet/lifetime";
+                    } else {
+                        alert("반려동물 선택에 실패했습니다.");
+                    }
+                }, 
+                error: function() {
+                    console.log("통신 실패!");
+                } 
+            });        
+            
+        })
         
         
         

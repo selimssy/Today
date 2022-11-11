@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
 import com.ali.today.mypet.service.IMypetService;
+import com.ali.today.user.model.UserVO;
 
 
 @Controller
@@ -35,9 +37,13 @@ public class MypetController {
 	
 
 	@GetMapping("/lifetime")
-	public void mypet(Model model) {
+	public void mypet(HttpSession session, Model model) {
 		
-		List<LifetimeVO> list = service.getLifetimeCardList();
+		UserVO user = (UserVO)session.getAttribute("login");
+
+		Integer petId = user.getPet().getPetId();
+		
+		List<LifetimeVO> list = service.getLifetimeCardList(petId);
 		model.addAttribute("cards", list);
 		
 	}
@@ -79,10 +85,14 @@ public class MypetController {
 	
 	
 	@GetMapping("/gallery")
-	public void gallery(Model model) {
+	public void gallery(HttpSession session, Model model) {
 			
-			List<GalleryVO> list = service.getGalleryList();
-			model.addAttribute("galleryList", list);
+		UserVO user = (UserVO)session.getAttribute("login");
+
+		Integer petId = user.getPet().getPetId();
+		
+		List<GalleryVO> list = service.getGalleryList(petId);
+		model.addAttribute("galleryList", list);
 		
 	}
 	

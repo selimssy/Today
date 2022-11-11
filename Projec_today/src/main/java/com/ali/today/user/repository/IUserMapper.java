@@ -44,6 +44,6 @@ public interface IUserMapper {
 	
 	
 	// 유저, 반려동물 세션정보 
-	UserVO UserPetInfo();
+	UserVO UserPetInfo(PetVO pet);
 	
 }

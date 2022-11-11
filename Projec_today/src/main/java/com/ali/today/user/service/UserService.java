@@ -86,6 +86,11 @@ public class UserService implements IUserService{
 	@Override
 	public List<PetVO> selectAllPet(String userId) {
 		return mapper.selectAllPet(userId);
+	}
+
+	@Override
+	public UserVO UserPetInfo(PetVO pet) {
+		return mapper.UserPetInfo(pet);
 	}	
 	
 }

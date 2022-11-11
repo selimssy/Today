@@ -5,6 +5,7 @@ import java.util.Date;
 public class LifetimeVO {
 	
 	private Integer cardId;
+	private Integer petId;
 	private Date date;
 	private String content;
 	private String imagePath;
@@ -16,6 +17,12 @@ public class LifetimeVO {
 	}
 	public void setCardId(Integer cardId) {
 		this.cardId = cardId;
+	}
+	public Integer getPetId() {
+		return petId;
+	}
+	public void setPetId(Integer petId) {
+		this.petId = petId;
 	}
 	public Date getDate() {
 		return date;
@@ -39,12 +46,12 @@ public class LifetimeVO {
 	
 	@Override
 	public String toString() {
-		return "LifetimeVO [cardId=" + cardId + ", date=" + date + ", content=" + content + ", imagePath=" + imagePath
-				+ "]";
+		return "LifetimeVO [cardId=" + cardId + ", petId=" + petId + ", date=" + date + ", content=" + content
+				+ ", imagePath=" + imagePath + "]";
 	}
 	
 	
-	
+
 	
 	
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 public class GalleryVO {
 	
 	private Integer imgId;
+	private Integer petId;
 	private String title;
 	private Date date;
 	private String imagePath;
@@ -15,6 +16,12 @@ public class GalleryVO {
 	}
 	public void setImgId(Integer imgId) {
 		this.imgId = imgId;
+	}
+	public Integer getPetId() {
+		return petId;
+	}
+	public void setPetId(Integer petId) {
+		this.petId = petId;
 	}
 	public String getTitle() {
 		return title;
@@ -38,10 +45,12 @@ public class GalleryVO {
 	
 	@Override
 	public String toString() {
-		return "GalleryVO [imgId=" + imgId + ", title=" + title + ", date=" + date + ", imagePath=" + imagePath + "]";
+		return "GalleryVO [imgId=" + imgId + ", petId=" + petId + ", title=" + title + ", date=" + date + ", imagePath="
+				+ imagePath + "]";
 	}
 	
 	
+
 	
 	
 }

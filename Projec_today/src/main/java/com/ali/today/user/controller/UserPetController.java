@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
@@ -76,12 +77,16 @@ public class UserPetController {
 	
 	
 	// 반려동물 선택과 세션정보
-	@GetMapping("/selectPet")
-	public ModelAndView selectPet() {
+	@PostMapping("/selectPet")
+	public String selectPet(@RequestBody PetVO pet, HttpSession session) {
 		
+		//System.out.println(pet);
+		UserVO dbUser = service.UserPetInfo(pet); // 반려동물 객체 포함된 userVO
+		System.out.println(dbUser);
 		
-		
-		return new ModelAndView("redirect:/mypet/lifetime");  
+		session.setAttribute("login", dbUser); // 위의 새로운 userVO로 세션 재등록 
+				
+		return "success";  
 	}
 	
 }

@@ -62,6 +62,7 @@
                         </label>
                     </div>
                     <input type="text" name="title" placeholder="title" required>
+                    <input type="hidden" name="petId" value="${login.pet.petId}">
                     <input type="submit" value="등록">
                 </form>
             </div>

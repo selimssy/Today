@@ -28,8 +28,8 @@ public class MypetService implements IMypetService {
 	}
 
 	@Override
-	public List<LifetimeVO> getLifetimeCardList() {
-		return mapper.getLifetimeCardList();
+	public List<LifetimeVO> getLifetimeCardList(Integer petId) {
+		return mapper.getLifetimeCardList(petId);
 	}
 	
 	
@@ -40,8 +40,8 @@ public class MypetService implements IMypetService {
 	}
 
 	@Override
-	public List<GalleryVO> getGalleryList() {
-		return gmapper.getGalleryList(); // 페이징처리 후 수정하자~
+	public List<GalleryVO> getGalleryList(Integer petId) {
+		return gmapper.getGalleryList(petId); // 페이징처리 후 수정하자~
 	}
 
 }

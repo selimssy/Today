@@ -15,7 +15,7 @@
         .image-box {width: 200px; height: 200px; object-fit: cover; display: block; margin: 20px auto;}
         .upload-btn {border: 1px solid #ddd; padding: 6px 12px; display: inline-block; cursor: pointer;}
         input[type=file] {display: none;}
-
+		input[type=submit] {cursor:pointer;}
     </style>
 </head>
 
@@ -54,6 +54,7 @@
 	            <!--   <button id="lifeBtn">등록</button> <br>-->
 	            <input type="submit" value="등록"><br>
 	            <input type="date" id="date" name="Ldate" required> <br>
+	            <input type="hidden" name="petId" value="${login.pet.petId}">
 	            <textarea rows="5" cols="15" id="content" name="content" required></textarea>
 	        </div>
 	    </div>

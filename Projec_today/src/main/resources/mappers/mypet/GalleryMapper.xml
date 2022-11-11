@@ -8,6 +8,7 @@
 	<resultMap id="GalleryMap" type="com.ali.today.mypet.model.GalleryVO">
 		
 		<id property="imgId" column="img_id" />
+		<result property="petId" column="pet_id"/>
 		<result property="title" column="title"/>
 		<result property="date" column="date"/>
 		<result property="imagePath" column="image_path"/>
@@ -20,13 +21,14 @@
 	
 	
 	<insert id="register">
-		INSERT INTO gallery (title, image_path)
-		VALUES (#{title}, #{imagePath})
+		INSERT INTO gallery (pet_id, title, image_path)
+		VALUES (#{petId}, #{title}, #{imagePath})
 	</insert>
 	
 	
 	<select id="getGalleryList" resultMap="GalleryMap">
 		SELECT * FROM gallery
+		WHERE pet_id = #{petId}
 		ORDER BY date DESC
 	</select>
 	
