@@ -10,7 +10,12 @@ public class DateData {
 	String year = "";
 	String month = "";
 	String date = "";
-	String value = "";
+	Integer value = 0;
+	//스케쥴 추가시 아래처럼 
+	//		1. 변수 추가
+	//		2. getter/setter 추가
+	//		3. 생성자 추가
+	//				하여 사용하면 보다 편리하고 깨끗하게 코드를 만들 수 있다.
 	String schedule = "";
 	String schedule_detail = "";
 
@@ -38,11 +43,13 @@ public class DateData {
 		this.date = date;
 	}
 
-	public String getValue() {
+	
+
+	public Integer getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Integer value) {
 		this.value = value;
 	}
 
@@ -69,9 +76,9 @@ public class DateData {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Integer.parseInt(dateData.getYear()), Integer.parseInt(dateData.getMonth()), 1);
 
-		int startDay = cal.getMinimum(Calendar.DATE);
-		int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		int start = cal.get(Calendar.DAY_OF_WEEK);
+		int startDay = cal.getMinimum(java.util.Calendar.DATE);
+		int endDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+		int start = cal.get(java.util.Calendar.DAY_OF_WEEK);
 		
 		Calendar todayCal = Calendar.getInstance();
 		SimpleDateFormat ysdf = new SimpleDateFormat("yyyy");
@@ -136,7 +143,7 @@ public class DateData {
 	}
 	
 	// 스케줄 사용시 사용될 생성자
-	public DateData(String year, String month, String date, String value, String schedule, String schedule_detail) {
+	public DateData(String year, String month, String date, Integer value, String schedule, String schedule_detail) {
 
 		this.year = year;
 		this.month = month;
@@ -148,7 +155,7 @@ public class DateData {
 	}
 
 	// 달력만 사용시 사용될 생성자
-	public DateData(String year, String month, String date, String value) {
+	public DateData(String year, String month, String date, Integer value) {
 		if ((month != null && month != "") && (date != null && date != "")) {
 			this.year = year;
 			this.month = month;
@@ -163,6 +170,5 @@ public class DateData {
 	@Override
 	public String toString() {
 		return "DateData [year=" + year + ", month=" + month + ", date=" + date + ", value=" + value + "]";
-	}	
-	
+	}
 }

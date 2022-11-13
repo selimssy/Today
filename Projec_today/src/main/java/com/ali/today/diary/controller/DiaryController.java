@@ -26,7 +26,7 @@ public class DiaryController {
 		DateData calendarData;
 		//검색 날짜
 		if(dateData.getDate().equals("")&&dateData.getMonth().equals("")){
-			dateData = new DateData(String.valueOf(cal.get(Calendar.YEAR)),String.valueOf(cal.get(Calendar.MONTH)),String.valueOf(cal.get(Calendar.DATE)),null);
+			dateData = new DateData(String.valueOf(cal.get(Calendar.YEAR)),String.valueOf(cal.get(Calendar.MONTH)),String.valueOf(cal.get(Calendar.DATE)),0);
 		}
 		//검색 날짜 end
 
@@ -36,16 +36,16 @@ public class DiaryController {
 		//실질적인 달력 데이터 리스트에 데이터 삽입 시작.
 		//일단 시작 인덱스까지 아무것도 없는 데이터 삽입
 		for(int i=1; i<today_info.get("start"); i++){
-			calendarData= new DateData(null, null, null, null);
+			calendarData= new DateData(null, null, null, 0);
 			dateList.add(calendarData);
 		}
 		
 		//날짜 삽입
 		for (int i = today_info.get("startDay"); i <= today_info.get("endDay"); i++) {
 			if(i==today_info.get("today")){
-				calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), "today");
+				calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), 1000);
 			}else{
-				calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), "normal_date");
+				calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), 0);
 			}
 			dateList.add(calendarData);
 		}
@@ -56,7 +56,7 @@ public class DiaryController {
 		if(dateList.size()%7!=0){
 			
 			for (int i = 0; i < index; i++) {
-				calendarData= new DateData(null, null, null, null);
+				calendarData= new DateData(null, null, null, 0);
 				dateList.add(calendarData);
 			}
 		}
@@ -65,8 +65,17 @@ public class DiaryController {
 		//배열에 담음
 		model.addAttribute("dateList", dateList);		//날짜 데이터 배열
 		model.addAttribute("today_info", today_info);
-		
 		return "diary/calendar";
+	
 	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

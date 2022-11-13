@@ -7,14 +7,8 @@
 <html lang="ko">
 <head>
 	<title>캘린더</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-
-	<script type="text/javaScript" language="javascript">
-
-
-	
-	</script>
 	<style TYPE="text/css">
 		body {
 		scrollbar-face-color: #F6F6F6;
@@ -203,15 +197,7 @@
 	<tr>
 		<c:forEach var="dateList" items="${dateList}" varStatus="date_status"> 
 			<c:choose>
-				<c:when test="${dateList.value=='today'}">
-					<td class="today">
-						<div class="date">
-							${dateList.date}
-						</div>
-						<div>
-						</div>
-					</td>
-				</c:when>
+				
 				<c:when test="${date_status.index%7==6}">
 					<td class="sat_day">
 						<div class="sat">
@@ -224,7 +210,7 @@
 				<c:when test="${date_status.index%7==0}">
 	</tr>
 	<tr>	
-		<td class="sun_day">
+		<td class="sun_day"  style="<c:if test='${dateList.value == 1000}'>background-color:aqua</c:if>">
 			<div class="sun">
 				${dateList.date}
 			</div>
@@ -243,11 +229,21 @@
 		</td>
 				</c:otherwise>
 			</c:choose>
+			
 		</c:forEach>
 </tbody>
 
 </table>
 </div>
 </form>
+
+
+
+	
+	
+	
+
+
+
 </body>
 </html>
