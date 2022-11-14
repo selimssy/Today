@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ali.today.diary.repository.IDiaryMapper">
+
+	<!-- DB 컬럼명과 VO 클래스의 필드명 맵핑작업 -->
+	<resultMap id="DiaryMap" type="com.ali.today.diary.model.DiaryVO">
+		
+		<id property="diaryNo" column="diary_no" />
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="writer" column="writer"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="thumbImg" column="thumb_img"/>
+		
+	</resultMap>
+
+	
+	
+	
+	
+	
+	<insert id="insert">
+		INSERT INTO pet_diary (title, content, writer, thumb_img)
+		VALUES (#{title}, #{content}, #{writer}, #{thumbImg})
+	</insert>
+	
+
+</mapper>
