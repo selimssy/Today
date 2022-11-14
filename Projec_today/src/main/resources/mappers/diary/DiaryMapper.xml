@@ -27,4 +27,18 @@
 	</insert>
 	
 
+	<select id="getDiary" resultMap="DiaryMap">
+		SELECT *
+		FROM pet_diary
+		WHERE diary_no = #{diaryNo}
+	</select>
+
+	
+	<delete id="delete">
+		DELETE FROM pet_diary
+		WHERE diary_no = #{diaryNo}
+	</delete>
+	
+	
+
 </mapper>
