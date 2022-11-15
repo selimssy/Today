@@ -99,6 +99,23 @@
 	
 	
 	
+	<!-- 반려동물 정보 수정 -->
+	<update id="modifyPet">
+		UPDATE pet SET pet_name = #{petName}, age = #{age}, gender = #{gender}, feature = #{feature}, 
+			image_path = #{imagePath}, instagram = #{instagram}, youtube = #{youtube}, open = #{open}
+		WHERE pet_id = #{petId}
+	</update>
+	
+	
+	
+	
+	<select id="selectOnePet" resultMap="PetMap">
+		SELECT * FROM pet
+		WHERE pet_id = #{petId}
+	</select>
+	
+	
+	
 	<!-- 내 계정에 등록된 반려동물 조회 -->
 	<select id="selectAllPet" resultMap="PetMap">
 		SELECT * FROM pet WHERE user_id = #{userId}
@@ -107,7 +124,7 @@
 	
 	<!-- 유저, 반려동물 세션정보 -->
 	<select id="UserPetInfo" resultMap="UserMap">
-		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name, p.age, p.gender, p.feature, p.instagram, p.youtube, p.open 
+		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name, p.age, p.gender, p.feature, p.image_path, p.instagram, p.youtube, p.open 
 		FROM user u LEFT JOIN pet p
 		ON u.user_id = p.user_id
 		WHERE u.user_id = #{userId} AND p.pet_id = #{petId}

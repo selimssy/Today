@@ -34,8 +34,14 @@ public interface IUserService {
 	///////////////////////////////////////////////////////////////////
 	
 	
-	// 새로운 펫 등록
+	// 새로운 반려동물 등록
 	void registerPet(PetVO pet);
+	
+	// 특정 반려동물 조회
+	PetVO selectOnePet(Integer petId);
+	
+	// 반려동물 정보 수정
+	void modifyPet(PetVO pet);
 	
 	// 내 계정에 등록된 반려동물 조회
 	List<PetVO> selectAllPet(String userId);

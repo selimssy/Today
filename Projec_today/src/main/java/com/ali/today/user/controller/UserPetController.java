@@ -61,6 +61,38 @@ public class UserPetController {
 	
 	
 	
+	// 펫 정보 수정 요청
+	@PostMapping("/modifyPet")
+	public String modifyPet(
+			@RequestPart(value="petData") PetVO pet, HttpServletRequest request,
+			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
+		
+			HttpSession session = request.getSession();
+		
+		try {
+			// 사진 변경했을 경우
+			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/petRegister"); //저장경로			
+	        String originalName = file.getOriginalFilename();     	        
+	        UUID uuid = UUID.randomUUID();     	     
+	        String savedName = uuid.toString() + "_" + originalName;           
+	        File target = new File(uploadPath, savedName);          
+	        FileCopyUtils.copy(file.getBytes(), target);
+	        originalName = savedName;        
+	        pet.setImagePath("/resources/images/petRegister/" + originalName);
+		} catch (Exception e) {
+			// 사진 변경 안했을 경우
+			UserVO user = (UserVO)session.getAttribute("login");
+			pet.setImagePath(user.getPet().getImagePath());			
+		}
+		
+        service.modifyPet(pet);
+        
+		return "success";
+	}
+	
+	
+	
+	
 	// 반려동물 리스트창
 	@PostMapping("/petList")
 	public List<PetVO> petList(@RequestBody UserVO user) {

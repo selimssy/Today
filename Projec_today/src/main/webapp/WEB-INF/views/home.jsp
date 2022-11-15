@@ -18,8 +18,8 @@
         .main_nav{text-align: right; font-size: 1.5em; padding-right: 35px;}
         .main_nav ul li{list-style: none; display:inline-block; padding: 20px 10px 0px 40px}
         .main_nav ul a{text-decoration: none; color: #000;}
-        .main_nav ul a:nth-child(1){background-image:url(./images/290135_pen_pencil_write_icon.png); background-size: 25%; background-repeat: no-repeat; background-origin:content-box ;}
-        .main_nav ul a:nth-child(2){background-image:url(./images/3643749_edit_pen_pencil_write_writing_icon.png); background-size: 25%; background-repeat: no-repeat; background-origin:content-box;}
+        .main_nav ul a:nth-child(1){background-image:url(./img/290135_pen_pencil_write_icon.png); background-size: 25%; background-repeat: no-repeat; background-origin:content-box ;}
+        .main_nav ul a:nth-child(2){background-image:url(./img/3643749_edit_pen_pencil_write_writing_icon.png); background-size: 25%; background-repeat: no-repeat; background-origin:content-box;}
         .main_nav ul a:hover{font-weight: bold;}    
         .title{position: absolute; top: 80px; left: 250px; display: flex;}
         .tfont{font-size: 8em; font-family: 'Nanum Pen Script', cursive; padding-left: 25px;}

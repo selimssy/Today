@@ -39,6 +39,12 @@ public interface IUserMapper {
 	// 새로운 반려동물 등록
 	void registerPet(PetVO pet);
 	
+	// 반려동물 정보 수정
+	void modifyPet(PetVO pet);
+	
+	// 특정 반려동물 조회
+	PetVO selectOnePet(Integer petId);
+	
 	// 내 계정에 등록된 반려동물 조회
 	List<PetVO> selectAllPet(String userId);
 	
