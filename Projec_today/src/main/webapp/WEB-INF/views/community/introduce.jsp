@@ -8,33 +8,52 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
-    <style>
-        .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730;}
-        .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
-        .Myintro .modify{float: right;}
-        .Myintro .modify img{width:25px; height:25px;}
-        .Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}
-        .Mycontent{display: flex; justify-content:space-between; padding:20px;}
-        .Mycontent .MyPetinfo{padding-right: 10px;}
-        .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
-        .MyPetinfo li:last-of-type{padding-top: 15px;}
-        .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
-        .Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 80px;}
-        .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
-        .Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/today/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
-        .Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/today/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
-    	#petMf_modal{display:none}
-    	
-    	.flex-container {display: flex;}
-        .wrapper {text-align: center;flex-grow: 1;}        
-        .image-box {width: 200px;height: 200px;object-fit: cover;display: block;margin: 20px auto;}
-        .upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;           }
-        input[type=file] {display: none;}
-    </style>
+<style>
+	.container{width: 1200px; margin: 0 auto;}
+    .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 0 auto;}
+    .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
+    .Myintro .modify{float: right;}
+    .Myintro .modify img{width:25px; height:25px;}
+    .Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}
+    .Mycontent{display: flex; justify-content:space-between; padding:20px;}
+    .Mycontent .MyPetinfo{padding-right: 10px;}
+    .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
+    .MyPetinfo li:last-of-type{padding-top: 15px;}
+    .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
+    .Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 80px;}
+    .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
+    .Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/today/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
+    .Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/today/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
+	#petMf_modal{display:none}
+	
+	.flex-container {display: flex;}
+    .wrapper {text-align: center;flex-grow: 1;}        
+    .image-box {width: 200px;height: 200px;object-fit: cover;display: block;margin: 20px auto;}
+    .upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;}
+    input[type=file] {display: none;}
+    
+    .otherP{width: 100%; border-left: 5px solid #7AB730; margin: 0 auto; margin-left: 50px; padding-left: 30px;}
+    .PCards{padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+    .PCards .cardWrap{width: 24.999%; float: left; padding: 20px; box-sizing: border-box;}
+     .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border: 5px solid #BCDB97; border-radius: 20px; }
+    .PCards .cardWrap .OPcard .cardTop{background: rgba(188, 219, 151, 0.5); display: flex; justify-content: space-between; box-sizing: border-box;}
+    .PCards .cardTop h3{margin: 0; line-height: 55px; width: 45%; text-align: center; font-size: 1.5em; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+     .PCards .cardTop .cBullet{width: 20%; height: 40px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; margin-left: 10px; margin-top: 5px;}
+    .cLink{list-style: none; padding-left: 0;}
+    .cLink li{display: inline-block; margin: 0 5px;}
+    .cLink li a{text-decoration: none; color: transparent;}
+     .cLink li:nth-of-type(1){padding: 0 5px; background-image:url(/today/img/community/instagram.png); background-size: contain; background-repeat: no-repeat;}
+    .cLink li:nth-of-type(2){padding: 0 5px; background-image:url(/today/img/community/youtube.png); background-size: contain; background-repeat: no-repeat;}
+    .PCards .cardBody img{width: 100%; height: 160px; object-fit: cover;  box-sizing: border-box;}
+    .PCards .cardBody ul{padding-left: 0; margin:5px 0 10px 30px; list-style: none;}
+    .PCards .cardBody ul li{font-size: 20px; padding: 3px;}
+    .PCards .cardBody ul li::before{content: "• "; font-size: 25px;}
+    .PCards .cardBody ul li:last-of-type{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+</style>
 </head>
 <body>
 	
-	<div>
+	<div class="container">
 	
 		<div class="Myintro">
 
@@ -74,8 +93,63 @@
 	            <div class="modify"><a id="modifyPet" href="javascript:;"><img src="<c:url value='/img/community/modify.png'/>"></a></div>
 	        </div>       
 	    </div>
+		
+		
+		
+		<div class="otherP">
+            <P>우리 아이 보러 놀러오세요~</P>
+            <h1>다른 반려동물 보러 놀러가기</h1>
+        </div>
+
 	
-	</div>
+	
+		<!-- 반려동물 카드가 들어갈 공간 -->	
+		<c:if test="${petList.size() <= 0}">		
+			<strong>검색 결과가 없습니다.</strong>			
+		</c:if>
+		
+		
+		<div class="PCards">
+			<c:if test="${petList.size() > 0}">
+				<c:forEach var="petVO" items="${petList}">			
+		            <div class="cardWrap">
+		                <div class="OPcard">
+		                    <div class="cardTop">
+		                        <div class="cBullet"></div>
+		                        <h3>${petVO.petName}</h3>
+		                        <ul class="cLink">
+		                        	<c:if test="${empty petVO.instagram}">
+									</c:if>
+									<c:if test="${not empty petVO.instagram}">
+										<li><a href="${petVO.instagram}" target="_blank">1</a></li>
+									</c:if>
+		                        	<c:if test="${empty petVO.youtube}">
+									</c:if>
+									<c:if test="${not empty petVO.youtube}">
+										<li><a href="${petVO.youtube}" target="_blank">1</a></li>
+									</c:if>   	                            
+		                        </ul>  
+		                    </div>
+		                    <div class="cardBody">
+		                        <img src="<c:url value='${petVO.imagePath}'/>">
+		                        <ul>
+		                            <li>성별: ${petVO.gender}</li>
+		                            <li>나이: ${petVO.age}살</li>
+		                            <li>특징: ${petVO.feature}</li>                        
+		                        </ul>
+		                    </div>  	                    
+		                </div>
+		            </div>
+				</c:forEach>
+			</c:if>	
+		</div>		
+			
+		
+		
+	   
+		
+		
+   </div>
 	
 	
 	

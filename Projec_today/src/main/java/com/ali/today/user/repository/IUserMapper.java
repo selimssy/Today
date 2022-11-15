@@ -45,11 +45,17 @@ public interface IUserMapper {
 	// 특정 반려동물 조회
 	PetVO selectOnePet(Integer petId);
 	
+	// 특정 반려동물 삭제
+	void deletePet(Integer petId);
+	
 	// 내 계정에 등록된 반려동물 조회
 	List<PetVO> selectAllPet(String userId);
 	
 	
 	// 유저, 반려동물 세션정보 
 	UserVO UserPetInfo(PetVO pet);
+	
+	// 공개 상태인 모든 반려동물 조회
+	List<PetVO> selectOpenPet();
 	
 }

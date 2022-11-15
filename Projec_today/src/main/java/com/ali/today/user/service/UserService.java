@@ -101,6 +101,16 @@ public class UserService implements IUserService{
 	@Override
 	public PetVO selectOnePet(Integer petId) {
 		return mapper.selectOnePet(petId);
+	}
+
+	@Override
+	public void deletePet(Integer petId) {
+		mapper.deletePet(petId);
+	}
+
+	@Override
+	public List<PetVO> selectOpenPet() {
+		return mapper.selectOpenPet();
 	}	
 	
 }

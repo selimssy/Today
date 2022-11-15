@@ -35,16 +35,36 @@ public class UserTest {
 	@Test
 	public void registerPet() {
 		
-		PetVO pet = new PetVO();
-		pet.setUserId("abc1234");
-		pet.setPetName("아롱이");
-		pet.setAge(3);
-		pet.setGender("여");
-		pet.setFeature("솜뭉치");
-		pet.setImagePath("테스트중");
+		for(int i=1; i<=50; i++) {
+			
+			PetVO pet = new PetVO();
+			pet.setUserId("rupong");
+			pet.setPetName("아롱이");
+			pet.setAge(3);
+			pet.setGender("여");
+			pet.setFeature("솜뭉치");
+			pet.setImagePath("/resources/images/noticeImg/infoPhoto.png");
+			pet.setOpen(1);
+			
+			mapper.registerPet(pet);
+			
+		}
 		
-		mapper.registerPet(pet);
 		System.out.println("반려동물 등록 성공");
 	}
+	
+	
+	
+	
+//	@Test
+//	public void deletePet() {
+//		for(int i=7; i<=56; i++) {
+//			mapper.deletePet(i);
+//		}
+//	}
+	
+	
+	
+	
 	
 }

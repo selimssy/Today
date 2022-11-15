@@ -36,22 +36,28 @@ public class UserPetController {
 	public String registerPet(
 			@RequestPart(value="petData") PetVO pet, HttpServletRequest request,
 			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
-			
-		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/petRegister"); //저장경로
 		
-		//파일 원본 이름 저장
-        String originalName = file.getOriginalFilename();     
-        // uuid 생성 
-        UUID uuid = UUID.randomUUID();     
-        //savedName 변수에 uuid + 원래 이름 추가
-        String savedName = uuid.toString() + "_" + originalName;      
-        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-        File target = new File(uploadPath, savedName);      
-        //fileData의 내용을 target에 복사함
-        FileCopyUtils.copy(file.getBytes(), target);
-        originalName = savedName;
-        
-        pet.setImagePath("/resources/images/petRegister/" + originalName);
+		// 사진 등록했을 경우
+		try {
+			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/petRegister"); //저장경로
+			
+			//파일 원본 이름 저장
+	        String originalName = file.getOriginalFilename();     
+	        // uuid 생성 
+	        UUID uuid = UUID.randomUUID();     
+	        //savedName 변수에 uuid + 원래 이름 추가
+	        String savedName = uuid.toString() + "_" + originalName;      
+	        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
+	        File target = new File(uploadPath, savedName);      
+	        //fileData의 내용을 target에 복사함
+	        FileCopyUtils.copy(file.getBytes(), target);
+	        originalName = savedName;
+	        
+	        pet.setImagePath("/resources/images/petRegister/" + originalName);
+		} catch (Exception e) {
+			pet.setImagePath("/resources/images/noticeImg/infoPhoto.png");
+		}
+		
 		
         service.registerPet(pet);
         
