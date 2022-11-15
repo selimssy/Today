@@ -45,13 +45,13 @@
 	 	   <input type="hidden" name="countPerPage" value="${p.countPerPage}">
          
            <input type="button" value="목록" class="btn"  id="list-btn"
-	style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">&nbsp;&nbsp;
+			style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">&nbsp;&nbsp;
          <!-- 이런식으로 location.href 경로를 통해 가는거는 get방식이다! -->
          <!-- 그래서 목록, 수정은 get방식이 되고 boardNo hidden이랑 삭제는 post 방식이 된다 -->
          
          
 	         <c:if test="${login.userId == diary.writer}">
-		         <input id="modBtn" type="button" value="수정"  style="color:white;">&nbsp;&nbsp;	         
+		         <input id="modBtn" type="button" value="수정" >&nbsp;&nbsp;	         
 		         <input type="submit" value="삭제" onclick="return confirm('정말로 삭제하시겠습니까?')">&nbsp;&nbsp;
 	      	 </c:if>
       </form>
@@ -61,6 +61,40 @@
 	
 	
 	
+	<script type="text/javascript">
+
+	
+		//수정 완료 알림창 처리(바닐라 자바스크립트)
+		const msg = "${msg}"
+		if(msg === "modSuccess"){
+			alert("게시물 수정 완료!")
+		}
+		
+		
+		
+		$(function(){
+			
+			// 목록버튼 클릭이벤트 처리
+			$("#list-btn").click(function(){
+				console.log("목록버튼 클릭");
+				location.href='/today/diary/list?page=${p.page}&countPerPage=${p.countPerPage}&keyword=${p.keyword}&condition=${p.condition}';
+			})
+			
+			
+			// 수정버튼 클릭이벤트 처리
+			const forElement = $("#formObj");
+			let modifyBtn = $("#modBtn"); 
+			
+			modifyBtn.click(function(){
+				console.log("수정버튼 클릭");
+				forElement.attr("action", "/today/diary/modify");
+				forElement.attr("method", "get");
+				forElement.submit();
+			})
+			
+		});
+		
+	</script>	
 
 
 </body>

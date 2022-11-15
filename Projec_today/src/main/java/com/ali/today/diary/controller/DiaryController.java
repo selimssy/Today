@@ -27,15 +27,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ali.today.common.PageCreator;
 import com.ali.today.common.PageVO;
 import com.ali.today.common.SearchVO;
 import com.ali.today.diary.model.DateData;
 import com.ali.today.diary.model.DiaryVO;
 import com.ali.today.diary.service.IDiaryService;
 import com.google.gson.JsonObject;
-
-
-
 
 
 @Controller
@@ -110,13 +108,14 @@ public class DiaryController {
 	}
 	
 	
-	// 새 일기 등록 요청
+	// 새로운 일기 등록 요청
 	@PostMapping("/write")
-	public String writeDiary(DiaryVO diary) {
+	public String writeDiary(DiaryVO diary, RedirectAttributes ra) {
 		
 		service.insert(diary);
+		ra.addFlashAttribute("msg", "regSuccess");
 		
-		return "home";
+		return "redirect:/diary/list";
 	}
 	
 	
@@ -135,6 +134,28 @@ public class DiaryController {
 	
 	
 	
+	// 게시물 수정페이지 요청
+	@GetMapping("/modify")
+	public String modify(Integer diaryNo, PageVO paging, Model model) {
+		System.out.println(diaryNo + "번 게시물 수정 요청 : GET");
+		model.addAttribute("diary", service.getDiary(diaryNo));
+		model.addAttribute("p", paging); 
+		return "diary/diary_modify";
+	}
+	
+	// 게시물 수정 요청
+	@PostMapping("/modify")
+	public String modify(Integer diaryNo, DiaryVO diary, RedirectAttributes ra) { 
+		System.out.println(diaryNo + "번 게시물 수정 요청 : POST");
+		service.update(diary);
+		ra.addFlashAttribute("msg", "modSuccess");
+		return "redirect:/diary/content/" + diary.getDiaryNo();
+	}
+	
+	
+	
+	
+	
 	// 일기 삭제 요청
 	@PostMapping("/delete")
 	public String delete(Integer diaryNo, PageVO paging, RedirectAttributes ra) {  
@@ -144,11 +165,32 @@ public class DiaryController {
 		ra.addFlashAttribute("msg", "delSuccess");
 		
 		ra.addAttribute("page", paging.getPage());   
-		//ra.addAttribute("countPerPage", paging.getCountPerPage());
+		ra.addAttribute("countPerPage", paging.getCountPerPage());
 		
-		//return "redirect:/board/list";
-		return "home";
+		return "redirect:/diary/list";
 	}
+	
+	
+	
+	
+	
+	// 일기 전체 리스트 조회 요청(페이징, 검색 포함)
+	@GetMapping("/list")
+	public String list(SearchVO search, Model model) { 
+		
+		//String condition = search.getCondition();
+		
+		PageCreator pc = new PageCreator();
+		pc.setPaging(search);  
+		
+		List<DiaryVO> list = service.getDiaryList(search);
+		pc.setArticleTotalCount(service.countDiaries(search));
+		
+		model.addAttribute("diaryList", list);
+		model.addAttribute("pc", pc);		
+		
+		return "diary/diaryList";
+	}  
 	
 	
 	

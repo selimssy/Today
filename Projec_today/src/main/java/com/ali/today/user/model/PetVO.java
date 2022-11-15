@@ -9,6 +9,9 @@ public class PetVO {
 	private String gender; 
 	private String feature;
 	private String imagePath;
+	private String instagram;
+	private String youtube;
+	private Integer open;
 	
 	
 	public String getImagePath() {
@@ -54,14 +57,34 @@ public class PetVO {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}	
+	public String getInstagram() {
+		return instagram;
+	}
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+	public String getYoutube() {
+		return youtube;
+	}
+	public void setYoutube(String youtube) {
+		this.youtube = youtube;
+	}
+	public Integer getOpen() {
+		return open;
+	}
+	public void setOpen(Integer open) {
+		this.open = open;
 	}
 	
 	
 	@Override
 	public String toString() {
 		return "PetVO [petId=" + petId + ", userId=" + userId + ", petName=" + petName + ", age=" + age + ", gender="
-				+ gender + ", feature=" + feature + ", imagePath=" + imagePath + "]";
+				+ gender + ", feature=" + feature + ", imagePath=" + imagePath + ", instagram=" + instagram
+				+ ", youtube=" + youtube + ", open=" + open + "]";
 	}
+	
 	
 	
 	

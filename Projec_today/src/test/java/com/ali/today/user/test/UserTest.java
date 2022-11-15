@@ -10,7 +10,7 @@ import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.repository.IUserMapper;
 
-@RunWith(SpringJUnit4ClassRunner.class)  // 이거 쓰려면 Spring Test 모듈 maven 주입해야
+@RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/mvc-config.xml"})
 public class UserTest {
 

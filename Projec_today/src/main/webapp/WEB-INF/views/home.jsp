@@ -376,7 +376,55 @@
                             <label><input type="radio" name="gender" value="여"> 여</label>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="mlabel">
+                            <p>
+                                <strong>특징</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="feature" class="modal_input" placeholder="ex) 애교쟁이, 노즈워크 달인"></td>
+                    </tr>
                   
+                    <tr>
+                        <td class="mlabel">
+                            <p>
+                                <strong>인스타그램</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td>
+							<input type="url" id="instagram" placeholder="url">
+                    	</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="mlabel">
+                            <p>
+                                <strong>유튜브</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td>
+							<input type="url" id="youtube" placeholder="url">
+                    	</td>
+                    </tr>  
+                    <tr>
+                        <td class="mlabel">
+                            <p>
+                                <strong>반려동물 공개 여부</strong>
+                            </p>
+                        </td>
+                    </tr>            
+                  	<tr>
+                        <td>
+                            <label><input type="radio" name="open" value="1"> 공개</label>
+                            <label><input type="radio" name="open" value="0"> 비공개</label>
+                        </td>
+                    </tr>                
                     <tr>
                         <td>
                             <button type="button" id="petRg-btn" class="m_button">등록</button>
@@ -462,7 +510,11 @@
         			"userId": "${login.userId}",
         			"petName": $("#pet_name").val(),
         			"age": $("#age").val(),
-        			"gender": $("input[name='gender']:checked").val()
+        			"gender": $("input[name='gender']:checked").val(),
+        			"feature": $("#feature").val(),
+        			"instagram": $("#instagram").val(),
+        			"youtube": $("#youtube").val(),
+        			"open": $("input[name='open']:checked").val()
         	}
         	
         	// formData에 json타입으로 petData 추가

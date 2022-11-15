@@ -24,7 +24,10 @@
 		<result property="age" column="age"/>
 		<result property="gender" column="gender"/>
 		<result property="feature" column="feature"/>
-		<result property="imagePath" column="image_path"/>	
+		<result property="imagePath" column="image_path"/>
+		<result property="instagram" column="instagram"/>
+		<result property="youtube" column="youtube"/>
+		<result property="open" column="open"/>	
 	</resultMap>
 	
 	
@@ -90,8 +93,8 @@
 	
 	<!-- 새로운 펫 등록 -->
 	<insert id="registerPet">
-		INSERT INTO pet (user_id, pet_name, age, gender, image_path)
-		VALUES (#{userId}, #{petName}, #{age}, #{gender}, #{imagePath})	
+		INSERT INTO pet (user_id, pet_name, age, gender, feature, image_path, instagram, youtube, open)
+		VALUES (#{userId}, #{petName}, #{age}, #{gender}, #{feature}, #{imagePath}, #{instagram}, #{youtube}, #{open})	
 	</insert>
 	
 	
@@ -104,7 +107,7 @@
 	
 	<!-- 유저, 반려동물 세션정보 -->
 	<select id="UserPetInfo" resultMap="UserMap">
-		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name, p.age, p.gender, p.feature 
+		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name, p.age, p.gender, p.feature, p.instagram, p.youtube, p.open 
 		FROM user u LEFT JOIN pet p
 		ON u.user_id = p.user_id
 		WHERE u.user_id = #{userId} AND p.pet_id = #{petId}

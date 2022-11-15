@@ -30,7 +30,7 @@
           </div>
 			
 		  <script type="text/javascript">
-			  CKEDITOR.replace( 'ckeditor1', {//해당 이름으로 된 textarea에 에디터를 적용
+			  CKEDITOR.replace( 'ckeditor1', {
 			         width:'100%',
 			         height:'400px',
 			         filebrowserUploadUrl:  "/today/diary/fileupload"

@@ -18,6 +18,21 @@
 
 	
 	
+	<!-- 중복되는 동적 SQL문에 대한 처리 -->
+	<sql id="searchDiary">  
+		<!-- 동적 SQL구문 -->
+		<if test="condition == 'title'">  
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'content'">
+		WHERE content LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'titleContent'">
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		OR content LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</sql>
+	
 	
 	
 	
@@ -34,10 +49,36 @@
 	</select>
 
 	
+	<select id="getDiaryList" resultMap="DiaryMap">
+		SELECT *
+		FROM pet_diary
+		<include refid="searchDiary"/>
+		ORDER BY diary_no DESC
+		LIMIT #{pageStart}, #{countPerPage} 
+	</select>
+	
+	
 	<delete id="delete">
 		DELETE FROM pet_diary
 		WHERE diary_no = #{diaryNo}
 	</delete>
+	
+	
+	
+	<update id="update">
+		UPDATE pet_diary
+		SET title = #{title}, content = #{content}, writer = #{writer}, thumb_img = #{thumbImg}
+		WHERE diary_no = #{diaryNo}
+	</update>
+	
+	
+	
+	<select id="countDiaries" resultType="int">
+		SELECT COUNT(*)
+		FROM pet_diary
+		<include refid="searchDiary"/>
+	</select>
+	
 	
 	
 

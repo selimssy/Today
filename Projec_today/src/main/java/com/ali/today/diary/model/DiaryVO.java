@@ -11,6 +11,8 @@ public class DiaryVO {
 	private Date regDate;
 	private String thumbImg;
 	
+	private boolean newMark; // 새로운 게시물에 new마크
+	
 	
 	public Integer getDiaryNo() {
 		return diaryNo;
@@ -47,6 +49,12 @@ public class DiaryVO {
 	}
 	public void setThumbImg(String thumbImg) {
 		this.thumbImg = thumbImg;
+	}
+	public boolean isNewMark() {
+		return newMark;
+	}
+	public void setNewMark(boolean newMark) {
+		this.newMark = newMark;
 	}
 	
 	
