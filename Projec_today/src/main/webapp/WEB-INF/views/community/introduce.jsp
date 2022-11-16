@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
-	.container{width: 1000px; margin: 0 auto;}
+	.container{width: 1000px; margin: 0 auto; position: relative;}
     .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 0 auto;}
     .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
     .Myintro .modify{float: right;}
@@ -55,6 +55,21 @@
     .PCards .cardBody ul li{font-size: 20px; padding: 3px;}
     .PCards .cardBody ul li::before{content: "• "; font-size: 25px;}
     .PCards .cardBody ul li:last-of-type{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+    .changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; 
+                background-repeat: no-repeat; position: absolute; left: 50px; top: 70px;}
+    .pchang{text-decoration: none;  color: transparent;}    
+    
+    
+    /* 임시!!!(펫 관련) */
+		#petList{width: 800px; height: 450px; border: 5px solid #7AB730; display: none;}
+        #petList h2{background: #7AB730;}
+        #petList #petCards{display: flex; overflow-x: auto}
+        #petList #petCards a{text-decoration: none; color: #000;}
+
+        #petRg_modal{display: none;}
+		
+		/* petId 안보이게 */
+		.pet_id{display:none}    
 </style>
 </head>
 <body>
@@ -154,7 +169,7 @@
 			
 		
 		
-	   
+	    <a href="javascript:select_pet();" title="반려동물 변경" class="pchang"><div class="changePet">1</div></a>
 		
 		
    </div>
@@ -296,6 +311,21 @@
             </form >
         </div>
     </div>
+    
+    
+    
+    
+    <!----------------------------- 펫 리스트 창 --------------------------------->	
+	<div>       
+        <div id="petList">    
+            <h2>반려동물 선택</h2>
+            <button id="petRgform_open">반려동물 추가</button>
+
+            <div id="petCards">
+				
+            </div>
+        </div>
+    </div>
 	
 	
 	
@@ -363,6 +393,50 @@
                   } 
         	});
         })   
+        
+        
+        
+        
+                
+    	// 펫리스트창 열기
+    	function select_pet(){
+    		$("#petList").css("display","block");
+    		
+    		const id = "${login.userId}";
+    		console.log(id);
+    		const user = {
+                        userId: id
+                    };
+    		$.ajax({
+                type: 'post',
+                dataType : "json",
+                contentType: 'application/json',
+                url: '/today/user/petList',
+                data: JSON.stringify(user),
+                success: function (response) {
+                	console.log(response); // 리스트 
+                    //let rows = response  
+                    //console.log(row.length);
+                    for(let i = 0; i < response.length; i++){
+                    	let pet_id = response[i]['petId']
+                        let src = response[i]['imagePath']
+                        let pet_name = response[i]['petName']
+                        let age = response[i]['age']
+                        let gender = response[i]['gender']
+
+                        let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
+
+                        $('#petCards').append(temp_html)
+                    }
+                }, 
+                error: function() {
+                    console.log("통신 실패!");
+                } 
+            });
+    		 
+    		
+    	}
+        
 	
 	</script>
 	

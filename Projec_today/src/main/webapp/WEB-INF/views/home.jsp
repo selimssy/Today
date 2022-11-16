@@ -66,6 +66,10 @@
 
         #petRg_modal{display: none;}
 		
+		/*펫리스트*/
+        .pet{width: 240px; border: 1px solid #000;}
+        
+        .pet_in img{width: 100%;}
 		/* petId 안보이게 */
 		.pet_id{display:none}
 			
@@ -104,10 +108,7 @@
         
         
         
-        /*펫리스트*/
-        .pet{width: 240px; border: 1px solid #000;}
         
-        .pet_in img{width: 100%;}
     </style>
 
 </head>

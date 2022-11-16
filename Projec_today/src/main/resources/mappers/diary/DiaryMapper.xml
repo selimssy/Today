@@ -54,7 +54,7 @@
 		FROM pet_diary
 		<include refid="searchDiary"/>
 		ORDER BY diary_no DESC
-		LIMIT #{pageStart}, #{countPerPage} 
+		LIMIT #{pageStart}, 10 
 	</select>
 	
 	
