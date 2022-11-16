@@ -7,9 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
-	.container{width: 1200px; margin: 0 auto;}
+	.container{width: 1000px; margin: 0 auto;}
     .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 0 auto;}
     .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
     .Myintro .modify{float: right;}
@@ -18,7 +21,7 @@
     .Mycontent{display: flex; justify-content:space-between; padding:20px;}
     .Mycontent .MyPetinfo{padding-right: 10px;}
     .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
-    .MyPetinfo li:last-of-type{padding-top: 15px;}
+    .MyPetinfo li:last-of-type{padding-top: 15px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
     .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
     .Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 80px;}
     .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
@@ -32,18 +35,21 @@
     .upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;}
     input[type=file] {display: none;}
     
-    .otherP{width: 100%; border-left: 5px solid #7AB730; margin: 0 auto; margin-left: 50px; padding-left: 30px;}
+    .otherP{width: 100%; height: 130px; border-left: 5px solid #7AB730; margin: 100px 20px 50px; margin-left: 50px; padding-left:30px}
+    .otherP p{font-size: 24px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive;}
+    .otherP h1{font-size: 60px; font-family: 'Nanum Pen Script', cursive; margin:20px 0}
     .PCards{padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
-    .PCards .cardWrap{width: 24.999%; float: left; padding: 20px; box-sizing: border-box;}
+    .PCards .cardWrap{width: 33%; float: left; padding: 20px; box-sizing: border-box;}
      .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border: 5px solid #BCDB97; border-radius: 20px; }
-    .PCards .cardWrap .OPcard .cardTop{background: rgba(188, 219, 151, 0.5); display: flex; justify-content: space-between; box-sizing: border-box;}
-    .PCards .cardTop h3{margin: 0; line-height: 55px; width: 45%; text-align: center; font-size: 1.5em; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+    .PCards .cardWrap .OPcard .cardTop{height:55px; background: rgba(188, 219, 151, 0.5); display: flex; justify-content: space-between; box-sizing: border-box; position: relative;}
+    .PCards .cardTop h3{margin: 0; line-height: 55px; width: 45%; text-align: center; font-size: 1.5em; overflow: hidden; text-overflow : ellipsis; white-space: nowrap; position: absolute; left: 70px;}
      .PCards .cardTop .cBullet{width: 20%; height: 40px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; margin-left: 10px; margin-top: 5px;}
     .cLink{list-style: none; padding-left: 0;}
     .cLink li{display: inline-block; margin: 0 5px;}
     .cLink li a{text-decoration: none; color: transparent;}
      .cLink li:nth-of-type(1){padding: 0 5px; background-image:url(/today/img/community/instagram.png); background-size: contain; background-repeat: no-repeat;}
     .cLink li:nth-of-type(2){padding: 0 5px; background-image:url(/today/img/community/youtube.png); background-size: contain; background-repeat: no-repeat;}
+    .PCards .cardBody a{text-decoration: none; color: #000;}
     .PCards .cardBody img{width: 100%; height: 160px; object-fit: cover;  box-sizing: border-box;}
     .PCards .cardBody ul{padding-left: 0; margin:5px 0 10px 30px; list-style: none;}
     .PCards .cardBody ul li{font-size: 20px; padding: 3px;}
@@ -131,12 +137,14 @@
 		                        </ul>  
 		                    </div>
 		                    <div class="cardBody">
-		                        <img src="<c:url value='${petVO.imagePath}'/>">
-		                        <ul>
-		                            <li>성별: ${petVO.gender}</li>
-		                            <li>나이: ${petVO.age}살</li>
-		                            <li>특징: ${petVO.feature}</li>                        
-		                        </ul>
+		                    	<a href="<c:url value='/community/otherPet/${petVO.petId}'/>">
+			                        <img src="<c:url value='${petVO.imagePath}'/>">
+			                        <ul>
+			                            <li>성별: ${petVO.gender}</li>
+			                            <li>나이: ${petVO.age}살</li>
+			                            <li>특징: ${petVO.feature}</li>                        
+			                        </ul>
+		                        </a>
 		                    </div>  	                    
 		                </div>
 		            </div>
@@ -293,11 +301,23 @@
 	
 	
 	<script type="text/javascript">
+	
+		$(".cardBody").hover(function(){
+	        $(this).parent().css("border", "5px solid #7AB730");
+	    }, function(){
+	        $(this).parent().css("border", "5px solid #BCDB97");
+	    })
+	
 		
 		// 반려동물 정보 수정 모달 열기 
 	    $("#modifyPet").click(function(){
 	        $("#petMf_modal").css("display","block");
 	    })
+	    
+	    // 닫기
+	    $(".modal_close").on("click", function(){
+            $(this).parent().parent().css("display", "none")
+        })
 	    
 	    
 	    // 반려동물 수정 버튼 이벤트

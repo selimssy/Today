@@ -68,7 +68,7 @@ public class UserService implements IUserService{
 		datas.put("limitTime", limitDate);
 		datas.put("userId", userId);
 		
-		// Mapper에게 데이터 여러개를 보내줄 때는 1.객체 2.Map 둘 중 하나로 보내야!!★
+		// Mapper에게 데이터 여러개를 보내줄 때는 1.객체 2.Map 둘 중 하나로
 		mapper.keepLogin(datas);  // 이 경우는 service와 IMapper의 매개변수가 다른 경우이다
 	}
 

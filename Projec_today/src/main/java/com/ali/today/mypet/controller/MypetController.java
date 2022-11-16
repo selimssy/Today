@@ -35,7 +35,7 @@ public class MypetController {
 	
 	
 	
-
+	// 나의 반려동물 생애기록 전체 조회
 	@GetMapping("/lifetime")
 	public void mypet(HttpSession session, Model model) {
 		
@@ -49,6 +49,7 @@ public class MypetController {
 	}
 	
 	
+	// 생애기록 추가
 	@PostMapping("/uploadCard")
 	public String uploadCard(LifetimeVO lifetimeVO, MultipartFile file, HttpServletRequest request,
 			@RequestParam("Ldate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws Exception {
@@ -83,7 +84,7 @@ public class MypetController {
 	
 	
 	
-	
+	// 내 반려동물 갤러리 조회
 	@GetMapping("/gallery")
 	public void gallery(HttpSession session, Model model) {
 			
@@ -98,6 +99,7 @@ public class MypetController {
 	
 	
 	
+	// 갤러리 추가
 	@PostMapping("/regGallery")
 	public String regGallery(GalleryVO galleryVO, MultipartFile file, HttpServletRequest request) throws Exception {
 		
@@ -124,5 +126,13 @@ public class MypetController {
 		
 		return "redirect:/mypet/gallery";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -16,13 +16,14 @@
 	</resultMap>
 
 	
-	
+	<!-- 생애기록 추가 -->
 	<insert id="insertCard">
 		INSERT INTO lifetime_card (pet_id, date, content, image_path)
 		VALUES (#{petId}, #{date}, #{content}, #{imagePath})
 	</insert>
 	
 	
+	<!-- 특정 반려동물 생애기록 전체조회 -->
 	<select id="getLifetimeCardList" resultMap="MypetMap">
 		SELECT * FROM lifetime_card
 		WHERE pet_id = #{petId}
