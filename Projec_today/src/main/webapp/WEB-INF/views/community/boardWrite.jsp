@@ -6,69 +6,132 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
+<style>
+.container{width:1000px; margin: 0 auto}
+.titleBox{width:100%; height:40px; border:1px solid #d1d1d1; margin-bottom: 10px}
+.titleBox input{border:none; width:100%; height:40px; background: transparent; padding-left: 15px}
+.titleBox input:focus{outline: none;}
+.boardBox{width: 800px; margin: 0 auto}
+.boardBox .boardwt{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-right: 15px}
+.boardBox h2{padding-bottom: 20px; font-size: 28px}
+#tagbox{padding-left: 20px}
+.tagbox{padding-left: 20px}
+.tagbox button{border: none; background: none; color: #ccc; font-size: 19px; cursor: pointer;}
+#tag_container{width:100%; height:50px; border:1px solid #d1d1d1; border-top: none}
+#tag_input{border: none; height: 50px; background: transparent;}
+#tag_input:focus{outline: none;}
+input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; margin-right: 15px}
+.writenav{margin-top: 20px; text-align:right}
+.writenav button{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; }
+
+#cke_1_bottom{display:none}
+</style>
 </head>
 <body>
 
 
 <div class="container">
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-header text-white" style="background-color: #ff52a0;"> 게시글 등록</div>
-      <div class="card-body">
-
-        <form role="form" action="<c:url value='/community/write' />" method="post">
-        
-          <div class="form-group" hidden="hidden">
-            <label>작성자</label>
-            <input type="hidden" class="form-control" name='writer' value="${login.userId}">
-          </div>
-          
-          <div class="form-group">
-            <label>제목</label>
-            <input type="text" class="form-control" name='title'>
-          </div>
-
-          <div class="form-group">
-            <label>내용</label>
-            <textarea class="form-control" rows="5" name='content' id="ckeditor1"></textarea>
-          </div>
-			
-		  <script type="text/javascript">
-			  CKEDITOR.replace( 'ckeditor1', {//해당 이름으로 된 textarea에 에디터를 적용
+    <div class="boardBox">    	
+        <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>게시글 등록</h2>
+        <form action="<c:url value='/community/write'/>" method="post" name="writeForm">
+            <input type="hidden" name='writer' value="${login.userId}" >
+            <div class="titleBox">
+            	<input type="text" name='title' placeholder="제목을 입력하세요." required="required">
+			</div>
+			<div>	     
+	            <textarea name='content' id="ckeditor1"></textarea>
+	        </div>
+				
+		    <script type="text/javascript">
+			    CKEDITOR.replace( 'ckeditor1', {
 			         width:'100%',
 			         height:'400px',
-			         filebrowserUploadUrl:  "/board/fileupload"
-			     });
-		  </script>
-		  
-		  
-		  
-		  
-		  <!-- 이걸...해시태그 어떻게받지  -->
-		  <!-- input readonly로 해보쟈 input길이를 auto로 할수는없나ㅠ  -->
-		  <input type="hidden" name="hashList" value="테스트11">
-		  <input type="hidden" name="hashList" value="테스트22">
-		  <input type="hidden" name="hashList" value="테스트33">
-		  
-		  
+			         filebrowserUploadUrl:  "/today/community/fileupload"
+			       });
+		    </script>
+		    
+		    
+	     
+	        <div id="tag_container">
+	            <span id="tagbox">
+	                <span>#</span>
+	                <input type="text" id="tag_input" placeholder="태그입력">
+	            </span>           
+	        </div>
+		
+		    
+		    
+			<div class="writenav">
+				<input type="submit" value="등록">
+				<button>취소</button>
+			</div>
 			
-         <input type="submit" value="등록" class="btn form-control"
-			style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">
-          &nbsp;&nbsp;
-          <a class="btn form-control"	href="#"
-		style="cursor: pointer; margin-top: 0; height: 40px; color: white; background-color: orange; border: 0px solid #388E3C; opacity: 0.8">취소</a>
         </form>
-
-
-
-      </div>
     </div>
-  </div>
+
 </div>
-</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    $(function(){
+
+        // 태그 입력란에 글자 치면 placeholder 사라지게
+        if($("#tag_input").val() != ""){
+            $("#tag_input").attr("placeholder", "")
+        }
+
+
+        //$(document).on("keydown", "#tag_input", function(key){
+        	//temp_html = "<span class='tagbox'><span>#</span>" + $("#tag_input").val() + "<span><button class='del_tag'>x</button></span><input type='hidden' name='hashList' value='" + $("#tag_input").val() + "'></span>"; 
+            //if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
+            	//console.log("엔터..");
+                //$('#tagbox').before(temp_html);
+                //$("#tag_input").val("");  // 입력창 비워져있도록
+                //console.log("엔터..");
+            //}      
+        //})
+
+        //엔터키 입력 이벤트
+        $("#tag_input").keydown(function(key){            	
+            temp_html = "<span class='tagbox'><span>#</span>" + $("#tag_input").val() + "<span><button class='del_tag'>x</button></span><input type='hidden' name='hashList' value='" + $("#tag_input").val() + "'></span>"; 
+            //temp_html = 333;
+            if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
+            	console.log("엔터..");
+                $('#tagbox').before(temp_html);
+                $("#tag_input").val("");  // 입력창 비워져있도록
+                console.log("엔터..");
+            }          
+        })
+
+
+        // 태그삭제
+        $(document).on("click", ".del_tag", function () {
+            $(this).parent().parent().remove();
+        })
+		
+
+        
+        // 엔터키 submit 방지
+        document.writeForm.addEventListener("keydown", evt => {
+       	  if (evt.code === "Enter") 
+       	  evt.preventDefault();
+       	});
+        
+
+    })
+
+</script>
+
 
 
 

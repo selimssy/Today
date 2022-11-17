@@ -2,6 +2,7 @@ package com.ali.today.community.model;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class BoardVO {
 	
@@ -15,6 +16,7 @@ public class BoardVO {
 	private String hashtag;
 	
 	private String[] hashList;
+	private List<String> hashtagList;
 
 	// 신규 게시물에 new마크 붙일지 말지 결정하는 논리필드 선언
 	private boolean newMark;
@@ -73,6 +75,14 @@ public class BoardVO {
 
 	public void setHashtag(String hashtag) {
 		this.hashtag = hashtag;
+	}
+
+	public List<String> getHashtagList() {
+		return hashtagList;
+	}
+
+	public void setHashtagList(List<String> hashtagList) {
+		this.hashtagList = hashtagList;
 	}
 
 	public int getReplyCnt() {

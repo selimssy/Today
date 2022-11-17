@@ -49,8 +49,19 @@ public class BoardService implements IBoardService {
 	// 게시글 상세 조회
 	@Override
 	public BoardVO getArticle(Integer boardNo) {
+		
 		mapper.updateViewCnt(boardNo); // 여기서 조회수 증가
-		return mapper.getArticle(boardNo);
+		
+		// 해시태그 작업
+		BoardVO article = mapper.getArticle(boardNo);	
+		String str = article.getHashtag();
+		String str2 = str.replaceAll("[\\[\\]]", ""); // 대괄호 제거
+		String [] list = str2.trim().split("\\s*,\\s*"); // 공백 제거 후 분리
+		List<String> hashtagList = Arrays.asList(list);
+		 
+		article.setHashtagList(hashtagList);
+		
+		return article;
 	}
 
 	
