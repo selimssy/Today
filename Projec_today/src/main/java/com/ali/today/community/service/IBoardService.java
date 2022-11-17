@@ -21,11 +21,7 @@ public interface IBoardService {
 	// 게시글 상세 조회
 	BoardVO getArticle(Integer boardNo);
 	
-	// 게시물 조회수 상승 처리
-	void updateViewCnt(Integer boardNo);	
-	
 
-	
 	// # 검색, 페이징 기능이 포함된 게시물 목록 조회
 	List<BoardVO> getArticleList(SearchVO search);
 	
@@ -33,14 +29,7 @@ public interface IBoardService {
 	Integer countArticles(SearchVO search);
 	
 		
-	
-	// 댓글 개수 조회 
-	void updateReplyCnt(Integer boardNo);	
-	
-	
-	
-	
-	
+
 	
 	//--------------------------------- reply 게시판 메서드----------------------------------------
 	

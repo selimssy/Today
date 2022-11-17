@@ -24,7 +24,7 @@
 				</tr>
 			</thead>
 			
-			<c:if test="${diaryList.size() <= 0}">
+			<c:if test="${boardList.size() <= 0}">
 				<tr>
 					<td colspan="5" align="center">
 						<strong>검색 결과가 없습니다.</strong>
@@ -34,25 +34,26 @@
 		
 		
 			<!-- 게시물이 들어갈 공간 -->
-			<c:if test="${diaryList.size() > 0}">
-				<c:forEach var="diary" items="${diaryList}">
+			<c:if test="${boardList.size() > 0}">
+				<c:forEach var="article" items="${boardList}">
 					<tr>
-						<td>${diary.diaryNo}</td>																
+						<td>${article.boardNo}</td>																
 																					<!-- 처음 게시판 들어가면 page 파라미터가 없으니까 -->
-						<td><a href="<c:url value='/diary/content/${diary.diaryNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
-								${diary.title}		
+						<td><a href="<c:url value='/community/content/${article.boardNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
+								${article.title}		
 							</a>
 							&nbsp; 
-							<c:if test="${diary.newMark}">    
+							<c:if test="${article.newMark}">    
 								<span>new</span>
-							</c:if>       <!-- 부트스트랩 클래스 -->
+							</c:if>      
 						</td>
 				
-						<td>${diary.writer}</td>	
+						<td>${article.writer}</td>	
 				
 						<td>
-							<fmt:formatDate value="${diary.regDate}" pattern="yyyy년 MM월 dd일" />							
+							<fmt:formatDate value="${article.regDate}" pattern="yyyy년 MM월 dd일" />							
 						</td>
+						<td>${article.viewCnt}</td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -99,6 +100,7 @@
                           <option value="title" ${param.condition == 'title' ? 'selected' : ''}>제목</option>
                           <option value="content" ${param.condition == 'content' ? 'selected' : ''}>내용</option>
                           <option value="titleContent" ${param.condition == 'titleContent' ? 'selected' : ''}>제목+내용</option>
+                          <option value="hashtag" ${param.condition == 'hashtag' ? 'selected' : ''}>제목+내용</option>
                       </select>
                   </div>
                   <div class="form-group col-sm-4">
@@ -128,9 +130,9 @@
 		const result = "${msg}"
 		
 		if(result === "regSuccess"){
-			alert("일기 등록이 완료되었습니다.")
+			alert("게시물 등록이 완료되었습니다.")
 		} else if(result === "delSuccess"){
-			alert("일기가 삭제되었습니다.")
+			alert("게시물이 삭제되었습니다.")
 		}
 		
 		
@@ -146,7 +148,7 @@
 				//const condition = $("#condition").val();
 				console.log(condition)
 				
-				location.href="/today/diary/list?keyword=" + keyword + "&condition=" + condition;
+				location.href="/today/community/list?keyword=" + keyword + "&condition=" + condition;
 			})
 			
 			

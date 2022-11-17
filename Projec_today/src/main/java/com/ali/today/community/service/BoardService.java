@@ -1,9 +1,11 @@
 package com.ali.today.community.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ali.today.common.SearchVO;
 import com.ali.today.community.model.BoardVO;
@@ -21,86 +23,85 @@ public class BoardService implements IBoardService {
 	// 게시글 등록 
 	@Override
 	public void insert(BoardVO article) {
-		// TODO Auto-generated method stub
-
+		
+		String[] hashtagList = article.getHashList();
+		String hashtag = Arrays.toString(hashtagList);
+		article.setHashtag(hashtag);
+		
+		mapper.insert(article);
 	}
 	
 	
 	// 게시글 수정
 	@Override
 	public void update(BoardVO article) {
-		// TODO Auto-generated method stub
-
+		mapper.update(article);
 	}
 	
 	
 	// 게시글 삭제 
 	@Override
 	public void delete(Integer boardNo) {
-		// TODO Auto-generated method stub
-
+		mapper.delete(boardNo);
 	}
 
 	
 	// 게시글 상세 조회
 	@Override
 	public BoardVO getArticle(Integer boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		mapper.updateViewCnt(boardNo); // 여기서 조회수 증가
+		return mapper.getArticle(boardNo);
 	}
 
 	
-	// 게시물 조회수 상승 처리
-	@Override
-	public void updateViewCnt(Integer boardNo) {
-		// TODO Auto-generated method stub
-
-	}
 
 	
 	// # 검색, 페이징 기능이 포함된 게시물 목록 조회
 	@Override
 	public List<BoardVO> getArticleList(SearchVO search) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<BoardVO> list = mapper.getArticleList(search);
+		
+		// 1일 이내 신규 글 new마크 처리 로직
+		for(BoardVO article : list) {
+			// 현재시간 읽어오기
+			long now = System.currentTimeMillis();
+			// 각 게시물들의 작성 시간을 밀리초로 읽어오기
+			long regTime = article.getRegDate().getTime();
+			
+			if(now - regTime < 60 * 60 * 24 * 1000) {
+				article.setNewMark(true);
+			}
+		}			
+		return list;
 	}
 
 	
 	// # 검색, 페이징 기능이 포함된 게시물 수 조회
 	@Override
 	public Integer countArticles(SearchVO search) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.countArticles(search);
 	}
 
-	
-	// 댓글 개수 조회 
-	@Override
-	public void updateReplyCnt(Integer boardNo) {
-		// TODO Auto-generated method stub
 
-	}
-
-	
-	
 	
 	//--------------------------------- reply 게시판 메서드----------------------------------------
 	
 	
 	
-	// 댓글 추가
+	// 댓글 등록
+	@Transactional  // 댓글 수 업데이트와 연동
 	@Override
 	public void register(ReplyVO replyVO) {
-		// TODO Auto-generated method stub
-
+		mapper.register(replyVO);
+		mapper.updateReplyCnt(replyVO.getBoardNo());
 	}
 
 	
 	// 댓글 목록 조회
 	@Override
 	public List<ReplyVO> getReplyList(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getReplyList(boardNo);
 	}
 
 }

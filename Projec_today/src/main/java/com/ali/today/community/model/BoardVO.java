@@ -12,7 +12,9 @@ public class BoardVO {
 	private Date regDate;
 	private Integer viewCnt;
 	private int replyCnt;
-	private String[] hashtag;
+	private String hashtag;
+	
+	private String[] hashList;
 
 	// 신규 게시물에 new마크 붙일지 말지 결정하는 논리필드 선언
 	private boolean newMark;
@@ -64,13 +66,15 @@ public class BoardVO {
 	public void setViewCnt(Integer viewCnt) {
 		this.viewCnt = viewCnt;
 	}	
-	public String[] getHashtag() {
+	
+	public String getHashtag() {
 		return hashtag;
 	}
 
-	public void setHashtag(String[] hashtag) {
+	public void setHashtag(String hashtag) {
 		this.hashtag = hashtag;
 	}
+
 	public int getReplyCnt() {
 		return replyCnt;
 	}
@@ -79,12 +83,21 @@ public class BoardVO {
 		this.replyCnt = replyCnt;
 	}
 
+	public String[] getHashList() {
+		return hashList;
+	}
+
+	public void setHashList(String[] hashList) {
+		this.hashList = hashList;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt + ", hashtag="
-				+ Arrays.toString(hashtag) + ", newMark=" + newMark + "]";
-	}	
+				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt + ", hashtag=" + hashtag
+				+ ", newMark=" + newMark + "]";
+	}
+
 	
 	
 	

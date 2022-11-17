@@ -24,7 +24,6 @@ public class PageCreator {
 	public String makeURI(Integer page) {   // queryParam부터 작성하면 ?부터 출력한다!
 		UriComponents ucp = UriComponentsBuilder.newInstance()
 				            .queryParam("page", page)
-				            .queryParam("countPerPage", paging.getCountPerPage())
 				            .queryParam("keyword", ((SearchVO)paging).getKeyword())
 				            .queryParam("condition", ((SearchVO)paging).getCondition())
 				            .build();
