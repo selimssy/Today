@@ -550,7 +550,7 @@
         
         
         
-        // 반려동물 선택 이벤트
+        // 반려동물 선택 이벤트(나의 펫 리다이렉트)
         $(document).on("click", ".pet", function () {
             const user_id = "${login.userId}";
             const pet_id = $(this).find( ".pet_id" ).text();

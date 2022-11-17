@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ali.today.community.repository.IBoardMapper">
+
+	<resultMap id="BoardMap" type="com.ali.today.community.model.BoardVO">		
+		<id property="boardNo" column="board_no" />
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="writer" column="writer"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="viewCnt" column="view_cnt"/>
+		<result property="hashtag" column="hashtag"/>
+		<result property="replyCnt" column="reply_cnt"/>		
+	</resultMap>	
+
+
+
+
+	<resultMap id="ReplyMap" type="com.ali.today.community.model.ReplyVO">		
+		<id property="replyNo" column="reply_no" />
+		<result property="boardNo" column="board_no"/>
+		<result property="content" column="content"/>
+		<result property="replyer" column="replyer"/>
+		<result property="replyDate" column="reply_date"/>
+		<result property="updateDate" column="reply_date"/>	
+	</resultMap>
+
+
+
+
+	<!-- 중복되는 동적 SQL문에 대한 처리 -->
+	<sql id="searchBoard">  
+		<!-- 동적 SQL구문 -->
+		<if test="condition == 'title'">  
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'writer'">
+		WHERE writer LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'content'">
+		WHERE content LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'titleContent'">
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		OR content LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'hashtag'">
+		WHERE hashtag LIKE CONCAT('%',#{hashtag},'%')
+		</if>
+	</sql>
+	
+
+
+	<insert id="insert">
+		INSERT INTO board (title, content, writer, hashtag)
+		VALUES (#{title}, #{content}, #{writer}, #{hashtag})
+	</insert>
+	
+	
+	
+	<update id="update">
+		UPDATE board
+		SET title = #{title}, content = #{content}, writer = #{writer}, hashtag = #{hashtag}
+		WHERE board_no = #{boardNo}
+	</update>
+	
+	
+	
+	<delete id="delete">
+		DELETE FROM board
+		WHERE board_no = #{boardNo}
+	</delete>
+	
+	
+	
+	<select id="getArticle" resultMap="BoardMap">
+		SELECT *
+		FROM board
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	
+	
+	<update id="updateViewCnt">
+		UPDATE board
+		SET view_cnt = view_cnt + 1
+		WHERE board_no = #{boardNO}
+	</update>
+	
+
+
+	<select id="getArticleList" resultMap="BoardMap">
+		SELECT *
+		FROM board
+		<include refid="searchBoard"/>
+		ORDER BY board_no DESC
+		LIMIT #{pageStart}, 10 
+	</select>
+	
+	
+	
+	<select id="countArticles" resultType="int">
+		SELECT COUNT(*)
+		FROM board
+		<include refid="searchBoard"/>
+	</select>
+	
+	
+	
+	
+	<update id="updateReplyCnt">
+		UPDATE board b
+		SET b.reply_cnt = (SELECT count(reply_no)
+						   FROM reply
+						   WHERE board_no = #{boardNO})
+		WHERE b.board_no = #{boardNO}
+	</update>
+	
+
+
+	
+	<!-- ////////////////////// 댓글 SQL //////////////////// -->
+	
+	<insert id="register">
+		INSERT INTO reply (board_no, content, replyer) 
+		VALUES(#{boardNo}, #{content}, #{replyer})
+	</insert>
+	
+	
+	<select id="getReplyList" resultMap="ReplyMap">
+		SELECT * FROM reply
+		WHERE board_no = #{boardNo}
+	</select>
+	
+
+</mapper>
