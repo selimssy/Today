@@ -115,4 +115,22 @@ public class BoardService implements IBoardService {
 		return mapper.getReplyList(boardNo);
 	}
 
+	
+	// 댓글 수정
+	@Transactional
+	@Override
+	public void modifyReply(ReplyVO replyVO) {
+		mapper.modifyReply(replyVO);
+		mapper.updateReplyCnt(replyVO.getBoardNo());
+	}
+
+	
+	//댓글 삭제
+	@Transactional
+	@Override
+	public void deleteReply(ReplyVO replyVO) {
+		mapper.deleteReply(replyVO);
+		mapper.updateReplyCnt(replyVO.getBoardNo());
+	}
+
 }

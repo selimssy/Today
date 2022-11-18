@@ -123,16 +123,32 @@
 	
 	<!-- ////////////////////// 댓글 SQL //////////////////// -->
 	
+	<!-- 댓글 등록 -->
 	<insert id="register">
 		INSERT INTO reply (board_no, content, replyer) 
 		VALUES(#{boardNo}, #{content}, #{replyer})
 	</insert>
 	
 	
+	<!-- 해당 게시물 댓글 전체 조회 -->
 	<select id="getReplyList" resultMap="ReplyMap">
 		SELECT * FROM reply
 		WHERE board_no = #{boardNo}
 	</select>
+	
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyReply">
+		UPDATE reply
+		SET content = #{content}
+		WHERE reply_no = #{replyNo}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply">
+		DELETE FROM reply
+		WHERE reply_no = #{replyNo}
+	</delete>
 	
 
 </mapper>

@@ -24,8 +24,19 @@
 .countBox span:nth-of-type(2){background: url(/today/img/community/reply.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px; margin-left: 20px;}
 .contentBody{padding-top: 20px}
 .contentBody img{display: block; margin : auto;}
-.hashList{width:950px; margin: 0 auto; border: 1.5px solid #d1d1d1; border-top:none; padding:15px 35px; box-sizing: border-box;}
+.boardcontent{min-height:300px}
+.hashList{width:100%; margin: 0 auto;  border-top:1.5px solid #d1d1d1; padding:18px 25px; box-sizing: border-box; }
 .hashList span{background: #F3F3F3; border-radius: 20px; padding: 5px 10px; margin-right: 15px;}
+.comment{border-top:1.5px solid #d1d1d1;}
+.comment ul{list-style:none; padding-right:40px}
+.comment ul li{margin-top:25px}
+.comment p{font-size:0.9em}
+.comment p:nth-of-type(1){background: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
+.comment span{font-size:0.9em; color:#aaa}
+.comment button{width:35px; height: 20px; font-size:0.6em; padding: 2px; border-radius: 5px; border: none; cursor: pointer;}
+.replyRgBox{width:750px; height: 120px; position: relative; display:block; margin-bottom: 30px}
+.replyRgBox textarea{width:700px; height: 100px; position: absolute; top: 10px; right:0; resize: none; overflow-y:auto; font-family: "NanumSquare","맑은 고딕", sans-serif;}
+.replyRgBox button{position: absolute; bottom: -30px; right:0; width:85px; height: 30px; border:none; background: #F0F0F0; cursor: pointer;}
 </style>
 </head>
 <body>
@@ -45,55 +56,155 @@
 			</div>
 			
 			<div class="contentBody">
-			${article.content}
-			</div>
-		</div>
-		<div class="hashList">
-			<c:if test="${hashtagList.size() > 0}">
-				<c:forEach var="hashtag" items="${hashtagList}">
-					<span>#${hashtag}</span>
-				</c:forEach>
-			</c:if>
-		</div>
-		
-		
-		
-		
-		<!-- 댓글영역 -->
-		<div class="comment">
-			<h4>댓글</h4>
-			<ol class="replyList">
-				<c:if test="${replyList.size() > 0}">
-					<c:forEach var="reply" items="${replyList}">
-						<li>
-							<p> 작성자: ${reply.replyer} &nbsp; &nbsp;
-							    (작성일: <fmt:formatDate value="${reply.replyDate}" pattern="yyyy년 MM월 dd일 HH:mm" />)						
-							</p>
-							<p>${reply.content}</p>
-						</li>
-					</c:forEach>
-				</c:if>	
-			</ol>
-		</div>
-		
-		
-		
-		<!-- 댓글 등록 폼 -->
-		<form action="<c:url value='/board/reply'/>" method="post" id="replyForm">
-			<input type="hidden" name="boardNo" value="${article.boardNo}">
+				<div class="boardcontent">
+					${article.content}
+				</div>
 			
-			<ul>
-				<li>
-					<label>작성자</label>
-					<input type="text" name="replyer" id="replyer" value="${login.name}" readonly>
-				</li>
-				<li>
-					<textarea rows="5" cols="60" name="content" id="replyContent"></textarea>
-					<button type="button" id="replyBtn">댓글 등록</button>
-				</li>
-			</ul>
-		</form>
+				<div class="hashList">
+					<c:if test="${hashtagList.size() > 0}">
+						<c:forEach var="hashtag" items="${hashtagList}">
+							<span>#${hashtag}</span>
+						</c:forEach>
+					</c:if>
+				</div>
+							
+			</div>
+			
+			
+			
+			<!-- 댓글영역 -->
+			<div class="comment">
+				<h3>댓글[${article.replyCnt}]</h3>
+				<ul id="replyList">
+					<c:if test="${replyList.size() > 0}">
+						<c:forEach var="reply" items="${replyList}">
+							<li>
+								<p><b>${reply.replyer}</b> &nbsp; &nbsp; &nbsp; &nbsp;
+								    <span><fmt:formatDate value="${reply.replyDate}" pattern="yyyy.MM.dd. HH:mm" /></span>
+								    <c:if test="${login.userId == reply.replyer}">
+								    	&nbsp;<button href="${reply.replyNo}" type="button" class="replyModify">수정</button>&nbsp;<button href="${reply.replyNo}" type="button" class="replyDelete">삭제</button>
+									</c:if>
+								</p>
+								<p>${reply.content}</p>
+							</li>
+						</c:forEach>
+					</c:if>	
+				</ul>
+			</div>
+			
+			
+			
+			<!-- 댓글 등록 폼 -->
+			<div class="replyRgBox">
+				<form action="<c:url value='/board/reply'/>" method="post" id="replyForm">
+					<input type="hidden" name="boardNo" value="${article.boardNo}">		
+					
+						<textarea name="content" id="replyContent" placeholder="댓글을 입력해주세요."></textarea>
+						<button type="button" id="replyBtn">댓글 등록</button>		
+						
+				</form>
+			</div>		
+			
+		</div>
 		
+		
+		
+		
+		
+		
+		
+	
+	
+	<script type="text/javascript">
+	
+		// Ajax방식 댓글등록 
+		$("#replyBtn").click(function(){
+					
+			let boardNo = ${article.boardNo};
+			console.log("글번호: " + boardNo);
+			
+			let replyContent = $("#replyContent").val();
+			console.log("댓글내용: " + replyContent);
+		
+			let replyer = "${login.userId}";
+			console.log("댓글작성자: " + replyer);
+			
+			let replyVO = {
+				boardNo: boardNo,
+				content: replyContent,
+				replyer: replyer
+			};
+			
+				
+			$.ajax({
+				type: "POST", 
+				url: "/today/community/reply", 
+				headers: {
+					"Content-Type": "application/json"
+				}, 
+				dataType: "text", 
+				data: JSON.stringify(replyVO), 
+				success: function(result){
+					if(result === "replySuccess"){
+						console.log("통신 성공!")				
+						window.location.reload();
+					}else{
+						console.log("통신 실패");
+					}													
+				}, 
+				error: function() {
+					console.log("통신 실패!");
+				} 
+			});
+			
+			$("#replyContent").val("");
+		})
+		
+		
+		
+		
+		
+				
+		// 댓글 삭제
+		$(document).on("click", ".replyDelete", function () {
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				let boardNo = ${article.boardNo};
+				let replyNo = $(this).attr("href");
+				let replyVO = {
+						boardNo: boardNo,
+						replyNo: replyNo
+					};
+				
+				$.ajax({
+					type: "POST", 
+					url: "/today/community/deleteReply", 
+					headers: {
+						"Content-Type": "application/json"
+					}, 
+					dataType: "text", 
+					data: JSON.stringify(replyVO), 
+					success: function(result){
+						if(result === "deleteSuccess"){
+							console.log("통신 성공!")				
+							//alert("댓글이 삭제되었습니다.");
+							window.location.reload();
+						}else{
+							console.log("통신 실패");
+						}													
+					}, 
+					error: function() {
+						console.log("통신 실패!");
+					} 
+				});
+			}		
+			
+        })
+		
+		
+		
+		
+	
+	</script>
 		
 		
 	</div>

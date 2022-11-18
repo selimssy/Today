@@ -37,6 +37,12 @@ public interface IBoardService {
 	void register(ReplyVO replyVO);  
 	
 	// 댓글 목록 조회
-	List<ReplyVO> getReplyList(int boardNo);	
+	List<ReplyVO> getReplyList(int boardNo);
+	
+	// 댓글 수정
+	void modifyReply(ReplyVO replyVO);
+	
+	// 댓글 삭제
+	void deleteReply(ReplyVO replyVO);
 	
 }
