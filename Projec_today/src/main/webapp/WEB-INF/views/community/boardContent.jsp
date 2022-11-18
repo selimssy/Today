@@ -235,7 +235,7 @@
 			let replyVO = {
 				content: replyContent,
 				replyNo: replyNo
-			};
+			};  
 						
 			$.ajax({
 				type: "POST", 
