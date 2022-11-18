@@ -31,12 +31,15 @@
 .comment ul{list-style:none; padding-right:40px}
 .comment ul li{margin-top:25px}
 .comment p{font-size:0.9em}
-.comment p:nth-of-type(1){background: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
+.comment .rpyW{background: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
 .comment span{font-size:0.9em; color:#aaa}
 .comment button{width:35px; height: 20px; font-size:0.6em; padding: 2px; border-radius: 5px; border: none; cursor: pointer;}
 .replyRgBox{width:750px; height: 120px; position: relative; display:block; margin-bottom: 30px}
 .replyRgBox textarea{width:700px; height: 100px; position: absolute; top: 10px; right:0; resize: none; overflow-y:auto; font-family: "NanumSquare","맑은 고딕", sans-serif;}
 .replyRgBox button{position: absolute; bottom: -30px; right:0; width:85px; height: 30px; border:none; background: #F0F0F0; cursor: pointer;}
+.comment textarea{width:700px; height: 100px; resize: none; overflow-y:auto; font-family: 'NanumSquare','맑은 고딕', sans-serif;}
+.modifyBox{position: relative;width:700px; height:120px}
+.modifyBox .mdButton{width:78px; position: absolute; top:-30px; right:0; display:block}
 </style>
 </head>
 <body>
@@ -78,14 +81,16 @@
 				<ul id="replyList">
 					<c:if test="${replyList.size() > 0}">
 						<c:forEach var="reply" items="${replyList}">
-							<li>
-								<p><b>${reply.replyer}</b> &nbsp; &nbsp; &nbsp; &nbsp;
+							<li>							
+								<p class="rpyW"><b>${reply.replyer}</b> &nbsp; &nbsp; &nbsp; &nbsp;
 								    <span><fmt:formatDate value="${reply.replyDate}" pattern="yyyy.MM.dd. HH:mm" /></span>
 								    <c:if test="${login.userId == reply.replyer}">
 								    	&nbsp;<button href="${reply.replyNo}" type="button" class="replyModify">수정</button>&nbsp;<button href="${reply.replyNo}" type="button" class="replyDelete">삭제</button>
 									</c:if>
 								</p>
-								<p>${reply.content}</p>
+								<div id="reply${reply.replyNo}" class="rpyContentBox">
+									<p>${reply.content}</p>
+								</div>
 							</li>
 						</c:forEach>
 					</c:if>	
@@ -163,7 +168,101 @@
 		
 		
 		
+		// 댓글 수정 불러오기 요청		
+		$(document).on("click", ".replyModify", function () {
+			
+			//초기화
+            $(".rpyContentBox p").css("display","block");
+            $(".rpyW button").css( 'display', 'inline-block' );
+            $(".modifyBox").remove();
+			
+            $(this).css("display","none");
+            $(this).next().css("display","none");
+            
+            let replyNo = $(this).attr("href");
+            console.log(replyNo);
+            
+    		let reply = {
+    				replyNo: replyNo
+                    };
+    		
+    		$.ajax({
+                type: 'post',
+                dataType : "json",
+                contentType: 'application/json',
+                url: '/today/community/modifReplyGet',
+                data: JSON.stringify(reply),
+                success: function (response) {
+                	console.log(response); // replyVO 
+                   		
+                    	let replyContent = response['content'];
+                		let replyNo = response['replyNo'];
+                    	console.log(replyContent);
+                        let temp_html = "<div class='modifyBox'><div class='mdButton'><button href='" + replyNo + "' type='button' class='rpyMBtn'>저장</button>&nbsp;<button href='" + replyNo + "' type='button' class='rpyMCancel'>취소</button></div><textarea id='mdcont'>" + replyContent + "</textarea></div>";
+						
+                        $('#reply' + replyNo + ' p').css("display", "none");
+                        $('#reply' + replyNo).append(temp_html);
+                    
+                }, 
+                error: function() {
+                    console.log("통신 실패!");
+                } 
+            });
+        })
 		
+		
+		
+        
+        //댓글 수정 취소  
+        $(document).on("click", ".rpyMCancel", function () {
+        	$(this).parent().parent().prev().css( 'display', 'block' );
+        	$(this).parent().parent().prev().parent().prev().children('button').css( 'display', 'inline-block' );
+        	$(this).parent().parent().remove();
+        })
+        
+        
+        
+        
+        // 댓글 수정 
+        $(document).on("click", ".rpyMBtn", function () {
+			
+			let replyContent = $("#mdcont").val();
+			console.log("댓글내용: " + replyContent);
+
+			let replyNo = $(this).attr("href");
+			console.log("댓글내용: " + replyNo);
+			
+			let replyVO = {
+				content: replyContent,
+				replyNo: replyNo
+			};
+						
+			$.ajax({
+				type: "POST", 
+				url: "/today/community/modifyReply", 
+				headers: {
+					"Content-Type": "application/json"
+				}, 
+				dataType: "text", 
+				data: JSON.stringify(replyVO), 
+				success: function(result){
+					if(result === "modifySuccess"){
+						console.log("통신 성공!")				
+						window.location.reload();
+					}else{
+						console.log("통신 실패");
+					}													
+				}, 
+				error: function() {
+					console.log("통신 실패!");
+				} 
+			});
+			
+        })
+        
+       
+        
+        
 				
 		// 댓글 삭제
 		$(document).on("click", ".replyDelete", function () {

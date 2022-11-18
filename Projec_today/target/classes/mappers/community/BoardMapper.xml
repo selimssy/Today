@@ -137,12 +137,23 @@
 	</select>
 	
 	
+	
+	<!-- 특정 댓글 조회 -->
+	<select id="getReply" resultMap="ReplyMap">
+		SELECT * FROM reply
+		WHERE reply_no = #{replyNo}
+	</select>
+	
+	
+	
 	<!-- 댓글 수정 -->
 	<update id="modifyReply">
 		UPDATE reply
 		SET content = #{content}
 		WHERE reply_no = #{replyNo}
 	</update>
+	
+	
 	
 	<!-- 댓글 삭제 -->
 	<delete id="deleteReply">

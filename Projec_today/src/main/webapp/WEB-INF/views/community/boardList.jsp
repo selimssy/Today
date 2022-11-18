@@ -112,7 +112,7 @@
                       </div>
                   </div>
                   <div class="col-sm-2">
-				<a href="<c:url value='/diary/write' />">글쓰기</a>
+				<a href="<c:url value='/community/write' />">글쓰기</a>
 			</div>
 			<div class="col-sm-2"></div>
 		</div>

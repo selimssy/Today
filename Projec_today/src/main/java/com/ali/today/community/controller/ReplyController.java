@@ -1,9 +1,11 @@
 package com.ali.today.community.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ali.today.community.model.ReplyVO;
@@ -31,6 +33,14 @@ public class ReplyController {
 		return "replySuccess";
 	}
 	
+	
+	// 댓글 수정 불러오기 요청
+	@PostMapping("/modifReplyGet")
+	public ReplyVO modifyReplyGet(@RequestBody ReplyVO replyVO) {
+		
+		ReplyVO reply = service.getReply(replyVO.getReplyNo());	
+		return reply;
+	}	
 	
 	
 	

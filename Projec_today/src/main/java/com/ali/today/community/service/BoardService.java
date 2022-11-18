@@ -116,12 +116,19 @@ public class BoardService implements IBoardService {
 	}
 
 	
+	
+	// 특정 댓글 조회
+	@Override
+	public ReplyVO getReply(Integer replyNo) {
+		return mapper.getReply(replyNo);
+	}
+	
+	
+	
 	// 댓글 수정
-	@Transactional
 	@Override
 	public void modifyReply(ReplyVO replyVO) {
 		mapper.modifyReply(replyVO);
-		mapper.updateReplyCnt(replyVO.getBoardNo());
 	}
 
 	

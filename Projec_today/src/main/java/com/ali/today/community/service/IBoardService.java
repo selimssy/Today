@@ -39,6 +39,9 @@ public interface IBoardService {
 	// 댓글 목록 조회
 	List<ReplyVO> getReplyList(int boardNo);
 	
+	// 특정 댓글 조회
+	ReplyVO getReply(Integer replyNo);
+	
 	// 댓글 수정
 	void modifyReply(ReplyVO replyVO);
 	
