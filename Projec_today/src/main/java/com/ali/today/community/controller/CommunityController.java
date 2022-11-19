@@ -163,7 +163,8 @@ public class CommunityController {
 	@PostMapping("/boardMfOpen")
 	public String boardMfOpen() {
 		
-		return "redirect:/community/content/" + boardNo;
+		return "";
+		//return "redirect:/community/content/" + boardNo;
 	}
 	
 	
