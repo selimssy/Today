@@ -159,6 +159,15 @@ public class CommunityController {
 	
 	
 	
+	// 게시글 수정 화면 요청
+	@PostMapping("/boardMfOpen")
+	public String boardMfOpen() {
+		
+		return "redirect:/community/content/" + boardNo;
+	}
+	
+	
+	
 	
 	
 	// ckeditor

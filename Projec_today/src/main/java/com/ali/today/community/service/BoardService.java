@@ -58,9 +58,11 @@ public class BoardService implements IBoardService {
 		String str2 = str.replaceAll("[\\[\\]]", ""); // 대괄호 제거
 		String [] list = str2.trim().split("\\s*,\\s*"); // 공백 제거 후 분리
 		List<String> hashtagList = Arrays.asList(list);
-		 
-		article.setHashtagList(hashtagList);
-		
+		if(hashtagList.get(0).equals("null")) {
+			article.setHashtagList(null);
+		}else {
+			article.setHashtagList(hashtagList);
+		}
 		return article;
 	}
 

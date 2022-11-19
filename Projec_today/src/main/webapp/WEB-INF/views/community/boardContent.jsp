@@ -14,7 +14,7 @@
 <style>
 
 .container{width:1000px; margin: 0 auto}
-.contentBox{width:950px; margin: 0 auto; border: 1.5px solid #d1d1d1; padding: 25px 35px; box-sizing: border-box;}
+.contentBox{width:850px; margin: 0 auto; border: 1.5px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box;}
 .contentTop{width:100%; border-bottom: 1.5px solid #d1d1d1; position: relative; padding-bottom: 10px;}
 .contentTop h1{line-height: 70px; margin:0}
 .contentTop p{background: url(/today/img/community/boarduser.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
@@ -22,11 +22,14 @@
 .countBox{position: absolute; bottom: 25px; right: 0;}
 .countBox span:nth-of-type(1){background: url(/today/img/community/view.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
 .countBox span:nth-of-type(2){background: url(/today/img/community/reply.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px; margin-left: 20px;}
+.navBox{position: absolute; top: 0; right: 0;}
+.navBox button{width:75px; height: 30px; border:none; cursor: pointer;}
 .contentBody{padding-top: 20px}
 .contentBody img{display: block; margin : auto;}
 .boardcontent{min-height:300px}
 .hashList{width:100%; margin: 0 auto;  border-top:1.5px solid #d1d1d1; padding:18px 25px; box-sizing: border-box; }
 .hashList span{background: #F3F3F3; border-radius: 20px; padding: 5px 10px; margin-right: 15px;}
+.hashnull{display:none}
 .comment{border-top:1.5px solid #d1d1d1;}
 .comment ul{list-style:none; padding-right:40px}
 .comment ul li{margin-top:25px}
@@ -55,7 +58,15 @@
 				<div class="countBox">
 					<span>조회수 <b>${article.viewCnt}</b></span>
 					<span>댓글 <b>${article.replyCnt}</b></span>
-				</div>			
+				</div>
+				
+				<c:if test="${login.userId == article.writer}">
+					<div class="navBox">
+						<button id="boardMfOpen" href="${article.boardNo}">수정</button>
+						<button>삭제</button>
+					</div>			
+				</c:if>
+				
 			</div>
 			
 			<div class="contentBody">
@@ -63,13 +74,18 @@
 					${article.content}
 				</div>
 			
-				<div class="hashList">
-					<c:if test="${hashtagList.size() > 0}">
-						<c:forEach var="hashtag" items="${hashtagList}">
-							<span>#${hashtag}</span>
+				
+				<c:if test="${hashtagList.size() <= 0}">
+					<div class="hashnull">1</div>
+				</c:if>
+				<c:if test="${hashtagList.size() > 0}">
+					<div class="hashList">
+						<c:forEach var="hashtag" items="${hashtagList}">						
+								<span>#${hashtag}</span>					
 						</c:forEach>
-					</c:if>
-				</div>
+					</div>
+				</c:if>
+				
 							
 			</div>
 			
@@ -121,6 +137,56 @@
 	
 	
 	<script type="text/javascript">
+		
+		// 게시글 수정 요청    // 이거 컨트롤러를 리플라이에다 해야하나..........
+		$("#boardMfOpen").click(function(){
+		
+			let boardNo = ${article.boardNo};
+			console.log("글번호: " + boardNo);
+			
+			let replyContent = $("#replyContent").val();
+			console.log("댓글내용: " + replyContent);
+		
+			let replyer = "${login.userId}";
+			console.log("댓글작성자: " + replyer);
+			
+			let replyVO = {
+				boardNo: boardNo,
+				content: replyContent,
+				replyer: replyer
+			};
+			
+				
+			$.ajax({
+				type: "POST", 
+				url: "/today/community/reply", 
+				headers: {
+					"Content-Type": "application/json"
+				}, 
+				dataType: "text", 
+				data: JSON.stringify(replyVO), 
+				success: function(result){
+					if(result === "replySuccess"){
+						console.log("통신 성공!")				
+						window.location.reload();
+					}else{
+						console.log("통신 실패");
+					}													
+				}, 
+				error: function() {
+					console.log("통신 실패!");
+				} 
+			});
+			
+			$("#replyContent").val("");
+			
+		})
+		
+	
+	
+	
+	
+	
 	
 		// Ajax방식 댓글등록 
 		$("#replyBtn").click(function(){
