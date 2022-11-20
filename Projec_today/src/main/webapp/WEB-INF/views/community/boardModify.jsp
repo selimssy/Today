@@ -38,7 +38,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 <div class="container">
 
     <div class="boardBox">    	
-        <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>게시글 등록</h2>
+        <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>게시글 수정</h2>
         <form action="<c:url value='/community/write'/>" method="post" name="writeForm">
             <input type="hidden" name='writer' value="${login.userId}" >
             <div class="titleBox">

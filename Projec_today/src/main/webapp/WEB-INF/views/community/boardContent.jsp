@@ -84,9 +84,7 @@
 								<span>#${hashtag}</span>					
 						</c:forEach>
 					</div>
-				</c:if>
-				
-							
+				</c:if>						
 			</div>
 			
 			
@@ -125,67 +123,66 @@
 						
 				</form>
 			</div>		
-			
+				
 		</div>
 		
 		
 		
+		<!-- 게시물 수정, 삭제 -->
+		<form id="formObj"  role="form" action="<c:url value='/communuty/delete'/>" method="post">  
 		
+			<input type="hidden" name="boardNo" value="${article.boardNo}">
+			<input type="hidden" name="page" value="${p.page}">
+			<input type="hidden" name="countPerPage" value="${p.countPerPage}">
+			        
+			        <input type="button" value="목록" class="btn"  id="list-btn"
+			style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">&nbsp;&nbsp;
+			<!-- 이런식으로 location.href 경로를 통해 가는거는 get방식이다! -->
+			<!-- 그래서 목록, 수정은 get방식이 되고 boardNo hidden이랑 삭제는 post 방식이 된다 -->
+			
+			
+			<c:if test="${login.userId == article.writer}">
+			     <!-- 원래는 테이블 조인해서 id를 비교해야!!★★ -->
+			<input id="modBtn" type="button" value="수정" class="btn btn-warning"  style="color:white;">&nbsp;&nbsp;
+			
+			<input type="submit" value="삭제" class="btn btn-danger" onclick="return confirm('정말로 삭제하시겠습니까?')">&nbsp;&nbsp;
+			<!-- return confirm은 예 아니오 버튼이 뜨는데 예를 누르면 true가 리턴되면서 submit이 전송된다!! (아니요 누르면 false리턴되고 submit 전송되지 않음)  -->	
+			</c:if>
+		</form>		
+		
+		
+		
+	</div>
+		
+		
+
 		
 		
 		
 	
 	
 	<script type="text/javascript">
+	
+	
+		//수정 완료 알림창 처리(바닐라 자바스크립트)
+		let msg = "${msg}"
+		if(msg === "noAuthority"){
+			alert("권한이 없습니다.")
+		}
 		
-		// 게시글 수정 요청    // 이거 컨트롤러를 리플라이에다 해야하나..........
-		$("#boardMfOpen").click(function(){
 		
-			let boardNo = ${article.boardNo};
-			console.log("글번호: " + boardNo);
-			
-			let replyContent = $("#replyContent").val();
-			console.log("댓글내용: " + replyContent);
 		
-			let replyer = "${login.userId}";
-			console.log("댓글작성자: " + replyer);
-			
-			let replyVO = {
-				boardNo: boardNo,
-				content: replyContent,
-				replyer: replyer
-			};
-			
-				
-			$.ajax({
-				type: "POST", 
-				url: "/today/community/reply", 
-				headers: {
-					"Content-Type": "application/json"
-				}, 
-				dataType: "text", 
-				data: JSON.stringify(replyVO), 
-				success: function(result){
-					if(result === "replySuccess"){
-						console.log("통신 성공!")				
-						window.location.reload();
-					}else{
-						console.log("통신 실패");
-					}													
-				}, 
-				error: function() {
-					console.log("통신 실패!");
-				} 
-			});
-			
-			$("#replyContent").val("");
-			
+		// 수정 버튼 클릭
+		let forElement = $("#formObj");; 
+
+		$("#modBtn").click(function(){
+			console.log("수정버튼이 클릭됨!");
+			forElement.attr("action", "/today/community/modify");
+			forElement.attr("method", "get");
+			forElement.submit();
 		})
+	
 		
-	
-	
-	
-	
 	
 	
 		// Ajax방식 댓글등록 
@@ -372,7 +369,7 @@
 	</script>
 		
 		
-	</div>
+	
 	
 </body>
 </html>

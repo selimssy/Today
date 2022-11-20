@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ali.today.common.PageCreator;
+import com.ali.today.common.PageVO;
 import com.ali.today.common.SearchVO;
 import com.ali.today.community.model.BoardVO;
 import com.ali.today.community.model.ReplyVO;
@@ -39,6 +40,7 @@ import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.service.IUserService;
 import com.google.gson.JsonObject;
+
 
 
 
@@ -158,14 +160,30 @@ public class CommunityController {
 	
 	
 	
-	
 	// 게시글 수정 화면 요청
-	@PostMapping("/boardMfOpen")
-	public String boardMfOpen() {
+	@GetMapping("/modify")
+	public String modify(HttpSession session, Integer boardNo, PageVO paging, Model model, RedirectAttributes ra) {
 		
-		return "";
-		//return "redirect:/community/content/" + boardNo;
+		UserVO user = (UserVO)session.getAttribute("login"); 
+		String userId = user.getUserId();
+		BoardVO article = boardService.getArticle(boardNo);
+		if(userId.equals(article.getWriter())) {
+			model.addAttribute("article", article);
+			model.addAttribute("p", paging);
+			return "community/boardModify"; 
+		}else {
+			ra.addFlashAttribute("msg", "noAuthority");
+			// 이건 리다이렉트??
+		}
+		
+		
+	
+		
+		return "community/boardModify";  // 이것도 조정해야지ㅠ
 	}
+	
+	
+	
 	
 	
 	
