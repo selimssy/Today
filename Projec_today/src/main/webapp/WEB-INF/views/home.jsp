@@ -534,7 +534,7 @@
                       console.log("통신 성공!: ");
                       if(result === "success") {
                           alert("반려동물 등록이 완료되었습니다.");
-                          location.href="/today/mypet/lifetime";
+                          //location.href="/today/mypet/lifetime"; session petId등록 문제
                       } else {
                           alert("반려동물 등록에 실패했습니다.");
                       }

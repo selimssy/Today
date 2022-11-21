@@ -76,17 +76,22 @@ public class CommunityController {
 	
 	// 다른 반려동물 보러 놀러가기 요청
 	@GetMapping("/otherPet/{petId}")
-	public String otherPet(@PathVariable Integer petId, Model model) {	
+	public String otherPet(@PathVariable Integer petId, Model model, RedirectAttributes ra) {
 		
 		PetVO pet = userService.selectOnePet(petId);
-		List<LifetimeVO> cardList = mypetService.getLifetimeCardList(petId);
-		List<GalleryVO> galleryList = mypetService.getGalleryList(petId);
-		
-		model.addAttribute("pet", pet);
-		model.addAttribute("cardList", cardList);
-		model.addAttribute("galleryList", galleryList);	
-		
-		return "community/otherPet";
+		if(pet.getOpen() == 0) {  // 비공개 반려동물 접근 방지
+			ra.addFlashAttribute("msg", "closed");
+			return "redirect:/community/intro";
+		}else {
+			List<LifetimeVO> cardList = mypetService.getLifetimeCardList(petId);
+			List<GalleryVO> galleryList = mypetService.getGalleryList(petId);
+			
+			model.addAttribute("pet", pet);
+			model.addAttribute("cardList", cardList);
+			model.addAttribute("galleryList", galleryList);	
+			
+			return "community/otherPet";			
+		}	
 	}
 	
 	
@@ -169,22 +174,44 @@ public class CommunityController {
 		BoardVO article = boardService.getArticle(boardNo);
 		if(userId.equals(article.getWriter())) {
 			model.addAttribute("article", article);
+			model.addAttribute("hashtagList", article.getHashtagList()); //해시태그 리스트
 			model.addAttribute("p", paging);
 			return "community/boardModify"; 
-		}else {
+		}else {  // 타계정 게시물 접근 방지
 			ra.addFlashAttribute("msg", "noAuthority");
-			// 이건 리다이렉트??
+			return "redirect:/community/list";
 		}
 		
-		
-	
-		
-		return "community/boardModify";  // 이것도 조정해야지ㅠ
 	}
 	
 	
 	
 	
+	// 게시물 수정 요청
+	@PostMapping("/modify")
+	public String modify(BoardVO article, RedirectAttributes ra) { 
+		System.out.println("번 게시물 수정 요청 : POST");
+		boardService.update(article);
+		ra.addFlashAttribute("msg", "modSuccess");
+		return "redirect:/community/content/" + article.getBoardNo();
+	}
+	
+	
+	
+	
+	
+	// 게시글 삭제 요청
+	@PostMapping("/delete")
+	public String delete(Integer boardNo, PageVO paging, RedirectAttributes ra) {  
+		
+		System.out.println(boardNo + "번 게시물 삭제 요청");
+		boardService.delete(boardNo);
+		ra.addFlashAttribute("msg", "delSuccess");		
+		ra.addAttribute("page", paging.getPage());   
+		ra.addAttribute("countPerPage", paging.getCountPerPage());
+		
+		return "redirect:/community/list";
+	}
 	
 	
 	

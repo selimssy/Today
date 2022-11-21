@@ -36,9 +36,9 @@ ul{list-style: none;}
 
 
 #contents{width: 100%; /*height: 800px;*/ margin-top: 100px;}
-#tabMenu{width: 100%; height: 100%;}
+#tabMenu{width: 100%; /*height: 100%;*/ min-height:300px}
 #tabMenu input[type="radio"]{display: none;}
-#tabMenu label{width: 40%; display: inline-block; margin: 0; color: #aaa; 
+#tabMenu label{width: 44.5%; display: inline-block; margin: 0; color: #aaa; 
     padding: 15px 25px; text-align: center; border: 1px solid transparent;}
 #tabMenu label:hover{color: #222; cursor: pointer;}
 #tabMenu input:checked + label{color: #b00; border: 1px solid #ddd; background: #eee;}

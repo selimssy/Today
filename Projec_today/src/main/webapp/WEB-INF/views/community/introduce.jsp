@@ -344,6 +344,13 @@
 	
 	
 	<script type="text/javascript">
+	
+		// 비공개 반려동물 접근 알림창
+		let msg = "${msg}"
+			if(msg === "closed"){
+				alert("비공개 반려동물입니다.")
+			}
+		
 		
 		// 반려동물 카드 hover 이벤트
 		$(".cardBody").hover(function(){

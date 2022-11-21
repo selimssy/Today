@@ -67,7 +67,7 @@
 			<!-- 이전 버튼 -->
 			<c:if test="${pc.prev}">
 		        <li class="page-item">
-					<a class="page-link" href="<c:url value='/diary/list${pc.makeURI(pc.beginPage - 1)}'/>" 
+					<a class="page-link" href="<c:url value='/community/list${pc.makeURI(pc.beginPage - 1)}'/>" 
 					style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
 				</li>
 			</c:if>
@@ -75,14 +75,14 @@
 			<!-- 페이지 버튼 -->
 			<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 				<li class="page-item">                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-				   <a href="<c:url value='/diary/list${pc.makeURI(pageNum)}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
+				   <a href="<c:url value='/community/list${pc.makeURI(pageNum)}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
 				</li>
 			</c:forEach>
 			  
 		   <!-- 다음 버튼 -->
 		   <c:if test="${pc.next}">
 			   <li class="page-item">
-			       <a class="page-link" href="<c:url value='/diary/list${pc.makeURI(pc.endPage + 1)}'/>" 
+			       <a class="page-link" href="<c:url value='/community/list${pc.makeURI(pc.endPage + 1)}'/>" 
 			       style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
 			   </li>
 		   </c:if>
@@ -100,7 +100,7 @@
                           <option value="title" ${param.condition == 'title' ? 'selected' : ''}>제목</option>
                           <option value="content" ${param.condition == 'content' ? 'selected' : ''}>내용</option>
                           <option value="titleContent" ${param.condition == 'titleContent' ? 'selected' : ''}>제목+내용</option>
-                          <option value="hashtag" ${param.condition == 'hashtag' ? 'selected' : ''}>제목+내용</option>
+                          <option value="hashtag" ${param.condition == 'hashtag' ? 'selected' : ''}>해시태그</option>
                       </select>
                   </div>
                   <div class="form-group col-sm-4">
@@ -126,8 +126,8 @@
 	
 	<script type="text/javascript">
 	
-		// 글쓰기 성공시 띄울 알림창
-		const result = "${msg}"
+		// 알림창
+		let result = "${msg}"
 		
 		if(result === "regSuccess"){
 			alert("게시물 등록이 완료되었습니다.")
@@ -135,6 +135,11 @@
 			alert("게시물이 삭제되었습니다.")
 		}
 		
+		//수정 불가페이지 접근 알림창
+		let msg = "${msg}"
+		if(msg === "noAuthority"){
+			alert("권한이 없습니다.")
+		}
 		
 		
 		

@@ -39,13 +39,14 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 
     <div class="boardBox">    	
         <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>게시글 수정</h2>
-        <form action="<c:url value='/community/write'/>" method="post" name="writeForm">
+        <form action="<c:url value='/community/modify'/>" method="post" name="writeForm">
+        	<input type="hidden" name="boardNo" value="${article.boardNo}">
             <input type="hidden" name='writer' value="${login.userId}" >
             <div class="titleBox">
-            	<input type="text" name='title' placeholder="제목을 입력하세요." required="required">
+            	<input type="text" name='title' required="required" value="${article.title}">
 			</div>
 			<div>	     
-	            <textarea name='content' id="ckeditor1"></textarea>
+	            <textarea name='content' id="ckeditor1">${article.content}</textarea>
 	        </div>
 				
 		    <script type="text/javascript">
@@ -59,6 +60,15 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    
 	     
 	        <div id="tag_container">
+	        	<c:if test="${hashtagList.size() > 0}">
+            		<c:forEach var="hashtag" items="${hashtagList}">						
+						<span class='tagbox'>
+					        <span>#</span>${hashtag}
+					        <span><button class='del_tag'>x</button></span>
+					        <input type='hidden' name='hashList' value='${hashtag}'>
+					    </span> 					
+					</c:forEach>
+            	</c:if>
 	            <span id="tagbox">
 	                <span>#</span>
 	                <input type="text" id="tag_input" placeholder="태그입력">
@@ -68,7 +78,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    
 		    
 			<div class="writenav">
-				<input type="submit" value="등록">
+				<input type="submit" value="저장">
 				<button>취소</button>
 			</div>
 			

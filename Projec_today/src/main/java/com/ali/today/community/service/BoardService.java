@@ -35,6 +35,11 @@ public class BoardService implements IBoardService {
 	// 게시글 수정
 	@Override
 	public void update(BoardVO article) {
+		
+		String[] hashtagList = article.getHashList();
+		String hashtag = Arrays.toString(hashtagList);
+		article.setHashtag(hashtag);
+		
 		mapper.update(article);
 	}
 	
@@ -53,7 +58,8 @@ public class BoardService implements IBoardService {
 		mapper.updateViewCnt(boardNo); // 여기서 조회수 증가
 		
 		// 해시태그 작업
-		BoardVO article = mapper.getArticle(boardNo);	
+		BoardVO article = mapper.getArticle(boardNo);
+		System.out.println(article.getHashtag());
 		String str = article.getHashtag();
 		String str2 = str.replaceAll("[\\[\\]]", ""); // 대괄호 제거
 		String [] list = str2.trim().split("\\s*,\\s*"); // 공백 제거 후 분리

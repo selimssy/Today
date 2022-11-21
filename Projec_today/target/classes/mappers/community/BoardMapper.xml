@@ -47,7 +47,7 @@
 		OR content LIKE CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="condition == 'hashtag'">
-		WHERE hashtag LIKE CONCAT('%',#{hashtag},'%')
+		WHERE hashtag LIKE CONCAT('%',#{keyword},'%')
 		</if>
 	</sql>
 	
@@ -62,7 +62,7 @@
 	<!-- 게시글 수정 -->
 	<update id="update">
 		UPDATE board
-		SET title = #{title}, content = #{content}, writer = #{writer}, hashtag = #{hashtag}
+		SET title = #{title}, content = #{content}, hashtag = #{hashtag}
 		WHERE board_no = #{boardNo}
 	</update>
 	
