@@ -24,7 +24,7 @@
         .openUCard{width: 125px; height: 50px; margin-top: 35px; border: none; border-radius: 7px; font-size: 32px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
         .closeUCard{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
         .uploadCard input[type=submit]{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
-        .uploadCardBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
+        #uploadCardBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
         .lifeCardInfo{width: 350px; padding-top: 20px;}
         .lifeCardInfo input[type=date]{width: 230px; font-size: 18px; font-family: "NanumSquare","맑은 고딕", sans-serif; text-align: center; margin-left: 65px;}        
         .InfoList{width: 350px; height: 165px; background: #fff; border-radius: 10px; margin-top: 25px;  box-sizing: border-box;}
@@ -79,10 +79,10 @@
 	
 	        <div><button class="openUCard">+ 기록추가</button></div>
 	
-			<form action="<c:url value='/mypet/uploadCard'/>" method="post" enctype="multipart/form-data">
+			
 	        	<div class="uploadCard">        	
-		            <!--  <input type="submit" value="등록"> -->
-		            <button class="uploadCardBtn">등록</button>
+		            
+		            <button id="uploadCardBtn">등록</button>
 		            <button class="closeUCard">접기</button>
 		            <div class="flex-container">       
 		                <div class="wrapper">
@@ -94,14 +94,14 @@
 		                </div>
 		            </div>
 		            <div class="lifeCardInfo">
-		            	<input type="hidden" name="petId" value="${login.pet.petId}">
+		            	
 		                <input type="date" id="date" name="Ldate" required>
 		                <div class="InfoList">
 		                    <textarea name="content" id="lifetimeCont" required placeholder="특별한 순간의 설명을 적어주세요."></textarea>
 		                </div>  
 		            </div>		    	       
 	        	</div>
-			</form> 
+			 
 	
 	        <!--
 	        <div class="lifetimeCard">
@@ -246,28 +246,25 @@
 	     
 	     
 	     
-	    // 생애 기록 추가 이벤트    
-        $(".uploadCardBtn").click(function(){
-        	//enter키 누르면 <br>
-	   	    let content = $("#lifetimeCont").val();
-	   	 	console.log(content);
-	   	 	//content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
-	   	 	console.log(content);
-        	
+	   // 생애기록 카드 이벤트    
+        $("#uploadCardBtn").click(function(){
             //formData 객체 생성
             let formData = new FormData();
-        	formData.append("lifetimeImg", $("input[name=file]")[0].files[0]);
-        	//formData.append("Ldate", $("input[name=Ldate]").val());
-        	let Ldate = {"Ldate": $("input[name=Ldate]").val()}
-        	// 넘겨줄 생애기록 카드 데이터
-        	let lifetimeData = {
+        	formData.append("petImg", $("input[name=file]")[0].files[0]);
+        	
+        	// 넘겨줄 반려동물 데이터
+        	//enter => <br>
+			let text = $("#lifetimeCont").val();
+			text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        	
+        	let petData = {
         			"petId": "${login.pet.petId}",
-        			"content": $("#lifetimeCont").val()
+        			"content": text,
+        			"date": $("#date").val()
         	}
         	
-        	// formData에 json타입으로 lifetimeData 추가
-        	formData.append("lifetimeData", new Blob([ JSON.stringify(lifetimeData)], {type : "application/json"}));
-        	formData.append("Ldate", new Blob([ JSON.stringify(Ldate)], {type : "application/json"}));
+        	// formData에 json타입으로 petData 추가
+        	formData.append("petData", new Blob([ JSON.stringify(petData) ], {type : "application/json"}));
         	
         	// ajax 처리
         	$.ajax({
@@ -284,14 +281,14 @@
                           alert("생애 기록이 추가되었습니다.");
                           window.location.reload();
                       } else {
-                          alert("생애기록 추가에 실패했습니다.");
+                          alert("생애 기록 등록에 실패했습니다.");
                       }
                   }, 
                   error: function() {
-                      console.log("통신 실패!");
+                	  alert("생애 기록 등록에 실패했습니다.");
                   } 
         	});
-        })
+        })   
 	     
 	     
 	     

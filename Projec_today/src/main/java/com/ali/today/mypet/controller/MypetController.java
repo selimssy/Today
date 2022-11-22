@@ -51,37 +51,8 @@ public class MypetController {
 	}
 	
 	
-	//생애기록 추가
-	//@ResponseBody
-	@PostMapping("/uploadCard")
-	public String registerPet(
-			@RequestPart(value="lifetimeData",required = false) LifetimeVO lifetimeVO, HttpServletRequest request,
-			@RequestPart(value = "lifetimeImg",required = false) MultipartFile file,
-			@RequestPart(value="Ldate",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws Exception {
-		
-		System.out.println(lifetimeVO.toString());
-		
-		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/lifetimeCard"); //저장경로
-		
-		//파일 원본 이름 저장
-        String originalName = file.getOriginalFilename();     
-        // uuid 생성 
-        UUID uuid = UUID.randomUUID();     
-        //savedName 변수에 uuid + 원래 이름 추가
-        String savedName = uuid.toString() + "_" + originalName;      
-        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-        File target = new File(uploadPath, savedName);      
-        //fileData의 내용을 target에 복사함
-        FileCopyUtils.copy(file.getBytes(), target);
-        originalName = savedName;
-        
-        lifetimeVO.setImagePath("/resources/images/lifetimeCard/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
-        lifetimeVO.setDate(date);
-		
-        service.insertCard(lifetimeVO);
-        
-		return "success";
-	}
+	
+
 	
 	/*
 	// 생애기록 추가
