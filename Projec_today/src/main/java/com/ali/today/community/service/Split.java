@@ -20,6 +20,12 @@ public class Split {
 			System.out.println(list2[i]);
 			}
 		
+		
+		
+		String[] lists = {"안녕 루퐁이", "만나서 반가워"};
+		System.out.println(lists[0]);
+		
+		
 	}
 
 }

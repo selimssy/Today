@@ -44,7 +44,7 @@
         .submenu .submenu_list li:last-child a {padding-right:0;}
         .submenu .submenu_list li a.on {color:#fff;}
     
-        .siteInfo{width: 1200px; height: 450px; background-image: url(/today/img/common/mainbg1.png); margin: 0 auto;  position: relative;}
+        
         .infoText{position: absolute; top: 150px; left: 100px; z-index: 999;}
         .infoText p:nth-of-type(1){font-size: 84px; font-family: 'Nanum Pen Script';}
         .infoText p:nth-of-type(2){font-size: 36px; font-family: 'Nanum Pen Script';}
@@ -55,6 +55,9 @@
         .siteNav ul li.checked{border-bottom: 2px solid #7AB730;}
         .siteNav ul li a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
         .siteNav ul li.checked a{color: #7AB730;}
+        
+        /*이것만 변경*/
+		.siteInfo{width: 1200px; height: 450px; background-image: url(/today/img/common/mainbg1.png); margin: 0 auto;  position: relative;}
 
 
         .otherWrap{width: 1200px; margin: 0 auto; padding-left: 200px;}

@@ -1,6 +1,8 @@
 package com.ali.today.mypet.model;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class LifetimeVO {
 	
@@ -9,6 +11,7 @@ public class LifetimeVO {
 	private Date date;
 	private String content;
 	private String imagePath;
+	
 	
 	
 	
@@ -43,15 +46,12 @@ public class LifetimeVO {
 		this.imagePath = imagePath;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "LifetimeVO [cardId=" + cardId + ", petId=" + petId + ", date=" + date + ", content=" + content
 				+ ", imagePath=" + imagePath + "]";
-	}
+	}	
 	
-	
-
 	
 	
 }

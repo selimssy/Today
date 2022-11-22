@@ -44,7 +44,6 @@
         .submenu .submenu_list li:last-child a {padding-right:0;}
         .submenu .submenu_list li a.on {color:#fff;}
     
-        .siteInfo{width: 1200px; height: 450px; background-image: url(/today/img/common/mainbg1.png); margin: 0 auto;  position: relative;}
         .infoText{position: absolute; top: 150px; left: 100px; z-index: 999;}
         .infoText p:nth-of-type(1){font-size: 84px; font-family: 'Nanum Pen Script';}
         .infoText p:nth-of-type(2){font-size: 36px; font-family: 'Nanum Pen Script';}
@@ -56,37 +55,15 @@
         .siteNav ul li a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
         .siteNav ul li.checked a{color: #7AB730;}
 
-
         .otherWrap{width: 1200px; margin: 0 auto; padding-left: 200px;}
         .otherP{width: 1200px; height: 155px; border-left: 5px solid #7AB730; margin: 120px 0 120px;  padding-left:55px}
         .otherP p{font-size: 42px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/}
         .otherP h1{font-size: 60px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:5px; word-spacing:7px*/}
         .otherP p:last-of-type{font-size: 85px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:3px; word-spacing:5px;*/ color: #000;}
         
-        .mainContent{width: 1000px; margin: 0 auto; min-height: 250px;}
-        .mainContent .conTitle{width: 1000px; margin: 0 auto; background:#BBD996;}
-        .mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
-        .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
-        .mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}
-    
-        .uploadCard{/*display: none;*/ width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly;}
-        .openUCard{display: none; width: 125px; height: 50px; margin-top: 35px; border: none; border-radius: 7px; font-size: 32px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
-        .closeUCard{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
-        .uploadCardBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
-        .lifeCardInfo{width: 350px; padding-top: 20px;}
-        .lifeCardInfo input[type=date]{width: 230px; font-size: 18px; font-family: "NanumSquare","맑은 고딕", sans-serif; text-align: center; margin-left: 65px;}
-        .lifeCardInfo input[type=text]{width: 100%; border: 2px solid #eee; font-size: 21px; font-family: 'Nanum Pen Script'}
-        .InfoList{width: 350px; height: 165px; background: #f3f3f3; border-radius: 10px; margin-top: 25px; padding: 10px 30px; box-sizing: border-box;}
-        .InfoList ul{padding-left: 10px;}
-        .InfoList ul li{margin: 30px 0;}
         
 
-        /*footer*/
-        footer{width: 1200px; margin: 30px auto; border-top: 2px solid #222;}
-        #bottomMenu{list-style: none; margin: 10px 10px 10px 30px;}
-        #bottomMenu li{display: inline-block; margin: 10px 0; border-right: 1px solid #aaa; padding: 0 10px;}
-        #bottomMenu li:last-child{border:none}
-        #bottomMenu li a{text-decoration: none; color: #333;}
+        
 
 
         /* 파일업로드(사이즈, btn 제외 중복) */
@@ -99,10 +76,10 @@
 </head>
 <body>
     
-<div class="container">
+
     <header id="header">
 		<div class="header_innerBox">	
-			<h1><a href="javascript:;">Tourist in tour</a></h1>
+			<h1><a href="javascript:;">오늘의 너</a></h1>
 			<!-- 모바일메뉴
 			<p class="openMOgnb"><a href="#"><b class="hdd">메뉴</b> <span></span><span></span><span></span></a></p>
 			-->
@@ -158,137 +135,20 @@
 	</header>
 
 
-    <main>
-        <div class="siteInfo">
-            <div class="infoText">
-                <p>반려견 생애 기록</p>
-                <p>잊을 수 없는 너의 특별했던 순간</p>
-            </div>
-        </div>
-        <div class="siteNav">
-            <a href="#"><div class="homeLogo">1</div></a>
-            <ul>
-                <li class="checked"><a href="#">반려견 생애 기록</a></li>
-                <li><a href="#">갤러리</a></li>
-            </ul>
-        </div>
-
-        <div class="otherWrap">
-            <div class="otherP">
-                <P>기억하고 싶은 너의 시간</P>
-                <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
-                <p>우리 아이의 특별했던 순간들</p>
-        </div>
-        </div>
-
-
-        <div class="mainContent">
-            <div class="conTitle">
-                <div class="contWrap">
-                    <div class="contImg">img</div>
-                    <span>짜장이 생애 기록</span>
-                </div>
-            </div>
-
-            <div><button class="openUCard">+ 기록추가</button></div>
-
-            <div class="uploadCard">
-                <button class="uploadCardBtn">등록</button>
-                <button class="closeUCard">접기</button>
-                <div class="flex-container">       
-                    <div class="wrapper">
-                        <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
-                        <label for="file" class="upload-btn">
-                            <input id="file" type="file" accept="image/*" />
-                            <span>Upload Image</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="lifeCardInfo">
-                    <input type="date" required>
-                    <div class="InfoList">
-                        <ul>
-                            <li><input type="text" required></li>
-                            <li><input type="text"></li>
-                        </ul>
-                    </div>  
-                </div>
-            </div>
-
-
-            <!--
-            <div class="lifetimeCard">
-                <button class="modifyCardBtn">수정</button>
-                <button class="deleteCardBtn">삭제</button>   
-                <div class="petImage">
-                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="220px" height="220px" />
-                </div>
-                <div class="lifeCardInfo">
-                    <p>2020.01.01</p>
-                    <div class="InfoList">
-                        <ul>
-                            <li>처음 만난 날</li>
-                            <li>가족이 된 꼬물이</li>
-                        </ul>
-                    </div>  
-                </div>
-            </div>
-            -->
 
 
 
-        </div>
-
-    </main>
+    
 
 
-    <footer>
+
+
+
+
+
+<script type="text/javascript">
+
         
-        <ul id="bottomMenu">
-            <li><a href="#">회사 소개</a> </li>
-            <li><a href="#">개인정보 처리방침</a> </li>
-            <li><a href="#">여행 약관</a> </li>
-            <li><a href="#">사이트맵</a> </li>
-        </ul>
-            <h5>투어리스트인투어</h5>
-            <p class="addr">서울특별시 종로구 혜화동 9길 청운빌딩 5층 <span class="gubun">/</span>        
-				<span class="br_line">대표전화 <span class="space0">02-1234-5678</span> <span class="gubun">/</span>        
-					<span class="br_line">E-mail : <span class="space0"> titour@touristintour.com</span></span>
-				</span>
-			</p>
-			<p class="copy box_inner">Copyright(c) TouristInTour all right reserved</p>
-      </footer>
-
-
-
-</div>
-
-
-
-<script>
-
-        // 등록카드 여닫기
-        $(".openUCard").click(function(){           
-            $(".uploadCard").css("display","flex");
-            $(".uploadCard").css("justify-content","space-evenly");
-            $(this).css("display","none");
-        })
-
-        $(".closeUCard").click(function(){
-            $(".uploadCard").css("display","none");
-            $(".openUCard").css("display","inline-block");
-        })
-
-
-        // 파일업로드(중복!!)
-        const fileDOM = document.querySelector('#file');
-        const previews = document.querySelectorAll('.image-box');
-
-        fileDOM.addEventListener('change', () => {
-        const imageSrc = URL.createObjectURL(fileDOM.files[0]);
-        previews[0].src = imageSrc;
-        });
-
 
 
     let isOver1 = [false, false, false, false]
