@@ -129,6 +129,14 @@ public class CommunityController {
 		return "community/boardWrite";
 	}
 	
+	// 글쓰기 화면 띄우기 요청
+		@GetMapping("/header")
+		public String write() {
+
+			
+			return "common/header";
+		}
+	
 	
 	
 	// 글쓰기 처리 요청
