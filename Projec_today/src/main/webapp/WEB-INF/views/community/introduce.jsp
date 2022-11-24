@@ -530,6 +530,14 @@
         
         
         
+        // 파일 업로드(중복)
+        const fileDOM = document.querySelector('#file');
+        const previews = document.querySelectorAll('.image-box');
+
+        fileDOM.addEventListener('change', () => {
+        const imageSrc = URL.createObjectURL(fileDOM.files[0]);
+        previews[0].src = imageSrc;
+        });
                 
 
         

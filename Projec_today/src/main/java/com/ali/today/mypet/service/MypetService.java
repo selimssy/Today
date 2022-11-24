@@ -52,4 +52,18 @@ public class MypetService implements IMypetService {
 		return gmapper.getGalleryList(petId); // 페이징처리 후 수정하자~
 	}
 
+	
+	// 특정 생애카드 조회
+	@Override
+	public LifetimeVO getLifeCard(Integer cardId) {
+		return mapper.getLifeCard(cardId);
+	}
+
+	
+	// 생애카드 수정
+	@Override
+	public void updateCard(LifetimeVO lifetime) {
+		mapper.updateCard(lifetime);
+	}
+
 }

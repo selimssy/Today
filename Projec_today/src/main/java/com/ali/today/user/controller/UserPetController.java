@@ -86,10 +86,12 @@ public class UserPetController {
 	        FileCopyUtils.copy(file.getBytes(), target);
 	        originalName = savedName;        
 	        pet.setImagePath("/resources/images/petRegister/" + originalName);
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			// 사진 변경 안했을 경우
 			UserVO user = (UserVO)session.getAttribute("login");
-			pet.setImagePath(user.getPet().getImagePath());			
+			Integer petId = user.getPet().getPetId();
+			String originalImage = service.selectOnePet(petId).getImagePath();
+			pet.setImagePath(originalImage);			
 		}
 		
         service.modifyPet(pet);

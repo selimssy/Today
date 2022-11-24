@@ -23,6 +23,15 @@
 	</insert>
 	
 	
+	
+	<!-- 특정 생애기록 카드 조회 -->
+	<select id="getLifeCard" resultMap="MypetMap">
+		SELECT * FROM lifetime_card
+		WHERE card_id = #{cardId}
+	</select>
+	
+	
+	
 	<!-- 특정 반려동물 생애기록 전체조회 -->
 	<select id="getLifetimeCardList" resultMap="MypetMap">
 		SELECT * FROM lifetime_card
@@ -30,5 +39,13 @@
 		ORDER BY date
 	</select>
 	
+	
+	
+	<!-- 생애기록 카드 수정 -->
+	<update id="updateCard">
+		UPDATE lifetime_card
+		SET date = #{date}, content = #{content}, image_path = #{imagePath}
+		WHERE card_id = #{cardId}
+	</update>
 	
 </mapper>

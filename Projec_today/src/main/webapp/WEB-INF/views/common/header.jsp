@@ -56,7 +56,7 @@
         .siteNav ul li.checked a{color: #7AB730;}
 
         .otherWrap{width: 1200px; margin: 0 auto; padding-left: 200px;}
-        .otherP{width: 1200px; height: 155px; border-left: 5px solid #7AB730; margin: 120px 0 120px;  padding-left:55px}
+        .otherP{width: 1200px; height: 155px; border-left: 5px solid #7AB730; margin: 120px 0 120px;  padding-left:55px;}
         .otherP p{font-size: 42px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/}
         .otherP h1{font-size: 60px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:5px; word-spacing:7px*/}
         .otherP p:last-of-type{font-size: 85px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:3px; word-spacing:5px;*/ color: #000;}
@@ -69,9 +69,9 @@
         /* 파일업로드(사이즈, btn 제외 중복) */
         .flex-container {display: flex;}
         .wrapper {text-align: center;flex-grow: 1;}        
-        .image-box {width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
+        .image-box, #mdImage-box {width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
         .upload-btn {font-size: 18px; border: 1px solid #ddd; padding:10px 20px;display: inline-block; cursor: pointer; }
-        .upload-btn input[type=file] {display: none;}
+        .upload-btn input[type=file] {display:none}
     </style>
 </head>
 <body>

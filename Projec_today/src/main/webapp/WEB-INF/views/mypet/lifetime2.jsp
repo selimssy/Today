@@ -20,7 +20,7 @@
         .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
         .mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}
     
-        .uploadCard, .modifyCard{display: none; width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
+        .uploadCard{display: none; width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
         .openUCard{width: 125px; height: 50px; margin-top: 35px; border: none; border-radius: 7px; font-size: 32px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
         .closeUCard, .mdcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
         .uploadCard input[type=submit]{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
@@ -42,15 +42,13 @@
     	.cardInfo{width:350px; height: 200px; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
     	.cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
     	.InfoText{background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-    	.modifyCard{display:none; /*width: 550px; height: 320px;*/ background:#fff; border: 3.5px solid #777; /*border-radius: 15px; padding: 15px; */
-    	/*position: relative; display: flex; justify-content: space-evenly; margin: 50px auto; box-sizing: border-box;*/ 
-    	position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;}
-    	/*.modifyCard img{width: 200px; height: 200px; object-fit: cover; display: block; margin: 20px auto;}
+    	.modifyCard{width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #777; border-radius: 15px; padding: 15px; position: relative; display: flex; justify-content: space-evenly; box-sizing: border-box;}
+    	.modifyCard img{width: 200px; height: 200px; object-fit: cover;}
     	.modifyCard textarea{width: 280px; height: 145px}
     	.modifyCard .lifeCardInfo, .modifyCard .InfoList{width: 280px;}
     	.modifyCard input[type=date]{width:200px; margin-left: 35px}
     	.modifyCard button{width:55px; height:28px}
-    	.modifyCard button:nth-of-type(1){position: absolute; right: 80px}*/
+    	.modifyCard button:nth-of-type(1){position: absolute; right: 80px}
     </style>
 </head>
 
@@ -99,8 +97,8 @@
 		            <div class="flex-container">       
 		                <div class="wrapper">
 		                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
-		                    <label for="file" class="upload-btn">
-		                        <input id="file" name="file" type="file" accept="image/*" />
+		                    <label for="Rgfile" class="upload-btn">
+		                        <input id="Rgfile" name="file" type="file" accept="image/*" />
 		                        <span>Upload Image</span>
 		                    </label>
 		                </div>
@@ -147,35 +145,10 @@
 		</div>	          
 	
 	</main>  
-	 
-	 
-	 
-	
 	  
 </div> 	
 	
-	<!-- 생애기록 수정 모달 -->
-	<div class="mdpop" style="position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
-	<div class="modifyCard">
-        <button href="" class="mdBtn">저장</button>
-        <button href="" class="mdcancle">취소</button>
-        <div class="flex-container">
-            <div class="wrapper">
-                <img src="" id="mdImage-box">
-                <label for="modifyFile" class="upload-btn">
-                    <input id="modifyFile" type="file" accept="image/*">
-                    <span>Upload Image</span>
-                </label>
-            </div>
-        </div>
-        <div class="lifeCardInfo">
-            <input type="date" id="modifydate" name="Ldate" value="" required>
-            <div class="InfoList">
-                <textarea name="content" id="modifyCont" required></textarea>
-            </div>
-        </div>
-    </div> 
-    
+
 
 
 <jsp:include page="../common/footer.jsp" />
@@ -184,7 +157,7 @@
 
 
      <script type="text/javascript">
-   
+     window.onload = function(){
     	  
     	 // 등록카드 여닫기
 	     $(".openUCard").click(function(){           
@@ -199,9 +172,9 @@
 	     })
      	
 	     
-	    /*
+	     
 	    // 파일업로드(추가)
-        const fileDOM = document.querySelector('#file');
+        const fileDOM = document.querySelector('#Rgfile');
         const previews = document.querySelectorAll('.image-box');
 
         $(document).on("change", fileDOM, function () {
@@ -212,35 +185,14 @@
         
         // 파일업로드(수정)
         const MdFileDOM = document.querySelector('#modifyFile');
-        const MdPreviews = document.querySelector('#mdImage-box');
+        const MdPreviews = document.querySelectorAll('.mdImage-box');
 		
         
         $(document).on("change", MdFileDOM, function () {
             let imageSrc = URL.createObjectURL(MdFileDOM.files[0]);
-            MdPreviews.src = imageSrc;
+            MdPreviews[0].src = imageSrc;
         })
-	    */
 	    
-	    
-	    
-	    const fileDOM = document.querySelector('#file');
-	    const previews = document.querySelectorAll('.image-box');
-
-	    fileDOM.addEventListener('change', () => {
-	      const reader = new FileReader();
-	      reader.onload = ({ target }) => {
-	        previews[0].src = target.result;
-	      };
-	      reader.readAsDataURL(fileDOM.files[0]);
-	    });
-
-	    const fileDOM2 = document.querySelector('#modifyFile');
-	    const MdPreviews = document.querySelector('#mdImage-box');
-
-	    fileDOM2.addEventListener('change', () => {
-    	  const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
-    	  MdPreviews.src = imageSrc;
-    	});
 	    
 	    
 	    
@@ -317,15 +269,10 @@
         
         // 생애기록 수정 불러오기 요청		
 		$(document).on("click", ".modifyCardBtn", function () {
-			
-			//$("#modifyFile")[0].reset();
-			$("#modifyFile").value = null;
-			$("#modifyCont").val("");
-			$("#modifydate").value = null;
-			
+
 			//초기화
-            //$(".modifyCard").remove();
-			//$(".lifetimeCard").css("display","flex").css("justify-content","space-evenly");
+            $(".modifyCard").remove();
+			$(".lifetimeCard").css("display","flex").css("justify-content","space-evenly");
 			
 		    let cardId = $(this).attr("href");
             console.log(cardId);
@@ -349,22 +296,14 @@
                 		let content = response['content'];
                 		content = content.replaceAll("<br>", "\r\n");
  
-                        //let temp_html = "<div class='modifyCard'><button href='" + cardId + "' class='mdBtn'>저장</button><button href='" + cardId + "' class='mdcancle'>취소</button><div class='flex-container'><div class='wrapper'><img src='" + imagePath + "' id='mdImage-box' /><label for='modifyFile' class='upload-btn'><input class='modifyFile' id='modifyFile' name='file' type='file' accept='image/*' /><span>Upload Image</span></label></div></div><div class='lifeCardInfo'><input type='date' id='modifydate' name='Ldate' value='" + date + "' required><div class='InfoList'><textarea name='content' id='modifyCont' required >" + content + "</textarea></div></div></div>";
+                        let temp_html = "<div class='modifyCard'><button href='" + cardId + "' class='mdBtn'>저장</button><button href='" + cardId + "' class='mdcancle'>취소</button><div class='flex-container'><div class='wrapper'><img src='" + imagePath + "' id='mdImage-box' /><label for='modifyFile' class='upload-btn'><input class='modifyFile' id='modifyFile' name='file' type='file' accept='image/*' /><span>Upload Image</span></label></div></div><div class='lifeCardInfo'><input type='date' id='modifydate' name='Ldate' value='" + date + "' required><div class='InfoList'><textarea name='content' id='modifyCont' required >" + content + "</textarea></div></div></div>";
 						
-                        //$("#card" + cardId).css("display","none");
-                        //$('#cardWrap' + cardId).append(temp_html);
-                        $(".mdpop").css("display","block");
-                        $(".modifyCard").css("display","flex").css("justify-content","space-evenly");
-                        $(".mdBtn").attr("href", cardId);
-                        $(".mdcancle").attr("href", cardId);
-                        $("#mdImage-box").attr("src", imagePath);
-                        $("#modifydate").attr("value", date);
-                        $("#modifyCont").val(content);
-                        
+                        $("#card" + cardId).css("display","none");
+                        $('#cardWrap' + cardId).append(temp_html);
                     
                 }, 
                 error: function() {
-                    console.log("통신 실패!"); 
+                    console.log("통신 실패!");
                 } 
             });
         })
@@ -376,8 +315,7 @@
         $(document).on("click", ".mdcancle", function () {
         	let cardId = $(this).attr("href");
         	$("#card" + cardId).css("display","flex").css("justify-content","space-evenly");
-        	$(".modifyCard").css("display","none");
-        	$(".mdpop").css("display","none");
+        	$(".modifyCard").remove();
         	//$("#cardWrap" + cardId + " .modifyCard").remove();
         })
         
@@ -443,7 +381,7 @@
         })
     	  
     	  
-      
+      }
       
 	  	 
         

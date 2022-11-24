@@ -1,16 +1,18 @@
 package com.ali.today.mypet.model;
 
-import java.util.Arrays;
+
 import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LifetimeVO {
 	
 	private Integer cardId;
 	private Integer petId;
-	private Date date;
 	private String content;
 	private String imagePath;
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date date;
 	
 	
 	

@@ -9,9 +9,22 @@ public interface IMypetService {
 	
 	// 생애기록 카드 추가
 	void insertCard(LifetimeVO LifetimeVO);  
-	
+		
+	// 특정 생애기록 카드 조회
+	LifetimeVO getLifeCard(Integer cardId);
+		
 	// 지정한 반려동물 생애기록 카드 목록 조회
 	List<LifetimeVO> getLifetimeCardList(Integer petId);
+	
+	// 생애기록 카드 수정
+	void updateCard(LifetimeVO lifetime);
+	
+	
+	
+	
+	
+	//////////////////////////////////////////////////////////////////////////
+	
 	
 	// 갤러리 사진 추가
 	void register(GalleryVO galleryVO);  

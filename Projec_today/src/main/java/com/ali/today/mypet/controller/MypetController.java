@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -51,7 +52,38 @@ public class MypetController {
 	}
 	
 	
-	
+	//생애기록 추가
+	@PostMapping("/uploadCard")
+	@ResponseBody
+	public String uploadCard(
+			@RequestPart(value = "petData") LifetimeVO lifetime, HttpServletRequest request,
+			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
+		
+		System.out.println(lifetime.toString());
+		
+			try { // 사진 업로드				
+				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/lifetimeCard"); //저장경로		
+				//파일 원본 이름 저장
+				String originalName = file.getOriginalFilename();     
+		        // uuid 생성 
+		        UUID uuid = UUID.randomUUID();     
+		        //savedName 변수에 uuid + 원래 이름 추가
+		        String savedName = uuid.toString() + "_" + originalName;      
+		        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
+		        File target = new File(uploadPath, savedName);      
+		        //fileData의 내용을 target에 복사함
+		        FileCopyUtils.copy(file.getBytes(), target);
+		        originalName = savedName;		        
+		        lifetime.setImagePath("/resources/images/lifetimeCard/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
+			
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
+			
+        service.insertCard(lifetime);
+        
+		return "success";
+	}
 
 	
 	/*
@@ -86,6 +118,54 @@ public class MypetController {
 	*/
 	
 	
+	// 생애기록 수정 화면 요청
+	@PostMapping("/modifyGet")
+	@ResponseBody
+	public LifetimeVO modifyGet(@RequestBody LifetimeVO lifetimeVO) {
+		
+		LifetimeVO card = service.getLifeCard(lifetimeVO.getCardId());	
+		return card;
+	}	
+	
+	
+	
+	
+	
+	//생애기록 수정
+		@PostMapping("/modifyCard")
+		@ResponseBody
+		public String modifyCard(
+				@RequestPart(value = "petData") LifetimeVO lifetime, HttpServletRequest request,
+				@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
+			
+				System.out.println(lifetime.toString());
+			
+				try { // 사진 업로드				
+					String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/lifetimeCard"); //저장경로		
+					//파일 원본 이름 저장
+					String originalName = file.getOriginalFilename();     
+			        // uuid 생성 
+			        UUID uuid = UUID.randomUUID();     
+			        //savedName 변수에 uuid + 원래 이름 추가
+			        String savedName = uuid.toString() + "_" + originalName;      
+			        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
+			        File target = new File(uploadPath, savedName);      
+			        //fileData의 내용을 target에 복사함
+			        FileCopyUtils.copy(file.getBytes(), target);
+			        originalName = savedName;		        
+			        lifetime.setImagePath("/resources/images/lifetimeCard/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
+				
+				} catch (NullPointerException e) { // 사진 변경 안할 경우
+					String originalImage = service.getLifeCard(lifetime.getCardId()).getImagePath();
+					lifetime.setImagePath(originalImage);
+					e.getMessage();
+				}
+			
+			System.out.println(lifetime.toString());	
+	        service.updateCard(lifetime);
+	        
+			return "success";
+		}
 	
 	
 	
@@ -102,6 +182,12 @@ public class MypetController {
 		model.addAttribute("galleryList", list);
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
