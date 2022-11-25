@@ -33,6 +33,8 @@ import com.ali.today.community.model.BoardVO;
 import com.ali.today.community.model.ReplyVO;
 import com.ali.today.community.service.IBoardService;
 import com.ali.today.diary.model.DiaryVO;
+import com.ali.today.mypet.model.GalleryPageCreator;
+import com.ali.today.mypet.model.GalleryPageVO;
 import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
 import com.ali.today.mypet.service.IMypetService;
@@ -76,7 +78,7 @@ public class CommunityController {
 	
 	// 다른 반려동물 보러 놀러가기 요청
 	@GetMapping("/otherPet/{petId}")
-	public String otherPet(@PathVariable Integer petId, Model model, RedirectAttributes ra) {
+	public String otherPet(@PathVariable Integer petId, GalleryPageVO paging, Model model, RedirectAttributes ra) {
 		
 		PetVO pet = userService.selectOnePet(petId);
 		if(pet.getOpen() == 0) {  // 비공개 반려동물 접근 방지
@@ -84,11 +86,16 @@ public class CommunityController {
 			return "redirect:/community/intro";
 		}else {
 			List<LifetimeVO> cardList = mypetService.getLifetimeCardList(petId);
-			List<GalleryVO> galleryList = mypetService.getGalleryList(petId);
+			List<GalleryVO> galleryList = mypetService.getGalleryList(petId, paging);
+			
+			GalleryPageCreator pc = new GalleryPageCreator();
+			pc.setPaging(paging);
+			pc.setArticleTotalCount(mypetService.countGalleries(petId));
 			
 			model.addAttribute("pet", pet);
 			model.addAttribute("cardList", cardList);
 			model.addAttribute("galleryList", galleryList);	
+			model.addAttribute("pc", pc);
 			
 			return "community/otherPet";			
 		}	

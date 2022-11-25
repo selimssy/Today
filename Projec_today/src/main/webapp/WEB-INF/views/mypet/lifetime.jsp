@@ -14,9 +14,9 @@
         .container{width: 100%; margin: 0 auto;}
         /*배경 변경*/
         /*.siteInfo{width: 1200px; height: 450px; background-image: url(/today/img/common/mainbg1.png); margin: 0 auto;  position: relative;}*/      
-		.siteInfo{width: 1000px; height: 375px; background-image: url(/today/img/common/mainbg2.png); margin: 0 auto;  position: relative;}      
-        .mainContent{width: 1000px; margin: 0 auto; min-height: 160px;}
-        .mainContent .conTitle{width: 800px; margin: 0 auto; background:#BBD996;}
+		.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}      
+        .mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
+        .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; /*margin-right:25px;padding-right:100px;*/ box-sizing: border-box;}
         .mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
         .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
         .mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ali.today.mypet.model.GalleryPageCreator;
+import com.ali.today.mypet.model.GalleryPageVO;
 import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
 import com.ali.today.mypet.service.IMypetService;
@@ -184,14 +186,18 @@ public class MypetController {
 	
 	// 내 반려동물 갤러리 조회
 	@GetMapping("/gallery")
-	public void gallery(HttpSession session, Model model) {
+	public void gallery(HttpSession session, GalleryPageVO paging, Model model) {
 			
 		UserVO user = (UserVO)session.getAttribute("login");
-
-		Integer petId = user.getPet().getPetId();
+		Integer petId = user.getPet().getPetId();		
+		List<GalleryVO> list = service.getGalleryList(petId, paging);
 		
-		List<GalleryVO> list = service.getGalleryList(petId);
+		GalleryPageCreator pc = new GalleryPageCreator();
+		pc.setPaging(paging);
+		pc.setArticleTotalCount(service.countGalleries(petId));
+		
 		model.addAttribute("galleryList", list);
+		model.addAttribute("pc", pc);
 		
 	}
 	
@@ -273,6 +279,56 @@ public class MypetController {
 		GalleryVO galleryVO = service.getOneGallery(gallery.getImgId());	
 		return galleryVO;
 	}	
+	
+	
+	
+	
+	//갤러리 수정
+	@PostMapping("/modifyGallery")
+	@ResponseBody
+	public String modifyGallery(
+			@RequestPart(value = "petData") GalleryVO gallery, HttpServletRequest request,
+			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
+		
+			System.out.println(gallery.toString());
+		
+			try { // 사진 업로드				
+				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/gallery"); //저장경로		
+				//파일 원본 이름 저장
+				String originalName = file.getOriginalFilename();     
+		        // uuid 생성 
+		        UUID uuid = UUID.randomUUID();     
+		        //savedName 변수에 uuid + 원래 이름 추가
+		        String savedName = uuid.toString() + "_" + originalName;      
+		        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
+		        File target = new File(uploadPath, savedName);      
+		        //fileData의 내용을 target에 복사함
+		        FileCopyUtils.copy(file.getBytes(), target);
+		        originalName = savedName;		        
+		        gallery.setImagePath("/resources/images/gallery/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
+			
+			} catch (NullPointerException e) { // 사진 변경 안할 경우
+				String originalImage = service.getOneGallery(gallery.getImgId()).getImagePath();
+				gallery.setImagePath(originalImage);
+				e.getMessage();
+			}
+
+        service.modifyGallery(gallery);
+        
+		return "success";
+	}
+	
+	
+	
+	
+	// 갤러리 삭제
+	@PostMapping("/deleteGallery")
+	@ResponseBody
+	public String deleteGallery(@RequestBody GalleryVO gallery) {
+		service.deleteGallery(gallery.getImgId());
+		return "success";
+	}	
+	
 	
 	
 }

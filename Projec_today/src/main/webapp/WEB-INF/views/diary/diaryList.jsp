@@ -9,12 +9,46 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
+	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
+
 	.page-active{
 		background-color: #ff52a0;
 	}
 </style>
 </head>
 <body>
+<div class="container">   
+	<jsp:include page="../common/header.jsp" />
+	<main>
+	
+		<div class="siteInfo">
+	        <div class="infoText">
+	            <p>견주 다이어리</p>
+	            <p>네가 있기에 여전히 아름다운 오늘</p>
+	        </div>
+	    </div>
+	    <div class="siteNav">
+	        <a href="#"><div class="homeLogo">1</div></a>
+	        <ul>
+	            <li><a href="#">캘린더</a></li>
+	            <li class="checked"><a href="#">견주 다이어리</a></li>
+	        </ul>
+	    </div>
+	
+	    <div class="otherWrap" style="width: 1150px;">
+	        <div class="otherP">
+	            <P>너와의 오늘, 우리의 시간</P>
+	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
+	            <p>'너'이기에 행복한 견주의 일기</p>
+	    	</div>
+	    </div>
+	    
+	    
+	    
+	</main>
+	
+	
+</div>	
 	
 	
 	<div>
@@ -178,6 +212,6 @@
 		
 	
 	</script>
-	
+<jsp:include page="../common/footer.jsp" /> 	
 </body>
 </html>

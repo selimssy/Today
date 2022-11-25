@@ -8,31 +8,38 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-.siteInfo{width: 1000px; height: 375px; background-image: url(/today/img/common/mainbg2.png); margin: 0 auto;  position: relative;}       
-.mainContent{width: 1000px; margin: 0 auto; min-height: 160px;}
-.mainContent .conTitle{width: 1000px; margin: 0 auto; background:#BBD996;}
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}       
+.mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
+.mainContent .conTitle{width: 950px; margin: 0 auto; background:#BBD996;}
 .mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
 .mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}
-.openUCard{width: 95px; height: 40px; margin: 45px 15px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
+.openUGCard{width: 95px; height: 40px; margin: 45px 15px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
 
-.galleryBox{width:100%; min-height:435px; height:1500px; padding: 40px 25px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
-.gcardWrap{/*width: 33%;*/width:300px; height:340px; background:#fff; float: left; padding:10px; margin:0 25px 50px 0; border:none; box-sizing: border-box;}
+.galleryBox{width:100%; min-height:500px; height:1760px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+.gcardWrap{/*width: 33.333%;*/ width:300px; height:295px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
 .gcardWrap:nth-of-type(3n){margin-right:0}
 .imgBox img{/*width:300px; */ width: 100%; height:225px; object-fit: cover;}
-.imgInfo{padding:20px 20px 10px}
+.imgInfo{padding:10px 20px 10px}
 .imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-.imgInfo p{word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;/*height:45px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;white-space: nowrap;*/}
+.imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;/*height:45px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;white-space: nowrap;*/}
+.select{width: 20px; height: 25px; background-image: url(/today/img/mypet/more2.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 15px; right:5px; cursor: pointer;}
+.select .list{display:none; width:48px; list-style: none; position: absolute; bottom: -60px; right:-25px; background:#f1f1f1;}
+.select .list button{background:#none; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
+.select .list.on{display:block}
 
-.register_form{display: none; width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
-.closeUCard, .mdcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
-#uploadGBtn, .mdBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
+.register_form, .modifyCard{display: none; width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
+.closeUGCard, .mdGcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
+#uploadGBtn, .mdGBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
 .galInfo{width: 250px; padding-top: 20px;}
-.InfoList{width: 100%; height: 200px; background: #fff; border-radius: 10px; margin-top: 25px;  box-sizing: border-box;}
-#gtitle{width:100%; height:40px; border:1px solid #d1d1d1; box-shadow: 0 0 11px 0 #e8e8e8; font-size: 21px; font-family: 'Nanum Pen Script'; padding-left:15px; box-sizing: border-box;}
-#gcontent{resize: none; width: 100%; height: 150px; margin-top:25px; background: none; border: none; box-shadow: 0 0 11px 0 #e8e8e8; font-size: 21px; line-height: 1.5em; font-family: 'Nanum Pen Script'; box-sizing: border-box; padding: 25px 30px;}
+#gtitle, #mdGtitle{width:100%; height:40px; border:1px solid #d1d1d1; box-shadow: 0 0 11px 0 #e8e8e8; font-size: 21px; font-family: 'Nanum Pen Script'; padding-left:15px; box-sizing: border-box;}
+#gcontent, #mdGCont{resize: none; width: 100%; height: 150px; margin-top:25px; background: none; border: none; box-shadow: 0 0 11px 0 #e8e8e8; font-size: 21px; line-height: 1.5em; font-family: 'Nanum Pen Script'; box-sizing: border-box; padding: 25px 30px;}
+.modifyCard{background:#fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; margin:0}
 
-
+.paging{padding: 60px 0 0; text-align: center;}
+.paging ul li{list-style: none; display: inline-block;}
+.paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
+.paging ul li a.page-active{color: #fff; background: #384d75; border-radius: 10px}
 
 </style>
 </head>
@@ -74,11 +81,11 @@
 	            </div>
 	        </div>
 	
-	        <div><button class="openUCard">+ 사진추가</button></div>
+	        <div><button class="openUGCard">+ 사진추가</button></div>
 	        
 	        <div class="register_form">
 	            <button id="uploadGBtn">등록</button>
-	        	<button class="closeUCard">접기</button>
+	        	<button class="closeUGCard">접기</button>
 				<div class="flex-container">       
 	               <div class="wrapper">
 	                   <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
@@ -108,8 +115,12 @@
 								<h3>${imgCard.title}</h3>
 								<p>${imgCard.content}</p>			                       		                        
 		                    </div>
-		                    <button class="modifyCardBtn" title="수정" href="${card.cardId}">수정</button>
-					        <button class="deleteCardBtn" title="삭제" href="${card.cardId}">삭제</button>  	                    		               
+		                    <div class="select">
+						        <ul class="list">
+						            <li><button class="modifyGCardBtn" title="수정" href="${imgCard.imgId}">수정</button></li>
+						            <li><button class="deleteGCardBtn" title="삭제" href="${imgCard.imgId}">삭제</button></li>
+						        </ul>
+						    </div>		                    					         	                    		               
 			            </div>
 					</c:forEach>
 				</c:if>	
@@ -120,7 +131,34 @@
 	        
 	   </div>
 	
-	
+		
+		<!-- 페이징 처리 -->
+		<div class="paging">
+			<ul>
+				<!-- 이전 버튼 -->
+				<c:if test="${pc.prev}">
+			        <li>
+						<a href="<c:url value='/mypet/gallery${pc.makeURI(pc.beginPage - 1)}'/>" >이전</a>
+					</li>
+				</c:if>
+				
+				<!-- 페이지 버튼 -->
+				<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
+					<li>                                                                 <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
+					   <a href="<c:url value='/mypet/gallery${pc.makeURI(pageNum)}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" >${pageNum}</a>
+					</li>
+				</c:forEach>
+				  
+			   <!-- 다음 버튼 -->
+			   <c:if test="${pc.next}">
+				   <li>
+				       <a href="<c:url value='/mypet/gallery${pc.makeURI(pc.endPage + 1)}'/>" >다음</a>
+				   </li>
+			   </c:if>
+			</ul>
+		</div>
+		<!-- 페이징 처리 끝 -->
+		
 	</main>
 </div>
 
@@ -134,8 +172,8 @@
 	<!-- 갤러리 수정 모달 -->
 	<div class="mdpop" style="position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
 	<div class="modifyCard">
-        <button href="" class="mdBtn">저장</button>
-        <button href="" class="mdcancle">취소</button>
+        <button href="" class="mdGBtn">저장</button>
+        <button href="" class="mdGcancle">취소</button>
         <div class="flex-container">
             <div class="wrapper">
                 <img src="" id="mdImage-box">
@@ -165,18 +203,40 @@
     
         
      	// 등록카드 여닫기(갤러리)
-	     $(".openUCard").click(function(){           
+	     $(".openUGCard").click(function(){           
 	         $(".register_form").css("display","flex");
 	         $(".register_form").css("justify-content","space-evenly");
 	         $(this).css("display","none");
 	     })
 	
-	     $(".closeUCard").click(function(){
+	     $(".closeUGCard").click(function(){
 	         $(".register_form").css("display","none");
 	         $(".openUCard").css("display","inline-block");
 	     })
         
         
+	     
+	     
+	     // 갤러리 수정,삭제 메뉴 여닫기
+	     $(document).on("click", ".select", function (e) {
+	    	$(".select").removeClass("on");
+            //toggle 방식
+            if($(this).hasClass("on")){
+                $(this).add($(this).children(".list")).removeClass("on");
+            }else{ // !$(this).hasClass("on") 없으면
+                $(this).add($(this).children(".list")).addClass("on");
+            }         
+        });
+	     
+	    $(document).mouseup(function (e){
+	    	let LayerPopup = $(".select .list");
+	    	if(LayerPopup.has(e.target).length === 0){
+	    	  LayerPopup.removeClass("on");
+	    	  $(".select").removeClass("on");
+	    	}
+	    }); 
+	     
+	     
 	     
 	     // 파일업로드(추가(중복))
 	    const fileDOM = document.querySelector('#file');
@@ -207,6 +267,12 @@
 	    
 	 	// 갤러리 추가     
         $("#uploadGBtn").click(function(){
+        	
+        	if(!$("input[name=file]").val()){ // 사진 null인 경우
+				alert("사진을 첨부해주세요.");
+			    return false;
+			}
+        	
             //formData 객체 생성
             let formData = new FormData();
         	formData.append("petImg", $("input[name=file]")[0].files[0]);
@@ -215,7 +281,7 @@
         	//enter => <br>
 			let title = $("#gtitle").val();
 			if(!title || title.replace(/\s| /gi, "").length==0){ // null값이거나 공백만 입력한 경우
-				alert("내용을 입력해주세요.");
+				alert("제목을 입력해주세요.");
 				$("#gtitle").focus();
 			    return false;
 			}
@@ -260,17 +326,16 @@
 	    
 	    
 	    // 갤러리 수정 불러오기 요청		
-		$(document).on("click", ".수정버튼", function () {
+		$(document).on("click", ".modifyGCardBtn", function () {
 			
 			//초기화
 			$("#modifyFile").value = null;
 			$("#mdGtitle").val("");
 			$("#mdGCont").val("");
 			
-		    let imgId = $(this).attr("href");
-            
+		    let imgId = $(this).attr("href");            
     		let gallery = {imgId: imgId};
-    		
+
     		$.ajax({
                 type: 'post',
                 dataType : "json",
@@ -288,8 +353,8 @@
  
                         $(".mdpop").css("display","block");
                         $(".modifyCard").css("display","flex").css("justify-content","space-evenly");
-                        $(".mdBtn").attr("href", cardId);
-                        $(".mdcancle").attr("href", cardId);
+                        $(".mdGBtn").attr("href", imgId);
+                        $(".mdGcancle").attr("href", imgId);
                         $("#mdImage-box").attr("src", imagePath);
                         $("#mdGtitle").val(title);
                         $("#mdGCont").val(content);                                          
@@ -300,8 +365,102 @@
             });
         })
 	    
-	    
-	    
+        
+        
+        //갤러리 수정 취소  
+        $(document).on("click", ".mdGcancle", function () {
+        	let imgId = $(this).attr("href");
+        	$(".modifyCard").css("display","none");
+        	$(".mdpop").css("display","none");
+        })
+        
+	    	      
+        
+        // 갤러리 수정 
+        $(document).on("click", ".mdGBtn", function () {
+  	
+        	//formData 객체 생성
+            let formData = new FormData();
+        	formData.append("petImg", $("#modifyFile")[0].files[0]);
+        	
+        	// 넘겨줄 갤러리 데이터
+        	let title = $("#mdGtitle").val();
+			if(!title){ // 날짜 null값
+				alert("제목을 입력해주세요.");
+			    return false;
+			}        	
+			let text = $("#mdGCont").val();			
+			text = text.replace(/(?:\r\n|\r|\n)/g, '<br>'); // 엔터 -> <br/>로 치환        	
+			let imgId = $(this).attr("href");
+			console.log(imgId)
+        	let petData = {
+        			"imgId": imgId,
+        			"title": title,
+        			"content": text
+        	}
+        	
+        	// formData에 json타입으로 petData 추가
+        	formData.append("petData", new Blob([ JSON.stringify(petData) ], {type : "application/json"}));
+        	
+        	// ajax 처리
+        	$.ajax({
+        		  type: "POST",
+        	      url: "/today/mypet/modifyGallery",
+        	      data: formData,
+        	      dataType: "text",
+        	      contentType: false,               // * 중요 *
+        	      processData: false,               // * 중요 *
+        	      enctype : 'multipart/form-data',  // * 중요 *
+        	      success: function(result) { 
+                      console.log("통신 성공!: ");
+                      if(result === "success") {
+                          alert("갤러리 수정이 완료되었습니다.");
+                          window.location.reload();
+                      } else {
+                          alert("갤러리 수정에 실패했습니다.");
+                      }
+                  }, 
+                  error: function() {
+                	  console.log("통신 실패"); 
+                  } 
+        	});
+			
+        })
+        
+        
+        
+        
+        // 갤러리 삭제 요청		
+		$(document).on("click", ".deleteGCardBtn", function () {
+			if(confirm("사진을 삭제하시겠습니까?")){
+				
+				let imgId = $(this).attr("href");	            
+	    		let gallery = {imgId: imgId};
+	    		
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/today/mypet/deleteGallery',
+	                data: JSON.stringify(gallery),
+	                success: function (response) {
+	         			if(response === 'success'){
+	         				alert("사진이 삭제되었습니다.");
+	         				window.location.reload();
+	         			}else{
+	         				alert("사진 삭제에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+			}
+		    
+        })
+        
+        
+        
         $(function(){
 			
         	/*

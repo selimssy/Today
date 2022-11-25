@@ -13,9 +13,9 @@
     <title>Document</title>
     <style>
         *{margin: 0; padding: 0;}
-        .container{width: 100%; margin: 0 auto; padding-bottom:70px}
+        .container{width: 100%; margin: 0 auto;}
         header {width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
-        .header_innerBox{width: 1050px; margin: 0 auto}
+        .header_innerBox{width: 1000px; margin: 0 auto}
         .header_innerBox h1{float: left; padding-top: 35px;}
         .header_innerBox h1 a{width:220px; height:70px; background-image:url(/today/img/common/mainlogo.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}
         .header_cont {float:right; width:750px; display: block;}
@@ -47,7 +47,7 @@
         .infoText{position: absolute; top: 140px; left: 100px; z-index: 999;}
         .infoText p:nth-of-type(1){font-size: 72px; font-family: 'Nanum Pen Script';}
         .infoText p:nth-of-type(2){font-size: 30px; font-family: 'Nanum Pen Script';}
-        .siteNav{width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
+        .siteNav{width: 1000px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
         .homeLogo{width: 78px; height: 75px; background-image: url(/today/img/common/homeLogo2.png); background-size: cover; float: left; text-indent: -999px; position: absolute; top: -1px; left: -3px;}
         .siteNav ul{list-style: none; width: 90%; display: flex; justify-content: space-evenly; padding-left: 100px;}
         .siteNav ul li{width: 180px; display: inline-block; padding: 17px 60px 10px; border-bottom: 1px solid #000; text-align: center;}
@@ -55,8 +55,8 @@
         .siteNav ul li a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
         .siteNav ul li.checked a{color: #7AB730;}
 
-        .otherWrap{width: 1050px; margin: 0 auto; padding-left: 225px;}
-        .otherP{width: 1050px; height: 140px; border-left: 5px solid #7AB730; margin: 100px 0 100px;  padding-left:55px;}
+        .otherWrap{width: 1000px; margin: 0 auto; padding-left: 200px;}
+        .otherP{width: 1000px; height: 140px; border-left: 5px solid #7AB730; margin: 100px 0 100px;  padding-left:55px;}
         .otherP p{font-size: 36px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/}
         .otherP p:last-of-type{font-size: 72px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:3px; word-spacing:5px;*/ color: #000;}
         

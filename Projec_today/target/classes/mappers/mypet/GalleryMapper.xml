@@ -31,13 +31,34 @@
 		SELECT * FROM gallery
 		WHERE pet_id = #{petId}
 		ORDER BY date DESC
+		LIMIT #{pageStart}, 15 
 	</select>
 	
 	
 	<select id="getOneGallery" resultMap="GalleryMap"> 
 		SELECT * FROM gallery
-		WHERE img_id = #{ImgId}
+		WHERE img_id = #{imgId}
 	</select>
 	
+	
+	<update id="modifyGallery">
+		UPDATE gallery
+		SET title = #{title}, content = #{content}, image_path = #{imagePath}
+		WHERE img_id = #{imgId}
+	</update>
+	
+	
+	<delete id="deleteGallery">
+		DELETE FROM gallery
+		WHERE img_id = #{imgId}
+	</delete>
+	
+	
+	<!-- 갤러리 갯수 -->
+	<select id="countGalleries" resultType="int">
+		SELECT COUNT(*)
+		FROM gallery
+		WHERE pet_id = #{petId}
+	</select>
 
 </mapper>
