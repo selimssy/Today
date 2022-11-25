@@ -13,15 +13,16 @@
 		*{margin: 0; padding: 0;}
         .container{width: 100%; margin: 0 auto;}
         /*배경 변경*/
-		.siteInfo{width: 1200px; height: 450px; background-image: url(/today/img/common/mainbg1.png); margin: 0 auto;  position: relative;}      
+        /*.siteInfo{width: 1200px; height: 450px; background-image: url(/today/img/common/mainbg1.png); margin: 0 auto;  position: relative;}*/      
+		.siteInfo{width: 1000px; height: 375px; background-image: url(/today/img/common/mainbg2.png); margin: 0 auto;  position: relative;}      
         .mainContent{width: 1000px; margin: 0 auto; min-height: 160px;}
-        .mainContent .conTitle{width: 1000px; margin: 0 auto; background:#BBD996;}
+        .mainContent .conTitle{width: 800px; margin: 0 auto; background:#BBD996;}
         .mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
         .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
         .mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}
     
         .uploadCard, .modifyCard{display: none; width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
-        .openUCard{width: 125px; height: 50px; margin-top: 35px; border: none; border-radius: 7px; font-size: 32px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
+        .openUCard{width: 90px; height: 40px; margin: 35px 60px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
         .closeUCard, .mdcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
         .uploadCard input[type=submit]{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
         #uploadCardBtn, .mdBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
@@ -61,14 +62,14 @@
 	<main>
 	    <div class="siteInfo">
 	        <div class="infoText">
-	            <p>반려견 생애 기록</p>
+	            <p>반려견 생애기록</p>
 	            <p>잊을 수 없는 너의 특별했던 순간</p>
 	        </div>
 	    </div>
 	    <div class="siteNav">
 	        <a href="#"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li class="checked"><a href="#">반려견 생애 기록</a></li>
+	            <li class="checked"><a href="#">반려견 생애기록</a></li>
 	            <li><a href="#">갤러리</a></li>
 	        </ul>
 	    </div>
@@ -78,7 +79,7 @@
 	            <P>기억하고 싶은 너의 시간</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
 	            <p>우리 아이의 특별했던 순간들</p>
-	    </div>
+	    	</div>
 	    </div>
 	
 	
@@ -86,7 +87,7 @@
 	        <div class="conTitle">
 	            <div class="contWrap">
 	                <div class="contImg">img</div>
-	                <span>${login.pet.petName} 생애 기록</span>
+	                <span>${login.pet.petName} 생애기록</span>
 	            </div>
 	        </div>
 	
@@ -222,7 +223,7 @@
 	    */
 	    
 	    
-	    
+		// 파일업로드(추가)
 	    const fileDOM = document.querySelector('#file');
 	    const previews = document.querySelectorAll('.image-box');
 
@@ -233,7 +234,9 @@
 	      };
 	      reader.readAsDataURL(fileDOM.files[0]);
 	    });
-
+		
+	    
+	    // 파일업로드(수정)
 	    const fileDOM2 = document.querySelector('#modifyFile');
 	    const MdPreviews = document.querySelector('#mdImage-box');
 
@@ -256,6 +259,7 @@
         }) 
 	     
 	     
+        
         
 	    // 생애기록 카드 추가     
         $("#uploadCardBtn").click(function(){
@@ -300,14 +304,14 @@
         	      success: function(result) { 
                       console.log("통신 성공!: ");
                       if(result === "success") {
-                          alert("생애 기록이 추가되었습니다.");
+                          alert("생애기록이 추가되었습니다.");
                           window.location.reload();
                       } else {
-                          alert("생애 기록 등록에 실패했습니다.");
+                          alert("생애기록 등록에 실패했습니다.");
                       }
                   }, 
                   error: function() {
-                	  alert("생애 기록 등록에 실패했습니다.");
+                	  alert("생애기록 등록에 실패했습니다.");
                   } 
         	});
         })   
@@ -429,20 +433,50 @@
         	      success: function(result) { 
                       console.log("통신 성공!: ");
                       if(result === "success") {
-                          alert("생애 기록 수정이 완료되었습니다.");
+                          alert("생애기록 수정이 완료되었습니다.");
                           window.location.reload();
                       } else {
-                          alert("생애 기록 수정에 실패했습니다.");
+                          alert("생애기록 수정에 실패했습니다.");
                       }
                   }, 
                   error: function() {
-                	  alert("생애 기록 수정에 실패했습니다.");
+                	  alert("생애기록 수정에 실패했습니다.");
                   } 
         	});
 			
         })
     	  
-    	  
+    	
+        
+        
+        // 생애기록 삭제 요청		
+		$(document).on("click", ".deleteCardBtn", function () {
+			if(confirm("생애기록을 삭제하시겠습니까?")){
+				
+				let cardId = $(this).attr("href");	            
+	    		let lifetimeCard = {cardId: cardId};
+	    		
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/today/mypet/deleteCard',
+	                data: JSON.stringify(lifetimeCard),
+	                success: function (response) {
+	         			if(response === 'success'){
+	         				alert("생애기록이 삭제되었습니다.");
+	         				window.location.reload();
+	         			}else{
+	         				alert("생애기록 삭제에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+			}
+		    
+        })
       
       
 	  	 

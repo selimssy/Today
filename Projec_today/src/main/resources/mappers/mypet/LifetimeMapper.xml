@@ -48,4 +48,12 @@
 		WHERE card_id = #{cardId}
 	</update>
 	
+	
+	
+	<!-- 생애기록 카드 삭제 -->
+	<delete id="deleteCard">
+		DELETE FROM lifetime_card
+		WHERE card_id = #{cardId}
+	</delete>
+	
 </mapper>

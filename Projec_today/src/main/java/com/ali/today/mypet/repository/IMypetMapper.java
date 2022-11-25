@@ -20,4 +20,7 @@ public interface IMypetMapper {
 	// 생애기록 카드 수정
 	void updateCard(LifetimeVO lifetime);
 	
+	// 생애기록 카드 삭제
+	void deleteCard(Integer cardId);
+	
 }

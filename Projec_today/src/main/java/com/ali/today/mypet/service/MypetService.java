@@ -66,4 +66,16 @@ public class MypetService implements IMypetService {
 		mapper.updateCard(lifetime);
 	}
 
+
+	@Override
+	public void deleteCard(Integer cardId) {
+		mapper.deleteCard(cardId);
+	}
+
+
+	@Override
+	public GalleryVO getOneGallery(Integer ImgId) {
+		return gmapper.getOneGallery(ImgId);
+	}
+
 }

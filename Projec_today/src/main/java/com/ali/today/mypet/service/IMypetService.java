@@ -19,6 +19,9 @@ public interface IMypetService {
 	// 생애기록 카드 수정
 	void updateCard(LifetimeVO lifetime);
 	
+	// 생애기록 카드 삭제
+	void deleteCard(Integer cardId);
+	
 	
 	
 	
@@ -31,4 +34,7 @@ public interface IMypetService {
 	
 	// 지정한 반려동물 갤러리 사진 목록 조회
 	List<GalleryVO> getGalleryList(Integer petId); 
+	
+	// 특정 사진 조회
+	GalleryVO getOneGallery(Integer ImgId);
 }

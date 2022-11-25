@@ -7,6 +7,7 @@ public class GalleryVO {
 	private Integer imgId;
 	private Integer petId;
 	private String title;
+	private String content;
 	private Date date;
 	private String imagePath;
 	
@@ -29,6 +30,12 @@ public class GalleryVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public Date getDate() {
 		return date;
 	}
@@ -42,15 +49,11 @@ public class GalleryVO {
 		this.imagePath = imagePath;
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "GalleryVO [imgId=" + imgId + ", petId=" + petId + ", title=" + title + ", date=" + date + ", imagePath="
-				+ imagePath + "]";
+		return "GalleryVO [imgId=" + imgId + ", petId=" + petId + ", title=" + title + ", content=" + content
+				+ ", date=" + date + ", imagePath=" + imagePath + "]";
 	}
-	
-	
 
-	
 	
 }

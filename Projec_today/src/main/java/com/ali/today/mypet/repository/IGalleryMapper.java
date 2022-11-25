@@ -14,5 +14,6 @@ public interface IGalleryMapper {
 	// 특정 반려동물 갤러리 사진 목록 조회
 	List<GalleryVO> getGalleryList(Integer petId);   // 이건 페이징처리 해야될듯?
 	
-	
+	// 특정 사진 조회
+	GalleryVO getOneGallery(Integer ImgId);
 }

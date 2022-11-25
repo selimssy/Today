@@ -10,6 +10,7 @@
 		<id property="imgId" column="img_id" />
 		<result property="petId" column="pet_id"/>
 		<result property="title" column="title"/>
+		<result property="content" column="content"/>
 		<result property="date" column="date"/>
 		<result property="imagePath" column="image_path"/>
 		
@@ -21,8 +22,8 @@
 	
 	
 	<insert id="register">
-		INSERT INTO gallery (pet_id, title, image_path)
-		VALUES (#{petId}, #{title}, #{imagePath})
+		INSERT INTO gallery (pet_id, title, content, image_path)
+		VALUES (#{petId}, #{title}, #{content}, #{imagePath})
 	</insert>
 	
 	
@@ -32,6 +33,11 @@
 		ORDER BY date DESC
 	</select>
 	
+	
+	<select id="getOneGallery" resultMap="GalleryMap"> 
+		SELECT * FROM gallery
+		WHERE img_id = #{ImgId}
+	</select>
 	
 
 </mapper>
