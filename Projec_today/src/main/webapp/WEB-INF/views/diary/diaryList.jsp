@@ -11,12 +11,12 @@
 <style type="text/css">
 .siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
-.search{float:right; padding-right: 125px}	
+.search{/*z-index: 999;float:right;*/text-align: right; padding-right: 125px; }	
 .select{display: inline-block; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
 .keyword{display: inline-block;}
 .keyword input[type=text]{width:200px; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
-.keyword input[type=button]{width:45px; height: 30px; border:none; background: #ddd;}
-.diaryBox{width: 800px; padding:50px; margin: 0 auto; position: relative;}
+.keyword input[type=button]{width:45px; height: 30px; border:none; background: #ddd; cursor: pointer;}
+.diaryBox{width: 800px; padding:30px 50px 50px; margin: 0 auto; position: relative;}
 .diaryTB{width: 100%; border-top: 2.5px solid #7AB730; border-collapse: collapse}
 .diaryTB th, .diaryTB td{height: 55px; text-align: center; padding: 20px; box-sizing: border-box; }
 .diaryTB th{background:rgba(187, 217, 150, 0.6); font-size:19px}
@@ -198,9 +198,9 @@
 		const result = "${msg}"
 		
 		if(result === "regSuccess"){
-			alert("일기 등록이 완료되었습니다.")
+			alert("다이어리 등록이 완료되었습니다.")
 		} else if(result === "delSuccess"){
-			alert("일기가 삭제되었습니다.")
+			alert("다이어리가 삭제되었습니다.")
 		}
 		
 		

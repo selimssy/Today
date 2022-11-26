@@ -20,9 +20,10 @@
 .boardBox .boardwt{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-right: 15px}
 /*.boardBox p{font-size: 16px}안멱힌다ㅠ*/
 .boardBox h2{padding-bottom: 20px; font-size: 28px}
-input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; margin-right: 15px}
+input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; margin-right: 15px; display:inline-block;}
 .writenav{margin-top: 20px; text-align:right}
 .writenav button{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; }
+
 
 #cke_1_bottom{display:none}
 </style>
@@ -55,7 +56,8 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 				
 	        <div class="writenav">
 				<input type="submit" value="등록">
-				<button>취소</button>
+				<button id="writeCancle" onclick="location.href='<c:url value='/diary/list' />'">취소</button>
+
 			</div>
 	          
           
@@ -64,4 +66,6 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 </div>	
 	
 </body>
+
+
 </html>

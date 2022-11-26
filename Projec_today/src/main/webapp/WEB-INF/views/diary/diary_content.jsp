@@ -11,15 +11,14 @@
 <style type="text/css">
 .siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
 
-.contentBox{width:850px; margin: 100px auto; border: 1.5px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; }
-.contentTop{width:100%; border-bottom: 1.5px solid #d1d1d1; padding-bottom: 10px; position: relative;}
+.contentBox{width:850px; min-height: 550px; margin: 100px auto; border: 2px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; position: relative;}
+.contentTop{width:100%; border-bottom: 2px solid #bbb; padding-bottom: 20px;}
 .contentTop h1{line-height: 55px; margin:0;}
-.contentTop p{background: url(/today/img/community/boarduser.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
-.contentTop span{padding-left: 30px;}
-.navBox{position: absolute; top: -70px; right: -35px;}
+.contentTop span{font-size: 18px; position: absolute; top: 40px; right: 50px;}
+.navBox{position: absolute; bottom: -50px; right: -12px;}
 .navBox input{width:75px; height: 30px; border:none; cursor: pointer;}
-.contentBody{padding-top: 20px}
-.contentBody img{display: block; margin : auto;}
+.contentBody{padding-top: 40px; }
+/*.contentBody img{display: block; margin : auto;}*/
 .boardcontent{min-height:300px}
 
 </style>
@@ -41,7 +40,7 @@
 	            <li class="checked"><a href="#">견주 다이어리</a></li>
 	        </ul>
 	    </div>
-		<div class="otherWrap" style="width: 1150px; padding-left:350px">
+		<div class="otherWrap" style="width: 1150px; padding-left:310px">
 	        <div class="otherP">
 	            <P>너와의 오늘, 우리의 시간</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
@@ -54,19 +53,19 @@
 		<div class="contentBox">
 			<div class="contentTop">
 				<h1>${diary.title}</h1>
-				<p>${diary.writer}<span><fmt:formatDate value="${diary.regDate}" pattern="yyyy.MM.dd"/></span></p>
+				<span><fmt:formatDate value="${diary.regDate}" pattern="yyyy.MM.dd"/></span>
 												
 				<!-- 게시물 수정, 삭제, 목록 -->
 				<div class="navBox">
 					<form id="formObj"  role="form" action="<c:url value='/diary/delete'/>" method="post">  
 					
-						<input type="hidden" name="boardNo" value="${diary.diaryNo}">
+						<input type="hidden" name="diaryNo" value="${diary.diaryNo}">
 						<input type="hidden" name="page" value="${p.page}">
 					
 						        										
 						<c:if test="${login.userId == diary.writer}">
 					         <input id="modBtn" type="button" value="수정" >&nbsp;&nbsp;	         
-					         <input type="submit" value="삭제" onclick="return confirm('정말로 삭제하시겠습니까?')">&nbsp;&nbsp;
+					         <input type="submit" value="삭제" onclick="return confirm('다이어리를 삭제하시겠습니까?')">&nbsp;&nbsp;
 				      	 </c:if>
 						<input type="button" value="목록" class="btn"  id="list-btn">&nbsp;&nbsp;
 					</form>	
@@ -145,7 +144,7 @@
 		//수정 완료 알림창 처리(바닐라 자바스크립트)
 		const msg = "${msg}"
 		if(msg === "modSuccess"){
-			alert("게시물 수정 완료!")
+			alert("다이어리가 수정되었습니다.")
 		}
 		
 		
@@ -155,7 +154,7 @@
 			// 목록버튼 클릭이벤트 처리
 			$("#list-btn").click(function(){
 				console.log("목록버튼 클릭");
-				location.href='/today/diary/list?page=${p.page}&countPerPage=${p.countPerPage}&keyword=${p.keyword}&condition=${p.condition}';
+				location.href='/today/diary/list?page=${p.page}&keyword=${p.keyword}&condition=${p.condition}';
 			})
 			
 			

@@ -112,7 +112,7 @@ public class DiaryController {
 	@PostMapping("/write")
 	public String writeDiary(DiaryVO diary, RedirectAttributes ra) {
 		
-		service.insert(diary);
+		service.insert(diary);		
 		ra.addFlashAttribute("msg", "regSuccess");
 		
 		return "redirect:/diary/list";

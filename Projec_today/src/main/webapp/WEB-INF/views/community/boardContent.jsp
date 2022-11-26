@@ -12,8 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/mainbg9.png); margin: 0 auto;  position: relative;}       
 
-.container{width:1000px; margin: 0 auto; /*padding-top:30px*/}
 .contentBox{width:850px; margin: 100px auto; border: 1.5px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; }
 .contentTop{width:100%; border-bottom: 1.5px solid #d1d1d1; padding-bottom: 10px; position: relative;}
 .contentTop h1{line-height: 55px; margin:0;}
@@ -25,7 +25,7 @@
 .navBox{position: absolute; top: -70px; right: -35px;}
 .navBox input{width:75px; height: 30px; border:none; cursor: pointer;}
 .contentBody{padding-top: 20px}
-.contentBody img{display: block; margin : auto;}
+/*.contentBody img{display: block; margin : auto;}*/
 .boardcontent{min-height:300px}
 .hashList{width:100%; margin: 0 auto;  border-top:1.5px solid #d1d1d1; padding:18px 25px; box-sizing: border-box; }
 .hashList span{background: #F3F3F3; border-radius: 20px; padding: 5px 10px; margin-right: 15px;}
@@ -46,10 +46,33 @@
 </style>
 </head>
 <body>
+
+<div class="container">   
+	<jsp:include page="../common/header.jsp" />
+	<main>
+		<div class="siteInfo">
+	        <div class="infoText" style="top: 110px;">
+	            <p>커뮤니티 게시판</p>
+	            <p>너와 나, 우리 모두 함께</p>
+	        </div>
+	    </div>
+	    <div class="siteNav">
+	        <a href="#"><div class="homeLogo">1</div></a>
+	        <ul>
+	            <li><a href="#">내 반려견 소개</a></li>
+	            <li class="checked"><a href="#">커뮤니티 게시판</a></li>
+	        </ul>
+	    </div>
+		<div class="otherWrap" style="width: 1150px; padding-left:310px">
+	        <div class="otherP">
+	            <P>너와의 오늘, 우리의 시간</P>
+	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
+	            <p>'너'이기에 행복한 견주의 일기</p>
+	    	</div>
+	    </div>	
 	
 	
 	
-	<div class="container"> 
 		<div class="contentBox">
 			<div class="contentTop">
 				<h1>${article.title}</h1>
@@ -135,9 +158,10 @@
 		</div>
 		
 	
+	</main>
+</div>		
 		
-		
-	</div>
+	
 		
 		
 

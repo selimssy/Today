@@ -67,7 +67,7 @@
 	
 	<update id="update">
 		UPDATE pet_diary
-		SET title = #{title}, content = #{content}, writer = #{writer}, thumb_img = #{thumbImg}
+		SET title = #{title}, content = #{content}
 		WHERE diary_no = #{diaryNo}
 	</update>
 	
