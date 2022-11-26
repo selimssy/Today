@@ -9,11 +9,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
+.mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
+.search{float:right; padding-right: 125px}	
+.select{display: inline-block; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
+.keyword{display: inline-block;}
+.keyword input[type=text]{width:200px; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
+.keyword input[type=button]{width:45px; height: 30px; border:none; background: #ddd;}
+.diaryBox{width: 800px; padding:50px; margin: 0 auto; position: relative;}
+.diaryTB{width: 100%; border-top: 2.5px solid #7AB730; border-collapse: collapse}
+.diaryTB th, .diaryTB td{height: 55px; text-align: center; padding: 20px; box-sizing: border-box; }
+.diaryTB th{background:rgba(187, 217, 150, 0.6); font-size:19px}
+.diaryTB tr{border-bottom: 1px solid #ccc;}
+.diaryTB th:nth-of-type(1){width:20%;}
+.diaryTB th:nth-of-type(3){width:30%;}
+.diaryTB td.tableTitle{text-align: left; padding-left:40px; font-family: 'Malgun Gothic','맑은 고딕',sans-serif; }
+.diaryTB td.tableTitle a{text-decoration: none; /*color: #333;*/ color:#000;}
+.boardNew{background: #fff9d6; font-weight:bold ;font-size: 11px; line-height:11px; padding: 1px 5px 3px; border-radius: 8px; color:#678dab; }
+	
+.paging{padding: 60px 0 0; text-align: center;}
+.paging ul li{list-style: none; display: inline-block;}
+.paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
+.paging ul li a.page-active{color: #000; background:rgba(187, 217, 150, 0.8); border-radius: 10px}
 
-	.page-active{
-		background-color: #ff52a0;
-	}
+.writeB{width: 60px; color: #fff; border-radius: 10px; background: #7AB730; text-decoration: none;  float:right; position: absolute; bottom:-20px; right:45px; padding: 13px 15px; font-size:19px; line-height:19px; }
 </style>
 </head>
 <body>
@@ -24,7 +43,7 @@
 		<div class="siteInfo">
 	        <div class="infoText">
 	            <p>견주 다이어리</p>
-	            <p>네가 있기에 여전히 아름다운 오늘</p>
+	            <p>네가 있기에 여전히 따듯한 오늘</p>
 	        </div>
 	    </div>
 	    <div class="siteNav">
@@ -35,7 +54,7 @@
 	        </ul>
 	    </div>
 	
-	    <div class="otherWrap" style="width: 1150px;">
+	    <div class="otherWrap" style="width: 1150px; padding-left:350px">
 	        <div class="otherP">
 	            <P>너와의 오늘, 우리의 시간</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
@@ -44,6 +63,111 @@
 	    </div>
 	    
 	    
+	    <div class="mainContent">
+	    
+	    	<!-- 검색 버튼 -->
+			<div class="search">	           
+                <select class="select" id="condition" name="condition">                            	
+                    <option value="title" ${param.condition == 'title' ? 'selected' : ''}>제목</option>
+                    <option value="content" ${param.condition == 'content' ? 'selected' : ''}>내용</option>
+                    <option value="titleContent" ${param.condition == 'titleContent' ? 'selected' : ''}>제목+내용</option>
+                </select>	            	            
+                <div class="keyword">
+                    <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
+                    <span>
+                        <input type="button" value="검색" id="searchBtn">                                       
+                    </span>
+                </div>	            	            
+			</div>
+	    
+	    
+	    	<div class="diaryBox">
+				<table class="diaryTB">
+					<thead>
+						<tr>
+							<th>번호</th>					
+							<th>제목</th>
+							<th>작성일</th>						
+						</tr>
+					</thead>
+					
+					<c:if test="${diaryList.size() <= 0}">
+						<tr>
+							<td colspan="5" align="center">
+								<strong>검색 결과가 없습니다.</strong>
+							</td>
+						</tr>
+					</c:if>				
+				
+					<!-- 게시물이 들어갈 공간 -->
+					<c:if test="${diaryList.size() > 0}">
+						<c:forEach var="diary" items="${diaryList}">
+							<tr>
+								<td>${diary.diaryNo}</td>
+								<!--							
+								<td>
+									<c:if test="${empty diary.thumbImg}">
+										<img alt="thumb_image" src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="40px" height="40px">
+									</c:if>
+									<c:if test="${not empty diary.thumbImg}">
+										<img alt="thumb_image" src="${diary.thumbImg}" width="40px" height="40px">	
+									</c:if>											
+								</td>
+								-->		
+																						<!-- 처음 게시판 들어갔을 때 page 파라미터 -->
+								<td class="tableTitle"><a href="<c:url value='/diary/content/${diary.diaryNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
+										${diary.title}		
+									</a>
+									<c:if test="${diary.newMark}">    
+										<span class="boardNew">new</span>
+									</c:if>       
+								</td>
+						
+								<td>
+									<fmt:formatDate value="${diary.regDate}" pattern="yyyy년 MM월 dd일" />							
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>			
+				</table>
+				
+				<!-- 글쓰기 버튼 -->
+	  			<a class="writeB" href="<c:url value='/diary/write' />">글쓰기</a>				
+			</div>	    
+	    </div>
+	    
+	    
+	    
+
+	    
+	    
+	    <!-- 페이징 처리 부분  -->
+	    <div class="paging">
+			<ul>
+				<!-- 이전 버튼 -->
+				<c:if test="${pc.prev}">
+			        <li>
+						<a href="<c:url value='/diary/list${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
+					</li>
+				</c:if>
+				
+				<!-- 페이지 버튼 -->
+				<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
+					<li>                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
+					   <a href="<c:url value='/diary/list${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}" >${pageNum}</a>
+					</li>
+				</c:forEach>
+				  
+			   <!-- 다음 버튼 -->
+			   <c:if test="${pc.next}">
+				   <li>
+				       <a href="<c:url value='/diary/list${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
+				   </li>
+			   </c:if>
+			</ul>
+		</div>
+		<!-- 페이징 처리 끝 -->
+	    
 	    
 	</main>
 	
@@ -51,121 +175,18 @@
 </div>	
 	
 	
-	<div>
-
-		<table>
-			<thead>
-				<tr>
-					<th>#번호</th>
-					<th>작성자</th>
-					<th>썸네일테스트</th> 
-					<th>제목</th>
-					<th>작성일</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
-			
-			<c:if test="${diaryList.size() <= 0}">
-				<tr>
-					<td colspan="5" align="center">
-						<strong>검색 결과가 없습니다.</strong>
-					</td>
-				</tr>
-			</c:if>
-		
-		
-			<!-- 게시물이 들어갈 공간 -->
-			<c:if test="${diaryList.size() > 0}">
-				<c:forEach var="diary" items="${diaryList}">
-					<tr>
-						<td>${diary.diaryNo}</td>
-						<td>${diary.writer}</td>
-						
-						<td>
-							<c:if test="${empty diary.thumbImg}">
-								<img alt="thumb_image" src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="40px" height="40px">
-							</c:if>
-							<c:if test="${not empty diary.thumbImg}">
-								<img alt="thumb_image" src="${diary.thumbImg}" width="40px" height="40px">	
-							</c:if>											
-						</td>
-																					<!-- 처음 게시판 들어가면 page 파라미터가 없으니까 -->
-						<td><a href="<c:url value='/diary/content/${diary.diaryNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
-								${diary.title}		
-							</a>
-							&nbsp; 
-							<c:if test="${diary.newMark}">    
-								<span>new</span>
-							</c:if>       <!-- 부트스트랩 클래스 -->
-						</td>
-				
-						<td>
-							<fmt:formatDate value="${diary.regDate}" pattern="yyyy년 MM월 dd일" />							
-						</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-			
-		</table>
-		
-		
-		
-		<!-- 페이징 처리 부분  -->
-		<ul class="pagination justify-content-center">
-			<!-- 이전 버튼 -->
-			<c:if test="${pc.prev}">
-		        <li class="page-item">
-					<a class="page-link" href="<c:url value='/diary/list${pc.makeURI(pc.beginPage - 1)}'/>" 
-					style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
-				</li>
-			</c:if>
-			
-			<!-- 페이지 버튼 -->
-			<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
-				<li class="page-item">                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-				   <a href="<c:url value='/diary/list${pc.makeURI(pageNum)}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
-				</li>
-			</c:forEach>
-			  
-		   <!-- 다음 버튼 -->
-		   <c:if test="${pc.next}">
-			   <li class="page-item">
-			       <a class="page-link" href="<c:url value='/diary/list${pc.makeURI(pc.endPage + 1)}'/>" 
-			       style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
-			   </li>
-		   </c:if>
-		</ul>
-		<!-- 페이징 처리 끝 -->
 		
 		
 		
 		
-		<!-- 검색 버튼 -->
-		<div class="row">
-			<div class="col-sm-2"></div>
-                  <div class="form-group col-sm-2">
-                      <select id="condition" class="form-control" name="condition">                            	
-                          <option value="title" ${param.condition == 'title' ? 'selected' : ''}>제목</option>
-                          <option value="content" ${param.condition == 'content' ? 'selected' : ''}>내용</option>
-                          <option value="titleContent" ${param.condition == 'titleContent' ? 'selected' : ''}>제목+내용</option>
-                      </select>
-                  </div>
-                  <div class="form-group col-sm-4">
-                      <div class="input-group">
-                          <input type="text" class="form-control" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
-                          <span class="input-group-btn">
-                              <input type="button" value="검색" class="btn btn-izone btn-flat" id="searchBtn">                                       
-                          </span>
-                      </div>
-                  </div>
-                  <div class="col-sm-2">
-				<a href="<c:url value='/diary/write' />">글쓰기</a>
-			</div>
-			<div class="col-sm-2"></div>
-		</div>
+		
+		
+		
+		
+		
 
 	
-	</div>
+	
 	
 	
 	
