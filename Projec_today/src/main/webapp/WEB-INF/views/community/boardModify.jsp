@@ -79,7 +79,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    
 			<div class="writenav">
 				<input type="submit" value="저장">
-				<button>취소</button>
+				<button type="button" id="boardMC">취소</button>
 			</div>
 			
         </form>
@@ -94,6 +94,16 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 <script type="text/javascript">
 
     $(function(){
+    	
+    	// 수정 취소
+    	$("#boardMC").click(function(){
+    		if(confirm('게시물 수정을 취소하시겠습니까?')){
+    			location.href='/today/community/content/'+${article.boardNo};
+    			//window.history.back();
+    		}
+    	})
+    	
+    	
 
         // 태그 입력란에 글자 치면 placeholder 사라지게
         if($("#tag_input").val() != ""){
@@ -101,15 +111,6 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
         }
 
 
-        //$(document).on("keydown", "#tag_input", function(key){
-        	//temp_html = "<span class='tagbox'><span>#</span>" + $("#tag_input").val() + "<span><button class='del_tag'>x</button></span><input type='hidden' name='hashList' value='" + $("#tag_input").val() + "'></span>"; 
-            //if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
-            	//console.log("엔터..");
-                //$('#tagbox').before(temp_html);
-                //$("#tag_input").val("");  // 입력창 비워져있도록
-                //console.log("엔터..");
-            //}      
-        //})
 
         //엔터키 입력 이벤트
         $("#tag_input").keydown(function(key){            	

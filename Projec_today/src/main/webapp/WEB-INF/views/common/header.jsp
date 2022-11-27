@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +79,7 @@
 
     <header id="header">
 		<div class="header_innerBox">	
-			<h1><a href="javascript:;">오늘의 너</a></h1>
+			<h1><a href="<c:url value='/'/>">오늘의 너</a></h1>
 			<!-- 모바일메뉴
 			<p class="openMOgnb"><a href="#"><b class="hdd">메뉴</b> <span></span><span></span><span></span></a></p>
 			-->
@@ -90,28 +91,28 @@
 				</ul>	
 				<nav>
 				<ul class="main_nav">
-					<li><a href="javascript:;" class="mainMenu mainMenu1 checked">나의 반려견</a>
+					<li><a href="<c:url value='/mypet/lifetime'/>" class="mainMenu mainMenu1 checked">나의 반려견</a>
 
                         <div class="submenu sub_1">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">반려견 생애기록</a></li>
-                                <li><a href="javascript:;">갤러리</a></li>
+                                <li><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></li>
+                                <li><a href="<c:url value='/mypet/gallery'/>">갤러리</a></li>
                             </ul>
                         </div>
 					</li>
-					<li><a href="javascript:;" class="mainMenu mainMenu2">반려견 다이어리</a>
+					<li><a href="<c:url value='/diary/calendar'/>" class="mainMenu mainMenu2">반려견 다이어리</a>
 				        <div class="submenu sub_2">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">반려견 전용 캘린더</a></li>
-                                <li><a href="javascript:;">견주 일기</a></li>
+                                <li><a href="<c:url value='/diary/calendar'/>">반려견 전용 캘린더</a></li>
+                                <li><a href="<c:url value='/diary/list'/>">견주 일기</a></li>
                             </ul>
                         </div>
 					</li>
-					<li><a href="javascript:;" class="mainMenu mainMenu3">커뮤니티</a>
+					<li><a href="<c:url value='/community/intro'/>" class="mainMenu mainMenu3">커뮤니티</a>
                         <div class="submenu sub_3">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">내 반려견 소개</a></li>
-                                <li><a href="javascript:;">커뮤니티 게시판</a></li>
+                                <li><a href="<c:url value='/community/intro'/>">내 반려견 소개</a></li>
+                                <li><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
                             </ul>
                         </div>
 					</li>

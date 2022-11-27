@@ -12,9 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/mainbg9.png); margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
 
-.contentBox{width:850px; margin: 100px auto; border: 1.5px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; }
+.contentBox{width:850px; margin: 145px auto; border: 1.5px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; }
 .contentTop{width:100%; border-bottom: 1.5px solid #d1d1d1; padding-bottom: 10px; position: relative;}
 .contentTop h1{line-height: 55px; margin:0;}
 .contentTop p{background: url(/today/img/community/boarduser.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
@@ -29,15 +29,18 @@
 .boardcontent{min-height:300px}
 .hashList{width:100%; margin: 0 auto;  border-top:1.5px solid #d1d1d1; padding:18px 25px; box-sizing: border-box; }
 .hashList span{background: #F3F3F3; border-radius: 20px; padding: 5px 10px; margin-right: 15px;}
+.hashList span:hover{background: #c3c3c3;}
+.hashList span a{text-decoration: none; color: #000;}
 .hashnull{display:none}
 .comment{border-top:1.5px solid #d1d1d1;}
+.comment h3{padding-top:20px}
 .comment ul{list-style:none; padding-right:40px}
 .comment ul li{margin-top:25px}
 .comment p{font-size:0.9em}
-.comment .rpyW{background: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
+.comment .rpyW{margin-bottom:7px; background: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
 .comment span{font-size:0.9em; color:#aaa}
 .comment button{width:35px; height: 20px; font-size:0.6em; padding: 2px; border-radius: 5px; border: none; cursor: pointer;}
-.replyRgBox{width:750px; height: 125px; position: relative; display:block; margin-bottom: 40px}
+.replyRgBox{width:750px; height: 125px; margin-top:40px; position: relative; display:block; margin-bottom: 40px}
 .replyRgBox textarea{width:700px; height: 100px; position: absolute; top: 10px; right:0; resize: none; overflow-y:auto; font-family: "NanumSquare","맑은 고딕", sans-serif;}
 .replyRgBox button{position: absolute; bottom: -30px; right:0; width:85px; height: 30px; border:none; background: #F0F0F0; cursor: pointer;}
 .comment textarea{width:700px; height: 100px; resize: none; overflow-y:auto; font-family: 'NanumSquare','맑은 고딕', sans-serif;}
@@ -59,14 +62,13 @@
 	    <div class="siteNav">
 	        <a href="#"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li><a href="#">내 반려견 소개</a></li>
+	            <li><a href="#">반려견 소개하기</a></li>
 	            <li class="checked"><a href="#">커뮤니티 게시판</a></li>
 	        </ul>
 	    </div>
 		<div class="otherWrap" style="width: 1150px; padding-left:310px">
 	        <div class="otherP">
 	            <P>너와의 오늘, 우리의 시간</P>
-	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
 	            <p>'너'이기에 행복한 견주의 일기</p>
 	    	</div>
 	    </div>	
@@ -93,7 +95,7 @@
 						        										
 						<c:if test="${login.userId == article.writer}">				   
 							<input id="modBtn" type="button" value="수정">&nbsp;&nbsp;				
-							<input type="submit" value="삭제" onclick="return confirm('정말로 삭제하시겠습니까?')">&nbsp;&nbsp;					
+							<input type="submit" value="삭제" onclick="return confirm('게시물을 삭제하시겠습니까?')">&nbsp;&nbsp;					
 						</c:if>
 						<input type="button" value="목록" class="btn"  id="list-btn">&nbsp;&nbsp;
 					</form>	
@@ -112,7 +114,7 @@
 				<c:if test="${hashtagList.size() > 0}">
 					<div class="hashList">
 						<c:forEach var="hashtag" items="${hashtagList}">						
-								<span>#${hashtag}</span>					
+								<span>#<a href="<c:url value='/community/list?keyword=${hashtag}&condition=hashtag'/>">${hashtag}</a></span>					
 						</c:forEach>
 					</div>
 				</c:if>						
@@ -145,14 +147,10 @@
 			
 			
 			<!-- 댓글 등록 폼 -->
-			<div class="replyRgBox">
-				<form action="<c:url value='/board/reply'/>" method="post" id="replyForm">
-					<input type="hidden" name="boardNo" value="${article.boardNo}">		
-					
-						<textarea name="content" id="replyContent" placeholder="댓글을 입력해주세요."></textarea>
-						<button type="button" id="replyBtn">댓글 등록</button>		
-						
-				</form>
+			<div class="replyRgBox">			
+				<input type="hidden" name="boardNo" value="${article.boardNo}">						
+				<textarea name="content" id="replyContent" placeholder="댓글을 입력해주세요."></textarea>
+				<button type="button" id="replyBtn">댓글 등록</button>						
 			</div>		
 				
 		</div>
@@ -171,11 +169,22 @@
 	
 	
 	<script type="text/javascript">
-	
+		
+		// 알림창
 		let msg = "${msg}"
 		if(msg === "modSuccess"){
 			alert("게시물이 수정되었습니다.")
 		}
+		
+		
+		
+		// 목록버튼 클릭이벤트 처리
+		$("#list-btn").click(function(){
+			console.log("목록버튼 클릭");
+			location.href='/today/community/list?page=${p.page}&keyword=${p.keyword}&condition=${p.condition}';
+		})
+		
+		
 		
 		// 수정 버튼 클릭
 		let forElement = $("#formObj");; 
@@ -368,7 +377,9 @@
         })
 		
 		
-		
+        
+        
+	
 		
 	
 	</script>

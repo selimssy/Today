@@ -93,7 +93,7 @@
 					
 					<c:if test="${diaryList.size() <= 0}">
 						<tr>
-							<td colspan="5" align="center">
+							<td colspan="3" align="center">
 								<strong>검색 결과가 없습니다.</strong>
 							</td>
 						</tr>

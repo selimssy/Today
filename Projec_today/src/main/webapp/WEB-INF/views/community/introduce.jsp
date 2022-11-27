@@ -12,12 +12,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
+	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
 	.container{width: 1000px; margin: 0 auto; position: relative;}
-    .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 0 auto;}
+    .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
     .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
     .Myintro .modify{float: right;}
     .Myintro .modify img{width:25px; height:25px;}
     .Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}
+    .changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; 
+                background-repeat: no-repeat; position: absolute; left: -100px; top: 70px;}
     .Mycontent{display: flex; justify-content:space-between; padding:20px;}
     .Mycontent .MyPetinfo{padding-right: 10px;}
     .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
@@ -35,16 +38,13 @@
     .upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;}
     input[type=file] {display: none;}
     
-    .otherP{width: 100%; height: 130px; border-left: 5px solid #7AB730; margin: 100px 20px 50px; margin-left: 50px; padding-left:30px}
-    .otherP p{font-size: 24px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive;}
-    .otherP h1{font-size: 60px; font-family: 'Nanum Pen Script', cursive; margin:20px 0; /*letter-spacing:5px; word-spacing:7px*/}
-    .PCards{padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+    .PCards{width:1000px; margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
     .PCards .cardWrap{width: 33%; float: left; padding: 20px; box-sizing: border-box;}
      .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border: 5px solid #BCDB97; border-radius: 20px; }
     .PCards .cardWrap .OPcard .cardTop{height:55px; background: rgba(188, 219, 151, 0.5); display: flex; justify-content: space-between; box-sizing: border-box; position: relative;}
     .PCards .cardTop h3{margin: 0; line-height: 55px; width: 45%; text-align: center; font-size: 1.5em; overflow: hidden; text-overflow : ellipsis; white-space: nowrap; position: absolute; left: 70px;}
      .PCards .cardTop .cBullet{width: 20%; height: 40px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; margin-left: 10px; margin-top: 5px;}
-    .cLink{list-style: none; padding-left: 0;}
+    .cLink{list-style: none; padding-left: 0; position: absolute; top:20px; right:10px}
     .cLink li{display: inline-block; margin: 0 5px;}
     .cLink li a{text-decoration: none; color: transparent;}
      .cLink li:nth-of-type(1){padding: 0 5px; background-image:url(/today/img/community/instagram.png); background-size: contain; background-repeat: no-repeat;}
@@ -55,8 +55,7 @@
     .PCards .cardBody ul li{font-size: 20px; padding: 3px;}
     .PCards .cardBody ul li::before{content: "• "; font-size: 25px;}
     .PCards .cardBody ul li:last-of-type{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-    .changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; 
-                background-repeat: no-repeat; position: absolute; left: 50px; top: 70px;}
+    
     .pchang{text-decoration: none;  color: transparent;}    
     
     
@@ -83,11 +82,26 @@
 </style>
 </head>
 <body>
-	
-	<div class="container">
-	
-		<div class="Myintro">
-
+<div class="container">   
+	<jsp:include page="../common/header.jsp" />
+	<main>
+		<div class="siteInfo">
+	        <div class="infoText">
+	            <p>반려견 소개하기</p>
+	            <p>우리의 사랑스러운 아이 보러 놀러오세요!</p>
+	        </div>
+	    </div>
+	    <div class="siteNav">
+	        <a href="#"><div class="homeLogo">1</div></a>
+	        <ul>
+	            <li class="checked"><a href="#">반려견 소개하기</a></li>
+	            <li><a href="#">커뮤니티 게시판</a></li>
+	        </ul>
+	    </div>
+	    
+	    
+	    
+	    <div class="Myintro">
 	        <h2>내 반려견 소개란</h2>
 	        <div class="Mycontent">
 	            <div class="MyPetPhoto">
@@ -122,19 +136,21 @@
 	                </ul>
 	            </div>
 	            <div class="modify"><a id="modifyPet" href="javascript:;"><img src="<c:url value='/img/community/modify.png'/>"></a></div>
-	        </div>       
+	        </div>   
+	        <a href="#layer-popup" id="petList-open" title="반려동물 변경" class="pchang"><div class="changePet">1</div></a>    
 	    </div>
-		
-		
-		
-		<div class="otherP">
-            <P>우리 아이 보러 놀러오세요~</P>
-            <h1>다른 반려동물 보러 놀러가기</h1>
-        </div>
-
-	
-	
-		<!-- 반려동물 카드가 들어갈 공간 -->	
+	    
+	    
+	    
+		<div class="otherWrap" style="width: 1150px; padding-left:310px;">
+	        <div class="otherP">
+	            <P>우리 아이 보러 놀러오세요~</P>
+	            <p>다른 반려동물 보러 놀러가기</p>
+	    	</div>
+	    </div>	
+	    
+	    
+	    <!-- 반려동물 카드가 들어갈 공간 -->	
 		<c:if test="${petList.size() <= 0}">		
 			<strong>검색 결과가 없습니다.</strong>			
 		</c:if>
@@ -176,13 +192,32 @@
 				</c:forEach>
 			</c:if>	
 		</div>		
+	    
+	    
+	</main>
+</div>
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		
+
+	
+	
+		
 			
 		
 		
-	    <a href="#layer-popup" id="petList-open" title="반려동물 변경" class="pchang"><div class="changePet">1</div></a>
+	    
 		
 		
-   </div>
+   
 	
 	
 	

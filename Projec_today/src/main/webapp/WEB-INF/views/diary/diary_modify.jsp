@@ -52,7 +52,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    
 			<div class="writenav">
 				<input type="submit" value="저장">
-				<button id="diaryMC">취소</button>
+				<button type="button" id="diaryMC">취소</button>
 			</div>
 			
         </form>
@@ -105,8 +105,8 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 	
 	$("#diaryMC").click(function(){
 		if(confirm('다이어리 수정을 취소하시겠습니까?')){
-			location.href='/today/diary/content'+${diary.diaryNo};
-			window.history.back();
+			location.href='/today/diary/content/'+${diary.diaryNo};
+			//window.history.back();
 		}
 	})
 	

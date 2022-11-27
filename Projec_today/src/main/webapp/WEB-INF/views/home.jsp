@@ -4,112 +4,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
-    <style>
-       
-        .container{width: 1200px; height: 880px;
-            background: url(./images/5.jpg); margin: 10px auto;
-            position: relative;}
-        .main_nav{text-align: right; font-size: 1.5em; padding-right: 35px;}
-        .main_nav ul li{list-style: none; display:inline-block; padding: 20px 10px 0px 40px}
-        .main_nav ul a{text-decoration: none; color: #000;}
-        .main_nav ul a:nth-child(1){background-image:url(./img/290135_pen_pencil_write_icon.png); background-size: 25%; background-repeat: no-repeat; background-origin:content-box ;}
-        .main_nav ul a:nth-child(2){background-image:url(./img/3643749_edit_pen_pencil_write_writing_icon.png); background-size: 25%; background-repeat: no-repeat; background-origin:content-box;}
-        .main_nav ul a:hover{font-weight: bold;}    
-        .title{position: absolute; top: 80px; left: 250px; display: flex;}
-        .tfont{font-size: 8em; font-family: 'Nanum Pen Script', cursive; padding-left: 25px;}
-        .menuboard{width: 1060px; position: absolute; bottom: 30px; display: flex; justify-content: space-between; margin-left: 10px;}
-        .menuboard a{text-decoration: none; color: #000;}
-        .menu{width: 320px; height: 250px; background: rgba(255, 255, 255, 0.95); text-align: center;}
-        .menu img{padding-top: 20px; width:60px; height: 60px;}
-        .menu p:nth-of-type(1){font-size: 2.5em; font-family: 'Jua', sans-serif; margin: 10px 0;}
-       
-        .fcontainer{width: 1200px; margin: 0 auto; position: relative;}
-        .fcontainer span{position: absolute; left: 20px; bottom: 15px; color: #fff;}
-   
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
+<style>     
+.container{width: 1200px; height: 880px; background: url(/today/img/common/homebg2.png); margin: 10px auto; position: relative;}
+.main_nav{text-align: right; font-size: 1.5em; padding-right: 25px;}
+.main_nav ul li{list-style: none; display:inline-block; padding: 20px 35px 0px 40px}
+.main_nav ul a{text-decoration: none; color: #000; font-size:0.9em}
+.main_nav ul a:nth-child(1){background-image:url(/today/img/common/login.png); background-size: contain; background-repeat: no-repeat; background-origin:content-box ;}
+.main_nav ul a:nth-child(2){background-image:url(/today/img/common/join.png); background-size: contain; background-repeat: no-repeat; background-origin:content-box; }
+.main_nav ul a:hover{font-weight: bold;}    
+.title{position: absolute; top: 30px; left: 150px;}
+.tfont{font-size: 7.5em; font-family: 'Nanum Pen Script', cursive;}
+.title p{font-size: 2.1em; font-family: 'Nanum Pen Script', cursive; margin:0}
+/*.menuboard{width: 1060px; position: absolute; bottom: 30px; display: flex; justify-content: space-between; margin-left: 10px;}*/
+.menuboard a{text-decoration: none; color: #000;}
+.menuboard a:nth-of-type(1){position: absolute; top:180px; right: 410px;}
+.menuboard a:nth-of-type(2){position: absolute; top:180px; right: 60px;}
+.menuboard a:nth-of-type(3){position: absolute; top:530px; right: 410px;}
+.menuboard a:nth-of-type(4){position: absolute; top:530px; right: 60px;}
+.menu{width: 290px; height: 300px; background: rgba(255, 255, 255, 0.75); text-align: center; padding-top:15px; box-sizing: border-box;}
+.menu img{padding-top: 20px; width:60px; height: 60px;}
+.menu p:nth-of-type(1){font-size: 2.5em; font-family: 'Jua', sans-serif; margin: 10px 0;}
+.menu p:nth-of-type(2){margin-top: 30px}
+.menu p:nth-of-type(2), .menu p:nth-of-type(3){font-size: 1.1em; color:#000}
+
+.fcontainer{width: 1200px; margin: 0 auto; position: relative;}
+.fcontainer span{position: absolute; left: 20px; bottom: 15px; color: #fff;}
 
 
 
-        #login_modal{display: none; width: 400px; height: 500px; position: fixed;
-            top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
-            background: #fff; border-radius: 10px;
-        }
-        #join_modal{display: none; width: 450px; height: 585px; position: fixed;
-            top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
-            background: #fff; border-radius: 10px;
-        }    
-        .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
-        .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-        .modal_close{height: 25px; float: right; position: absolute; top: 25px; right: 15px;}
-       
-        .modal_table{border-collapse: collapse; width: 100%;}
-        .modal_body{padding: 0 20px; display: block;}
-        .mlabel{padding-top: 10px;}
-        .modal_input{border: 1px solid #d9d9de; box-sizing: border-box; width: 100%; height: 40px;}
-        #auto_login{margin-top: 20px; margin-bottom: 20px;}
-        .m_button{margin-top: 20px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
+
+#login_modal{display: none; width: 400px; height: 500px; position: fixed;
+    top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
+    background: #fff; border-radius: 10px;
+}
+#join_modal{display: none; width: 450px; height: 585px; position: fixed;
+    top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
+    background: #fff; border-radius: 10px;
+}    
+.modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
+.modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
+.modal_close{height: 25px; float: right; position: absolute; top: 25px; right: 15px;}
+
+.modal_table{border-collapse: collapse; width: 100%;}
+.modal_body{padding: 0 20px; display: block;}
+.mlabel{padding-top: 10px;}
+.modal_input{border: 1px solid #d9d9de; box-sizing: border-box; width: 100%; height: 40px;}
+#auto_login{margin-top: 20px; margin-bottom: 20px;}
+.m_button{margin-top: 20px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
+
+
+
+
+
+/* 임시!!!(펫 관련) 
+#petList{width: 800px; height: 450px; border: 5px solid #7AB730; display: none;}
+#petList h2{background: #7AB730;}
+#petList #petCards{display: flex; overflow-x: auto}
+#petList #petCards a{text-decoration: none; color: #000;}*/
+
+
+#petRg_modal{display: none;}
+/*펫리스트
+.pet{width: 240px; border: 1px solid #000;}
+
+.pet_in img{width: 100%;}*/
+
 	
-	
-	
-	
-	
-		/* 임시!!!(펫 관련) */
-		#petList{width: 800px; height: 450px; border: 5px solid #7AB730; display: none;}
-        #petList h2{background: #7AB730;}
-        #petList #petCards{display: flex; overflow-x: auto}
-        #petList #petCards a{text-decoration: none; color: #000;}
+/*팝업 모달*/
+.layer-popup {display: none;  position: fixed;
+    top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
+     border-radius: 10px; z-index: 100}
+.layer-popup.show {display: block;}
+      
+/* 펫 리스트 창 */     
+.petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px;}
+#layer-popup > img{width: 70px; height: 70px; position: absolute; top: 30px; left: 200px;}
+#layer-popup > p{font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px 0 0; padding-left: 40px; font-family: 'Nanum Pen Script', cursive; text-align: center;}
+.bdiv{text-align: right;}
+#petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px;}
+.petList #petCards{display: flex; justify-content: space-evenly; margin-top: 20px;}
+.petList #petCards a{text-decoration: none; color: #000;}
+.pet{width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
+.pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
+.pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+.pet_in p{margin: 0;}
+/* petId 안보이게 */
+.pet_id{display:none}   
 
-        #petRg_modal{display: none;}
-		
-		/*펫리스트*/
-        .pet{width: 240px; border: 1px solid #000;}
-        
-        .pet_in img{width: 100%;}
-		/* petId 안보이게 */
-		.pet_id{display:none}
-			
 
 
-        .flex-container {
-            display: flex;
-        }
 
-        /*
-        .wrapper {
-        text-align: center;
-        flex-grow: 1;
-        }
-        */
-        
-        .image-box {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            margin: 20px auto;
-        }
+.flex-container {
+    display: flex;
+}
 
-        .upload-btn {
-            border: 1px solid #ddd;
-            padding: 6px 12px;
-            display: inline-block;
-            cursor: pointer;           
-        }
+/*
+.wrapper {
+text-align: center;
+flex-grow: 1;
+}
+*/
 
-        input[type=file] {
-            display: none;
-        }
-        
-        
-        
-        
-        
-    </style>
+.image-box {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin: 20px auto;
+}
+
+.upload-btn {
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    display: inline-block;
+    cursor: pointer;           
+}
+
+input[type=file] {
+    display: none;
+}
+
+
+
+
+
+</style>
 
 </head>
 <body>
@@ -123,39 +148,39 @@
                 </ul>
             </nav>
             <div class="title">
-                <img src="./images/6169664_baby_bear_childhood_cute_love_icon.png" width="150px" height="150px">
                 <span class="tfont">오늘의 너</span>
+                <p>사랑스러운 너와의 오늘을 기억해</p>
             </div>
 
             <div class="menuboard">
-                <!--  <a href="<c:url value='/mypet/lifetime'/>">   div안에 a넣는걸로 바꾸고싶다   -->
                 <a href="javascript:select_pet();">
                     <div class="menu">
-                        <img src="./images/8664940_comments_message_chat_icon.png">
+                        <img src="/today/img/common/dog2.png">
                         <p>나의 반려견</p>
                         <p>반려견 생애 기록</p>
                         <p>갤러리</p>
                     </div>
                 </a>
-                <a href="#">
+                <a href="<c:url value='/diary/calendar'/>">
                     <div class="menu">
-                        <img src="./images/8665776_pen_to_square_icon.png">
+                        <img src="/today/img/common/cal.png">
                         <p>반려견 다이어리</p>
                         <p>반려견 전용 캘린더</p>
                         <p>견주 일기</p>
                     </div>
                 </a>
-                <a href="#">
+                <a href="<c:url value='/community/intro'/>">
                     <div class="menu">
-                        <img src="./images/4470663_description_about_app_web_info_icon.png">
+                        <img src="/today/img/common/community.png">
                         <p>커뮤니티</p>
                         <p>내 반려견 자랑하기</p>
-                        <p>견주 커뮤니티(꿀팁 공유, 묻고 답하기)</p>
+                        <p>커뮤니티 게시판</p>
+                        <!-- <p>견주 커뮤니티(꿀팁 공유, 묻고 답하기)</p> -->
                     </div>
                 </a>
                 <a href="#">
                     <div class="menu">
-                        <img src="./images/4470663_description_about_app_web_info_icon.png">
+                        <img src="/today/img/common/boarduser.png">
                         <p>마이페이지</p>
                         <p>개인정보 수정</p>
                         <p>비밀번호 변경</p>
@@ -180,7 +205,7 @@
     <div id="login_modal">
         <div class="modal_header">
             <h2 class="modal-title">
-                <span class="modal_logo">뚜벅데이트</span> 로그인
+                <span class="modal_logo">오늘의 너</span> 로그인
             </h2>
             <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
         </div>
@@ -238,7 +263,7 @@
     <div id="join_modal">
         <div class="modal_header">
             <h2 class="modal-title">
-                <span class="modal_logo">뚜벅데이트</span> 회원가입
+                <span class="modal_logo">오늘의 너</span> 회원가입
             </h2>
             <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
         </div>
@@ -303,7 +328,7 @@
 	
 	
 	
-	<!----------------------------- 펫 리스트 창 --------------------------------->
+	<!----------------------------- 펫 리스트 창 -------------------------------
 	<div>
         
 
@@ -316,8 +341,22 @@
 				
             </div>
         </div>
-    </div>
+    </div>-->
     
+    <!----------------------------- 펫 리스트 창 --------------------------------->	
+	<div class="modalcontainer">
+        <div class="petList layer-popup" id="layer-popup">       
+            <img src="<c:url value='/img/community/infoPhoto.png'/>"> 
+            <p>반려동물 선택</p>
+            <div class="bdiv">
+                <button id="petRgform_open">+ 반려동물 추가</button>
+            </div>      
+            <div id="petCards">
+
+             
+            </div>
+        </div>
+    </div>
     
     
     
@@ -451,9 +490,23 @@
         
         
         
+        
+        
+
+        // 외부영역 클릭 시 팝업 닫기
+        $(document).mouseup(function (e){
+        var LayerPopup = $(".layer-popup");
+        if(LayerPopup.has(e.target).length === 0){
+            LayerPopup.removeClass("show");
+        }
+        //$('#petCards').empty();
+        });
+        
+        
+        
     	// 펫리스트창 열기
     	function select_pet(){
-    		$("#petList").css("display","block");
+    		$(".petList").css("display","block");
     		
     		const id = "${login.userId}";
     		console.log(id);
@@ -640,8 +693,8 @@
                         data: userId,
                         success: function(result) {
                             if(result === "OK") {
-                                $("#user_id").css("background-color", "aqua");
-                                $("#idChk").html("<b style='font-size:14px; color:blue;'>[사용 가능한 아이디입니다.]</b>");                        
+                                $("#user_id").css("background", "rgba(187, 217, 150, 0.8)");
+                                $("#idChk").html("<b style='font-size:14px; color:blue;'>[사용 가능한 아이디입니다.]</b>");
                                 chk1 = true;
                             } else {
                                 $("#user_id").css("background-color", "pink");
@@ -670,8 +723,9 @@
                     $('#pwChk').html('<b style="font-size:14px;color:red;">[특수문자 포함 8자이상]</b>');
                     chk2 = false;
                 } else {
-                    $('#password').css("background-color", "aqua");
-                    $('#pwChk').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#password').css("background-color", "rgba(187, 217, 150, 0.8)");
+                    //$('#pwChk').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#pwChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk2 = true;
                 }
                
@@ -691,8 +745,9 @@
                     $('#pwChk2').html('<b style="font-size:14px;color:red;">[비밀번호가 일치하지 않습니다.]</b>');
                     chk3 = false;
                 } else {
-                    $('#password_check').css("background-color", "aqua");
-                    $('#pwChk2').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#password_check').css("background-color", "rgba(187, 217, 150, 0.8)");
+                    //$('#pwChk2').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#pwChk2').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk3 = true;
                 }
                
@@ -712,8 +767,9 @@
                     $('#nameChk').html('<b style="font-size:14px;color:red;">[한글로 최대 6자]</b>');
                     chk4 = false;
                 } else {
-                    $('#user_name').css("background-color", "aqua");
-                    $('#nameChk').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#user_name').css("background-color", "rgba(187, 217, 150, 0.8)");
+                    //$('#nameChk').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#nameChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk4 = true;
                 }
                
@@ -788,8 +844,9 @@
                     $('#idCheck').html('<b style="font-size:14px;color:red;">[영문자,숫자 4-14자~]</b>');  
                     chk1 = false;
                 } else {
-                    $('#signInId').css("background-color", "aqua");
-                    $('#idCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#signInId').css("background-color", "rgba(187, 217, 150, 0.9)");
+                    //$('#idCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#idCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk1 = true;
                 }
             });
@@ -808,8 +865,9 @@
                     $('#pwCheck').html('<b style="font-size:14px;color:red;">[특수문자 포함 8자이상]</b>');
                     chk2 = false;
                 } else {
-                    $('#signInPw').css("background-color", "aqua");
-                    $('#pwCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#signInPw').css("background-color", "rgba(187, 217, 150, 0.9)");
+                    //$('#pwCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#pwCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk2 = true;
                 }
                

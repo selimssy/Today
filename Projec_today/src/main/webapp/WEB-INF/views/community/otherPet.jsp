@@ -18,7 +18,7 @@
 .Myintro .modify img{width:25px; height:25px;}
 .Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}
 .Mycontent{display: flex; justify-content:space-between; padding:20px;}
-.Mycontent .MyPetinfo{padding-right: 10px;}
+.Mycontent .MyPetinfo{padding-right: 50px;}
 .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
 .MyPetinfo li:last-of-type{padding-top: 15px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
@@ -57,6 +57,16 @@ ul{list-style: none;}
 /* 형제 선택자 '~', 부모는 tabMenu */
 #tab1:checked ~ #lifetime,
 #tab2:checked ~ #gallery{display: block;}
+
+.lifetimeBox{width:550px; margin: 50px auto;}
+.lifetimeCard{width:550px; height: 200px; position: relative; display: flex; justify-content: space-evenly; margin-bottom:80px}
+.lifecardbullet{width:45px; height: 45px; position: absolute; top: 75px; left:-85px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
+.modifyCardBtn{display:none; width:16px; position: absolute; top: 15px; right:30px; border:none; background-color: transparent; background-image: url(/today/img/mypet/modify.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
+.deleteCardBtn{display:none; width:16px; position: absolute; top: 15px; right:7px; border:none; background-color: transparent; background-image: url(/today/img/mypet/delete.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
+.lifetimeCard img{width:200px; height:200px;  object-fit: cover; border-radius: 7px;}
+.cardInfo{width:350px; height: 200px; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
+.cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
+.InfoText{background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 </style>
 </head>
 <body>
@@ -117,27 +127,42 @@ ul{list-style: none;}
                 <label for="tab1">생애 기록</label>
                 <input type="radio" id="tab2" name="tabs">
                 <label for="tab2">갤러리</label>
+                
                 <div id="lifetime" class="tabContent">
-                   	<!-- 생애기록 카드가 들어갈 공간 -->
-					<table>
-						<c:if test="${cardList.size() <= 0}">
+                	<!-- 생애기록 카드가 들어갈 공간 -->
+				    <div class="lifetimeBox">
+				    	<c:if test="${cardList.size() <= 0}">
 							<span>등록된 생애 기록이 없습니다.</span>
 						</c:if>
-						<c:if test="${cardList.size() > 0}">
-							<c:forEach var="card" items="${cardList}">
-								<tr>													
-									<td>
-										<img alt="pet_image" src="<c:url value='${card.imagePath}'/>" width="40px" height="40px">
-									</td>																																				  
-									<td>${card.content}</td>							
-									<td>
-										<fmt:formatDate value="${card.date}" pattern="yyyy. MM. dd" />							
-									</td>					
-								</tr>
-							</c:forEach>
-						</c:if>					
-						</table>
+					    <c:if test="${cardList.size() > 0}">
+								<c:forEach var="card" items="${cardList}">
+									<div id="cardWrap${card.cardId}">
+									    <div class="lifetimeCard" id="card${card.cardId}">
+									    	<div class="lifecardbullet">1</div>				    	
+								            <button class="modifyCardBtn" title="수정" href="${card.cardId}">수정</button>
+								            <button class="deleteCardBtn" title="삭제" href="${card.cardId}">삭제</button>   
+								            <div class="petImage">
+								            	<c:if test="${not empty card.imagePath}">
+								                	<img alt="pet_image" src="<c:url value='${card.imagePath}'/>" />
+								            	</c:if>
+								            	<c:if test="${empty card.imagePath}">
+								                	<img alt="pet_image" src="<c:url value='/img/common/no_image.webp'/>" />
+								            	</c:if>
+								            </div>
+								            <div class="cardInfo">
+								                <p style="margin:0"><fmt:formatDate value="${card.date}" pattern="yyyy. MM. dd" /></p>
+								                <div class="InfoText">
+								                    ${card.content}
+								                </div>  
+								            </div>			            
+								        </div>					        
+							        </div>
+						        </c:forEach>
+						</c:if>
+					</div>	
+                   	
                 </div>
+                
                 <div id="gallery" class="tabContent">
                 	<!-- 생애기록 카드가 들어갈 공간 -->
                     <div class="photocards">
@@ -174,6 +199,6 @@ ul{list-style: none;}
 	
 	
 
-
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
