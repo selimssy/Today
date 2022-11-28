@@ -132,10 +132,18 @@
 	
 	<!-- 유저, 반려동물 세션정보 -->
 	<select id="UserPetInfo" resultMap="UserMap">
-		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name, p.age, p.gender, p.feature, p.image_path, p.instagram, p.youtube, p.open 
+		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name 
 		FROM user u LEFT JOIN pet p
 		ON u.user_id = p.user_id
 		WHERE u.user_id = #{userId} AND p.pet_id = #{petId}
+	</select>
+	
+	
+	
+	<!-- 해당 계정 첫 번째 반려견 조회 -->
+	<select id="firstPet" resultMap="PetMap">
+		SELECT * FROM pet
+		WHERE user_id= #{userId} LIMIT 1
 	</select>
 	
 	

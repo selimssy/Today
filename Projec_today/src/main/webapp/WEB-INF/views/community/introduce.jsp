@@ -71,9 +71,10 @@
     #layer-popup > p{font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px 0 0; padding-left: 40px; font-family: 'Nanum Pen Script', cursive; text-align: center;}
     .bdiv{text-align: right;}
     #petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px;}
-    .petList #petCards{display: flex; justify-content: space-evenly; margin-top: 20px;}
+    .petList #petCards{/*display: flex; justify-content: space-evenly;*/ margin-top: 20px;}
     .petList #petCards a{text-decoration: none; color: #000;}
-    .pet{width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
+    .pet{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
+    /*.pet:nth-of-type{margin-right: 35px}*/
     .pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
     .pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
     .pet_in p{margin: 0;}
@@ -198,185 +199,7 @@
 </div>
 	
 	
-	
-	
-	
-	
-		
-		
-		
-		
-		
-
-	
-	
-		
-			
-		
-		
-	    
-		
-		
-   
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 <!-------------------------------------- 빈려동물 정보 수정 모달 ----------------------------------------->
-    <div id="petMf_modal">
-        <div class="modal_header">
-            <h2 class="modal-title">
-                <span class="modal_logo">오늘의 너</span> 반려동물 정보 수정
-            </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
-        </div>
-        <div class="modal_body" >
-            <form method="post" id="petRgForm">
-                <table class="modal_table">
-                    <tr>
-                        <div class="flex-container">       
-                            <div class="wrapper">
-                                <img src="<c:url value='${pet.imagePath}'/>" class="image-box" />
-                                <label for="file" class="upload-btn">
-                                    <input id="file" type="file" name="file" accept="image/*" />
-                                    <span>Upload Image</span>
-                                </label>
-                            </div>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>반려동물 이름</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="pet_name" class="modal_input" value="${pet.petName}"></td>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>나이</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="age" class="modal_input" value="${pet.age}"></td>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>성별</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <c:if test="${pet.gender == '남'}">
-                   				<label><input type="radio" name="gender" value="남" checked> 남</label>
-                            	<label><input type="radio" name="gender" value="여"> 여</label>
-							</c:if>
-							<c:if test="${pet.gender == '여'}">
-                   				<label><input type="radio" name="gender" value="남"> 남</label>
-                            	<label><input type="radio" name="gender" value="여" checked> 여</label>
-							</c:if>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>특징</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="feature" class="modal_input" value="${pet.feature}"></td>
-                    </tr>
-                  
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>인스타그램</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<td>
-							<input type="url" id="instagram" value="${pet.instagram}">
-                    	</td>
-                    </tr>
-                    
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>유튜브</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<td>
-							<input type="url" id="youtube" value="${pet.youtube}">
-                    	</td>
-                    </tr>  
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>반려동물 공개 여부</strong>
-                            </p>
-                        </td>
-                    </tr>            
-                  	<tr>
-                        <td>
-                            <c:if test="${pet.open == 1}">
-                   				<label>공개</label><input type="radio" name="open" value="1" checked>
-                              	<label>비공개</label><input type="radio" name="open" value="0">
-							</c:if>
-							<c:if test="${pet.open == 0}">
-                   				<label>공개</label><input type="radio" name="open" value="1">
-                              	<label>비공개</label><input type="radio" name="open" value="0" checked>
-							</c:if>
-                        </td>
-                    </tr>                
-                    <tr>
-                        <td>
-                            <button type="button" id="petMf-btn" class="m_button">저장</button>
-                        </td>
-                    </tr>
-                </table>
-            </form >
-        </div>
-    </div>
-    
-    
-    
-    
-    <!----------------------------- 펫 리스트 창 --------------------------------->	
-	<div class="modalcontainer">
-        <div class="petList layer-popup" id="layer-popup">       
-            <img src="<c:url value='/img/community/infoPhoto.png'/>"> 
-            <p>반려동물 선택</p>
-            <div class="bdiv">
-                <button id="petRgform_open">+ 반려동물 추가</button>
-            </div>      
-            <div id="petCards">
-
-             
-            </div>
-        </div>
-    </div>
-	
-	
-	
+<jsp:include page="../common/pet_modal.jsp" />	
 	
 	<script type="text/javascript">
 	
@@ -496,15 +319,7 @@
     	
 	    
 
-        // 외부영역 클릭 시 팝업 닫기
-        $(document).mouseup(function (e){
-        var LayerPopup = $(".layer-popup");
-        if(LayerPopup.has(e.target).length === 0){
-            LayerPopup.removeClass("show");
-        }
-        //$('#petCards').empty();
-        });
-	    
+       
 	    
      	// 반려동물 정보 수정 모달 열기 
 	    $("#modifyPet").click(function(){
@@ -517,22 +332,33 @@
             $(this).parent().parent().css("display", "none")
         })
 	    
+        
+        // 외부영역 클릭 시 팝업 닫기
+        $(document).mouseup(function (e){
+        var LayerPopup = $("#petMf_modal");
+        if(LayerPopup.has(e.target).length === 0){
+            LayerPopup.css("display","none");
+        }
+        //$('#petCards').empty();
+        });
+	    
+        
 	    
 	    // 반려동물 수정 버튼 이벤트
         $("#petMf-btn").click(function(){
             //formData 객체 생성
             let formData = new FormData();
-        	formData.append("petImg", $("input[name=file]")[0].files[0]);
+        	formData.append("petImg", $("input[id='modifyFile']")[0].files[0]);
         	// 넘겨줄 반려동물 데이터
         	let petData = {
         			"petId": "${login.pet.petId}",
-        			"petName": $("#pet_name").val(),
-        			"age": $("#age").val(),
-        			"gender": $("input[name='gender']:checked").val(),
-        			"feature": $("#feature").val(),
-        			"instagram": $("#instagram").val(),
-        			"youtube": $("#youtube").val(),
-        			"open": $("input[name='open']:checked").val()
+        			"petName": $("#Mpet_name").val(),
+        			"age": $("#Mage").val(),
+        			"gender": $("input[id='Mgender']:checked").val(),
+        			"feature": $("#Mfeature").val(),
+        			"instagram": $("#Minstagram").val(),
+        			"youtube": $("#Myoutube").val(),
+        			"open": $("input[id='Mopen']:checked").val()
         	}
         	
         	// formData에 json타입으로 petData 추가
@@ -551,7 +377,8 @@
                       console.log("통신 성공!: ");
                       if(result === "success") {
                           alert("반려동물 정보 수정이 완료되었습니다.");
-                          location.href="/today/community/intro";
+                          //location.href="/today/community/intro";
+                          location.reload();
                       } else {
                           alert("반려동물 정보 수정에 실패했습니다.");
                       }
@@ -565,15 +392,28 @@
         
         
         
-        // 파일 업로드(중복)
-        const fileDOM = document.querySelector('#file');
-        const previews = document.querySelectorAll('.image-box');
+        // 파일 업로드(중복)	    
+        // 파일업로드(추가)
+	    const fileDOM = document.querySelector('#file');
+	    const previews = document.querySelectorAll('.image-box');
 
-        fileDOM.addEventListener('change', () => {
-        const imageSrc = URL.createObjectURL(fileDOM.files[0]);
-        previews[0].src = imageSrc;
-        });
-                
+	    fileDOM.addEventListener('change', () => {
+	      const reader = new FileReader();
+	      reader.onload = ({ target }) => {
+	        previews[0].src = target.result;
+	      };
+	      reader.readAsDataURL(fileDOM.files[0]);
+	    });
+		
+	    
+	    // 파일업로드(수정)
+	    const fileDOM2 = document.querySelector('#modifyFile');
+	    const MdPreviews = document.querySelector('#mdImage-box');
+
+	    fileDOM2.addEventListener('change', () => {
+    	  const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
+    	  MdPreviews.src = imageSrc;
+    	});
 
         
 	

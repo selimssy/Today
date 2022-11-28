@@ -73,6 +73,8 @@ public class UserPetController {
 	public String modifyPet(
 			@RequestPart(value="petData") PetVO pet, HttpServletRequest request,
 			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
+			
+			System.out.println(pet.toString());
 		
 			HttpSession session = request.getSession();
 		

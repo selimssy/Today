@@ -57,10 +57,10 @@
 	        </div>
 	    </div>
 	    <div class="siteNav">
-	        <a href="#"><div class="homeLogo">1</div></a>
+	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li><a href="#">반려견 생애기록</a></li>
-	            <li class="checked"><a href="#">갤러리</a></li>
+	            <li><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></li>
+	            <li class="checked"><a href="<c:url value='/mypet/gallery'/>">갤러리</a></li>
 	        </ul>
 	    </div>
 	

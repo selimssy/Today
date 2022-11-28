@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.service.IUserService;
 
@@ -85,11 +86,13 @@ public class UserController {
 			result = "idFail";
 		}else {
 			if(encoder.matches(user.getPassword(), dbUser.getPassword())) {
-				session.setAttribute("login", dbUser);
+				PetVO pet = service.firstPet(dbUser.getUserId());
+				dbUser.setPet(pet);		
+				session.setAttribute("login", dbUser); // 로그인 세션 등록
 				result = "loginSuccess";
 				
-				long limitTime = 60 * 60 * 24 * 90;
 				
+				long limitTime = 60 * 60 * 24 * 90;				
 				// 자동로그인 체크시 처리
 				if(user.isAutoLogin()) {
 					

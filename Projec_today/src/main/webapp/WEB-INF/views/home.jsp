@@ -77,20 +77,21 @@
 
 	
 /*팝업 모달*/
-.layer-popup {display: none;  position: fixed;
+.layer-popup {display: none; position: fixed;
     top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
      border-radius: 10px; z-index: 100}
 .layer-popup.show {display: block;}
       
 /* 펫 리스트 창 */     
 .petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px;}
-#layer-popup > img{width: 70px; height: 70px; position: absolute; top: 30px; left: 200px;}
+#layer-popup > img{width: 60px; height: 60px; position: absolute; top: 35px; left: 200px;}
 #layer-popup > p{font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px 0 0; padding-left: 40px; font-family: 'Nanum Pen Script', cursive; text-align: center;}
 .bdiv{text-align: right;}
 #petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px;}
-.petList #petCards{display: flex; justify-content: space-evenly; margin-top: 20px;}
+.petList #petCards{/*display: flex; justify-content: space-evenly;*/ margin-top: 20px;}
 .petList #petCards a{text-decoration: none; color: #000;}
-.pet{width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
+.pet{float: left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
+.pet:nth-of-type{margin-right: 35px}
 .pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
 .pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .pet_in p{margin: 0;}
@@ -153,7 +154,8 @@ input[type=file] {
             </div>
 
             <div class="menuboard">
-                <a href="javascript:select_pet();">
+                <!-- <a href="javascript:select_pet();"> -->
+                <a href="<c:url value='/mypet/lifetime'/>">
                     <div class="menu">
                         <img src="/today/img/common/dog2.png">
                         <p>나의 반려견</p>
@@ -346,8 +348,8 @@ input[type=file] {
     <!----------------------------- 펫 리스트 창 --------------------------------->	
 	<div class="modalcontainer">
         <div class="petList layer-popup" id="layer-popup">       
-            <img src="<c:url value='/img/community/infoPhoto.png'/>"> 
-            <p>반려동물 선택</p>
+            <img src="<c:url value='/img/common/dog.png'/>"> 
+            <p>반려견 선택</p>
             <div class="bdiv">
                 <button id="petRgform_open">+ 반려동물 추가</button>
             </div>      
@@ -497,7 +499,8 @@ input[type=file] {
         $(document).mouseup(function (e){
         var LayerPopup = $(".layer-popup");
         if(LayerPopup.has(e.target).length === 0){
-            LayerPopup.removeClass("show");
+            //LayerPopup.removeClass("show");
+        	LayerPopup.css("display","none");
         }
         //$('#petCards').empty();
         });
@@ -507,6 +510,7 @@ input[type=file] {
     	// 펫리스트창 열기
     	function select_pet(){
     		$(".petList").css("display","block");
+    		$('#petCards').empty();
     		
     		const id = "${login.userId}";
     		console.log(id);
@@ -833,18 +837,18 @@ input[type=file] {
             //ID 입력값 검증.
             $('#signInId').on('keyup', function() {
                 if($("#signInId").val() == ""){
-                    $('#signInId').css("background-color", "pink");
+                    //$('#signInId').css("background-color", "pink");
                     $('#idCheck').html('<b style="font-size:14px;color:red;">[아이디를 입력하세요.]</b>');
                     chk1 = false;
                 }      
                
                 //아이디 유효성검사
                 else if(!getIdCheck.test($("#signInId").val())){
-                    $('#signInId').css("background-color", "pink");
+                    //$('#signInId').css("background-color", "pink");
                     $('#idCheck').html('<b style="font-size:14px;color:red;">[영문자,숫자 4-14자~]</b>');  
                     chk1 = false;
                 } else {
-                    $('#signInId').css("background-color", "rgba(187, 217, 150, 0.9)");
+                    $('#signInId').css("background-color", "#e8f0fe");
                     //$('#idCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
                     $('#idCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk1 = true;
@@ -855,17 +859,17 @@ input[type=file] {
             $('#signInPw').on('keyup', function() {
                 //비밀번호 공백 확인
                 if($("#signInPw").val() === ""){
-                    $('#signInPw').css("background-color", "pink");
+                    //$('#signInPw').css("background-color", "pink");
                     $('#pwCheck').html('<b style="font-size:14px;color:red;">[비밀번호를 입력하세요.]</b>');
                     chk2 = false;
                 }                
                 //비밀번호 유효성검사
                 else if(!getPwCheck.test($("#signInPw").val()) || $("#signInPw").val().length < 8){
-                    $('#signInPw').css("background-color", "pink");
+                    //$('#signInPw').css("background-color", "pink");
                     $('#pwCheck').html('<b style="font-size:14px;color:red;">[특수문자 포함 8자이상]</b>');
                     chk2 = false;
                 } else {
-                    $('#signInPw').css("background-color", "rgba(187, 217, 150, 0.9)");
+                    $('#signInPw').css("background-color", "#e8f0fe");
                     //$('#pwCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
                     $('#pwCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk2 = true;

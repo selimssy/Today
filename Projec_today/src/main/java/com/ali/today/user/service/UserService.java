@@ -111,6 +111,12 @@ public class UserService implements IUserService{
 	@Override
 	public List<PetVO> selectOpenPet() {
 		return mapper.selectOpenPet();
+	}
+	
+	// 특정 계정 첫 번째 반려견 조회
+	@Override
+	public PetVO firstPet(String userId) {
+		return mapper.firstPet(userId);
 	}	
 	
 }
