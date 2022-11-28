@@ -11,8 +11,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <style type="text/css">
-.container{width: 1000px; margin: 0 auto;}
-.Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 0 auto;}
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
+/*.container{width: 1000px; margin: 0 auto;}*/
+.Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto 0;}
 .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
 .Myintro .modify{float: right;}
 .Myintro .modify img{width:25px; height:25px;}
@@ -35,13 +36,13 @@ a{text-decoration: none;}
 ul{list-style: none;} 
 
 
-#contents{width: 100%; /*height: 800px;*/ margin-top: 100px;}
-#tabMenu{width: 100%; /*height: 100%;*/ min-height:300px}
+.contents{width: 1050px; /*height: 800px;*/ margin: 100px auto;}
+#tabMenu{width: 1000px; /*height: 100%;*/ margin: 0 auto; min-height:300px}
 #tabMenu input[type="radio"]{display: none;}
 #tabMenu label{width: 44.5%; display: inline-block; margin: 0; color: #aaa; 
     padding: 15px 25px; text-align: center; border: 1px solid transparent;}
 #tabMenu label:hover{color: #222; cursor: pointer;}
-#tabMenu input:checked + label{color: #b00; border: 1px solid #ddd; background: #eee;}
+#tabMenu input:checked + label{color: #b00; border: 1px solid #ddd; background: #eee; /*background:rgba(122, 183, 48, 0.5)*/}
 
 /* 공지사항은 checked 이므로 처음주터 보이고 갤러리는 숨김 */
 .tabContent{display: none; padding: 20px 0 0; border-top: 1px solid #ddd;}
@@ -67,15 +68,42 @@ ul{list-style: none;}
 .cardInfo{width:350px; height: 200px; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
 .cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
 .InfoText{background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+
+.galleryBox{width:100%; min-height:500px; height:1760px; padding: 40px 30px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+.gcardWrap{ width:290px; height:295px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
+.gcardWrap:nth-of-type(3n){margin-right:0}
+.imgBox img{width: 100%; height:225px; object-fit: cover;}
+.imgInfo{padding:10px 20px 10px}
+.imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+.imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+
+.paging{padding: 60px 0 0; text-align: center;}
+.paging ul li{list-style: none; display: inline-block;}
+.paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
+.paging ul li a.page-active{color: #fff; background: #384d75; border-radius: 10px}
 </style>
 </head>
 <body>
-
-
-	<div class="container">
+<div class="container">   
+	<jsp:include page="../common/header.jsp" />
+	<main>
 	
+		<div class="siteInfo">
+	        <div class="infoText">
+	            <p>반려견 소개하기</p>
+	            <p>우리의 사랑스러운 아이 보러 놀러오세요!</p>
+	        </div>
+	    </div>
+	    <div class="siteNav">
+	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
+	        <ul>
+	            <li class="checked"><a href="#">반려견 소개하기</a></li>
+	            <li><a href="#">커뮤니티 게시판</a></li>
+	        </ul>
+	    </div>
+		
+		
 		<div class="Myintro">
-
 	        <h2>${pet.petName} 소개란</h2>
 	        <div class="Mycontent">
 	            <div class="MyPetPhoto">
@@ -111,17 +139,18 @@ ul{list-style: none;}
 	            </div>
 	        </div>       
 	    </div>
-	    
-	        
-	    
-	    <div class="otherP">
-            <P>보러 와주셔서 감사합니다</P>
-            <h1>'${pet.petName}' 공간에 오신걸 환영해요!</h1>
-        </div>	    
-	    
-	    
-	    
-	    <div id="contents">
+		
+		
+	    <div class="otherWrap" style="width: 1150px;">
+	        <div class="otherP">
+	            <P>보러 와주셔서 감사합니다</P>
+	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
+	            <p>'${pet.petName}' 공간에 오신걸 환영해요!</p>
+	    	</div>
+	    </div>
+		
+	
+	    <div class="contents">
             <div id="tabMenu">
                 <input type="radio" id="tab1" name="tabs" checked>
                 <label for="tab1">생애 기록</label>
@@ -164,35 +193,45 @@ ul{list-style: none;}
                 </div>
                 
                 <div id="gallery" class="tabContent">
-                	<!-- 생애기록 카드가 들어갈 공간 -->
-                    <div class="photocards">
-		                <div id="cards-box">
-		                	<c:if test="${galleryList.size() <= 0}">
-		                		<span>등록된 게시물이 없습니다.</span>
-		                	</c:if>
-			                <c:if test="${galleryList.size() > 0}">
-								<c:forEach var="imgCard" items="${galleryList}">
-				                    <div class="card">
-				                        <div class="card_in">
-				                            <img alt="gallery_image" src="<c:url value='${imgCard.imagePath}'/>" width="400px" height="300px">
-				                            <div>
-				                                <h5>${imgCard.title}</h5>
-				                            </div>
-				                        </div>
-				                    </div>  
-		                   	    </c:forEach>
-							</c:if>
-		                                    
-		                </div>
-		            </div>
+                	<!-- 갤러리 들어갈 공간 -->	                	   		     
+			        <div class="galleryBox">
+			        	<c:if test="${galleryList.size() <= 0}">
+	                		<span>등록된 게시물이 없습니다.</span>
+	                	</c:if>
+						<c:if test="${galleryList.size() > 0}">
+							<c:forEach var="imgCard" items="${galleryList}">			
+					            <div class="gcardWrap">		              
+				                    <div class="imgBox">
+				                        <img alt="gallery_image" src="<c:url value='${imgCard.imagePath}'/>">			                        
+				                    </div>
+				                    <div class="imgInfo">
+										<h3>${imgCard.title}</h3>
+										<p>${imgCard.content}</p>			                       		                        
+				                    </div>				                    	                    					         	                    		               
+					            </div>
+							</c:forEach>
+						</c:if>	
+					</div>
+					<!-- 페이징 처리 -->
+					<div class="paging">
+						<!--  이건 진짜로 ajax로 해와야 할듯ㅠ-->
+					</div>
+					<!-- 페이징 처리 끝 -->
+					
+		            
                 </div>
             </div>
         </div>
-	    
-	    
-	    
-	    
-    </div>
+
+	
+	</main>
+</div>
+
+
+
+
+
+	
 
 	
 	
