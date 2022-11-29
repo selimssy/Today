@@ -19,7 +19,7 @@
 .Myintro .modify img{width:25px; height:25px;}
 .Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}
 .Mycontent{display: flex; justify-content:space-between; padding:20px;}
-.Mycontent .MyPetinfo{padding-right: 50px;}
+.Mycontent .MyPetinfo{padding:10px 65px 0 0;}
 .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
 .MyPetinfo li:last-of-type{padding-top: 15px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
@@ -77,10 +77,11 @@ ul{list-style: none;}
 .imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 
-.paging{padding: 60px 0 0; text-align: center;}
+.paging{padding: 40px 0 0; text-align: center;}
 .paging ul li{list-style: none; display: inline-block;}
-.paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
-.paging ul li a.page-active{color: #fff; background: #384d75; border-radius: 10px}
+.paging ul li a{text-decoration: none; color: transparent;}
+.paging ul li:nth-of-type(1){background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat; margin-right:25px;}
+.paging ul li:nth-of-type(2){background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat;}
 </style>
 </head>
 <body>
@@ -115,12 +116,12 @@ ul{list-style: none;}
 	                    <li>나이: ${pet.age}살</li>
 	                    <li>특징: ${pet.feature}</li>
 	                    <li>공개 여부: <c:if test="${pet.open == 1}">
-	                    				<label>공개</label><input type="radio" checked onclick="return(false);">
-                                		<label>비공개</label><input type="radio" onclick="return(false);">
+	                    				<label>공개</label> <input type="radio" checked onclick="return(false);">&nbsp;
+                                		<label>비공개</label> <input type="radio" onclick="return(false);">
 									</c:if>
 									<c:if test="${pet.open == 0}">
-	                    				<label>공개</label><input type="radio" onclick="return(false);">
-                                		<label>비공개</label><input type="radio" checked onclick="return(false);">
+	                    				<label>공개</label> <input type="radio" onclick="return(false);">&nbsp; 
+                                		<label>비공개</label> <input type="radio" checked onclick="return(false);">
 									</c:if>
 	                    </li>
 	                    <li>
@@ -212,9 +213,21 @@ ul{list-style: none;}
 							</c:forEach>
 						</c:if>	
 					</div>
+					
 					<!-- 페이징 처리 -->
 					<div class="paging">
-						<!--  이건 진짜로 ajax로 해와야 할듯ㅠ-->
+						<ul>
+							<!-- 이전 버튼 -->
+					        <li>
+								<a href="javascript:;" class="pre_link">이전</a>
+							</li>						
+											
+							  
+						   <!-- 다음 버튼 -->
+						   <li>
+						       <a href="javascript:;" class="next_link">다음</a>
+						   </li>
+						</ul>
 					</div>
 					<!-- 페이징 처리 끝 -->
 					
@@ -231,13 +244,174 @@ ul{list-style: none;}
 
 
 
-	
-
-	
-	
-	
-	
-
 <jsp:include page="../common/footer.jsp" />
 </body>
+
+
+<script type="text/javascript">
+
+	/*
+	$(document).on("click", ".page_link", function () {
+		
+		//초기화
+		$('.galleryBox').empty();
+		$('.page_link').removeClass('page-active');
+		$(this).addClass('page-active');
+            				
+   		let petId = "${pet.petId}";
+   		console.log(petId);
+   		let page = $(this).text();
+   		console.log(page);
+   		let data = {
+   				petId: petId,
+   				page: page
+                   };
+   		   		
+   		$.ajax({
+               type: 'post',
+               dataType : "json",
+               contentType: 'application/json',
+               url: '/today/community/getGalleries',
+               data: JSON.stringify(data),
+               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
+               success: function (response) {
+               	console.log(response); // 리스트 
+                   
+                   for(let i = 0; i < response.length; i++){
+                	   let src = "/today" + response[i]['imagePath'];
+                	   let title = response[i]['title'];
+                	   let content = response[i]['content'];
+                	   
+                       let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='gallery_image' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
+						                      
+                       $('.galleryBox').append(temp_html);
+                   }
+               }, 
+               error: function() {
+                   console.log("통신 실패!");
+               } 
+           });
+    		 
+
+        })
+        */
+        
+        
+        let page = 1;
+        
+        $(document).on("click", ".next_link", function () {
+		
+		//초기화
+		$('.galleryBox').empty();
+		/*if($(this).hasClass('page_link')){
+			$('.page_link').removeClass('page-active');
+			$(this).addClass('page-active');
+		}*/
+		
+		
+            				
+   		let petId = "${pet.petId}";
+   		
+   		page += 1;
+   		if(page > ${pc.lastPage}){
+   			alert("마지막 페이지입니다.");
+   			page = ${pc.lastPage};
+   		}
+   		
+   		
+   		/*let page = parseInt($(".page-active").text()) + 1;*/
+   		/*if(parseInt($(".page-active").text()) %10 === 0){
+			for(let i=0; i<10; i++){
+				$(".page_link").eq(i).text(parseInt($(".page_link").eq(i).text()) + 10);
+			}			
+		}*/
+   		/*$('.page-active').parent().next().children().addClass('page-active');  
+   		$('.page-active').first().removeClass('page-active');   		*/
+   		
+   		let data = {
+   				petId: petId,
+   				page: page
+                   };
+   		   		
+   		$.ajax({
+               type: 'post',
+               dataType : "json",
+               contentType: 'application/json',
+               url: '/today/community/getGalleries',
+               data: JSON.stringify(data),
+               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
+               success: function (response) {
+                    console.log(response); // 리스트 
+               	   
+               		for(let i = 0; i < response.length; i++){
+                 	   let src = "/today" + response[i]['imagePath'];
+                 	   let title = response[i]['title'];
+                 	   let content = response[i]['content'];
+                 	   
+                        let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='gallery_image' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
+ 						                      
+                        $('.galleryBox').append(temp_html);
+                    } 
+               	   	   	                 
+               }, 
+               error: function() {
+                   console.log("통신 실패!");
+               } 
+           });
+    		 	
+        })
+        
+        
+        
+        // 이전 버튼
+        $(document).on("click", ".pre_link", function () {
+		
+			//초기화
+			$('.galleryBox').empty();	
+	            				
+	   		let petId = "${pet.petId}";
+	   		console.log(petId);
+	   		page -= 1;
+	   		if(page <= 0){
+	   			alert("마지막 페이지입니다.");
+	   			page = 1;
+	   		}
+	   		console.log(page);
+	 		
+	   		let data = {
+	   				petId: petId,
+	   				page: page
+	                   };
+	   		   		
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               contentType: 'application/json',
+	               url: '/today/community/getGalleries',
+	               data: JSON.stringify(data),
+	               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
+	               success: function (response) {
+	               		console.log(response); // 리스트 
+	               	   
+		               		for(let i = 0; i < response.length; i++){
+		                 	   let src = "/today" + response[i]['imagePath'];
+		                 	   let title = response[i]['title'];
+		                 	   let content = response[i]['content'];
+		                 	   
+		                        let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='gallery_image' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
+		 						                      
+		                        $('.galleryBox').append(temp_html);
+		                    } 
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	           });
+    		 	
+        })
+
+</script>
+
+
 </html>

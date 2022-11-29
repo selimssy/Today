@@ -10,6 +10,7 @@ public class GalleryVO {
 	private String content;
 	private Date date;
 	private String imagePath;
+	private Integer page;
 	
 	
 	public Integer getImgId() {
@@ -48,7 +49,12 @@ public class GalleryVO {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
 	@Override
 	public String toString() {
 		return "GalleryVO [imgId=" + imgId + ", petId=" + petId + ", title=" + title + ", content=" + content

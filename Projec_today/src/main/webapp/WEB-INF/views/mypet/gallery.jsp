@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style>
 .siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
@@ -24,7 +25,7 @@
 .imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;/*height:45px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;white-space: nowrap;*/}
 .select{width: 20px; height: 25px; background-image: url(/today/img/mypet/more2.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 15px; right:5px; cursor: pointer;}
-.select .list{display:none; width:48px; list-style: none; position: absolute; bottom: -60px; right:-25px; background:#f1f1f1;}
+.select .list{display:none; width:100px; list-style: none; position: absolute; bottom: -65px; right:-95px; background:#f1f1f1; z-index:100;}
 .select .list button{background:#none; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
 .select .list.on{display:block}
 
@@ -107,7 +108,7 @@
 	        <div class="galleryBox">
 				<c:if test="${galleryList.size() > 0}">
 					<c:forEach var="imgCard" items="${galleryList}">			
-			            <div class="gcardWrap">		              
+			            <div class="gcardWrap" id="gcardWrap${imgCard.imgId}">		              
 		                    <div class="imgBox">
 		                        <img alt="gallery_image" src="<c:url value='${imgCard.imagePath}'/>">			                        
 		                    </div>
@@ -115,10 +116,11 @@
 								<h3>${imgCard.title}</h3>
 								<p>${imgCard.content}</p>			                       		                        
 		                    </div>
-		                    <div class="select">
+		                    <div class="select" data-html2canvas-ignore="true">
 						        <ul class="list">
 						            <li><button class="modifyGCardBtn" title="수정" href="${imgCard.imgId}">수정</button></li>
 						            <li><button class="deleteGCardBtn" title="삭제" href="${imgCard.imgId}">삭제</button></li>
+						            <li><button class="toImage" title="이미지로 저장" href="${imgCard.imgId}">이미지로 저장</button></li>
 						        </ul>
 						    </div>		                    					         	                    		               
 			            </div>
@@ -145,7 +147,7 @@
 				<!-- 페이지 버튼 -->
 				<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 					<li>                                                                 <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-					   <a href="<c:url value='/mypet/gallery${pc.makeURI(pageNum)}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" >${pageNum}</a>
+					   <a href="<c:url value='/mypet/gallery${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}" >${pageNum}</a>
 					</li>
 				</c:forEach>
 				  
@@ -458,6 +460,22 @@
 			}
 		    
         })
+        
+        
+        
+        // 각 사진 이미지로 저장
+        $(".toImage").on("click",function(){   
+        	
+        	let imgId = $(this).attr("href");
+        	
+            html2canvas($('#gcardWrap' + imgId)[0]).then(function(canvas){   
+                let img = document.createElement("a");    
+                img.download = "gallery.png";   
+                img.href=canvas.toDataURL();  
+                document.body.appendChild(img);   
+                img.click();   
+            });    
+        });    
         
         
         

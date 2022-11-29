@@ -16,6 +16,9 @@ public class GalleryPageCreator {
 	// 한 화면에 보여질 페이지 수
 	private final Integer displayPageNum = 10;  // UI 안정화 측면에서 상수로 설정
 	
+	// 커뮤니티용 마지막 페이지
+	private Integer lastPage;
+	
 	
 	// URI 파라미터를 쉽게 만들어주는 유틸메서드 선언
 	public String makeURI(Integer page) {   // queryParam부터 작성하면 ?부터 출력
@@ -49,6 +52,8 @@ public class GalleryPageCreator {
 		}
 		
 		
+		// 마지막 페이지
+		lastPage = (int)Math.ceil(articleTotalCount / (double)paging.getCountPerPage()); 
 		
 		
 	}
@@ -105,6 +110,16 @@ public class GalleryPageCreator {
 
 	public Integer getDisplayPageNum() {
 		return displayPageNum;
+	}
+
+
+	public Integer getLastPage() {
+		return lastPage;
+	}
+
+
+	public void setLastPage(Integer lastPage) {
+		this.lastPage = lastPage;
 	}
 	
 	

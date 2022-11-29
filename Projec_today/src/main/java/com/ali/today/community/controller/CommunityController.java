@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -100,6 +101,23 @@ public class CommunityController {
 			return "community/otherPet";			
 		}	
 	}
+	
+	
+	
+	
+	// 갤러리 페이징 비동기 요청
+	@PostMapping("/getGalleries")
+	@ResponseBody
+	public List<GalleryVO> getGalleries(@RequestBody GalleryVO data){
+		
+		System.out.println("petId : " + data.getPetId() + ", page : " + data.getPage());
+		GalleryPageVO paging = new GalleryPageVO(); 
+		paging.setPage(data.getPage());
+		List<GalleryVO> list = mypetService.getGalleryList(data.getPetId(), paging);
+		
+		return list;
+	}
+	
 	
 	
 	
