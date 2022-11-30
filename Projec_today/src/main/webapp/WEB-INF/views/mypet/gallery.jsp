@@ -20,9 +20,9 @@
 .photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/today/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
 
 .galleryBox{width:100%; min-height:500px; height:1760px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
-.gcardWrap{/*width: 33.333%;*/ width:300px; height:295px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
+.gcardWrap{/*width: 33.333%;*/ width:300px; height:280px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
 .gcardWrap:nth-of-type(3n){margin-right:0}
-.imgBox img{/*width:300px; */ width: 100%; height:225px; object-fit: cover;}
+.imgBox img{/*width:300px; */ width: 100%; height:210px; object-fit: cover;}
 .imgInfo{padding:10px 20px 10px}
 .imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;/*height:45px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;white-space: nowrap;*/}
@@ -214,15 +214,25 @@
 	     $(".openUGCard").click(function(){           
 	         $(".register_form").css("display","flex");
 	         $(".register_form").css("justify-content","space-evenly");
+	         $(".photoPoster").css("display","none");
 	         $(this).css("display","none");
 	     })
 	
 	     $(".closeUGCard").click(function(){
 	         $(".register_form").css("display","none");
-	         $(".openUCard").css("display","inline-block");
+	         $(".openUGCard").css("display","inline-block");
+	         $(".photoPoster").css("display","inline-block");
 	     })
         
         
+	     
+	     // 포스터 모달 여닫기
+	     $(".photoPoster").click(function(){
+	    	 $("#poster_container").css("display","block");
+	     })
+	     $(".posterClose").click(function(){
+	    	 $("#poster_container").css("display","none");
+	     })
 	     
 	     
 	     // 갤러리 수정,삭제 메뉴 여닫기

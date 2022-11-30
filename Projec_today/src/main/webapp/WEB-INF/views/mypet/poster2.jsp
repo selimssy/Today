@@ -3,7 +3,7 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-#poster_container{/*display:none*/; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:8;}
+#poster_container{display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:8;}
 #poster_wrapper{width: 1250px; /*height: 1000px;*/ height: 725px; background: #fff; border: 3px solid #bbb; padding: 30px; border-radius: 15px;  box-sizing: border-box;  position: relative;}
 .poster{display: flex; justify-content: space-evenly; box-sizing: border-box;}
 .buttonBox{height: 33px; padding-bottom: 20px;}
