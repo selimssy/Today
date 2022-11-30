@@ -15,7 +15,9 @@
 .mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
 .mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}
-.openUGCard{width: 95px; height: 40px; margin: 45px 15px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
+.buttonNav{float:right; position: relative;}
+.openUGCard{width: 95px; height: 40px;  position: absolute; top:45px; right:40px; /*margin: 45px 15px 0 0;*/ border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; /*float: right;*/ cursor: pointer;}
+.photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/today/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
 
 .galleryBox{width:100%; min-height:500px; height:1760px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
 .gcardWrap{/*width: 33.333%;*/ width:300px; height:295px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
@@ -82,7 +84,10 @@
 	            </div>
 	        </div>
 	
-	        <div><button class="openUGCard">+ 사진추가</button></div>
+	        <div class="buttonNav">
+		        <button type="button" class="openUGCard">+ 사진추가</button>
+		        <button type="button" class="photoPoster">반려견 포스터 만들기</button>
+	        </div>
 	        
 	        <div class="register_form">
 	            <button id="uploadGBtn">등록</button>
@@ -199,6 +204,7 @@
 			
             
 <jsp:include page="../common/footer.jsp" />     
+<jsp:include page="./poster.jsp" />
 </body>
 
     <script type="text/javascript">      
