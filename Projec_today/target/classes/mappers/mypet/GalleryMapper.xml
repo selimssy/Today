@@ -60,5 +60,13 @@
 		FROM gallery
 		WHERE pet_id = #{petId}
 	</select>
+	
+	
+	<!-- 갤러리 포스터용 전체 조회 -->
+	<select id="posterGallery" resultMap="GalleryMap">
+		SELECT * FROM gallery
+		WHERE pet_id = #{petId}
+		ORDER BY date DESC 
+	</select>
 
 </mapper>

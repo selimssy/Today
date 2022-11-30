@@ -3,7 +3,7 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-#poster_container{position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:8;}
+#poster_container{/*display:none*/; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:8;}
 #poster_wrapper{width: 1250px; /*height: 1000px;*/ height: 725px; background: #fff; border: 3px solid #bbb; padding: 30px; border-radius: 15px;  box-sizing: border-box;  position: relative;}
 .poster{display: flex; justify-content: space-evenly; box-sizing: border-box;}
 .buttonBox{height: 33px; padding-bottom: 20px;}
@@ -28,8 +28,8 @@
 .photo:nth-of-type(4) .tape{width: 60px; height: 60px;position: absolute; top:-31px; left:93px; transform: rotate(352deg);}
 .photo:nth-of-type(5) .tape{width: 77px; height: 70px;position: absolute; top:-34px; left:98px; transform: rotate(357deg);}
 
-.photo .inPhoto{background-size: contain; background-repeat: no-repeat;}
-.photo:nth-of-type(1) .inPhoto{width: 347px; height: 265px; position: absolute; top: 13px; left: 14px; display:none; background-size: cover;}
+.photo img{object-fit: cover;}
+.photo:nth-of-type(1) .inPhoto{width: 347px; height: 265px; position: absolute; top: 13px; left: 14px; display:none}
 .photo:nth-of-type(2) .inPhoto{width: 198px; height: 158px; position: absolute; top: 8px; left: 6px; display:none}
 .photo:nth-of-type(3) .inPhoto{width: 211px; height: 168px; position: absolute; top: 8px; left: 7px; display:none}
 .photo:nth-of-type(4) .inPhoto{width: 215px; height: 158px; position: absolute; top: 9px; left: 6px; display:none}
@@ -67,31 +67,31 @@
             <div class="frame">
                 <div class="photo" id="1_1">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <div class="inPhoto"></div>
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_2">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <div class="inPhoto"></div>
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_3">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <div class="inPhoto"></div>
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_4">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <div class="inPhoto"></div>
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_5">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <div class="inPhoto"></div>
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
             </div>
@@ -156,11 +156,11 @@
 	    // 사진 선택 이벤트
 	    $(document).on("click", ".posterPhotoList", function () {
 	    	
-	    	src = "url(" + $(this).attr("src") + ")"; 
-	    	//title = $(this).attr("alt");
+	    	src = $(this).attr("src");
+	    	title = $(this).attr("alt");
 
-	        $("#" + postePhotoNum + " .inPhoto").css("display","block").css("background-image", src);
-	        //$("#" + postePhotoNum + " p").text(title);        
+	        $("#" + postePhotoNum + " .inPhoto").css("display","block").attr("src",src);
+	        $("#" + postePhotoNum + " p").text(title);        
 	       
 	    })
 	    

@@ -47,4 +47,7 @@ public interface IMypetService {
 	
 	// 특정 반려동물 갤러리 수 조회
 	Integer countGalleries(Integer petId);
+	
+	// 갤러리 포스터용 전체 조회
+	List<GalleryVO> posterGallery(Integer petId);
 }

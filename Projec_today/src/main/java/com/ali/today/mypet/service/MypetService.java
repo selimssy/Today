@@ -115,4 +115,11 @@ public class MypetService implements IMypetService {
 		return gmapper.countGalleries(petId);
 	}
 
+	
+	// 갤러리 포스터용 전체 조회
+	@Override
+	public List<GalleryVO> posterGallery(Integer petId) {
+		return gmapper.posterGallery(petId);
+	}
+
 }

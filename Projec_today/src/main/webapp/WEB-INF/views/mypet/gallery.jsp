@@ -204,7 +204,7 @@
 			
             
 <jsp:include page="../common/footer.jsp" />     
-<jsp:include page="./poster.jsp" />
+<jsp:include page="./poster2.jsp" />
 </body>
 
     <script type="text/javascript">      

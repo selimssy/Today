@@ -331,4 +331,15 @@ public class MypetController {
 	
 	
 	
+	
+	// 갤러리 포스터 사진 전체 조회
+	@PostMapping("/posterGallery")
+	@ResponseBody
+	public List<GalleryVO> posterGallery(@RequestBody GalleryVO gallery){
+		return service.posterGallery(gallery.getPetId());
+	}
+	
+	
+	
+	
 }

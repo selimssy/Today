@@ -45,7 +45,7 @@
         .submenu .submenu_list li:last-child a {padding-right:0;}
         .submenu .submenu_list li a.on {color:#fff;}
     
-        .infoText{position: absolute; top: 140px; left: 100px; z-index: 999;}
+        .infoText{position: absolute; top: 140px; left: 100px; z-index: 5;}
         .infoText p:nth-of-type(1){font-size: 72px; font-family: 'Nanum Pen Script';}
         .infoText p:nth-of-type(2){font-size: 30px; font-family: 'Nanum Pen Script';}
         .siteNav{width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
