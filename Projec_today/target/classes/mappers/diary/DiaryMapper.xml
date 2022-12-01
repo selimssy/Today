@@ -4,16 +4,23 @@
 
 <mapper namespace="com.ali.today.diary.repository.IDiaryMapper">
 
-	<!-- DB 컬럼명과 VO 클래스의 필드명 맵핑작업 -->
-	<resultMap id="DiaryMap" type="com.ali.today.diary.model.DiaryVO">
-		
+	<resultMap id="CalendarMap" type="com.ali.today.diary.model.ScheduleVO">		
+		<id property="scheduleId" column="schedule_id" />
+		<result property="userId" column="user_id"/>
+		<result property="scheduleNum" column="schedule_num"/>
+		<result property="scheduleTitle" column="schedule_title"/>
+		<result property="scheduleDesc" column="schedule_desc"/>
+		<result property="scheduleDate" column="schedule_date"/>		
+	</resultMap>
+
+	
+	<resultMap id="DiaryMap" type="com.ali.today.diary.model.DiaryVO">		
 		<id property="diaryNo" column="diary_no" />
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
 		<result property="writer" column="writer"/>
 		<result property="regDate" column="reg_date"/>
-		<result property="thumbImg" column="thumb_img"/>
-		
+		<result property="thumbImg" column="thumb_img"/>		
 	</resultMap>
 
 	
@@ -32,6 +39,37 @@
 		OR content LIKE CONCAT('%',#{keyword},'%')
 		</if>
 	</sql>
+	
+	
+	
+	
+	
+	
+	<!-- 스케줄 추가 -->
+	<insert id="insertSchedule">
+		INSERT INTO calendar(user_id, schedule_num, schedule_title, schedule_desc, schedule_date)
+		VALUES(#{userId}, #{scheduleNum}, #{scheduleTitle}, #{scheduleDesc}, #{scheduleDate})
+	</insert>
+	
+	
+	<!-- 특정 날짜 스케줄 조회 -->	
+	<select id="getOnedaySchedules" resultMap="CalendarMap">
+		SELECT * FROM calendar
+		WHERE user_id = #{userId} AND schedule_date &gt;= #{db_startDate} AND schedule_date &lt;= #{db_endDate} 
+		ORDER BY schedule_date, schedule_num, schedule_id
+	</select>
+	
+	
+	<!-- 해당 날짜 스케줄 갯수 -->
+	<select id="countSchedule" resultType="int">
+		SELECT COUNT(*)
+		FROM calendar
+		WHERE user_id = #{userId} AND schedule_date = #{scheduleDate}
+	</select>
+	
+	
+	
+	<!-- ////////////////////////////////////////////////////////////////// -->
 	
 	
 	

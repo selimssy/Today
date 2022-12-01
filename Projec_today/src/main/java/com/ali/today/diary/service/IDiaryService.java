@@ -3,11 +3,20 @@ package com.ali.today.diary.service;
 import java.util.List;
 
 import com.ali.today.common.SearchVO;
+import com.ali.today.diary.model.DateData;
 import com.ali.today.diary.model.DiaryVO;
+import com.ali.today.diary.model.ScheduleVO;
 
 public interface IDiaryService {
 	
+	// 스케줄 추가
+	void insertSchedule(ScheduleVO scheduleVO);
 	
+	// 특정 날짜 스케줄 조회
+	List<ScheduleVO> getOnedaySchedules(String userId, DateData dateData);
+	
+	// 해당 날짜 스케줄 수
+	Integer countSchedule(ScheduleVO scheduleVO);
 	
 	
 	

@@ -1,6 +1,8 @@
 package com.ali.today.diary.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ali.today.common.SearchVO;
+import com.ali.today.diary.model.DateData;
 import com.ali.today.diary.model.DiaryVO;
+import com.ali.today.diary.model.ScheduleVO;
 import com.ali.today.diary.repository.IDiaryMapper;
 
 
@@ -18,6 +22,40 @@ public class DiaryService implements IDiaryService{
 	
 	@Autowired
 	IDiaryMapper mapper;
+	
+	
+	
+	// 스케줄 추가
+	@Override
+	public void insertSchedule(ScheduleVO scheduleVO) {
+		mapper.insertSchedule(scheduleVO);
+	}
+	
+	
+	// 해당 날짜 스케줄 수
+	@Override
+	public Integer countSchedule(ScheduleVO scheduleVO) {
+		return mapper.countSchedule(scheduleVO);
+	}
+	
+	
+	// 특정 날짜 스케줄 조회
+	@Override
+	public List<ScheduleVO> getOnedaySchedules(String userId, DateData dateData) {
+		
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("userId", userId);
+		datas.put("db_startDate", dateData.getDb_startDate());
+		datas.put("db_endDate", dateData.getDb_endDate());
+		
+		return mapper.getOnedaySchedules(datas);
+	}
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	
 	
 	
 	// 일기 추가

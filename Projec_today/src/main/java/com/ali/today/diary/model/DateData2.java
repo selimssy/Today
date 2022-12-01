@@ -5,72 +5,68 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DateData {
+public class DateData2 {
 
 	String year = "";
 	String month = "";
 	String date = "";
 	Integer value = 0;
-	//추가된 부분
-	String db_startDate = "";
-	String db_endDate = "";	
-	ScheduleVO[] schedule_data_arr = new ScheduleVO[4];
+	
+	String schedule = "";
+	String schedule_detail = "";
 
 	public String getYear() {
 		return year;
 	}
+
 	public void setYear(String year) {
 		this.year = year;
 	}
 
-	
 	public String getMonth() {
 		return month;
 	}
+
 	public void setMonth(String month) {
 		this.month = month;
 	}
 
-	
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	
+
 	public Integer getValue() {
 		return value;
 	}
+
 	public void setValue(Integer value) {
 		this.value = value;
 	}
-	//추가된 부분
-	public String getDb_startDate() {
-		return db_startDate;
-	}
-	public void setDb_startDate(String db_startDate) {
-		this.db_startDate = db_startDate;
+
+	public String getSchedule() {
+		return schedule;
 	}
 
-	
-	public String getDb_endDate() {
-		return db_endDate;
-	}
-	public void setDb_endDate(String db_endDate) {
-		this.db_endDate = db_endDate;
+	public void setSchedule(String schedule) {
+		this.schedule = schedule;
 	}
 
-	
-	public ScheduleVO[] getSchedule_data_arr() {
-		return schedule_data_arr;
+	public String getSchedule_detail() {
+		return schedule_detail;
 	}
-	public void setSchedule_data_arr(ScheduleVO[] schedule_data_arr) {
-		this.schedule_data_arr = schedule_data_arr;
+
+	public void setSchedule_detail(String schedule_detail) {
+		this.schedule_detail = schedule_detail;
 	}
-	
-	
+
 	// 날짜에 관련된 달력정보를 가지는 메서드
-	public Map<String, Integer> today_info(DateData dateData) {
+	public Map<String, Integer> today_info(DateData2 dateData) {
 		// 날짜 캘린더 함수에 삽입.
 		Map<String, Integer> today_Data = new HashMap<String, Integer>();
 		Calendar cal = Calendar.getInstance();
@@ -113,10 +109,6 @@ public class DateData {
 		today_Data.put("before_month", before_after_calendar.get("before_month"));
 		today_Data.put("after_year", before_after_calendar.get("after_year"));
 		today_Data.put("after_month", before_after_calendar.get("after_month"));
-		
-		
-		this.db_startDate = String.valueOf(search_year)+"-"+String.valueOf(search_month+1)+"-"+String.valueOf(startDay);
-		this.db_endDate = String.valueOf(search_year)+"-"+String.valueOf(search_month+1)+"-"+String.valueOf(endDay);
 		return today_Data;
 	}
 	
@@ -147,20 +139,28 @@ public class DateData {
 	}
 	
 	// 스케줄 사용시 사용될 생성자
-	
-	public DateData(String year, String month, String date, Integer value, ScheduleVO[] schedule_data_arr) {
+	public DateData2(String year, String month, String date, Integer value, String schedule, String schedule_detail) {
+
+		this.year = year;
+		this.month = month;
+		this.date = date;
+		this.value = value;
+		this.schedule = schedule;
+		this.schedule_detail = schedule_detail;
+
+	}
+
+	// 달력만 사용시 사용될 생성자
+	public DateData2(String year, String month, String date, Integer value) {
 		if ((month != null && month != "") && (date != null && date != "")) {
 			this.year = year;
 			this.month = month;
 			this.date = date;
 			this.value = value;
-			this.schedule_data_arr = schedule_data_arr;
 		}
-
 	}
 
-
-	public DateData() {
+	public DateData2() {
 	}
 
 	@Override

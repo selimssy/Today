@@ -368,8 +368,9 @@
                 		let title = response['title'];
                 		let content = response['content'];
                 		content = content.replaceAll("<br>", "\r\n");
- 
-                        $(".mdpop").css("display","block");
+ 						
+                		$(".select").add($(".select").children(".list")).removeClass("on");
+                        $(".mdpop").css("display","block");                        
                         $(".modifyCard").css("display","flex").css("justify-content","space-evenly");
                         $(".mdGBtn").attr("href", imgId);
                         $(".mdGcancle").attr("href", imgId);
@@ -450,6 +451,7 @@
         
         // 갤러리 삭제 요청		
 		$(document).on("click", ".deleteGCardBtn", function () {
+			
 			if(confirm("사진을 삭제하시겠습니까?")){
 				
 				let imgId = $(this).attr("href");	            
@@ -490,7 +492,8 @@
                 img.href=canvas.toDataURL();  
                 document.body.appendChild(img);   
                 img.click();   
-            });    
+            });   
+            
         });    
         
         
