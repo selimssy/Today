@@ -60,6 +60,14 @@
 	</select>
 	
 	
+	
+	<select id="getOnePlan" resultMap="CalendarMap">
+		SELECT * FROM calendar
+		WHERE schedule_id = #{scheduleId}
+	</select>
+	
+	
+	
 	<!-- 해당 날짜 스케줄 갯수 -->
 	<select id="countSchedule" resultType="int">
 		SELECT COUNT(*)

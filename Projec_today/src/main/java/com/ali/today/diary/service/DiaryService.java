@@ -52,6 +52,11 @@ public class DiaryService implements IDiaryService{
 	}
 	
 	
+	// 특정 스케줄 조회
+	@Override
+	public ScheduleVO getOnePlan(Integer scheduleId) {
+		return mapper.getOnePlan(scheduleId);
+	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	

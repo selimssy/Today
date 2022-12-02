@@ -17,6 +17,9 @@ public interface IDiaryMapper {
 	// 특정 날짜 스케줄 조회
 	List<ScheduleVO> getOnedaySchedules(Map<String, Object> datas);
 	
+	// 특정 스케줄 조회
+	ScheduleVO getOnePlan(Integer scheduleId);
+	
 	// 특정 날짜 스케줄 수
 	Integer countSchedule(ScheduleVO scheduleVO);
 	

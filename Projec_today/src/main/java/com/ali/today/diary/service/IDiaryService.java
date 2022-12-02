@@ -15,6 +15,9 @@ public interface IDiaryService {
 	// 특정 날짜 스케줄 조회
 	List<ScheduleVO> getOnedaySchedules(String userId, DateData dateData);
 	
+	// 특정 스케줄 조회
+	ScheduleVO getOnePlan(Integer scheduleId);
+	
 	// 해당 날짜 스케줄 수
 	Integer countSchedule(ScheduleVO scheduleVO);
 	
