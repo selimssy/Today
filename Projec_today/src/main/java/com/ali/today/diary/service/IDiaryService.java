@@ -21,9 +21,11 @@ public interface IDiaryService {
 	// 해당 날짜 스케줄 수
 	Integer countSchedule(ScheduleVO scheduleVO);
 	
+	// 스케줄 수정
+	void modifySchedule(ScheduleVO scheduleVO);
 	
-	
-	
+	// 스케줄 삭제
+	void deleteSchedule(Integer scheduleId);
 	
 	/////////////////////////////////////////////////
 	

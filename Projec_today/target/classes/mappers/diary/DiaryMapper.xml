@@ -60,22 +60,34 @@
 	</select>
 	
 	
-	
+	<!-- 특정 스케줄 상세조회 -->
 	<select id="getOnePlan" resultMap="CalendarMap">
 		SELECT * FROM calendar
 		WHERE schedule_id = #{scheduleId}
 	</select>
 	
-	
-	
+		
 	<!-- 해당 날짜 스케줄 갯수 -->
 	<select id="countSchedule" resultType="int">
 		SELECT COUNT(*)
 		FROM calendar
 		WHERE user_id = #{userId} AND schedule_date = #{scheduleDate}
 	</select>
+		
+	
+	<!-- 스케줄 수정 -->
+	<update id="modifySchedule">
+		UPDATE calendar
+		SET schedule_num = #{scheduleNum}, schedule_title = #{scheduleTitle}, schedule_desc = #{scheduleDesc}, schedule_date = #{scheduleDate}
+		WHERE schedule_id = #{scheduleId}
+	</update>
 	
 	
+	<!-- 스케줄 삭제 -->	
+	<delete id="deleteSchedule">
+		DELETE FROM calendar
+		WHERE schedule_id = #{scheduleId}
+	</delete>
 	
 	<!-- ////////////////////////////////////////////////////////////////// -->
 	

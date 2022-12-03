@@ -52,8 +52,8 @@ public class DiaryController {
 	
 	
 	@GetMapping("/calendar")
-	public String calendar(Model model, HttpServletRequest request, DateData dateData){
-		
+	public String calendar(/*Model model, HttpServletRequest request, DateData dateData*/){
+		/*
 		Calendar cal = Calendar.getInstance();
 		DateData calendarData;
 		//검색 날짜
@@ -142,7 +142,7 @@ public class DiaryController {
 		//배열에 담음
 		model.addAttribute("dateList", dateList); //날짜 데이터 배열
 		model.addAttribute("today_info", today_info);	
-		model.addAttribute("monthEng", monthEng);
+		model.addAttribute("monthEng", monthEng);  */
 		return "diary/calendar2";
 	
 	}	
@@ -252,11 +252,10 @@ public class DiaryController {
 	
 	
 	
-	
+	// 일정 추가
 	@PostMapping("/scheduleAdd")
 	@ResponseBody
 	public String schedule_add(@RequestBody ScheduleVO scheduleVO){
-	
 		int count = service.countSchedule(scheduleVO);			
 		if(count>=4){
 			return "fullSchedule";
@@ -268,7 +267,7 @@ public class DiaryController {
 	}
 	
 	
-	
+	// 일정 조회
 	@PostMapping("/onePlan")
 	@ResponseBody
 	public ScheduleVO onePlan(@RequestBody ScheduleVO scheduleVO) {
@@ -278,7 +277,22 @@ public class DiaryController {
 	}
 	
 	
+	// 일정 수정
+	@PostMapping("/modifySchedule")
+	@ResponseBody
+	public String modifySchedule(@RequestBody ScheduleVO scheduleVO) {
+		service.modifySchedule(scheduleVO);
+		return "success";
+	}
 	
+	
+	// 일정 삭제
+	@PostMapping("/deleteSchedule")
+	@ResponseBody
+	public String deleteSchedule(@RequestBody ScheduleVO scheduleVO) {
+		service.deleteSchedule(scheduleVO.getScheduleId());
+		return "success";
+	}
 	
 	
 	// 일기쓰기 페이지 요청

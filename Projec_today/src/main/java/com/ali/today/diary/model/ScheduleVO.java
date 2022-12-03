@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ScheduleVO {
 
-	Integer scheduleId;
-	String userId;
-	Integer scheduleNum;
-	String scheduleTitle;
-	String scheduleDesc;
+	private Integer scheduleId;
+	private String userId;
+	private Integer scheduleNum;
+	private String scheduleTitle;
+	private String scheduleDesc;
+	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	Date scheduleDate;
+	
 	public Integer getScheduleId() {
 		return scheduleId;
 	}

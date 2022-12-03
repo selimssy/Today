@@ -23,22 +23,19 @@ public class DiaryService implements IDiaryService{
 	@Autowired
 	IDiaryMapper mapper;
 	
-	
-	
+		
 	// 스케줄 추가
 	@Override
 	public void insertSchedule(ScheduleVO scheduleVO) {
 		mapper.insertSchedule(scheduleVO);
 	}
-	
-	
+		
 	// 해당 날짜 스케줄 수
 	@Override
 	public Integer countSchedule(ScheduleVO scheduleVO) {
 		return mapper.countSchedule(scheduleVO);
 	}
-	
-	
+		
 	// 특정 날짜 스케줄 조회
 	@Override
 	public List<ScheduleVO> getOnedaySchedules(String userId, DateData dateData) {
@@ -50,12 +47,23 @@ public class DiaryService implements IDiaryService{
 		
 		return mapper.getOnedaySchedules(datas);
 	}
-	
-	
+		
 	// 특정 스케줄 조회
 	@Override
 	public ScheduleVO getOnePlan(Integer scheduleId) {
 		return mapper.getOnePlan(scheduleId);
+	}
+		
+	// 스케줄 수정
+	@Override
+	public void modifySchedule(ScheduleVO scheduleVO) {
+		mapper.modifySchedule(scheduleVO);
+	}
+	
+	// 스케줄 삭제
+	@Override
+	public void deleteSchedule(Integer scheduleId) {
+		mapper.deleteSchedule(scheduleId);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
