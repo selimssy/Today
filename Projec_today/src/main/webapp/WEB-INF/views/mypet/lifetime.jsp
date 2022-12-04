@@ -185,6 +185,10 @@
 
 
      <script type="text/javascript">
+     
+     	 $(function(){
+     		 $(".mainMenu.mainMenu1").addClass("checked");
+     		 })
    
     	  
     	 // 등록카드 여닫기

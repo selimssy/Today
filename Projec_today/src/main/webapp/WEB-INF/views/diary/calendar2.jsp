@@ -18,6 +18,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<style TYPE="text/css">
 	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
+	.otherWrap{}
 		body {
 		scrollbar-face-color: #F6F6F6;
 		scrollbar-highlight-color: #bbbbbb;
@@ -38,10 +39,10 @@
 		text-overflow:ellipsis;
 		}
 
-		.calendar A:link { font-size:9pt; font-family:"돋움";color:#000000; text-decoration:none; }
+		/*
 		.calendar A:visited { font-size:9pt; font-family:"돋움";color:#000000; text-decoration:none; }
-		.calendar A:active { font-size:9pt; font-family:"돋움";color:red; text-decoration:none; }
-		.calendar A:hover { font-size:9pt; font-family:"돋움";color:red;text-decoration:none;}
+		.calendar A:active { font-size:9pt; font-family:"돋움";color:red; text-decoration:none; }*/
+		
 		.day{
 			width:100px; 
 			height:30px;
@@ -59,17 +60,11 @@
 			height:30px;
 		}
 		.calendar{width:1000px; padding:30px; box-shadow: 0 0 20px 0 #e8e8e8; border-radius:10px; margin:auto; position: relative; /*background-color:#F9F8E7;*/ background-color:rgba(249, 248, 231,0.5);}
+		.scheModal_open{width: 95px; height: 35px;  position: absolute; top:55px; right:85px; border: none; border-radius: 7px; font-size: 18px; font-family:'Jua', sans-serif; background: #7AB730; cursor: pointer;}
 		
 		.scheduleBox{padding-top:5px;}
-		.scheduleBox p{/*margin:5px 0;*/ height:22px; line-height:22px; font-family: 'Jua', sans-serif; font-size:1.2em; cursor:pointer;}
+		.scheduleBox p{width:115px; height:22px; line-height:22px; font-family: 'Jua', sans-serif; font-size:1.2em; cursor:pointer; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 		.scheduleBox p:hover{background-color: #BBD996;;}
-		
-		.navigation{			
-			margin:40px auto 50px;
-			text-align: center;
-			font-size: 25px;
-			vertical-align: middle;
-		}
 		
 		
 		.calendar_top{width:900px; margin:0 auto; display:flex; border-bottom:5px solid #7AB730; /*position: absolute; top: 50px; left: 0;*/}
@@ -116,10 +111,20 @@
 		
 		/*.top_tr{border-bottom: 3px solid #7AB730;}*/
 		
-		
-		.this_month{
-			margin: 10px;
+		.navigation{		
+			height:150px;	
 		}
+		
+		
+		.move{width:20px; height:20px; padding:0 6px; text-indent: -9999px; border:none; border-radius: 50%; cursor: pointer;  background-size: contain; background-repeat: no-repeat; background-color: transparent;}
+		
+		.this_year{background-image: url(/today/img/diary/leaf3.png); background-size: contain; background-repeat: no-repeat; padding-left:55px; position: absolute; top: 40px; left: 70px; font-family: 'Jua', sans-serif; font-size:2.8em;}				
+		.this_month{position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); font-family: 'Jua', sans-serif; font-size:4em; }
+		.month_eng{position: absolute; top: 105px; left: 50%; transform: translate(-50%, 0);}
+		.move.prev_year{background-image: url(/today/img/diary/move2.png); position: absolute; top: 58px; left: 55px;}
+		.move.next_year{background-image: url(/today/img/diary/move.png); position: absolute; top: 58px; left: 240px;}
+		.move.prev_month{background-image: url(/today/img/diary/left.png); position: absolute; top: 70px; left: 50%; transform: translate(-80px, 0);}
+		.move.next_month{background-image: url(/today/img/diary/right.png); position: absolute; top: 70px; left: 50%; transform: translate(60px, 0);}
 		
 		.today{background-color:#eee}
 		
@@ -146,6 +151,7 @@
 		.add_button{margin-top: 15px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
 		.buttonBox{display:flex; justify-content: space-evenly;;}
 		
+		
 		.contents{width:100%}
 	</style>
 </head>
@@ -163,8 +169,8 @@
 	    <div class="siteNav">
 	        <a href="#"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li class="checked"><a href="#">캘린더</a></li>
-	            <li><a href="#">견주 다이어리</a></li>
+	            <li class="checked"><a href="<c:url value='/diary/calendar'/>">캘린더</a></li>
+	            <li><a href="<c:url value='/diary/list'/>">견주 다이어리</a></li>
 	        </ul>
 	    </div>
 		<div class="otherWrap" style="width: 1150px; padding-left:310px; margin: 100px 0 70px;">
@@ -175,38 +181,28 @@
 	    	</div>
 	    </div>
 	    
-	    <div class="calendarBox">
-	    	<button type="button" class="scheModal_open">일정등록</button>
-	    	<button type="button" id="redirect" class="move" style="display:none">re</button>
+	    <div class="calendarBox">	    	    	
 	    	<div class="calendar" >
-
 				<!--날짜 네비게이션  -->
 				<div class="navigation">
-					
-					
-					<a class="move prev_year" href="javascript:;">
-						&lt;&lt;
+					<button type="button" id="redirect" class="move" style="display:none">re</button>
+					<button type="button" class="scheModal_open">+ 일정 추가</button>
 					<!-- 이전해 -->
-					</a> 
-					<span class="this_year">${today_info.search_year}</span>
-					<a class="move next_year" href="javascript:;">
-						<!-- 다음해 -->
-						&gt;&gt;
-					</a>
+					<button type="button" class="move prev_year">1</button>
+					<!-- 년도 표시 -->
+					<span class="this_year"></span>
+					<!-- 다음해 -->
+					<button type="button" class="move next_year">1</button>
 					
 					
-					<a class="move prev_month" href="javascript:;">
-						&lt;
 					<!-- 이전달 -->
-					</a> 					
-					<span class="this_month"> 
-						<c:if test="${today_info.search_month<10}">0</c:if><span class="monthInt">${today_info.search_month}</span>
-					</span>	
-					<span class="month_eng">${monthEng[today_info.search_month - 1]}</span>				
-					<a class="move next_month" href="javascript:;">
-					<!-- 다음달 -->
-						&gt;
-					</a> 
+					<button type="button" class="move prev_month">1</button>	
+					<!-- 월 표시 -->		
+					<span class="this_month"><span class="monthInt"></span></span>	
+					<!-- 영어 월 표시 -->
+					<span class="month_eng"></span>			
+					<!-- 다음달 -->	
+					<button type="button" class="move next_month">1</button>
 										
 				</div>
 				
@@ -220,34 +216,7 @@
 					<p style="color: #529dbc;">SAT</p>
 				</div>
 				
-				<table class="calendar_body">	
-					<!--  		
-					<thead>
-						<tr class="top_tr">
-							<td class="day sun" >
-								일
-							</td>
-							<td class="day" >
-								월
-							</td>
-							<td class="day" >
-								화
-							</td>
-							<td class="day" >
-								수
-							</td>
-							<td class="day" >
-								목
-							</td>
-							<td class="day" >
-								금
-							</td>
-							<td class="day sat" >
-								토
-							</td>
-						</tr>
-					</thead>
-					-->
+				<table class="calendar_body">						
 					<tbody class="tbody">
 						<tr>
 							<c:forEach var="dateList" items="${dateList}" varStatus="date_status"> 
@@ -341,7 +310,14 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <td><input type="text" id="schedule_num"  class="modal_input" /></td>
+	                <td>
+		            	<select class="modal_input select" id="schedule_num">                            	                           	
+		                     <option value="1">1</option>
+		                     <option value="2">2</option>
+		                     <option value="3">3</option>
+		                     <option value="4">4</option>        
+		                </select>
+		            </td>
 	            </tr>		        
 	            
 	            <tr>
@@ -352,7 +328,7 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <td><input type="text" id="schedule_title" class="modal_input" /></td>
+	                <td><input type="text" id="schedule_title" class="modal_input" placeholder="일정 제목(최대 20자)"/></td>
 	            </tr>
 	            <tr>
 	                <td class="mlabel">
@@ -362,7 +338,7 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <td><textarea id="schedule_desc" class="modal_textarea" rows="2"></textarea></td>
+	                <td><textarea id="schedule_desc" class="modal_textarea" rows="2" maxlength='250'></textarea></td>
 	            </tr>
 	            
 	            <tr>
@@ -471,8 +447,16 @@
 		            </td>
 		        </tr>
 				<tr>
-		            <td><input type="text" class="modal_input" id="MplanNum" value=""></td>
-		        </tr>		        
+		            <td>
+		            	<select class="modal_input select" id="MplanNum">                            	                           	
+		                     <option value="1">1</option>
+		                     <option value="2">2</option>
+		                     <option value="3">3</option>
+		                     <option value="4">4</option>        
+		                </select>
+		            </td>
+		        </tr>		
+		                
 		        
 		        <tr>
 		            <td class="mlabel">
@@ -492,7 +476,7 @@
 		            </td>
 		        </tr>
 		        <tr>
-		        	<td><textarea id="MplanDesc" class="modal_textarea" rows="2"></textarea></td>
+		        	<td><textarea id="MplanDesc" class="modal_textarea" maxlength='250' rows="2"></textarea></td>
 		        </tr>
 		        
 		        <tr>
@@ -506,13 +490,17 @@
     		</table>
         </div>
     </div>
-
+    
+    
+    
+<jsp:include page="../common/footer.jsp" /> 
 </body>
 
 <script type="text/javascript">
 
 	$(function(){
 		$("#redirect").click();
+		$(".mainMenu.mainMenu2").addClass("checked");
 	})
 	
 	// 스케줄 모달 여닫기
@@ -527,6 +515,22 @@
 		$(".scheduleRgModal").css("display","none");
 	})
 
+	
+	// 일정제목 글자수 제한 알림
+	$('#schedule_title').keyup(function(){
+        var content = $(this).val();      
+        if (content.length > 25){
+          alert("최대 25자까지 입력 가능합니다.");
+          $(this).val(content.substring(0, 25));
+        }
+      });
+	$('#MplanTitle').keyup(function(){
+        var content = $(this).val();      
+        if (content.length > 25){
+          alert("최대 25자까지 입력 가능합니다.");
+          $(this).val(content.substring(0, 25));
+        }
+      });
 	
 	
 	// 스케줄 등록

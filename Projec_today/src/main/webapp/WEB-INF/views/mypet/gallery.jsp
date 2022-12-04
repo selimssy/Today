@@ -207,7 +207,11 @@
 <jsp:include page="./poster2.jsp" />
 </body>
 
-    <script type="text/javascript">      
+    <script type="text/javascript">    
+    	
+	    $(function(){
+			 $(".mainMenu.mainMenu1").addClass("checked");
+			 })
     
         
      	// 등록카드 여닫기(갤러리)

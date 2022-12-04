@@ -52,8 +52,8 @@
 	    <div class="siteNav">
 	        <a href="#"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li><a href="#">반려견 소개하기</a></li>
-	            <li class="checked"><a href="#">커뮤니티 게시판</a></li>
+	            <li><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
+	            <li class="checked"><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
 	        </ul>
 	    </div>
 	
@@ -207,6 +207,8 @@
 		
 		
 		$(function(){
+			
+			$(".mainMenu.mainMenu3").addClass("checked");
 			
 			// 검색 버튼 이벤트 처리
 			$("#searchBtn").click(function(){

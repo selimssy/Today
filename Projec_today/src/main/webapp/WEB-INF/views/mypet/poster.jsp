@@ -13,35 +13,38 @@
 .template:nth-of-type(2){position:absolute; left: 130px;}
 .template:nth-of-type(3){position:absolute; left: 215px;}
 .posterDownload{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; right: 320px; cursor: pointer;}
-.frame{width: 900px; height: 600px; background: url(/today/img/mypet/p1.jpg); position: relative;}
-.photo{cursor: pointer; background-size: cover; background-repeat: no-repeat; box-shadow: 12px 12px 20px rgba(0,0,0,0.5);}
-.photo:nth-of-type(1){background-image: url(/today/img/mypet/photoselect.PNG); width: 373px; height: 350px; transform: rotate(2deg); position: absolute; top:68px; left:245px; z-index: 9;}
-.photo:nth-of-type(2){background-image: url(/today/img/mypet/photoselect.PNG); width: 213px; height: 207px; transform: rotate(358deg); position: absolute; top:42px; left:53px;}
-.photo:nth-of-type(3){background-image: url(/today/img/mypet/photoselect.PNG); width: 227px; height: 220px; transform: rotate(359deg); position: absolute; top:36px; left:649px;}
-.photo:nth-of-type(4){background-image: url(/today/img/mypet/photoselect.PNG); width: 230px; height: 207px; transform: rotate(358deg); position: absolute; top:348px; left:40px;}
-.photo:nth-of-type(5){background-image: url(/today/img/mypet/photoselect.PNG); width: 243px; height: 236px; transform: rotate(358deg); position: absolute; top:329px; left:574px; z-index: 10;}
+.frame1{width: 900px; height: 600px; background: url(/today/img/mypet/p1.jpg); position: relative;}
+.frame1 .photo{cursor: pointer; background-size: cover; background-repeat: no-repeat; box-shadow: 12px 12px 20px rgba(0,0,0,0.5);}
+.frame1 .photo:nth-of-type(1){background-image: url(/today/img/mypet/photoselect.PNG); width: 373px; height: 350px; transform: rotate(2deg); position: absolute; top:68px; left:245px; z-index: 9;}
+.frame1 .photo:nth-of-type(2){background-image: url(/today/img/mypet/photoselect.PNG); width: 213px; height: 207px; transform: rotate(358deg); position: absolute; top:42px; left:53px;}
+.frame1 .photo:nth-of-type(3){background-image: url(/today/img/mypet/photoselect.PNG); width: 227px; height: 220px; transform: rotate(359deg); position: absolute; top:36px; left:649px;}
+.frame1 .photo:nth-of-type(4){background-image: url(/today/img/mypet/photoselect.PNG); width: 230px; height: 207px; transform: rotate(358deg); position: absolute; top:348px; left:40px;}
+.frame1 .photo:nth-of-type(5){background-image: url(/today/img/mypet/photoselect.PNG); width: 243px; height: 236px; transform: rotate(358deg); position: absolute; top:329px; left:574px; z-index: 10;}
 
-.tape{z-index: 20;}
-.photo:nth-of-type(1) .tape{width: 113px; height: 107px;position: absolute; top:-60px; left:153px; transform: rotate(3deg);}
-.photo:nth-of-type(2) .tape{width: 60px; height: 60px;position: absolute; top:-33px; left:85px; transform: rotate(350deg);}
-.photo:nth-of-type(3) .tape{width: 60px; height: 60px;position: absolute; top:-32px; left:93px; transform: rotate(350deg); }
-.photo:nth-of-type(4) .tape{width: 60px; height: 60px;position: absolute; top:-31px; left:93px; transform: rotate(352deg);}
-.photo:nth-of-type(5) .tape{width: 77px; height: 70px;position: absolute; top:-34px; left:98px; transform: rotate(357deg);}
+.frame1 .tape{z-index: 20;}
+.frame1 .photo:nth-of-type(1) .tape{width: 113px; height: 107px;position: absolute; top:-60px; left:153px; transform: rotate(3deg);}
+.frame1 .photo:nth-of-type(2) .tape{width: 60px; height: 60px;position: absolute; top:-33px; left:85px; transform: rotate(350deg);}
+.frame1 .photo:nth-of-type(3) .tape{width: 60px; height: 60px;position: absolute; top:-32px; left:93px; transform: rotate(350deg); }
+.frame1 .photo:nth-of-type(4) .tape{width: 60px; height: 60px;position: absolute; top:-31px; left:93px; transform: rotate(352deg);}
+.frame1 .photo:nth-of-type(5) .tape{width: 77px; height: 70px;position: absolute; top:-34px; left:98px; transform: rotate(357deg);}
 
-.photo .inPhoto{background-size: contain; background-repeat: no-repeat;}
-.photo:nth-of-type(1) .inPhoto{width: 347px; height: 265px; position: absolute; top: 13px; left: 14px; display:none; background-size: cover;}
-.photo:nth-of-type(2) .inPhoto{width: 198px; height: 158px; position: absolute; top: 8px; left: 6px; display:none}
-.photo:nth-of-type(3) .inPhoto{width: 211px; height: 168px; position: absolute; top: 8px; left: 7px; display:none}
-.photo:nth-of-type(4) .inPhoto{width: 215px; height: 158px; position: absolute; top: 9px; left: 6px; display:none}
-.photo:nth-of-type(5) .inPhoto{width: 228px; height: 180px; position: absolute; top: 8px; left: 7px; display:none}
+.frame1 .photo .inPhoto{background-size: contain; background-repeat: no-repeat;}
+.frame1 .photo:nth-of-type(1) .inPhoto{width: 347px; height: 265px; position: absolute; top: 13px; left: 14px; display:none; background-size: cover;}
+.frame1 .photo:nth-of-type(2) .inPhoto{width: 198px; height: 158px; position: absolute; top: 8px; left: 6px; display:none}
+.frame1 .photo:nth-of-type(3) .inPhoto{width: 211px; height: 168px; position: absolute; top: 8px; left: 7px; display:none}
+.frame1 .photo:nth-of-type(4) .inPhoto{width: 215px; height: 158px; position: absolute; top: 9px; left: 6px; display:none}
+.frame1 .photo:nth-of-type(5) .inPhoto{width: 228px; height: 180px; position: absolute; top: 8px; left: 7px; display:none}
 
-.photo p{position: absolute; text-align: center; font-weight: bold; font-family: 'Nanum Pen Script'; margin: 0;}
-.photo:nth-of-type(1) p{bottom: 15px; left: 10px; width: 353px; font-size: 35px;}
-.photo:nth-of-type(2) p{bottom: 9px; left: 7px; width: 198px; font-size: 20px;}
-.photo:nth-of-type(3) p{bottom: 10px; left: 7px; width: 211px; font-size: 21px;}
-.photo:nth-of-type(4) p{bottom: 7px; left: 7px; width: 215px; font-size: 21.5px;}
-.photo:nth-of-type(5) p{bottom: 10px; left: 7px; width: 228px; font-size: 23px;}
+.frame1 .photo p{position: absolute; text-align: center; font-weight: bold; font-family: 'Nanum Pen Script'; margin: 0;}
+.frame1 .photo:nth-of-type(1) p{bottom: 15px; left: 10px; width: 353px; font-size: 35px;}
+.frame1 .photo:nth-of-type(2) p{bottom: 9px; left: 7px; width: 198px; font-size: 20px;}
+.frame1 .photo:nth-of-type(3) p{bottom: 10px; left: 7px; width: 211px; font-size: 21px;}
+.frame1 .photo:nth-of-type(4) p{bottom: 7px; left: 7px; width: 215px; font-size: 21.5px;}
+.frame1 .photo:nth-of-type(5) p{bottom: 10px; left: 7px; width: 228px; font-size: 23px;}
 
+
+.frame2{width: 800px; height: 600px; background: url(/today/img/mypet/p2.jpg); position: relative;}
+.frame2 .photo:nth-of-type(1){background-image: url(/today/img/mypet/photoselect.PNG); width: 373px; height: 350px; transform: rotate(2deg); position: absolute; top:68px; left:245px; z-index: 9;}
 
 .gallerySelect{width: 270px; height: 600px; margin-left: 15px;box-shadow: 0 0 20px 0 #e8e8e8; padding: 25px 0 25px 25px; box-sizing: border-box; overflow-y: scroll;}
 .gallerySelect p{text-align: center; font-family: 'Nanum Pen Script'; font-size: 25px; padding-bottom: 20px}
@@ -64,7 +67,7 @@
 
 
         <div class="poster">
-            <div class="frame">
+            <div class="frame1">
                 <div class="photo" id="1_1">
                     <img class="tape" src="/today/img/mypet/tape.png">
                     <div class="inPhoto"></div>
@@ -95,6 +98,16 @@
                     <p></p>
                 </div>
             </div>
+            
+            
+            <div class="frame2">
+                <div class="photo" id="1_1">
+                    <img class="pincer" src="/today/img/mypet/pincer.png">
+                    <div class="inPhoto"></div>
+                    <p></p>
+                </div>                
+            </div>
+            
 
             <div class="gallerySelect">
             	<p>사진을 선택해주세요.</p>

@@ -49,8 +49,8 @@
 	    <div class="siteNav">
 	        <a href="#"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li><a href="#">캘린더</a></li>
-	            <li class="checked"><a href="#">견주 다이어리</a></li>
+	            <li><a href="<c:url value='/diary/calendar'/>">캘린더</a></li>
+	            <li class="checked"><a href="<c:url value='/diary/list'/>">견주 다이어리</a></li>
 	        </ul>
 	    </div>
 	
@@ -207,6 +207,8 @@
 		
 		
 		$(function(){
+			
+			$(".mainMenu.mainMenu2").addClass("checked");
 			
 			// 검색 버튼 이벤트 처리
 			$("#searchBtn").click(function(){

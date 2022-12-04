@@ -27,7 +27,7 @@
 .contentBody{padding-top: 20px}
 /*.contentBody img{display: block; margin : auto;}*/
 .boardcontent{min-height:300px}
-.hashList{width:100%; margin: 0 auto;  border-top:1.5px solid #d1d1d1; padding:18px 25px; box-sizing: border-box; }
+.hashList{width:100%; margin: 20px auto 0;  border-top:1.5px solid #d1d1d1; padding:18px 25px; box-sizing: border-box; }
 .hashList span{background: #F3F3F3; border-radius: 20px; padding: 5px 10px; margin-right: 15px;}
 .hashList span:hover{background: #c3c3c3;}
 .hashList span a{text-decoration: none; color: #000;}
@@ -62,8 +62,8 @@
 	    <div class="siteNav">
 	        <a href="#"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li><a href="#">반려견 소개하기</a></li>
-	            <li class="checked"><a href="#">커뮤니티 게시판</a></li>
+	            <li><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
+	            <li class="checked"><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
 	        </ul>
 	    </div>
 		<div class="otherWrap" style="width: 1150px; padding-left:310px">
@@ -169,6 +169,11 @@
 	
 	
 	<script type="text/javascript">
+	
+		$(function(){
+			 $(".mainMenu.mainMenu3").addClass("checked");
+			 })
+		
 		
 		// 알림창
 		let msg = "${msg}"

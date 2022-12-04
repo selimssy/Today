@@ -98,8 +98,8 @@ ul{list-style: none;}
 	    <div class="siteNav">
 	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
 	        <ul>
-	            <li class="checked"><a href="#">반려견 소개하기</a></li>
-	            <li><a href="#">커뮤니티 게시판</a></li>
+	            <li class="checked"><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
+	            <li><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
 	        </ul>
 	    </div>
 		
@@ -249,6 +249,10 @@ ul{list-style: none;}
 
 
 <script type="text/javascript">
+	
+	$(function(){
+		 $(".mainMenu.mainMenu3").addClass("checked");
+		 })
 
 	/*
 	$(document).on("click", ".page_link", function () {

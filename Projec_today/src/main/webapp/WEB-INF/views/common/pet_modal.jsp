@@ -24,14 +24,36 @@
 
 
 /* 펫 등록 모달 */
-#petRg_modal{display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+#petRg_modal{display: none; width:420px; height:600px; overflow-y:auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
 			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 100}
-
-
 /* 펫 수정 모달 */
 #petMf_modal {display: none; width:420px; height:600px; overflow-y:auto;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
 			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 999}
+      
+/* 펫 리스트 창 */     
+#petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px; display: none;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index: 100}
+#petList > img{width: 70px; height: 70px; position: absolute; top: 30px; left: 200px;}
+#petList > p{font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px 0 0; padding-left: 40px; font-family: 'Nanum Pen Script', cursive; text-align: center;}
+.bdiv{text-align: right;}
+#petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px; cursor: pointer;}
+#petCards{/*display: flex; justify-content: space-evenly;*/ margin-top: 20px;}
+#petCards a{text-decoration: none; color: #000;}
+.pet{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
+/*.pet:nth-of-type{margin-right: 35px}*/
+.pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
+.pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+.pet_in p{margin: 0;}
+/* petId 안보이게 */
+.pet_id{display:none} 
 
+.changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
+                background-repeat: no-repeat; position: absolute; left: -100px; top: 70px; background-color: transparent; cursor: pointer;}  
+
+.flex-container {display: flex;}
+.wrapper {text-align: center;flex-grow: 1;}        
+.image-box {width: 200px;height: 200px;object-fit: cover;display: block;margin: 20px auto;}
+.upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;}
+input[type=file] {display: none;}
 </style>
 
 
@@ -39,7 +61,7 @@
     
     <!----------------------------- 펫 리스트 창 --------------------------------->	
 	<div class="modalcontainer">
-        <div class="petList layer-popup" id="layer-popup">       
+        <div id="petList">       
             <img src="<c:url value='/img/community/infoPhoto.png'/>"> 
             <p>반려동물 선택</p>
             <div class="bdiv">
@@ -300,5 +322,291 @@
     
     
     
+    <script type="text/javascript">
     
+    // 펫등록 모달 열기 
+    // 반려동물 추가
+    $("#petRgform_open").click(function(){
+        $("#petRg_modal").css("display","block");
+        $("#petList").css("display","none");
+    })
+  
+    
+    
+    
+    
+    // 새로운 펫 추가 이벤트    
+    $("#petRg-btn").click(function(){
+        //formData 객체 생성
+        let formData = new FormData();
+    	formData.append("petImg", $("input[name=file]")[0].files[0]);
+    	// 넘겨줄 반려동물 데이터
+    	let petData = {
+    			"userId": "${login.userId}",
+    			"petName": $("#pet_name").val(),
+    			"age": $("#age").val(),
+    			"gender": $("input[name='gender']:checked").val(),
+    			"feature": $("#feature").val(),
+    			"instagram": $("#instagram").val(),
+    			"youtube": $("#youtube").val(),
+    			"open": $("input[name='open']:checked").val()
+    	}
+    	
+    	// formData에 json타입으로 petData 추가
+    	formData.append("petData", new Blob([ JSON.stringify(petData) ], {type : "application/json"}));
+    	
+    	// ajax 처리
+    	$.ajax({
+    		  type: "POST",
+    	      url: "/today/user/registerPet",
+    	      data: formData,
+    	      dataType: "text",
+    	      contentType: false,               // * 중요 *
+    	      processData: false,               // * 중요 *
+    	      enctype : 'multipart/form-data',  // * 중요 *
+    	      success: function(result) { 
+                  console.log("통신 성공!: ");
+                  if(result === "success") {
+                      alert("반려동물 등록이 완료되었습니다.");
+                      window.location.reload();
+                      //location.href="/today/mypet/lifetime"; session petId등록 문제
+                  } else {
+                      alert("반려동물 등록에 실패했습니다.");
+                  }
+              }, 
+              error: function() {
+                  console.log("통신 실패!");
+              } 
+    	});
+    })    
+
+    
+    
+    	    // 펫리스트 팝업 열기
+        $(document).on("click", "#petList-open", function (e){
+        $("#petList").css("display","block");	
+        $('#petCards').empty();	
+        
+        const id = "${login.userId}";
+		console.log(id);
+		const user = {
+                    userId: id
+                };
+		$.ajax({
+            type: 'post',
+            dataType : "json",
+            contentType: 'application/json',
+            url: '/today/user/petList',
+            data: JSON.stringify(user),
+            success: function (response) {
+            	console.log(response); // 리스트 
+                //let rows = response  
+                //console.log(row.length);
+                for(let i = 0; i < response.length; i++){
+                	let pet_id = response[i]['petId']
+                    let src = response[i]['imagePath']
+                    let pet_name = response[i]['petName']
+                    let age = response[i]['age']
+                    let gender = response[i]['gender']
+
+                    let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
+
+                    $('#petCards').append(temp_html)
+                }
+            }, 
+            error: function() {
+                console.log("통신 실패!");
+            } 
+        });
+        });
+
+        // 외부영역 클릭 시 팝업 닫기
+        $(document).mouseup(function (e){
+	        let LayerPopup = $("#petList");
+	        if(LayerPopup.has(e.target).length === 0){
+	            LayerPopup.css("display","none");
+	        }
+        });
+	    
+        
+        
+        
+        /*
+    	// 펫리스트창 열기(중복)
+    	function select_pet(){
+    		//$("#petList").css("display","block");
+    		
+    		const id = "${login.userId}";
+    		console.log(id);
+    		const user = {
+                        userId: id
+                    };
+    		$.ajax({
+                type: 'post',
+                dataType : "json",
+                contentType: 'application/json',
+                url: '/today/user/petList',
+                data: JSON.stringify(user),
+                success: function (response) {
+                	console.log(response); // 리스트 
+                    //let rows = response  
+                    //console.log(row.length);
+                    for(let i = 0; i < response.length; i++){
+                    	let pet_id = response[i]['petId']
+                        let src = response[i]['imagePath']
+                        let pet_name = response[i]['petName']
+                        let age = response[i]['age']
+                        let gender = response[i]['gender']
+
+                        let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
+
+                        $('#petCards').append(temp_html)
+                    }
+                }, 
+                error: function() {
+                    console.log("통신 실패!");
+                } 
+            });
+    		 
+    		
+    	}*/
+    	
+    	
+    	
+    	
+    	
+    	// 반려동물 선택 이벤트(커뮤니티 리다이렉트)
+        $(document).on("click", ".pet", function () {
+            const user_id = "${login.userId}";
+            const pet_id = $(this).find( ".pet_id" ).text();
+    		console.log(user_id);
+            console.log(pet_id);
+    		const pet = {
+                        userId: user_id,
+                        petId: pet_id
+                    };
+
+            $.ajax({
+                type: "POST", 
+                url: "/today/user/selectPet", 
+                headers: {
+                    "Content-Type": "application/json"
+                }, 
+                dataType: "text", 
+                data: JSON.stringify(pet), 
+                success: function(result) { 
+                    console.log("통신 성공!: ");
+                    if(result === "success") {
+                        location.href="/today/community/intro";
+                    } else {
+                        alert("반려동물 선택에 실패했습니다.");
+                    }
+                }, 
+                error: function() {
+                    console.log("통신 실패!");
+                } 
+            });        
+            
+        })
+    	
+	    
+
+       
+	    
+     	// 반려동물 정보 수정 모달 열기 
+	    $("#modifyPet").click(function(){
+	        $("#petMf_modal").css("display","block");
+	    })
+	    
+    	
+	    // 닫기
+	    $(".modal_close").on("click", function(){
+            $(this).parent().parent().css("display", "none")
+        })
+	    
+        
+        // 외부영역 클릭 시 팝업 닫기
+        $(document).mouseup(function (e){
+        var LayerPopup = $("#petMf_modal");
+        if(LayerPopup.has(e.target).length === 0){
+            LayerPopup.css("display","none");
+        }
+        //$('#petCards').empty();
+        });
+	    
+        
+	    
+	    // 반려동물 수정 버튼 이벤트
+        $("#petMf-btn").click(function(){
+            //formData 객체 생성
+            let formData = new FormData();
+        	formData.append("petImg", $("input[id='modifyFile']")[0].files[0]);
+        	// 넘겨줄 반려동물 데이터
+        	let petData = {
+        			"petId": "${login.pet.petId}",
+        			"petName": $("#Mpet_name").val(),
+        			"age": $("#Mage").val(),
+        			"gender": $("input[id='Mgender']:checked").val(),
+        			"feature": $("#Mfeature").val(),
+        			"instagram": $("#Minstagram").val(),
+        			"youtube": $("#Myoutube").val(),
+        			"open": $("input[id='Mopen']:checked").val()
+        	}
+        	
+        	// formData에 json타입으로 petData 추가
+        	formData.append("petData", new Blob([ JSON.stringify(petData) ], {type : "application/json"}));
+        	
+        	// ajax 처리
+        	$.ajax({
+        		  type: "POST",
+        	      url: "/today/user/modifyPet",
+        	      data: formData,
+        	      dataType: "text",
+        	      contentType: false,               
+        	      processData: false,              
+        	      enctype : 'multipart/form-data',  
+        	      success: function(result) { 
+                      console.log("통신 성공!: ");
+                      if(result === "success") {
+                          alert("반려동물 정보 수정이 완료되었습니다.");
+                          //location.href="/today/community/intro";
+                          location.reload();
+                      } else {
+                          alert("반려동물 정보 수정에 실패했습니다.");
+                      }
+                  }, 
+                  error: function() {
+                      console.log("통신 실패!");
+                  } 
+        	});
+        })   
+        
+        
+        
+        
+        // 파일 업로드(중복)	    
+        // 파일업로드(추가)
+	    const fileDOM = document.querySelector('#file');
+	    const previews = document.querySelectorAll('.image-box');
+
+	    fileDOM.addEventListener('change', () => {
+	      const reader = new FileReader();
+	      reader.onload = ({ target }) => {
+	        previews[0].src = target.result;
+	      };
+	      reader.readAsDataURL(fileDOM.files[0]);
+	    });
+		
+	    
+	    // 파일업로드(수정)
+	    const fileDOM2 = document.querySelector('#modifyFile');
+	    const MdPreviews = document.querySelector('#mdImage-box');
+
+	    fileDOM2.addEventListener('change', () => {
+    	  const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
+    	  MdPreviews.src = imageSrc;
+    	});
+
+    
+    </script>
     
