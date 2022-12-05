@@ -38,13 +38,19 @@
 #petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px; cursor: pointer;}
 #petCards{/*display: flex; justify-content: space-evenly;*/ margin-top: 20px;}
 #petCards a{text-decoration: none; color: #000;}
-.pet{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
-/*.pet:nth-of-type{margin-right: 35px}*/
+/*.pet{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}*/       
+.petBox{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0; position: relative;}
+.pet{cursor: pointer;}
 .pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
 .pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .pet_in p{margin: 0;}
 /* petId 안보이게 */
 .pet_id{display:none} 
+.select{width: 20px; height: 10px; background-image: url(/today/img/community/more3.png); background-size: contain; background-repeat: no-repeat; position: absolute; top: 7px; right:12px; cursor: pointer;}
+.select:hover{background-color: #ccc;}
+.select .list{display:none; width:60px; list-style: none; position: absolute; bottom: -65px; right:-10px; background:#ddd; z-index:100;}
+.select .list button{background-color: transparent; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
+.select .list.on{display:block}
 
 .changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
                 background-repeat: no-repeat; position: absolute; left: -100px; top: 70px; background-color: transparent; cursor: pointer;}  
@@ -151,7 +157,7 @@ input[type=file] {display: none;}
                     </tr>
                     <tr>
                     	<td>
-							<input type="url" id="instagram" placeholder="url">
+							<input type="url" id="instagram" placeholder="url" class="modal_input">
                     	</td>
                     </tr>
                     
@@ -164,7 +170,7 @@ input[type=file] {display: none;}
                     </tr>
                     <tr>
                     	<td>
-							<input type="url" id="youtube" placeholder="url">
+							<input type="url" id="youtube" placeholder="url" class="modal_input">
                     	</td>
                     </tr>  
                     <tr>
@@ -325,14 +331,41 @@ input[type=file] {display: none;}
     <script type="text/javascript">
     
     // 펫등록 모달 열기 
-    // 반려동물 추가
-    $("#petRgform_open").click(function(){
-        $("#petRg_modal").css("display","block");
-        $("#petList").css("display","none");
+    $("#petRgform_open").click(function(){    	
+        $("#petRg_modal").css("display","block");      
+        $(".image-box").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
+        $("input[type='text']").add($("input[type='url']")).val("");
+        $("input[type='radio']").prop("checked", false);
+        /*
+        $("#pet_name").val("");
+        $("#age").val("");
+        $("input[name='gender']").prop("checked", false);
+        $("#feature").val("");
+        $("#instagram").val("");
+        $("#youtube").val("");
+        $("input[name='open']").prop("checked", false);*/
+        //$("#petList").css("display","none");
     })
   
     
-    
+    // 반려견 수정,삭제 메뉴 여닫기
+     $(document).on("click", ".select", function (e) {
+    	$(".select").removeClass("on");
+           //toggle 방식
+           if($(this).hasClass("on")){
+               $(this).add($(this).children(".list")).removeClass("on");
+           }else{ // !$(this).hasClass("on") 없으면
+               $(this).add($(this).children(".list")).addClass("on");
+           }         
+       });
+     
+    $(document).mouseup(function (e){
+    	let LayerPopup = $(".select .list");
+    	if(LayerPopup.has(e.target).length === 0){
+    	  LayerPopup.removeClass("on");
+    	  $(".select").removeClass("on");
+    	}
+    }); 
     
     
     // 새로운 펫 추가 이벤트    
@@ -367,8 +400,11 @@ input[type=file] {display: none;}
     	      success: function(result) { 
                   console.log("통신 성공!: ");
                   if(result === "success") {
-                      alert("반려동물 등록이 완료되었습니다.");
-                      window.location.reload();
+                      alert("반려동물 등록이 완료되었습니다.");                      
+                      $("#petList-open").click();
+                      $("#petRg_modal").css("display","none");
+                      //window.location.reload();      
+                      //$("#petList").css("display","block");
                       //location.href="/today/mypet/lifetime"; session petId등록 문제
                   } else {
                       alert("반려동물 등록에 실패했습니다.");
@@ -382,7 +418,7 @@ input[type=file] {display: none;}
 
     
     
-    	    // 펫리스트 팝업 열기
+    	// 펫리스트 팝업 열기
         $(document).on("click", "#petList-open", function (e){
         $("#petList").css("display","block");	
         $('#petCards').empty();	
@@ -408,8 +444,9 @@ input[type=file] {display: none;}
                     let pet_name = response[i]['petName']
                     let age = response[i]['age']
                     let gender = response[i]['gender']
-
-                    let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
+					
+                	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>"; 
+                    //let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>"; 
 
                     $('#petCards').append(temp_html)
                 }
@@ -420,6 +457,7 @@ input[type=file] {display: none;}
         });
         });
 
+    	/*
         // 외부영역 클릭 시 팝업 닫기
         $(document).mouseup(function (e){
 	        let LayerPopup = $("#petList");
@@ -427,7 +465,7 @@ input[type=file] {display: none;}
 	            LayerPopup.css("display","none");
 	        }
         });
-	    
+	    */
         
         
         
@@ -525,15 +563,15 @@ input[type=file] {display: none;}
         })
 	    
         
+        /*
         // 외부영역 클릭 시 팝업 닫기
         $(document).mouseup(function (e){
-        var LayerPopup = $("#petMf_modal");
-        if(LayerPopup.has(e.target).length === 0){
-            LayerPopup.css("display","none");
-        }
-        //$('#petCards').empty();
+	        var LayerPopup = $("#petMf_modal");
+	        if(LayerPopup.has(e.target).length === 0){
+	            LayerPopup.css("display","none");
+	        }
         });
-	    
+	    */
         
 	    
 	    // 반려동물 수정 버튼 이벤트
@@ -582,6 +620,34 @@ input[type=file] {display: none;}
         })   
         
         
+        
+        // 반려동물 삭제
+        $(document).on("click", ".deletePetBtn", function () {
+			if(confirm("반려견을 삭제하시겠습니까?")){
+				
+				let petId = $(this).attr("href");	            
+	    		let petVO = {petId: petId};
+	    		
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/today/user/deletePet',
+	                data: JSON.stringify(petVO),
+	                success: function (response) {
+	         			if(response === 'success'){
+	         				alert("반려견이 삭제되었습니다.");
+	         				$("#petList-open").click();
+	         			}else{
+	         				alert("반려견 삭제에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+			}
+        })
         
         
         // 파일 업로드(중복)	    

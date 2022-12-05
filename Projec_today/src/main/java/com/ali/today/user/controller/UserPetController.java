@@ -119,6 +119,16 @@ public class UserPetController {
 	
 	
 	
+	// 반려동물 삭제
+	@PostMapping("/deletePet")
+	public String deletePet(@RequestBody PetVO pet) {
+		service.deletePet(pet.getPetId());
+		return "success"; 
+	}
+	
+	
+	
+	
 	// 반려동물 선택과 세션정보
 	@PostMapping("/selectPet")
 	public String selectPet(@RequestBody PetVO pet, HttpSession session) {
