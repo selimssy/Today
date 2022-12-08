@@ -10,6 +10,7 @@
 		<result property="password" column="password"/>
 		<result property="name" column="name"/>
 		<result property="nickname" column="nickname"/>
+		<result property="email" column="email"/>
 		<result property="regDate" column="reg_date"/>
 		<result property="sessionId" column="session_id"/>
 		<result property="limitTime" column="limit_time"/>
@@ -35,8 +36,8 @@
 	
 	<!-- 회원가입 SQL -->
 	<insert id="register">
-		INSERT INTO user (user_id, password, name, nickname)
-		VALUES (#{userId}, #{password}, #{name}, #{nickname})	
+		INSERT INTO user (user_id, password, name, nickname, email)
+		VALUES (#{userId}, #{password}, #{name}, #{nickname}, #{email})	
 	</insert>
 	
 	

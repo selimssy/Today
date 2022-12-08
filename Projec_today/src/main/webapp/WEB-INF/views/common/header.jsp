@@ -111,7 +111,7 @@
 					<li><a href="<c:url value='/community/intro'/>" class="mainMenu mainMenu3">커뮤니티</a>
                         <div class="submenu sub_3">
                             <ul class="submenu_list">
-                                <li><a href="<c:url value='/community/intro'/>">내 반려견 소개</a></li>
+                                <li><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
                                 <li><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
                             </ul>
                         </div>
@@ -119,8 +119,8 @@
 					<li><a href="javascript:;" class="mainMenu mainMenu4">마이페이지</a>
                         <div class="submenu sub_4">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">개인정보 수정</a></li>
-                                <li><a href="javascript:;">내 게시물</a></li>
+                                <li><a href="javascript:;">개인정보 수정</a></li>                              
+                                <li><a href="javascript:;">반려견 정보 수정</a></li>
                             </ul>
                         </div>
 					</li>

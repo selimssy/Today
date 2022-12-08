@@ -1,13 +1,18 @@
 package com.ali.today.user.controller;
 
 import java.util.Date;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +68,49 @@ public class UserController {
 		
 	}
 	
+	
+	
+	// 회원가입 이메일 인증
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+	
+	@PostMapping("/emailAuth")
+	public String emailAuth(String email) {		
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111; // 111111 ~ 999999 범위의 인증번호
+
+		/* 이메일 보내기 */
+        String setFrom = "today.auth@gmail.com";
+        String toMail = email;
+        String title = "[오늘의 너]회원가입 인증 메일입니다.";
+        String content = 
+                "<h1>이메일 인증번호</h1>" +
+                "<hr>" +
+                "'오늘의 너' 홈페이지를 방문해주셔서 감사합니다." +
+                "<br>" +
+                " 아래의 인증번호를 확인란에 기입하여 주십시오." +
+                "<br><br><br>" +
+                "<span style='line-height: 28px; font-size: 28px; background:#eee; padding:10px 20px;'><b>" + checkNum +  "</b></span>";
+                 
+                
+        
+        try {
+            
+        	MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Integer.toString(checkNum);
+ 
+	}
 	
 	
 	

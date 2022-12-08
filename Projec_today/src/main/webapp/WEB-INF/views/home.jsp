@@ -43,7 +43,7 @@
     top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
     background: #fff; border-radius: 10px;
 }
-#join_modal{display: none; width: 450px; height: 585px; position: fixed;
+#join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed;
     top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
     background: #fff; border-radius: 10px;
 }    
@@ -57,7 +57,10 @@
 .modal_input{border: 1px solid #d9d9de; box-sizing: border-box; width: 100%; height: 40px;}
 #auto_login{margin-top: 20px; margin-bottom: 20px;}
 .m_button{margin-top: 20px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
-
+#signup-btn{margin: 30px 0; height: 45px;}
+.emailAuth{display:flex}
+.emailAuth button{height: 40px; padding:5px 0; margin-left: 5px; border:none; /*font-size:20px; line-height:20px;*/ box-sizing: border-box; cursor: pointer;}
+.emailAuth:nth-of-type(1) button{width:35%;}
 
 
 
@@ -223,7 +226,7 @@ input[type=file] {
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="modal_input" id="signInId" placeholder="최대 10자"></td>
+                        <td><input type="text" class="modal_input" id="signInId"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -281,7 +284,7 @@ input[type=file] {
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="user_id" class="modal_input" placeholder="최대 10자"></td>
+                        <td><input type="text" id="user_id" class="modal_input" placeholder="영문자, 숫자 6-14자"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -292,7 +295,7 @@ input[type=file] {
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="password" id="password" class="modal_input" placeholder="최소 8자"></td>
+                        <td><input type="password" id="password" class="modal_input" placeholder="특수문자 포함 8자이상"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -303,7 +306,7 @@ input[type=file] {
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="password" id="password_check" class="modal_input" placeholder="최소 8자"></td>
+                        <td><input type="password" id="password_check" class="modal_input"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -314,7 +317,46 @@ input[type=file] {
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="user_name" class="modal_input" placeholder="한글로 최대 6자"></td>
+                        <td><input type="text" id="user_name" class="modal_input" maxlength="6" placeholder="한글 최대 6자"></td>
+                    </tr>
+                    <tr>
+                        <td class="mlabel">
+                            <p>
+                                <strong>닉네임</strong>
+                                <span id="nickNameChk"></span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="user_nick" class="modal_input" maxlength="10" placeholder="한글 최대 10자"></td>
+                    </tr>
+                    <tr>
+                        <td class="mlabel">
+                            <p>
+                                <strong>이메일</strong>
+                                <span id="emailChk"></span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="emailAuth">
+                       		<input type="email" id="user_email" class="modal_input" placeholder="ex) abc123@abcd.com">
+                       		<button type="button" class="email_auth_btn">인증번호 전송</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mlabel">
+                            <p>
+                                <strong>인증번호</strong>
+                                <span id="authChk"></span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="emailAuth">
+                       		<input type="text" id="authNum" class="modal_input" placeholder="인증번호 6자리 입력">
+                       		<button type="button" class="authChkBtn">확인</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -330,182 +372,11 @@ input[type=file] {
 	
 	
 	
-	<!----------------------------- 펫 리스트 창 -------------------------------
-	<div>
-        
 
-
-        <div id="petList">    
-            <h2>반려동물 선택</h2>
-            <button id="petRgform_open">반려동물 추가</button>
-
-            <div id="petCards">
-				
-            </div>
-        </div>
-    </div>-->
-    
-    <!----------------------------- 펫 리스트 창 --------------------------------->	
-	<div class="modalcontainer">
-        <div class="petList layer-popup" id="layer-popup">       
-            <img src="<c:url value='/img/common/dog.png'/>"> 
-            <p>반려견 선택</p>
-            <div class="bdiv">
-                <button id="petRgform_open">+ 반려동물 추가</button>
-            </div>      
-            <div id="petCards">
-
-             
-            </div>
-        </div>
-    </div>
-    
-    
-    
-    
-    <!-------------------------------------- 펫등록 모달 ----------------------------------------->
-    <div id="petRg_modal">
-        <div class="modal_header">
-            <h2 class="modal-title">
-                <span class="modal_logo">오늘의 너</span> 펫 등록
-            </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
-        </div>
-        <div class="modal_body" >
-            <form method="post" id="petRgForm">
-                <table class="modal_table">
-                    <tr>
-                        <div class="flex-container">       
-                            <div class="wrapper">
-                                <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
-                                <label for="file" class="upload-btn">
-                                    <input id="file" type="file" name="file" accept="image/*" />
-                                    <span>Upload Image</span>
-                                </label>
-                            </div>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>반려동물 이름</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="pet_name" class="modal_input" placeholder="최대 10자"></td>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>나이</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="age" class="modal_input" placeholder="ex) 5"></td>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>성별</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label><input type="radio" name="gender" value="남"> 남</label>
-                            <label><input type="radio" name="gender" value="여"> 여</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>특징</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="feature" class="modal_input" placeholder="ex) 애교쟁이, 노즈워크 달인"></td>
-                    </tr>
-                  
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>인스타그램</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<td>
-							<input type="url" id="instagram" placeholder="url">
-                    	</td>
-                    </tr>
-                    
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>유튜브</strong>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<td>
-							<input type="url" id="youtube" placeholder="url">
-                    	</td>
-                    </tr>  
-                    <tr>
-                        <td class="mlabel">
-                            <p>
-                                <strong>반려동물 공개 여부</strong>
-                            </p>
-                        </td>
-                    </tr>            
-                  	<tr>
-                        <td>
-                            <label><input type="radio" name="open" value="1"> 공개</label>
-                            <label><input type="radio" name="open" value="0"> 비공개</label>
-                        </td>
-                    </tr>                
-                    <tr>
-                        <td>
-                            <button type="button" id="petRg-btn" class="m_button">등록</button>
-                        </td>
-                    </tr>
-                </table>
-            </form >
-        </div>
-    </div>
-	
 	
 
     <script>
-    	// 펫등록 사진업로드
-    	const fileDOM = document.querySelector('#file');
-        const previews = document.querySelectorAll('.image-box');
 
-        fileDOM.addEventListener('change', () => {
-        const imageSrc = URL.createObjectURL(fileDOM.files[0]);
-        previews[0].src = imageSrc;
-        });
-        // 이거 가능하면 제이쿼리로 바꿔보자ㅠ
-        
-        
-        
-        
-        
-
-        // 외부영역 클릭 시 팝업 닫기
-        $(document).mouseup(function (e){
-        var LayerPopup = $(".layer-popup");
-        if(LayerPopup.has(e.target).length === 0){
-            //LayerPopup.removeClass("show");
-        	LayerPopup.css("display","none");
-        }
-        //$('#petCards').empty();
-        });
-        
-        
         
     	// 펫리스트창 열기
     	function select_pet(){
@@ -660,11 +531,12 @@ input[type=file] {
 
         $(function() {
        
-            const getIdCheck= RegExp(/^[a-zA-Z0-9]{4,14}$/);
+            const getIdCheck= RegExp(/^[a-zA-Z0-9]{6,14}$/);
             const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
             const getName= RegExp(/^[가-힣]+$/);
+            const getNick= RegExp(/^[가-힣]+$/);
             const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-            let chk1 = false, chk2 = false, chk3 = false, chk4 = false;
+            let chk1 = false, chk2 = false, chk3 = false, chk4 = false, chk5 = false, chk6 = false, chk7 = false; 
            
             //회원가입 검증~~
             //ID 입력값 검증.
@@ -678,7 +550,7 @@ input[type=file] {
                 //아이디 유효성검사
                 else if(!getIdCheck.test($("#user_id").val())){
                     $('#user_id').css("background-color", "pink");
-                    $('#idChk').html('<b style="font-size:14px;color:red;">[영문자,숫자 4-14자]</b>');      
+                    $('#idChk').html('<b style="font-size:14px;color:red;">[영문자, 숫자 6-14자]</b>');      
                     chk1 = false;
                 }
                 //ID 중복확인 비동기 처리
@@ -697,7 +569,7 @@ input[type=file] {
                         data: userId,
                         success: function(result) {
                             if(result === "OK") {
-                                $("#user_id").css("background", "rgba(187, 217, 150, 0.8)");
+                                $("#user_id").css("background", "#e8f0fe");
                                 $("#idChk").html("<b style='font-size:14px; color:blue;'>[사용 가능한 아이디입니다.]</b>");
                                 chk1 = true;
                             } else {
@@ -727,8 +599,7 @@ input[type=file] {
                     $('#pwChk').html('<b style="font-size:14px;color:red;">[특수문자 포함 8자이상]</b>');
                     chk2 = false;
                 } else {
-                    $('#password').css("background-color", "rgba(187, 217, 150, 0.8)");
-                    //$('#pwChk').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#password').css("background-color", "#e8f0fe");
                     $('#pwChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk2 = true;
                 }
@@ -749,8 +620,7 @@ input[type=file] {
                     $('#pwChk2').html('<b style="font-size:14px;color:red;">[비밀번호가 일치하지 않습니다.]</b>');
                     chk3 = false;
                 } else {
-                    $('#password_check').css("background-color", "rgba(187, 217, 150, 0.8)");
-                    //$('#pwChk2').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#password_check').css("background-color", "#e8f0fe");
                     $('#pwChk2').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk3 = true;
                 }
@@ -771,13 +641,97 @@ input[type=file] {
                     $('#nameChk').html('<b style="font-size:14px;color:red;">[한글로 최대 6자]</b>');
                     chk4 = false;
                 } else {
-                    $('#user_name').css("background-color", "rgba(187, 217, 150, 0.8)");
-                    //$('#nameChk').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
+                    $('#user_name').css("background-color", "#e8f0fe");
                     $('#nameChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
                     chk4 = true;
                 }
                
             });
+            
+            //닉네임 입력값 검증. 
+            $('#user_nick').on('keyup', function() {
+                //닉네임 공백 확인
+                if($("#user_nick").val() === ""){
+                    $('#user_nick').css("background-color", "pink");
+                    $('#nickNameChk').html('<b style="font-size:14px;color:red;">[닉네임을 입력하세요.]</b>');
+                    chk5 = false;
+                }                
+                //닉네임 유효성검사
+                else if(!getNick.test($("#user_nick").val())){
+                    $('#user_nick').css("background-color", "pink");
+                    $('#nickNameChk').html('<b style="font-size:14px;color:red;">[한글로 최대 10자]</b>');
+                    chk5 = false;
+                } else {
+                    $('#user_nick').css("background-color", "#e8f0fe");
+                    $('#nickNameChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    chk5 = true;
+                }
+               
+            });
+            
+            //이메일 입력값 검증. 
+            $('#user_email').on('keyup', function() {
+                //이메일 공백 확인
+                if($("#user_email").val() === ""){
+                    $('#user_email').css("background-color", "pink");
+                    $('#emailChk').html('<b style="font-size:14px;color:red;">[이메일을 입력하세요.]</b>');
+                    chk6 = false;
+                }                
+                //이메일 유효성검사
+                else if(!getMail.test($("#user_email").val())){
+                    $('#user_email').css("background-color", "pink");  
+                    $('#emailChk').html('<b style="font-size:14px;color:red;">[이메일 입력값을 확인해주세요.]</b>');
+                    chk6 = false;
+                } else {
+                    $('#user_email').css("background-color", "#e8f0fe");
+                    $('#emailChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    chk6 = true;
+                }
+               
+            });
+            
+            
+            //이메일 인증번호 전송
+            $(".email_auth_btn").click(function(){	
+            	 let emailAuthNum = "";
+				 let email = $('#user_email').val();
+				 
+				 if(!chk6){
+				 	alert("이메일 입력값을 확인해주세요.");
+				 	return false;
+				 }else{
+					 $.ajax({
+							type : "POST",
+							url : "/today/user/emailAuth",
+							data : {email : email},
+							success: function(data){
+								$('#emailChk').html('<b style="font-size:14px;color:blue;">인증번호가 발송되었습니다.</b>');
+								emailAuthNum = data;
+								//console.log(email_auth_cd);
+							},
+							error: function(data){
+								alert("메일 발송에 실패했습니다.");
+							}
+						});
+				 }
+				 
+				 
+				 // 인증번호 일치 확인
+				 $(".authChkBtn").click(function(){
+					 if($("#authNum").val() === emailAuthNum){
+						 $('#authChk').html('<b style="font-size:14px;color:blue;">인증되었습니다.</b>');
+						 chk7 = true;
+					 }else{
+						 $('#authChk').html('<b style="font-size:14px;color:red;">인증번호가 일치하지 않습니다.</b>');
+						 chk7 = false;
+					 }
+				 })
+				  
+			});
+            
+            
+            
+            
            
            
 
@@ -785,21 +739,20 @@ input[type=file] {
 
            // 회원가입 이벤트
             $('#signup-btn').click(function(e) {
-                if(chk1 && chk2 && chk3 && chk4) {
-                    //아이디 정보
-                    const id = $("#user_id").val();
-                    console.log("id: " + id);
-                    //패스워드 정보
-                    const pw = $("#password").val();
-                    console.log("pw: " + pw);
-                    //이름 정보
-                    const name = $("#user_name").val();
-                    console.log("name: " + name);
+                if(chk1 && chk2 && chk3 && chk4 && chk5 && chk6 && chk7) {
+
+                    let id = $("#user_id").val();
+                    let pw = $("#password").val();
+                    let name = $("#user_name").val();
+ 					let nickname = $("#user_nick").val();
+ 					let email = $("#user_email").val();
                    
-                    const user = {
+                    let user = {
                         userId: id,
                         password: pw,
-                        name: name
+                        name: name,
+                        nickname: nickname,
+                        email: email
                     };
                    
                     //클라이언트에서 서버와 통신하는 ajax함수(비동기 통신)
@@ -814,10 +767,10 @@ input[type=file] {
                         success: function(result) { //함수의 매개변수는 통신성공시의 데이터가 저장될 곳.
                             console.log("통신 성공!: " + result);
                             if(result === "joinSuccess") {
-                                alert("회원가입에 성공했습니다!");
+                                alert("회원가입이 완료되었습니다.");
                                 location.href="/today";
                             } else {
-                                alert("회원가입에 실패했습니다!");
+                                alert("회원가입에 실패했습니다.");
                             }
                         }, //통신 성공시 처리할 내용들을 함수 내부에 작성.
                         error: function() {

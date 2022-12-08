@@ -132,6 +132,20 @@
 			
 		
 		
+		<!-- 메일 발송 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.3.18</version>
+		</dependency>
+		
+		<!-- 메일 발송 -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+		
 		
 				
 		<!-- AspectJ -->

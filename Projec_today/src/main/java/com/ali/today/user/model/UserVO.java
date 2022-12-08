@@ -8,6 +8,7 @@ public class UserVO {
 	private String password;
 	private String name;
 	private String nickname;
+	private String email;
 	private Date regDate;	
 	private String sessionId;
 	private Date limitTime;
@@ -56,6 +57,14 @@ public class UserVO {
 		this.nickname = nickname;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -91,13 +100,11 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", password=" + password + ", name=" + name + ", nickname=" + nickname
-				+ ", regDate=" + regDate + ", sessionId=" + sessionId + ", limitTime=" + limitTime + ", pet=" + pet
-				+ ", autoLogin=" + autoLogin + "]";
+				+ ", email=" + email + ", regDate=" + regDate + ", sessionId=" + sessionId + ", limitTime=" + limitTime
+				+ ", pet=" + pet + ", autoLogin=" + autoLogin + "]";
 	}
 
 	
-	
-	
-	
+
 	
 }

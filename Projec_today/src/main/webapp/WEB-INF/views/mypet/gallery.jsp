@@ -10,7 +10,7 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style>
 .siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}       
-.mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
+.mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
 .mainContent .conTitle{width: 950px; margin: 0 auto; background:#BBD996;}
 .mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
@@ -26,10 +26,10 @@
 .imgInfo{padding:10px 20px 10px}
 .imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;/*height:45px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;white-space: nowrap;*/}
-.select{width: 20px; height: 25px; background-image: url(/today/img/mypet/more2.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 15px; right:5px; cursor: pointer;}
-.select .list{display:none; width:100px; list-style: none; position: absolute; bottom: -65px; right:-95px; background:#f1f1f1; z-index:100;}
-.select .list button{background:#none; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
-.select .list.on{display:block}
+.gselect{width: 20px; height: 25px; background-image: url(/today/img/mypet/more2.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 15px; right:5px; cursor: pointer;}
+.gselect .list{display:none; width:100px; list-style: none; position: absolute; bottom: -65px; right:-95px; background:#f1f1f1; z-index:100;}
+.gselect .list button{background:#none; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
+.gselect .list.on{display:block}
 
 .register_form, .modifyCard{display: none; width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
 .closeUGCard, .mdGcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
@@ -83,7 +83,8 @@
 	                <span>${login.pet.petName} 갤러리</span>
 	            </div>
 	        </div>
-	
+			
+			<button type="button" id="petList-open" title="반려동물 변경" class="changePet2"></button>
 	        <div class="buttonNav">
 		        <button type="button" class="openUGCard">+ 사진추가</button>
 		        <button type="button" class="photoPoster">반려견 포스터 만들기</button>
@@ -121,7 +122,7 @@
 								<h3>${imgCard.title}</h3>
 								<p>${imgCard.content}</p>			                       		                        
 		                    </div>
-		                    <div class="select" data-html2canvas-ignore="true">
+		                    <div class="gselect" data-html2canvas-ignore="true">
 						        <ul class="list">
 						            <li><button class="modifyGCardBtn" title="수정" href="${imgCard.imgId}">수정</button></li>
 						            <li><button class="deleteGCardBtn" title="삭제" href="${imgCard.imgId}">삭제</button></li>
@@ -202,7 +203,7 @@
 			
 				
 			
-            
+<jsp:include page="../common/pet_modal.jsp" />            
 <jsp:include page="../common/footer.jsp" />     
 <jsp:include page="./poster2.jsp" />
 </body>
@@ -240,8 +241,8 @@
 	     
 	     
 	     // 갤러리 수정,삭제 메뉴 여닫기
-	     $(document).on("click", ".select", function (e) {
-	    	$(".select").removeClass("on");
+	     $(document).on("click", ".gselect", function (e) {
+	    	$(".gselect").removeClass("on");
             //toggle 방식
             if($(this).hasClass("on")){
                 $(this).add($(this).children(".list")).removeClass("on");
@@ -251,10 +252,10 @@
         });
 	     
 	    $(document).mouseup(function (e){
-	    	let LayerPopup = $(".select .list");
+	    	let LayerPopup = $(".gselect .list");
 	    	if(LayerPopup.has(e.target).length === 0){
 	    	  LayerPopup.removeClass("on");
-	    	  $(".select").removeClass("on");
+	    	  $(".gselect").removeClass("on");
 	    	}
 	    }); 
 	     
@@ -373,7 +374,7 @@
                 		let content = response['content'];
                 		content = content.replaceAll("<br>", "\r\n");
  						
-                		$(".select").add($(".select").children(".list")).removeClass("on");
+                		$(".gselect").add($(".gselect").children(".list")).removeClass("on");
                         $(".mdpop").css("display","block");                        
                         $(".modifyCard").css("display","flex").css("justify-content","space-evenly");
                         $(".mdGBtn").attr("href", imgId);
