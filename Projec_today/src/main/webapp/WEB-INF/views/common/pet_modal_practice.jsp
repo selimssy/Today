@@ -55,11 +55,10 @@
 
 .changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
                 background-repeat: no-repeat; position: absolute; left: -100px; top: 70px; background-color: transparent; cursor: pointer;}  
-.changePet2{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
-                background-repeat: no-repeat; position: absolute; left: -20px; top: 100px; background-color: transparent; cursor: pointer;}
+
 .flex-container {display: flex;}
 .wrapper {text-align: center;flex-grow: 1;}        
-#image-box-modal1, #image-box-modal2{width: 200px;height: 200px;object-fit: cover;display: block;margin: 20px auto;}
+.image-box {width: 200px;height: 200px;object-fit: cover;display: block;margin: 20px auto;}
 .upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;}
 input[type=file] {display: none;}
 </style>
@@ -99,9 +98,9 @@ input[type=file] {display: none;}
                     <tr>
                         <div class="flex-container">       
                             <div class="wrapper">
-                                <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" id="image-box-modal1" />
-                                <label for="imgfile1" class="upload-btn">
-                                    <input id="imgfile1" type="file" name="file" accept="image/*" />
+                                <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
+                                <label for="file" class="upload-btn">
+                                    <input id="file" type="file" name="file" accept="image/*" />
                                     <span>Upload Image</span>
                                 </label>
                             </div>
@@ -217,9 +216,9 @@ input[type=file] {display: none;}
                     <tr>
                         <div class="flex-container">       
                             <div class="wrapper">
-                                <img src="" id="image-box-modal2" />
-                                <label for="imgfile2" class="upload-btn">
-                                    <input id="imgfile2" type="file" name="file" accept="image/*" />
+                                <img src="" id="mdImage-box" />
+                                <label for="modifyFile" class="upload-btn">
+                                    <input id="modifyFile" type="file" name="file" accept="image/*" />
                                     <span>Upload Image</span>
                                 </label>
                             </div>
@@ -363,7 +362,7 @@ input[type=file] {display: none;}
     $("#petRg-btn").click(function(){
         //formData 객체 생성
         let formData = new FormData();
-    	formData.append("petImg", $("input[id='imgfile1']")[0].files[0]);
+    	formData.append("petImg", $("input[name=file]")[0].files[0]);
     	// 넘겨줄 반려동물 데이터
     	let petData = {
     			"userId": "${login.userId}",
@@ -479,7 +478,7 @@ input[type=file] {display: none;}
                 success: function(result) { 
                     console.log("통신 성공!: ");
                     if(result === "success") {
-                    	window.location.reload(); 
+                        location.href="/today/community/intro";
                     } else {
                         alert("반려동물 선택에 실패했습니다.");
                     }
@@ -523,7 +522,7 @@ input[type=file] {display: none;}
 						
 	                	$(".select").add($(".select").children(".list")).removeClass("on");
 	                	$("#petMf-btn").attr("href", petId);
-	                	$("#image-box-modal2").attr("src", imagePath);
+	                	$("#mdImage-box").attr("src", imagePath);
 	                	$("#Mpet_name").val(petName);
 	                	$("#Mage").val(age);
 	                    if(gender === "남"){
@@ -548,8 +547,14 @@ input[type=file] {display: none;}
         
         
        
+	    
+     	// 반려동물 정보 수정 모달 열기 
+	    $("#modifyPet").click(function(){
+	        $("#petMf_modal").css("display","block");
+	    })
+	    
     	
-	    // 반려동물 수정 모달 닫기
+	    // 닫기
 	    $(".modal_close").on("click", function(){
             $(this).parent().parent().css("display", "none")
         })
@@ -561,7 +566,7 @@ input[type=file] {display: none;}
         $("#petMf-btn").click(function(){
             //formData 객체 생성
             let formData = new FormData();
-        	formData.append("petImg", $("input[id='imgfile2']")[0].files[0]);
+        	formData.append("petImg", $("input[id='modifyFile']")[0].files[0]);
         	// 넘겨줄 반려동물 데이터
         	let petData = {
         			"petId": "${login.pet.petId}",
@@ -635,25 +640,25 @@ input[type=file] {display: none;}
         
         // 파일 업로드(중복)	    
         // 파일업로드(추가)
-	    const fileDOM_modal1 = document.querySelector('#imgfile1');
-	    const previews_modal1 = document.querySelector('#image-box-modal1');
+	    const fileDOM = document.querySelector('#file');
+	    const previews = document.querySelectorAll('.image-box');
 
-	    fileDOM_modal1.addEventListener('change', () => {
+	    fileDOM.addEventListener('change', () => {
 	      const reader = new FileReader();
 	      reader.onload = ({ target }) => {
-	    	  previews_modal1.src = target.result;
+	        previews[0].src = target.result;
 	      };
-	      reader.readAsDataURL(fileDOM_modal1.files[0]);
+	      reader.readAsDataURL(fileDOM.files[0]);
 	    });
 		
 	    
 	    // 파일업로드(수정)
-	    const fileDOM2_modal2 = document.querySelector('#imgfile2');
-	    const MdPreviews_modal2 = document.querySelector('#image-box-modal2');
+	    const fileDOM2 = document.querySelector('#modifyFile');
+	    const MdPreviews = document.querySelector('#mdImage-box');
 
-	    fileDOM2_modal2.addEventListener('change', () => {
-    	  const imageSrc = URL.createObjectURL(fileDOM2_modal2.files[0]);
-    	  MdPreviews_modal2.src = imageSrc;
+	    fileDOM2.addEventListener('change', () => {
+    	  const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
+    	  MdPreviews.src = imageSrc;
     	});
 
     

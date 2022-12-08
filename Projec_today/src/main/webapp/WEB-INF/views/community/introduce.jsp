@@ -16,10 +16,8 @@
 	.container{width: 1000px; margin: 0 auto; position: relative;}
     .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
     .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
-    .Myintro .modify{float: right;}
-    .Myintro .modify img{width:25px; height:25px;}
     .Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}   
-    .Mycontent{display: flex; justify-content:space-between; padding:20px;}
+    .Mycontent{display: flex; justify-content:space-between; padding:20px; position: relative;}
     .Mycontent .MyPetinfo{padding-right: 10px;}
     .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
     .MyPetinfo li:last-of-type{padding-top: 15px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
@@ -28,6 +26,7 @@
     .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
     .Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/today/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
     .Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/today/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
+	.modifyIcon{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/community/modify.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	#petMf_modal{display:none}
 	
     
@@ -120,9 +119,8 @@
 	                    </li>
 	                </ul>
 	            </div>
-	            <div class="modify"><a id="modifyPet" href="javascript:;"><img src="<c:url value='/img/community/modify.png'/>"></a></div>
-	        </div>   
-	        <!--  <a href="#layer-popup" id="petList-open" title="반려동물 변경" class="pchang"><div class="changePet">1</div></a>-->  
+	            <div class="modifyPetBtn" href="${pet.petId}"><span class="modifyIcon">modify</span></div>
+	        </div>     
 	        <button type="button" id="petList-open" title="반려동물 변경" class="changePet"></button>  
 	    </div>
 	    

@@ -68,6 +68,15 @@ public class UserPetController {
 	
 	
 	
+	// 펫 수정모달 불러오기
+	@PostMapping("/modifyGet")
+	public PetVO modifyGet(@RequestBody PetVO pet) {
+		return service.selectOnePet(pet.getPetId());
+	}	
+		
+	
+	
+	
 	// 펫 정보 수정 요청
 	@PostMapping("/modifyPet")
 	public String modifyPet(
@@ -116,6 +125,7 @@ public class UserPetController {
 		
 		return list;
 	}
+	
 	
 	
 	
