@@ -17,6 +17,9 @@ public interface IUserMapper {
 	// 회원정보 수정
 	void modifyUser(UserVO user);
 	
+	// 비밀번호 변경
+	void modifyPw(UserVO user);
+	
 	// 회원탈퇴 기능
 	void delete(String userId);
 	

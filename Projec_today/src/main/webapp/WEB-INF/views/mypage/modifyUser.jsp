@@ -105,8 +105,45 @@
 				    
                 </div>
                 
+                
+                
                 <div id="mdpassword" class="tabContent">
-                							
+	                <table class="profile_tb">              	
+	                    <tr>
+	                        <td>
+	                            <p>
+	                                <strong>현재 비밀번호</strong>
+	                            </p>
+	                        </td>
+	                        <td><input type="password" class="prof_input" id="originPw"></td>
+	                    </tr>	
+	                               	                    		                    
+	                    <tr>
+	                        <td>
+	                            <p>
+	                                <strong>새 비밀번호</strong>
+	                            </p>
+	                        </td>
+	                        <td><input type="password" class="prof_input" id="newPw"></td>
+	                    </tr>
+
+	                    <tr>
+	                        <td>
+	                            <p>
+	                                <strong>새 비밀번호 확인</strong>
+	                            </p>
+	                        </td>
+	                        <td><input type="password" class="prof_input" id="newPwChk"></td>
+	                    </tr>
+
+	                    
+	                    
+	                    <tr>
+	                		<td colspan="2">
+	                			<button type="button" id="modifyPw-btn" class="prof_button"><b>확인</b></button>	                			
+	                		</td>
+	                	</tr>	                    		                   
+	                </table>	                							
 							            
                 </div>
                 
@@ -163,7 +200,88 @@
 			
         })
 	
-	
+		
+        
+        // 비밀번호 변경
+        $("#modifyPw-btn").click(function(){
+        	let chk1 = false, chk2 = false
+        	
+        	let originPw = $("#originPw").val();
+        	let userId = "${login.userId}";	
+        	let user = {
+        			userId: userId,
+        			password: originPw
+        			};
+        	
+        	$.ajax({
+                type: 'post',
+                dataType : "text",
+                contentType: 'application/json',
+                url: '/today/user/mdPwChk',
+                data: JSON.stringify(user),
+                success: function (response) {
+         			if(response === 'success'){
+         				console.log("기존 비밀번호 확인");
+         				chk1 = true;
+         				
+         				let newPw = $("#newPw").val();
+                		let newPwChk = $("#newPwChk").val();
+                		if(newPw === newPwChk){
+                			chk2 = true;
+                			// 비밀번호 변경 요청
+                			let userVO = {
+                        			userId: userId,
+                        			password: newPw
+                        			};
+                			$.ajax({
+                                type: 'post',
+                                dataType : "text",
+                                contentType: 'application/json',
+                                url: '/today/user/modifyPw',
+                                data: JSON.stringify(userVO),
+                                success: function (response) {
+                         			if(response === 'success'){
+                         				alert("비밀번호가 변경되었습니다.");
+                         				window.location.reload();
+                         			}else{
+                         				alert("비밀번호가 변경에 실패했습니다.");
+                         			}
+                                }, 
+                                error: function() {
+                                    console.log("통신 실패"); 
+                                } 
+                            });
+                			
+                		}else{
+                			alert("새 비밀번호가 일치하지 않습니다.");
+                			$("#newPwChk").val("");
+                			$("#newPwChk").focus();
+                			return false;
+                		}
+                		
+                		// 비밀번호 요청 end
+         			}else{
+         				alert("기존 비밀번호가 일치하지 않습니다.");
+         				$("#originPw").val("");
+            			$("#originPw").focus();
+         				return false;
+         			}
+                }, 
+                error: function() {
+                    console.log("통신 실패"); 
+                } 
+            });
+        	
+        	
+        	
+        		
+        		
+        	
+        	
+        	
+        })
+        
+        
 </script>
 
 </html>

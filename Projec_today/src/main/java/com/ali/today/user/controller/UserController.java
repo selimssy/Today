@@ -206,6 +206,30 @@ public class UserController {
 	
 	
 	
+	
+	// 비밀번호 변경시 기존 pw 일치 확인
+	@PostMapping("/mdPwChk")
+	public String mdPwChk(@RequestBody UserVO user) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		UserVO dbUser = service.selectOne(user.getUserId());
+		if(encoder.matches(user.getPassword(), dbUser.getPassword())) {
+			return "success";
+		}else {
+			return "fail";
+		}			
+	}
+	
+	
+	
+	// 비밀번호 변경
+	@PostMapping("/modifyPw")
+	public String modifyPw(@RequestBody UserVO userVO) {
+		service.modifyPw(userVO);
+		return "success";
+	}
+	
+	
+	
 	// 회원 탈퇴 요청
 	@PostMapping("/deleteUser")
 	public String deleteUser(@RequestBody UserVO user) {

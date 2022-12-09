@@ -57,6 +57,14 @@
 	</update>
 	
 	
+	<!-- 비밀번호 변경 -->
+	<update id="modifyPw">
+		UPDATE user 
+		SET password = #{password}
+		WHERE user_id = #{userId}
+	</update>
+	
+	
 	<!-- 회원탈퇴 SQL -->
 	<delete id="delete">
 		DELETE FROM user

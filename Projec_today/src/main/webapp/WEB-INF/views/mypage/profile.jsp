@@ -43,9 +43,8 @@
 	    <div class="siteNav">
 	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
 	        <ul>
-	        	<li class="checked" style="width:150px; font-size:0.9em;"><a href="<c:url value='/mypage/profile'/>">프로필</a></li>
-	            <li style="width:150px; font-size:0.9em;"><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></li>
-	            <li style="width:150px; font-size:0.9em;"><a href="<c:url value='/mypage/modifyPet'/>">반려견 정보 수정</a></li>
+	        	<li class="checked"><a href="<c:url value='/mypage/profile'/>">프로필</a></li>
+	            <li><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></li>
 	        </ul>
 	    </div>
 	    
