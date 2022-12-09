@@ -23,4 +23,7 @@ public interface IMypetMapper {
 	// 생애기록 카드 삭제
 	void deleteCard(Integer cardId);
 	
+	// 회원탈퇴시 생애기록 전체 삭제
+	void deleteAllCard(String userId);
+	
 }

@@ -14,6 +14,9 @@ public interface IUserMapper {
 	// 아이디 중복체크 기능
 	Integer checkId(String userId);
 	
+	// 회원정보 수정
+	void modifyUser(UserVO user);
+	
 	// 회원탈퇴 기능
 	void delete(String userId);
 	
@@ -51,6 +54,8 @@ public interface IUserMapper {
 	// 내 계정에 등록된 반려동물 조회
 	List<PetVO> selectAllPet(String userId);
 	
+	//회원 탈퇴시 내 계정의 모든 반려동물 삭제
+	void deleteUserPet(String userId);
 	
 	// 유저, 반려동물 세션정보 
 	UserVO UserPetInfo(PetVO pet);

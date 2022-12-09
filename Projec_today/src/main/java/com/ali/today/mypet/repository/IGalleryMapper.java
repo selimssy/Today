@@ -29,4 +29,7 @@ public interface IGalleryMapper {
 	
 	// 갤러리 포스터용 전체 조회
 	List<GalleryVO> posterGallery(Integer petId);
+	
+    // 회원 탈퇴시 갤러리 전체 삭제
+	void deleteAllGallery(String userId);
 }

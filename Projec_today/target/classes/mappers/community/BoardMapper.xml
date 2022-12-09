@@ -161,5 +161,12 @@
 		WHERE reply_no = #{replyNo}
 	</delete>
 	
-
+	
+	
+	<!-- 특정 게시물 댓글 전체 삭제 -->
+	<delete id="deleteAllReply">
+		DELETE FROM reply
+		WHERE board_no = #{boardNo}
+	</delete>
+	
 </mapper>

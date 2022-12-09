@@ -183,12 +183,12 @@ input[type=file] {
                         <!-- <p>견주 커뮤니티(꿀팁 공유, 묻고 답하기)</p> -->
                     </div>
                 </a>
-                <a href="#">
+                <a href="<c:url value='/mypage/profile'/>">
                     <div class="menu">
                         <img src="/today/img/common/boarduser.png">
                         <p>마이페이지</p>
                         <p>개인정보 수정</p>
-                        <p>비밀번호 변경</p>
+                        <p>반려견 정보 수정</p>
                     </div>
                 </a>
             </div>
@@ -226,7 +226,7 @@ input[type=file] {
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="modal_input" id="signInId"></td>
+                        <td><input type="text" class="modal_input" id="signInId" placeholder="ID"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -237,7 +237,7 @@ input[type=file] {
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="password" class="modal_input" id="signInPw" placeholder="최소 8자"></td>
+                        <td><input type="password" class="modal_input" id="signInPw" placeholder="PW"></td>
                     </tr>
                     <tr>
                         <td>

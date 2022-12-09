@@ -58,6 +58,7 @@ public interface IBoardMapper {
 	// 댓글 삭제
 	void deleteReply(ReplyVO replyVO);
 	
-	
+	// 특정 게시물 댓글 전체 삭제
+	void deleteAllReply(Integer boardNo);
 	
 }

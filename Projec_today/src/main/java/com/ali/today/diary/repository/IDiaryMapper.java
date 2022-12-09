@@ -29,6 +29,9 @@ public interface IDiaryMapper {
 	// 스케줄 삭제
 	void deleteSchedule(Integer scheduleId);
 	
+	// 회원 탈퇴시 모든 스케줄 삭제
+	void deleteAllSchedule(String userId);
+	
 	
 	/////////////////////////////////////////////////
 	
@@ -51,6 +54,7 @@ public interface IDiaryMapper {
 	// 게시물 수 조회(검색, 페이징 기능 포함)
 	Integer countDiaries(SearchVO search);
 	
-	
+	// 회원탈퇴시 모든 일기 삭제
+	void deleteAllDiary(String userId);
 	
 }

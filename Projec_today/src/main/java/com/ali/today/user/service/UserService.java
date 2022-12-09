@@ -8,7 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.ali.today.diary.repository.IDiaryMapper;
+import com.ali.today.mypet.repository.IGalleryMapper;
+import com.ali.today.mypet.repository.IMypetMapper;
 import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.repository.IUserMapper;
@@ -18,6 +22,12 @@ public class UserService implements IUserService{
 	
 	@Autowired
 	private IUserMapper mapper;
+	@Autowired
+	private IMypetMapper pmapper;
+	@Autowired
+	private IGalleryMapper gmapper;
+	@Autowired
+	private IDiaryMapper dmapper;
 	
 	
 	@Override
@@ -40,10 +50,26 @@ public class UserService implements IUserService{
 	public Integer checkId(String userId) {
 		return mapper.checkId(userId);
 	}
-
+	
+	
+	// 회원정보 수정
 	@Override
-	public void delete(String userId) {
+	public void modifyUser(UserVO user) {
+		mapper.modifyUser(user);
+	}
+
+	
+	// 회원탈퇴와 모든 정보 삭제
+	@Transactional
+	@Override
+	public void delete(String userId) {		
+		pmapper.deleteAllCard(userId);  // 생애기록
+		gmapper.deleteAllGallery(userId); // 갤러리
+		dmapper.deleteAllSchedule(userId); // 캘린더
+		dmapper.deleteAllDiary(userId); // 일기
+		mapper.deleteUserPet(userId);  // 반려견
 		mapper.delete(userId);
+		// 게시판은 알 수 없음으로?
 	}
 	
 	
@@ -86,8 +112,8 @@ public class UserService implements IUserService{
 	@Override
 	public List<PetVO> selectAllPet(String userId) {
 		return mapper.selectAllPet(userId);
-	}
-
+	}	
+	
 	@Override
 	public UserVO UserPetInfo(PetVO pet) {
 		return mapper.UserPetInfo(pet);

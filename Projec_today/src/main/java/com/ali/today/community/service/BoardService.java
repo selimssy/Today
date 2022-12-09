@@ -45,9 +45,11 @@ public class BoardService implements IBoardService {
 	
 	
 	// 게시글 삭제 
+	@Transactional
 	@Override
 	public void delete(Integer boardNo) {
-		mapper.delete(boardNo);
+		mapper.deleteAllReply(boardNo); // 해당 게시물 댓글 전체 삭제
+		mapper.delete(boardNo);		
 	}
 
 	

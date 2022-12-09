@@ -89,6 +89,14 @@
 		WHERE schedule_id = #{scheduleId}
 	</delete>
 	
+	
+	<!-- 회원 탈퇴시 모든 스케줄 삭제 -->
+	<delete id="deleteAllSchedule">
+		DELETE FROM calendar
+		WHERE user_id = #{userId}
+	</delete>
+	
+	
 	<!-- ////////////////////////////////////////////////////////////////// -->
 	
 	
@@ -138,6 +146,12 @@
 	</select>
 	
 	
+	
+	<!-- 회원탈퇴시 모든 일기 삭제 -->
+	<delete id="deleteAllDiary">
+		DELETE FROM pet_diary
+		WHERE writer = #{userId}
+	</delete>
 	
 
 </mapper>

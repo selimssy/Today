@@ -49,6 +49,14 @@
 	</select>
 	
 	
+	<!-- 회원정보 수정 -->
+	<update id="modifyUser">
+		UPDATE user 
+		SET name = #{name}, nickname = #{nickname}
+		WHERE user_id = #{userId}
+	</update>
+	
+	
 	<!-- 회원탈퇴 SQL -->
 	<delete id="delete">
 		DELETE FROM user
@@ -129,6 +137,13 @@
 		SELECT * FROM pet WHERE user_id = #{userId}
 	</select>
 	
+	
+	
+	<!-- 회원 탈퇴시 내 계정의 모든 반려동물 삭제  -->
+	<delete id="deleteUserPet">
+		DELETE FROM pet
+		WHERE user_id = #{userId}
+	</delete>
 	
 	
 	<!-- 유저, 반려동물 세션정보 -->

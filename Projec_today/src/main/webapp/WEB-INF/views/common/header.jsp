@@ -39,7 +39,7 @@
         .sub_1 .submenu_list {box-sizing:border-box; padding-left:370px;}
         .sub_2 .submenu_list {box-sizing:border-box; padding-left:520px;}
         .sub_3 .submenu_list {box-sizing:border-box; padding-left:740px;}
-        .sub_4 .submenu_list {box-sizing:border-box; padding-left:900px;}
+        .sub_4 .submenu_list {box-sizing:border-box; padding-left:950px;}
         .submenu .submenu_list li {display:inline;}
         .submenu .submenu_list li a {display:inline-block; padding:20px; color: #fff; font-size: 18.5px;}
         .submenu .submenu_list li:last-child a {padding-right:0;}
@@ -116,11 +116,11 @@
                             </ul>
                         </div>
 					</li>
-					<li><a href="javascript:;" class="mainMenu mainMenu4">마이페이지</a>
+					<li><a href="<c:url value='/mypage/profile'/>" class="mainMenu mainMenu4">마이페이지</a>
                         <div class="submenu sub_4">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">개인정보 수정</a></li>                              
-                                <li><a href="javascript:;">반려견 정보 수정</a></li>
+                            	<li><a href="<c:url value='/mypage/profile'/>">프로필</a></li>
+                                <li><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></li>                              
                             </ul>
                         </div>
 					</li>

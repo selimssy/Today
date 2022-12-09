@@ -197,9 +197,21 @@ public class UserController {
 		
 	
 	
+	// 회원정보 수정
+	@PostMapping("/modifyUser")
+	public String modifyUser(@RequestBody UserVO user) {
+		service.modifyUser(user);
+		return "success";
+	}
 	
 	
 	
+	// 회원 탈퇴 요청
+	@PostMapping("/deleteUser")
+	public String deleteUser(@RequestBody UserVO user) {
+		service.delete(user.getUserId());
+		return "success";
+	}
 	
 	
 	

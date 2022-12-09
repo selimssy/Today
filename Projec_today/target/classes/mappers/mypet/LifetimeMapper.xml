@@ -56,4 +56,12 @@
 		WHERE card_id = #{cardId}
 	</delete>
 	
+	
+	<!-- 회원탈퇴시 생애기록 전체 삭제 -->
+	<delete id="deleteAllCard">
+		DELETE FROM lifetime_card
+		WHERE pet_id IN(SELECT pet_id FROM pet WHERE user_id = #{userId});
+	</delete>
+	
+	
 </mapper>

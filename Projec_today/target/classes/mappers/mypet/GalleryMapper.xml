@@ -68,5 +68,12 @@
 		WHERE pet_id = #{petId}
 		ORDER BY date DESC 
 	</select>
+	
+	
+	<!-- 회원 탈퇴시 갤러리 전체 삭제 -->
+	<delete id="deleteAllGallery">
+		DELETE FROM gallery 
+		WHERE pet_id IN(SELECT pet_id FROM pet WHERE user_id = #{userId});
+	</delete>
 
 </mapper>

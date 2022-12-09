@@ -13,6 +13,9 @@ public interface IUserService {
 	
 	// 아이디 중복체크 기능
 	Integer checkId(String userId);
+	
+	// 회원정보 수정
+	void modifyUser(UserVO user);
 			
 	// 회원탈퇴 기능
 	void delete(String userId);
