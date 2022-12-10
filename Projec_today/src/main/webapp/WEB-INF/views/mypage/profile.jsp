@@ -181,7 +181,8 @@
 					
                 	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>";                    
 
-                    $('#petCards').append(temp_html)
+                    $('#petCards').append(temp_html);
+                    $('#petRgform_open').attr("href", response.length);
                 }
             }, 
             error: function() {

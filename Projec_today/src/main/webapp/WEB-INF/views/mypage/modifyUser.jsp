@@ -58,6 +58,7 @@
                 <input type="radio" id="tab2" name="tabs">
                 <label for="tab2">비밀번호 변경</label>
                 
+                <!-- 개인정보 수정 -->
                 <div id="userInfo" class="tabContent">
 	                <table class="profile_tb">              	
 	                    <tr>
@@ -106,13 +107,14 @@
                 </div>
                 
                 
-                
+                <!-- 비밀번호 변경 -->
                 <div id="mdpassword" class="tabContent">
 	                <table class="profile_tb">              	
 	                    <tr>
 	                        <td>
 	                            <p>
 	                                <strong>현재 비밀번호</strong>
+	                                <span id="originpwChk"></span>
 	                            </p>
 	                        </td>
 	                        <td><input type="password" class="prof_input" id="originPw"></td>
@@ -122,18 +124,20 @@
 	                        <td>
 	                            <p>
 	                                <strong>새 비밀번호</strong>
+	                                <span id="pwChk"></span>
 	                            </p>
 	                        </td>
-	                        <td><input type="password" class="prof_input" id="newPw"></td>
+	                        <td><input type="password" class="prof_input" id="newPw" placeholder="특수문자 포함 8자이상"></td>
 	                    </tr>
 
 	                    <tr>
 	                        <td>
 	                            <p>
 	                                <strong>새 비밀번호 확인</strong>
+	                                <span id="pwChk2"></span>
 	                            </p>
 	                        </td>
-	                        <td><input type="password" class="prof_input" id="newPwChk"></td>
+	                        <td><input type="password" class="prof_input" id="newPwChk" placeholder="특수문자 포함 8자이상"></td>
 	                    </tr>
 
 	                    
@@ -204,8 +208,7 @@
         
         // 비밀번호 변경
         $("#modifyPw-btn").click(function(){
-        	let chk1 = false, chk2 = false
-        	
+        	   	
         	let originPw = $("#originPw").val();
         	let userId = "${login.userId}";	
         	let user = {
@@ -220,14 +223,48 @@
                 url: '/today/user/mdPwChk',
                 data: JSON.stringify(user),
                 success: function (response) {
-         			if(response === 'success'){
-         				console.log("기존 비밀번호 확인");
-         				chk1 = true;
-         				
+                	
+         			if(response === 'success'){ // 기존 비밀번호 맞다면
+         				//$('#originpwChk').empty();
+         				$('#originpwChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+         				let getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+         				let chk1 = false, chk2 = false;       			       				
          				let newPw = $("#newPw").val();
                 		let newPwChk = $("#newPwChk").val();
-                		if(newPw === newPwChk){
-                			chk2 = true;
+                		
+                		// 새 비밀번호 검증
+                		if(newPw === ""){ // 공백만 입력한 경우
+                            $('#pwChk').html('<br><b style="font-size:12px;color:red;">[비밀번호를 입력하세요.]</b>');
+                            chk1 = false;
+                            return false;
+                        }else if(!getPwCheck.test(newPw) || newPw.length < 8){ // 비밀번호 조건 충족 확인
+                            $('#pwChk').html('<br><b style="font-size:12px;color:red;">[특수문자 포함 8자이상]</b>');
+                            chk1 = false;
+                            return false;
+                            $("#newPw").focus();
+                        }else {
+                        	$('#pwChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                            chk1 = true;
+                        }
+                		
+                		// 비밀번호 확인란 검증
+                		if(!newPwChk || newPwChk.replace(/\s| /gi, "").length == 0){ // 공백만 입력한 경우
+                            $('#pwChk2').html('<br><b style="font-size:12px;color:red;">[비밀번호를 입력하세요.]</b>');
+                            chk2 = false;
+                            return false;
+                            $("#newPwChk").focus();
+                        }else if(newPw != newPwChk){  // 비밀번호 확인란 일치하지 않는 경우
+                        	$('#pwChk2').html('<br><b style="font-size:12px;color:red;">[새 비밀번호가 일치하지 않습니다.]</b>');
+                        	chk2 = false;
+                			return false;
+                			$("#newPwChk").focus();
+                        }else{
+                        	$('#newPwChk').empty();
+                        	chk2 = true;
+                        }
+                		
+                		
+                		if(chk1 && chk2){              			
                 			// 비밀번호 변경 요청
                 			let userVO = {
                         			userId: userId,
@@ -253,35 +290,27 @@
                             });
                 			
                 		}else{
-                			alert("새 비밀번호가 일치하지 않습니다.");
-                			$("#newPwChk").val("");
-                			$("#newPwChk").focus();
-                			return false;
+                			alert("입력값을 확인해주세요.");
                 		}
                 		
                 		// 비밀번호 요청 end
          			}else{
-         				alert("기존 비밀번호가 일치하지 않습니다.");
-         				$("#originPw").val("");
-            			$("#originPw").focus();
+         				$('#originpwChk').html('<br><b style="font-size:10px;color:red;">[기존 비밀번호가 일치하지 않습니다.]</b>');
          				return false;
+         				$("#originPw").focus();
          			}
                 }, 
                 error: function() {
                     console.log("통신 실패"); 
                 } 
             });
-        	
-        	
-        	
-        		
-        		
-        	
-        	
+        	 	
         	
         })
         
         
+        
+ 
 </script>
 
 </html>

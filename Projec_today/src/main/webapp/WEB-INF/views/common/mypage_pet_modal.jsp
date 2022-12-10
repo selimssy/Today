@@ -304,7 +304,11 @@ input[type=file] {display: none;}
     <script type="text/javascript">
     
     // 펫등록 모달 열기 
-    $("#petRgform_open").click(function(){    	        
+    $("#petRgform_open").click(function(){    	 
+    	if($(this).attr("href") > 2){  // 3마리까지만 등록 가능
+    		alert("3마리까지 등록 가능합니다.");
+    		return false;
+    	}
     	$("#petRg_modal").css("display","block");      
         $("#petRg_modal .image-box").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
         $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");

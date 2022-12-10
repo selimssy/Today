@@ -322,7 +322,12 @@ input[type=file] {display: none;}
     <script type="text/javascript">
     
     // 펫등록 모달 열기 
-    $("#petRgform_open").click(function(){    	        
+    $("#petRgform_open").click(function(){ 
+    	if($(this).attr("href") > 2){  // 3마리까지만 등록 가능
+    		alert("3마리까지 등록 가능합니다.");
+    		return false;
+    	}
+    	
     	$("#petRg_modal").css("display","block");      
         $("#petRg_modal .image-box").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
         $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
@@ -360,7 +365,8 @@ input[type=file] {display: none;}
     
     
     // 새로운 펫 추가 이벤트    
-    $("#petRg-btn").click(function(){
+    $("#petRg-btn").click(function(){    	  	
+    	
         //formData 객체 생성
         let formData = new FormData();
     	formData.append("petImg", $("input[id='imgfile1']")[0].files[0]);
@@ -430,16 +436,17 @@ input[type=file] {display: none;}
                 //let rows = response  
                 //console.log(row.length);
                 for(let i = 0; i < response.length; i++){
-                	let pet_id = response[i]['petId']
-                    let src = response[i]['imagePath']
-                    let pet_name = response[i]['petName']
-                    let age = response[i]['age']
-                    let gender = response[i]['gender']
-					
-                	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>"; 
-                    //let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>"; 
-
-                    $('#petCards').append(temp_html)
+	                	let pet_id = response[i]['petId']
+	                    let src = response[i]['imagePath']
+	                    let pet_name = response[i]['petName']
+	                    let age = response[i]['age']
+	                    let gender = response[i]['gender']
+						
+	                	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>"; 
+	                    //let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>"; 
+	
+	                    $('#petCards').append(temp_html);
+	                    $('#petRgform_open').attr("href", response.length);
                 }
             }, 
             error: function() {
