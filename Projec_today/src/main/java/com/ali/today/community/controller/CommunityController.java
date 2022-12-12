@@ -77,6 +77,7 @@ public class CommunityController {
 		// 공개상태 반려동물 리스트
 		List<PetVO> petList = userService.selectOpenPet(1);
 		model.addAttribute("petList", petList);
+		model.addAttribute("openCount", userService.countOpenPet()); // 공개상태 반려견 수
 		
 		return "community/introduce";
 	}

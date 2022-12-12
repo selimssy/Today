@@ -146,11 +146,18 @@ public class UserService implements IUserService{
 	public void deletePet(Integer petId) {
 		mapper.deletePet(petId);
 	}
-
+	
+	// 공개 상태 반려견 조회
 	@Override
 	public List<PetVO> selectOpenPet(Integer page) {
 		Integer pageStart = (page - 1) * 9;
 		return mapper.selectOpenPet(pageStart);
+	}
+	
+	// 공개 상태인 반려견 수 조회
+	@Override
+	public Integer countOpenPet() {
+		return mapper.countOpenPet();
 	}
 	
 	// 특정 계정 첫 번째 반려견 조회

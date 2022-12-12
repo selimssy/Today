@@ -35,11 +35,12 @@ public class UserTest {
 	@Test
 	public void registerPet() {
 		
-		for(int i=1; i<=50; i++) {
+		for(int i=1; i<=100; i++) {
 			
 			PetVO pet = new PetVO();
 			pet.setUserId("rupong");
 			pet.setPetName("아롱이");
+			pet.setPetSpecies("시고르자브종");
 			pet.setAge(3);
 			pet.setGender("여");
 			pet.setFeature("솜뭉치");

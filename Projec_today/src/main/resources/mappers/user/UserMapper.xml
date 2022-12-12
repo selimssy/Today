@@ -180,4 +180,11 @@
 		LIMIT #{pageStart}, 9
 	</select>
 	
+	<!-- 공개 상태인 반려동물 수 -->
+	<select id="countOpenPet" resultType="int">
+		SELECT COUNT(*)
+		FROM pet
+		WHERE open = 1
+	</select>
+	
 </mapper>

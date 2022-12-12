@@ -35,7 +35,7 @@
 	#petMf_modal{display:none}
 	
     
-    .PCards{width:1000px; height:2000px; margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+    .PCards{width:1000px; height:1250px; margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
     .PCards .cardWrap{width: 33%; float: left; padding: 20px; box-sizing: border-box;}
      .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border: 5px solid #BCDB97; border-radius: 20px; }
     .PCards .cardWrap .OPcard .cardTop{height:55px; background: rgba(188, 219, 151, 0.5); display: flex; justify-content: space-between; box-sizing: border-box; position: relative;}
@@ -54,12 +54,13 @@
     .PCards .cardBody ul li::before{content: "• "; font-size: 25px;}
    
     /* 페이징 */
-    .paging{padding: 100px 0 0; text-align: center;}
+    .paging{width:1000px; margin:0 auto; padding: 50px 0 0; text-align: center; display: flex;}
+    .pageBox{margin:0 auto; display: flex;}
 	.paging ul li{list-style: none; display: inline-block;}
 	.paging ul li a{text-decoration: none; color: #000;}
-	.pre_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
-	.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
-	.page_link{padding: 0 5px;}
+	.pre_link{display:none; width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.page_link{padding:0 5px; margin: 0 5px;}
 	.page_link.active{background: #BCDB97; color: #fff; border-radius: 50%;}
 </style>
 </head>
@@ -178,28 +179,20 @@
 		
 		
 		<!-- 페이징 처리 -->
+		
+		
+		
 		<div class="paging">
-			<ul>
+			<div class="pageBox">
 				<!-- 이전 버튼 -->
-		        <li>
-					<button type="button" class="pre_link">이전</button>
-				</li>						
-					
-							
-				<!-- 페이지 버튼 -->
-				<c:forEach var="pageNum" begin="1" end="10">
-					<li>                                                                 
-					   <a href="javascript:;" class="page_link">${pageNum}</a>
-					</li>
-				</c:forEach>			
-								
-				  
-			   <!-- 다음 버튼 -->
-			   <li>
-			       <button type="button" class="next_link">다음</button>
-			   </li>
-			</ul>
-		</div>
+				<button type="button" class="pre_link">이전</button>
+				<ul class="pageNumBox">				
+					<!-- 페이지 버튼 -->
+				</ul>
+				<!-- 다음 버튼 -->
+				<button type="button" class="next_link">다음</button>	
+			</div>
+			</div>
 		<!-- 페이징 처리 끝 -->
 	    
 	    
@@ -215,10 +208,26 @@
 	<script type="text/javascript">
 	
 		$(function(){
-			 $(".page_link:eq(0)").addClass("active");
+			 
 			 $(".mainMenu.mainMenu3").addClass("checked");
-			 })
+			 
+			 // 페이징
+			 if(${openCount} <= 90){
+				 for(let i=1; i<=parseInt(${openCount}/9)+1; i++){
+					 $(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+				 }
+				 $(".next_link").css("display", "none");
+			 }else{
+				 for(let i=1; i<=10; i++){
+					 $(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+				 }
+			 }
+			 $(".page_link:eq(0)").addClass("active");
+			 
+		})
 	
+		
+		
 		// 비공개 반려동물 접근 알림창
 		let msg = "${msg}"
 			if(msg === "closed"){
@@ -244,23 +253,9 @@
 		$('.page_link').removeClass("active");
 		$(this).addClass("active");
 		
-		let page = $(this).text();
-		console.log(page);
-		
+		let page = $(this).text();	
 		let data = {page: page};
-		//console.log(data);
-   		
-   		/*let page = parseInt($(".page-active").text()) + 1;*/
-   		/*if(parseInt($(".page-active").text()) %10 === 0){
-			for(let i=0; i<10; i++){
-				$(".page_link").eq(i).text(parseInt($(".page_link").eq(i).text()) + 10);
-			}			
-		}*/
-   		/*$('.page-active').parent().next().children().addClass('page-active');  
-   		$('.page-active').first().removeClass('page-active');   		*/
-   		
-   		
-   		   		
+	   		
    		$.ajax({
                type: 'post',
                dataType : "json",
@@ -297,12 +292,12 @@
                         }
                         html += '</ul></div>'
                         html += '<div class="cardBody">'
-                        html += '<a href="today/community/otherPet/' + petId + '">'
+                        html += '<a href="/today/community/otherPet/' + petId + '">'
                         html += '<img src="' + imagePath + '">'
                         html += '<ul>'
-                        html += '<li><span class="cardTitle">견종:</span>' + petSpecies + '</li>'
-                        html += '<li><span class="cardTitle">나이:</span>' + age + '살 (' + gender + ')</li>'
-                        html += '<li><span class="cardTitle">성격:</span>' + feature + '</li> '
+                        html += '<li><span class="cardTitle">견종: </span>' + petSpecies + '</li>'
+                        html += '<li><span class="cardTitle">나이: </span>' + age + '살 (' + gender + ')</li>'
+                        html += '<li><span class="cardTitle">성격: </span>' + feature + '</li> '
                         html += '</ul></a>'
                         html += '</div></div></div>'
                    		
@@ -315,6 +310,36 @@
                } 
            });
     		 	
+        })
+        
+        
+        
+        // 다음페이지 버튼
+        $(document).on("click", ".next_link", function () {
+        	$(".pre_link").css("display", "inline-block"); // 이전버튼 활성화
+        	
+        	
+        	let lastPage = parseInt($(".page_link:eq(9)").text()); // 현재 마지막 페이지  	
+        	console.log(lastPage);
+        	let re_count = ${openCount} -(9*lastPage); // 남은 반려견 카드 수
+        	console.log(re_count);
+        	$(".pageNumBox").empty(); //초기화
+        	
+        	if(re_count <= 90){ 
+        		for(let i=lastPage+1; i<=lastPage+parseInt(re_count/9)+1; i++){	// 끝페이지 보정
+        			console.log(i);
+        			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+        		}
+        		$(".next_link").css("display", "none"); // 다음버튼 비활성화;
+        	}else{
+        		for(let i=lastPage+1; i<=lastPage+10; i++){
+        			console.log(i);
+        			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+        		}
+        	}
+        	
+  
+        	
         })
         
 	
