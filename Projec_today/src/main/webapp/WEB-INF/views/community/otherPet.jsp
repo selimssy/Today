@@ -13,20 +13,23 @@
 <style type="text/css">
 .siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
 /*.container{width: 1000px; margin: 0 auto;}*/
-.Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto 0;}
-.Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
-.Myintro .modify{float: right;}
-.Myintro .modify img{width:25px; height:25px;}
-.Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}
-.Mycontent{display: flex; justify-content:space-between; padding:20px;}
-.Mycontent .MyPetinfo{padding:10px 65px 0 0;}
-.Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
-.MyPetinfo li:last-of-type{padding-top: 15px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+.Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
+.Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
+.Mycontent{width:100%; display: flex; justify-content:space-between; padding:20px; position: relative; box-sizing: border-box;}
+.MyPetPhoto{width:43%; box-sizing: border-box; position: relative;}
+.MyPetPhoto::after {display: block; content: ""; padding-bottom: 100%;}
+.Myintro .MyPetPhoto img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box;} 
+.Mycontent .MyPetinfo{width:52%; box-sizing: border-box;}
+.Mycontent .MyPetinfo li{font-size: 19px; line-height: 40px;}
+.MyPetinfo li:last-of-type{padding-top: 5px;}
 .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
-.Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 80px;}
+.Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 70px;}
 .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
 .Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/today/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
 .Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/today/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
+.MyPetinfo ul li{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+.nameTitle{font-size: 21px; font-weight: bold;}
+.infoTitle{font-size: 16px; font-weight: bold;}
 
 .otherP{width: 100%; height: 130px; border-left: 5px solid #7AB730; margin: 100px 20px 50px; margin-left: 50px; padding-left:30px}
 .otherP p{font-size: 24px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive;}
@@ -108,14 +111,16 @@ ul{list-style: none;}
 	        <h2>${pet.petName} 소개란</h2>
 	        <div class="Mycontent">
 	            <div class="MyPetPhoto">
-		            <img src="<c:url value='${pet.imagePath}'/>" width="250px" height="250px">
+		            <img src="<c:url value='${pet.imagePath}'/>">
 		        </div>
 	            <div class="MyPetinfo">
 	                <ul>
-	                    <li>이름: ${pet.petName}</li>
-	                    <li>나이: ${pet.age}살</li>
-	                    <li>특징: ${pet.feature}</li>
-	                    <li>공개 여부: <c:if test="${pet.open == 1}">
+	                    <li><span class="nameTitle">이름:</span> ${pet.petName}</li>
+	                    <li><span class="infoTitle">견종:</span> ${pet.petSpecies}</li>
+	                    <li><span class="infoTitle">나이:</span> ${pet.age}살</li>
+	                    <li><span class="infoTitle">성별:</span> ${pet.gender}</li>
+	                    <li><span class="infoTitle">성격:</span> ${pet.feature}</li>
+	                <!--<li>공개 여부: <c:if test="${pet.open == 1}">
 	                    				<label>공개</label> <input type="radio" checked onclick="return(false);">&nbsp;
                                 		<label>비공개</label> <input type="radio" onclick="return(false);">
 									</c:if>
@@ -123,7 +128,7 @@ ul{list-style: none;}
 	                    				<label>공개</label> <input type="radio" onclick="return(false);">&nbsp; 
                                 		<label>비공개</label> <input type="radio" checked onclick="return(false);">
 									</c:if>
-	                    </li>
+	                    </li> -->   
 	                    <li>
 	                    	<c:if test="${empty pet.instagram}">
 							</c:if>

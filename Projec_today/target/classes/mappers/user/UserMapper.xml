@@ -22,6 +22,7 @@
 		<id property="petId" column="pet_id" />
 		<result property="userId" column="user_id"/>
 		<result property="petName" column="pet_name"/>
+		<result property="petSpecies" column="pet_species"/>
 		<result property="age" column="age"/>
 		<result property="gender" column="gender"/>
 		<result property="feature" column="feature"/>
@@ -110,15 +111,15 @@
 	
 	<!-- 새로운 펫 등록 -->
 	<insert id="registerPet">
-		INSERT INTO pet (user_id, pet_name, age, gender, feature, image_path, instagram, youtube, open)
-		VALUES (#{userId}, #{petName}, #{age}, #{gender}, #{feature}, #{imagePath}, #{instagram}, #{youtube}, #{open})	
+		INSERT INTO pet (user_id, pet_name, pet_species, age, gender, feature, image_path, instagram, youtube, open)
+		VALUES (#{userId}, #{petName}, #{petSpecies}, #{age}, #{gender}, #{feature}, #{imagePath}, #{instagram}, #{youtube}, #{open})	
 	</insert>
 	
 	
 	
 	<!-- 반려동물 정보 수정 -->
 	<update id="modifyPet">
-		UPDATE pet SET pet_name = #{petName}, age = #{age}, gender = #{gender}, feature = #{feature}, 
+		UPDATE pet SET pet_name = #{petName}, pet_species = #{petSpecies}, age = #{age}, gender = #{gender}, feature = #{feature}, 
 			image_path = #{imagePath}, instagram = #{instagram}, youtube = #{youtube}, open = #{open}
 		WHERE pet_id = #{petId}
 	</update>
@@ -176,6 +177,7 @@
 	<select id="selectOpenPet" resultMap="PetMap">
 		SELECT * FROM pet
 		WHERE open = 1
+		LIMIT #{pageStart}, 9
 	</select>
 	
 </mapper>

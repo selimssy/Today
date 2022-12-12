@@ -99,8 +99,7 @@ public class UserPetController {
 	        pet.setImagePath("/resources/images/petRegister/" + originalName);
 		} catch (NullPointerException e) {
 			// 사진 변경 안했을 경우
-			UserVO user = (UserVO)session.getAttribute("login");
-			Integer petId = user.getPet().getPetId();
+			Integer petId = pet.getPetId();
 			String originalImage = service.selectOnePet(petId).getImagePath();
 			pet.setImagePath(originalImage);			
 		}

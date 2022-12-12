@@ -120,6 +120,16 @@ input[type=file] {display: none;}
                     <tr>
                         <td class="mlabel">
                             <p>
+                                <strong>견종</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="pet_species" class="modal_input" placeholder="ex) 말티즈, 포메라니안, 믹스견"></td>
+                    </tr>
+                    <tr>
+                        <td class="mlabel">
+                            <p>
                                 <strong>나이</strong>
                             </p>
                         </td>
@@ -143,12 +153,12 @@ input[type=file] {display: none;}
                     <tr>
                         <td class="mlabel">
                             <p>
-                                <strong>특징</strong>
+                                <strong>성격</strong>
                             </p>
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="feature" class="modal_input" placeholder="ex) 애교쟁이, 노즈워크 달인"></td>
+                        <td><input type="text" id="feature" class="modal_input" placeholder="ex) 애교쟁이, 순둥이"></td>
                     </tr>
                   
                     <tr>
@@ -238,6 +248,16 @@ input[type=file] {display: none;}
                     <tr>
                         <td class="mlabel">
                             <p>
+                                <strong>견종</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="Mpet_species" class="modal_input" value=""></td>
+                    </tr>
+                    <tr>
+                        <td class="mlabel">
+                            <p>
                                 <strong>나이</strong>
                             </p>
                         </td>
@@ -261,7 +281,7 @@ input[type=file] {display: none;}
                     <tr>
                         <td class="mlabel">
                             <p>
-                                <strong>특징</strong>
+                                <strong>성격</strong>
                             </p>
                         </td>
                     </tr>
@@ -374,6 +394,7 @@ input[type=file] {display: none;}
     	let petData = {
     			"userId": "${login.userId}",
     			"petName": $("#pet_name").val(),
+    			"petSpecies": $("#pet_species").val(),
     			"age": $("#age").val(),
     			"gender": $("input[name='gender']:checked").val(),
     			"feature": $("#feature").val(),
@@ -521,6 +542,7 @@ input[type=file] {display: none;}
 	                	let petId = response['petId']
 	                    let imagePath = "/today" + response['imagePath']
 	                    let petName = response['petName']
+	            		let petSpecies = response['petSpecies']
 	                    let age = response['age']
 	                    let gender = response['gender']
 	            		let feature = response['feature']
@@ -532,6 +554,7 @@ input[type=file] {display: none;}
 	                	$("#petMf-btn").attr("href", petId);
 	                	$("#image-box-modal2").attr("src", imagePath);
 	                	$("#Mpet_name").val(petName);
+	                	$("#Mpet_species").val(petSpecies);  
 	                	$("#Mage").val(age);
 	                    if(gender === "남"){
 	                    	$("input[id='Mgender']:eq(0)").prop('checked', true);
@@ -574,6 +597,7 @@ input[type=file] {display: none;}
         	let petData = {
         			"petId": petId,
         			"petName": $("#Mpet_name").val(),
+        			"petSpecies": $("#Mpet_species").val(),
         			"age": $("#Mage").val(),
         			"gender": $("input[id='Mgender']:checked").val(),
         			"feature": $("#Mfeature").val(),

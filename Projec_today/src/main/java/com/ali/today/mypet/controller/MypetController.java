@@ -28,6 +28,8 @@ import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
 import com.ali.today.mypet.service.IMypetService;
 import com.ali.today.user.model.UserVO;
+import com.ali.today.user.repository.IUserMapper;
+import com.ali.today.user.service.IUserService;
 
 
 @Controller
@@ -37,6 +39,8 @@ public class MypetController {
 	
 	@Autowired
 	private IMypetService service;
+	@Autowired
+	private IUserService uservice;
 	
 	
 	
@@ -50,6 +54,7 @@ public class MypetController {
 		
 		List<LifetimeVO> list = service.getLifetimeCardList(petId);
 		model.addAttribute("cards", list);
+		model.addAttribute("pet", uservice.selectOnePet(petId));
 		
 	}
 	
@@ -196,6 +201,7 @@ public class MypetController {
 		pc.setPaging(paging);
 		pc.setArticleTotalCount(service.countGalleries(petId));
 		
+		model.addAttribute("pet", uservice.selectOnePet(petId));
 		model.addAttribute("galleryList", list);
 		model.addAttribute("pc", pc);
 		

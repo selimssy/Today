@@ -59,7 +59,7 @@ public interface IUserService {
 	UserVO UserPetInfo(PetVO pet);
 	
 	// 공개 상태인 모든 반려동물 조회
-	List<PetVO> selectOpenPet();
+	List<PetVO> selectOpenPet(Integer page);
 	
 	// 특정 계정 첫 번째 반려견 조회
 	PetVO firstPet(String userId);

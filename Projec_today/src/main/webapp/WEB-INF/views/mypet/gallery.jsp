@@ -11,10 +11,8 @@
 <style>
 .siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
-.mainContent .conTitle{width: 950px; margin: 0 auto; background:#BBD996;}
-.mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
-.mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
-.mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}
+.mainContent .conTitle{width: 950px; margin: 0 auto; background:#BBD996; text-align: center;}
+.mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
 .buttonNav{float:right; position: relative;}
 .openUGCard{width: 95px; height: 40px;  position: absolute; top:45px; right:40px; /*margin: 45px 15px 0 0;*/ border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; /*float: right;*/ cursor: pointer;}
 .photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/today/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
@@ -78,10 +76,7 @@
 		
 		<div class="mainContent">
 	        <div class="conTitle">
-	            <div class="contWrap">
-	                <div class="contImg">img</div>
-	                <span>${login.pet.petName} 갤러리</span>
-	            </div>
+	            <span>${pet.petName} 갤러리</span>
 	        </div>
 			
 			<button type="button" id="petList-open" title="반려동물 변경" class="changePet2"></button>
@@ -105,7 +100,7 @@
 	            <div class="galInfo">
 	                  <input type="text" id="gtitle" placeholder="title" required>
 	                  <textarea id="gcontent" placeholder="사진 설명이 있다면 적어주세요."></textarea>
-	                  <input type="hidden" name="petId" value="${login.pet.petId}">
+	                  <input type="hidden" name="petId" value="${pet.petId}">
 	        	</div>
 	       </div>
 	        	        

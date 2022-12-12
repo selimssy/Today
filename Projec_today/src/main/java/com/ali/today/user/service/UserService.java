@@ -148,8 +148,9 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public List<PetVO> selectOpenPet() {
-		return mapper.selectOpenPet();
+	public List<PetVO> selectOpenPet(Integer page) {
+		Integer pageStart = (page - 1) * 9;
+		return mapper.selectOpenPet(pageStart);
 	}
 	
 	// 특정 계정 첫 번째 반려견 조회

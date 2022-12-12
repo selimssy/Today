@@ -15,22 +15,27 @@
 	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
 	.container{width: 1000px; margin: 0 auto; position: relative;}
     .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
-    .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}
-    .Myintro .MyPetPhoto img{border-radius: 50%; padding:20px}   
-    .Mycontent{display: flex; justify-content:space-between; padding:20px; position: relative;}
-    .Mycontent .MyPetinfo{padding-right: 10px;}
-    .Mycontent .MyPetinfo li{font-size: 1.3em; line-height: 40px;}
-    .MyPetinfo li:last-of-type{padding-top: 15px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+    .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
+    .Mycontent{width:100%; display: flex; justify-content:space-between; padding:20px; position: relative; box-sizing: border-box;}
+    .MyPetPhoto{width:43%; box-sizing: border-box; position: relative;}
+    .MyPetPhoto::after {display: block; content: ""; padding-bottom: 100%;}
+    .Myintro .MyPetPhoto img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box;} 
+    .Mycontent .MyPetinfo{padding-left: 15px; width:52%; box-sizing: border-box;}
+    .Mycontent .MyPetinfo li{font-size: 19px; line-height: 40px;}
+    .MyPetinfo li:last-of-type{padding-top: 5px;}
     .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
-    .Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 80px;}
+    .Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 70px;}
     .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
     .Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/today/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
     .Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/today/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
+	.MyPetinfo ul li{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+	.nameTitle{font-size: 21px; font-weight: bold;}
+	.infoTitle{font-size: 16px; font-weight: bold;}
 	.modifyIcon{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/community/modify.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	#petMf_modal{display:none}
 	
     
-    .PCards{width:1000px; margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+    .PCards{width:1000px; height:2000px; margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
     .PCards .cardWrap{width: 33%; float: left; padding: 20px; box-sizing: border-box;}
      .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border: 5px solid #BCDB97; border-radius: 20px; }
     .PCards .cardWrap .OPcard .cardTop{height:55px; background: rgba(188, 219, 151, 0.5); display: flex; justify-content: space-between; box-sizing: border-box; position: relative;}
@@ -44,25 +49,18 @@
     .PCards .cardBody a{text-decoration: none; color: #000;}
     .PCards .cardBody img{width: 100%; height: 160px; object-fit: cover;  box-sizing: border-box;}
     .PCards .cardBody ul{padding-left: 0; margin:5px 0 10px 30px; list-style: none;}
-    .PCards .cardBody ul li{font-size: 20px; padding: 3px;}
+    .cardTitle{font-size: 16px; font-weight: bold;}
+    .PCards .cardBody ul li{font-size: 19px; padding: 3px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
     .PCards .cardBody ul li::before{content: "• "; font-size: 25px;}
-    .PCards .cardBody ul li:last-of-type{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-    
-    
-    /*
-     펫 리스트 창     
-    .petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px;}
-    #layer-popup > img{width: 70px; height: 70px; position: absolute; top: 30px; left: 200px;}
-    #layer-popup > p{font-size: 72px;  margin: 20px 0 0; padding-left: 40px; font-family: 'Nanum Pen Script', cursive; text-align: center;}
-    .bdiv{text-align: right;}
-    #petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px; cursor: pointer;}
-    .petList #petCards{ margin-top: 20px;}
-    .petList #petCards a{text-decoration: none; color: #000;}
-    .pet{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
-    .pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
-    .pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-    .pet_in p{margin: 0;}    
-    .pet_id{display:none}  petId 안보이게   */    
+   
+    /* 페이징 */
+    .paging{padding: 100px 0 0; text-align: center;}
+	.paging ul li{list-style: none; display: inline-block;}
+	.paging ul li a{text-decoration: none; color: #000;}
+	.pre_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
+	.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
+	.page_link{padding: 0 5px;}
+	.page_link.active{background: #BCDB97; color: #fff; border-radius: 50%;}
 </style>
 </head>
 <body>
@@ -89,14 +87,15 @@
 	        <h2>내 반려견 소개란</h2>
 	        <div class="Mycontent">
 	            <div class="MyPetPhoto">
-		            <img src="<c:url value='${pet.imagePath}'/>" width="250px" height="250px">
+		            <img src="<c:url value='${pet.imagePath}'/>">
 		        </div>
 	            <div class="MyPetinfo">
 	                <ul>
-	                    <li>이름: ${pet.petName}</li>
-	                    <li>나이: ${pet.age}살</li>
-	                    <li>특징: ${pet.feature}</li>
-	                    <li>공개 여부: <c:if test="${pet.open == 1}">
+	                    <li><span class="nameTitle">이름:</span> ${pet.petName}</li>
+	                    <li><span class="infoTitle">견종:</span> ${pet.petSpecies}</li>
+	                    <li><span class="infoTitle">나이:</span> ${pet.age}살 (${pet.gender})</li>
+	                    <li><span class="infoTitle">성격:</span> ${pet.feature}</li>
+	                    <li><span class="infoTitle">공개 여부:</span> <c:if test="${pet.open == 1}">
 	                    				<label>공개</label> <input type="radio" checked onclick="return(false);">
                                 		<label>비공개</label> <input type="radio" onclick="return(false);">
 									</c:if>
@@ -165,9 +164,9 @@
 		                    	<a href="<c:url value='/community/otherPet/${petVO.petId}'/>">
 			                        <img src="<c:url value='${petVO.imagePath}'/>">
 			                        <ul>
-			                            <li>성별: ${petVO.gender}</li>
-			                            <li>나이: ${petVO.age}살</li>
-			                            <li>특징: ${petVO.feature}</li>                        
+			                            <li><span class="cardTitle">견종:</span> ${petVO.petSpecies}</li>
+			                            <li><span class="cardTitle">나이:</span> ${petVO.age}살 (${petVO.gender})</li>
+			                            <li><span class="cardTitle">성격:</span> ${petVO.feature}</li>                        
 			                        </ul>
 		                        </a>
 		                    </div>  	                    
@@ -176,17 +175,47 @@
 				</c:forEach>
 			</c:if>	
 		</div>		
+		
+		
+		<!-- 페이징 처리 -->
+		<div class="paging">
+			<ul>
+				<!-- 이전 버튼 -->
+		        <li>
+					<button type="button" class="pre_link">이전</button>
+				</li>						
+					
+							
+				<!-- 페이지 버튼 -->
+				<c:forEach var="pageNum" begin="1" end="10">
+					<li>                                                                 
+					   <a href="javascript:;" class="page_link">${pageNum}</a>
+					</li>
+				</c:forEach>			
+								
+				  
+			   <!-- 다음 버튼 -->
+			   <li>
+			       <button type="button" class="next_link">다음</button>
+			   </li>
+			</ul>
+		</div>
+		<!-- 페이징 처리 끝 -->
 	    
 	    
 	</main>
 </div>
 	
 	
-<jsp:include page="../common/pet_modal.jsp" />	
+<jsp:include page="../common/pet_modal.jsp" />			
+<jsp:include page="../common/footer.jsp" /> 
+</body>	
+	
 	
 	<script type="text/javascript">
 	
 		$(function(){
+			 $(".page_link:eq(0)").addClass("active");
 			 $(".mainMenu.mainMenu3").addClass("checked");
 			 })
 	
@@ -206,13 +235,92 @@
 	    
 	    
 	    
+		
+	    // 페이징
+	    $(document).on("click", ".page_link", function () {
+		
+		//초기화
+		$('.PCards').empty();
+		$('.page_link').removeClass("active");
+		$(this).addClass("active");
+		
+		let page = $(this).text();
+		console.log(page);
+		
+		let data = {page: page};
+		//console.log(data);
+   		
+   		/*let page = parseInt($(".page-active").text()) + 1;*/
+   		/*if(parseInt($(".page-active").text()) %10 === 0){
+			for(let i=0; i<10; i++){
+				$(".page_link").eq(i).text(parseInt($(".page_link").eq(i).text()) + 10);
+			}			
+		}*/
+   		/*$('.page-active').parent().next().children().addClass('page-active');  
+   		$('.page-active').first().removeClass('page-active');   		*/
+   		
+   		
+   		   		
+   		$.ajax({
+               type: 'post',
+               dataType : "json",
+               contentType: 'application/json',
+               url: '/today/community/openPetList',
+               data: JSON.stringify(data),
+               success: function (response) {
+                    console.log(response); // 리스트 
+               	   
+                    for(let i = 0; i < response.length; i++){
+                    	
+                    	let petId = response[i]["petId"];
+                    	let petName = response[i]["petName"];
+                    	let petSpecies = response[i]["petSpecies"];
+                    	let age = response[i]["age"];
+                    	let gender = response[i]["gender"];
+                    	let feature = response[i]["feature"];
+                    	let imagePath = "/today" + response[i]['imagePath'];
+                    	let instagram = response[i]["instagram"];
+                    	let youtube = response[i]["youtube"];
 
+                        let html ='<div class="cardWrap">'
+                        html += '<div class="OPcard">'
+                        html += '<div class="cardTop">'
+                        html += '<div class="cBullet"></div><h3>'
+                        html += petName
+                        html += '</h3>'
+                        html += '<ul class="cLink">'
+                        if(response[i]['instagram']){
+                            html += '<li><a href="' + instagram + '" target="_blank">1</a></li>'
+                        }
+                        if(response[i]['youtube']){
+                            html += '<li><a href="' + youtube + '" target="_blank">1</a></li>'
+                        }
+                        html += '</ul></div>'
+                        html += '<div class="cardBody">'
+                        html += '<a href="today/community/otherPet/' + petId + '">'
+                        html += '<img src="' + imagePath + '">'
+                        html += '<ul>'
+                        html += '<li><span class="cardTitle">견종:</span>' + petSpecies + '</li>'
+                        html += '<li><span class="cardTitle">나이:</span>' + age + '살 (' + gender + ')</li>'
+                        html += '<li><span class="cardTitle">성격:</span>' + feature + '</li> '
+                        html += '</ul></a>'
+                        html += '</div></div></div>'
+                   		
+                        $('.PCards').append(html);
+                    }    
+               	   	   	                 
+               }, 
+               error: function() {
+                   console.log("통신 실패!");
+               } 
+           });
+    		 	
+        })
         
 	
 	</script>
 	
 	
 	
-<!--<jsp:include page="../common/footer.jsp" /> -->	
-</body>
+
 </html>

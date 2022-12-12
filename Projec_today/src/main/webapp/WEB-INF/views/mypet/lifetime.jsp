@@ -16,11 +16,8 @@
         /*.siteInfo{width: 1200px; height: 450px; background-image: url(/today/img/common/mainbg1.png); margin: 0 auto;  position: relative;}*/      
 		.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}      
         .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
-        .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; /*margin-right:25px;padding-right:100px;*/ box-sizing: border-box;}
-        .mainContent .conTitle .contWrap{width: 350px; display: flex; margin: 0 auto;}
-        .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 25px;}
-        .mainContent .conTitle .contImg{width: 65px; height: 65px; text-indent: -9999px;  background-image: url(/today/img/common/infoPhoto.png); background-size: contain; background-repeat: no-repeat;}
-    
+        .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; box-sizing: border-box; text-align: center;}
+        .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
         .uploadCard, .modifyCard{display: none; width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
         .openUCard{width: 90px; height: 40px; margin: 35px 60px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
         .closeUCard, .mdcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
@@ -85,10 +82,7 @@
 	
 	    <div class="mainContent">
 	        <div class="conTitle">
-	            <div class="contWrap">
-	                <div class="contImg">img</div>
-	                <span>${login.pet.petName} 생애기록</span>
-	            </div>
+	                <span>${pet.petName} 생애기록</span>  
 	        </div>
 	
 	        <div><button class="openUCard">+ 기록추가</button></div>

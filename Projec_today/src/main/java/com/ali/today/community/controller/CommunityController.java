@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -62,18 +64,34 @@ public class CommunityController {
 	public String intro(HttpSession session, Model model) {
 		
 		// 반려동물 데이터
-		UserVO user = (UserVO)session.getAttribute("login");
-		Integer perId = user.getPet().getPetId();
-		PetVO pet = userService.selectOnePet(perId);
-		model.addAttribute("pet", pet);
+		try {
+			UserVO user = (UserVO)session.getAttribute("login");
+			Integer perId = user.getPet().getPetId();
+			PetVO pet = userService.selectOnePet(perId);
+			model.addAttribute("pet", pet);
+		} catch (NullPointerException e) {
+			e.getMessage();
+		}
+		
 		
 		// 공개상태 반려동물 리스트
-		List<PetVO> petList = userService.selectOpenPet();
+		List<PetVO> petList = userService.selectOpenPet(1);
 		model.addAttribute("petList", petList);
 		
 		return "community/introduce";
 	}
 	
+	
+	
+	// 공개상태 반려견 리스트 통신
+	@PostMapping("/openPetList")
+	@ResponseBody
+	public List<PetVO> openPetList(@RequestBody Map<String, String> map){		
+		System.out.println(map.get("page"));
+		//page = Integer.parseInt(page);
+		List<PetVO> petList = userService.selectOpenPet(Integer.parseInt(map.get("page")));
+		return petList;
+	}
 	
 	
 	
