@@ -244,101 +244,135 @@
 	    
 	    
 	    
-		
-	    // 페이징
-	    $(document).on("click", ".page_link", function () {
-		
-		//초기화
-		$('.PCards').empty();
-		$('.page_link').removeClass("active");
-		$(this).addClass("active");
-		
-		let page = $(this).text();	
-		let data = {page: page};
+	    // 페이징 함수 
+	    function paging(page){
+			$('.PCards').empty(); // 초기화
+			let data = {page: page};
 	   		
-   		$.ajax({
-               type: 'post',
-               dataType : "json",
-               contentType: 'application/json',
-               url: '/today/community/openPetList',
-               data: JSON.stringify(data),
-               success: function (response) {
-                    console.log(response); // 리스트 
-               	   
-                    for(let i = 0; i < response.length; i++){
-                    	
-                    	let petId = response[i]["petId"];
-                    	let petName = response[i]["petName"];
-                    	let petSpecies = response[i]["petSpecies"];
-                    	let age = response[i]["age"];
-                    	let gender = response[i]["gender"];
-                    	let feature = response[i]["feature"];
-                    	let imagePath = "/today" + response[i]['imagePath'];
-                    	let instagram = response[i]["instagram"];
-                    	let youtube = response[i]["youtube"];
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               contentType: 'application/json',
+	               url: '/today/community/openPetList',
+	               data: JSON.stringify(data),
+	               success: function (response) {
+	                    console.log(response); // 리스트 
+	               	   
+	                    for(let i = 0; i < response.length; i++){
+	                    	
+	                    	let petId = response[i]["petId"];
+	                    	let petName = response[i]["petName"];
+	                    	let petSpecies = response[i]["petSpecies"];
+	                    	let age = response[i]["age"];
+	                    	let gender = response[i]["gender"];
+	                    	let feature = response[i]["feature"];
+	                    	let imagePath = "/today" + response[i]['imagePath'];
+	                    	let instagram = response[i]["instagram"];
+	                    	let youtube = response[i]["youtube"];
 
-                        let html ='<div class="cardWrap">'
-                        html += '<div class="OPcard">'
-                        html += '<div class="cardTop">'
-                        html += '<div class="cBullet"></div><h3>'
-                        html += petName
-                        html += '</h3>'
-                        html += '<ul class="cLink">'
-                        if(response[i]['instagram']){
-                            html += '<li><a href="' + instagram + '" target="_blank">1</a></li>'
-                        }
-                        if(response[i]['youtube']){
-                            html += '<li><a href="' + youtube + '" target="_blank">1</a></li>'
-                        }
-                        html += '</ul></div>'
-                        html += '<div class="cardBody">'
-                        html += '<a href="/today/community/otherPet/' + petId + '">'
-                        html += '<img src="' + imagePath + '">'
-                        html += '<ul>'
-                        html += '<li><span class="cardTitle">견종: </span>' + petSpecies + '</li>'
-                        html += '<li><span class="cardTitle">나이: </span>' + age + '살 (' + gender + ')</li>'
-                        html += '<li><span class="cardTitle">성격: </span>' + feature + '</li> '
-                        html += '</ul></a>'
-                        html += '</div></div></div>'
-                   		
-                        $('.PCards').append(html);
-                    }    
-               	   	   	                 
-               }, 
-               error: function() {
-                   console.log("통신 실패!");
-               } 
-           });
-    		 	
+	                        let html ='<div class="cardWrap">'
+	                        html += '<div class="OPcard">'
+	                        html += '<div class="cardTop">'
+	                        html += '<div class="cBullet"></div><h3>'
+	                        html += petName
+	                        html += '</h3>'
+	                        html += '<ul class="cLink">'
+	                        if(response[i]['instagram']){
+	                            html += '<li><a href="' + instagram + '" target="_blank">1</a></li>'
+	                        }
+	                        if(response[i]['youtube']){
+	                            html += '<li><a href="' + youtube + '" target="_blank">1</a></li>'
+	                        }
+	                        html += '</ul></div>'
+	                        html += '<div class="cardBody">'
+	                        html += '<a href="/today/community/otherPet/' + petId + '">'
+	                        html += '<img src="' + imagePath + '">'
+	                        html += '<ul>'
+	                        html += '<li><span class="cardTitle">견종: </span>' + petSpecies + '</li>'
+	                        html += '<li><span class="cardTitle">나이: </span>' + age + '살 (' + gender + ')</li>'
+	                        html += '<li><span class="cardTitle">성격: </span>' + feature + '</li> '
+	                        html += '</ul></a>'
+	                        html += '</div></div></div>'
+	                   		
+	                        $('.PCards').append(html);
+	                    }    
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	           });
+		}
+	    
+	    
+	    
+	    
+		
+	    // 페이지 버튼 클릭 이벤트
+	    $(document).on("click", ".page_link", function () {	
+			//초기화
+			$('.page_link').removeClass("active");
+			$(this).addClass("active");
+			
+			let page = $(this).text();				
+	    	paging(page); // 페이징 함수
         })
         
         
         
-        // 다음페이지 버튼
+        // 다음페이지 버튼 클릭
         $(document).on("click", ".next_link", function () {
-        	$(".pre_link").css("display", "inline-block"); // 이전버튼 활성화
-        	
+        	$(".pre_link").css("display", "inline-block"); // 이전버튼 활성화      	
         	
         	let lastPage = parseInt($(".page_link:eq(9)").text()); // 현재 마지막 페이지  	
-        	console.log(lastPage);
         	let re_count = ${openCount} -(9*lastPage); // 남은 반려견 카드 수
         	console.log(re_count);
         	$(".pageNumBox").empty(); //초기화
         	
-        	if(re_count <= 90){ 
-        		for(let i=lastPage+1; i<=lastPage+parseInt(re_count/9)+1; i++){	// 끝페이지 보정
-        			console.log(i);
-        			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+        	if(re_count <= 90){ // 끝페이지 보정
+        		if(re_count % 9 != 0){ // 9로 나누어지지 않을 경우(페이지+1)
+        			for(let i=lastPage+1; i<=lastPage+parseInt(re_count/9)+1; i++){	
+            			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+            		}
+        		}else{
+        			for(let i=lastPage+1; i<=lastPage+parseInt(re_count/9); i++){ // 나누어질 경우
+            			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+            		}
         		}
+        		
         		$(".next_link").css("display", "none"); // 다음버튼 비활성화;
         	}else{
         		for(let i=lastPage+1; i<=lastPage+10; i++){
-        			console.log(i);
         			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
         		}
         	}
         	
-  
+        	$(".page_link:eq(0)").addClass("active");
+        	paging(lastPage + 1); // 페이징 함수
+        	
+        })
+        
+        
+        // 이전페이지 버튼 클릭
+        $(document).on("click", ".pre_link", function () {
+        	$(".next_link").css("display", "inline-block"); // 다음버튼 활성화      	
+        	
+        	let firstPage = parseInt($(".page_link:eq(0)").text()); // 현재 첫 번째 페이지  	
+        	console.log(firstPage);
+        	$(".pageNumBox").empty(); //초기화
+        	
+        	for(let i=firstPage-10; i<=firstPage-1; i++){	
+    			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+    		}
+        	
+        	if(firstPage-10 == 1){
+        		$(".pre_link").css("display", "none");
+        	}else{
+        		$(".pre_link").css("display", "inline-block");
+        	}
+        	
+        	$(".page_link:eq(9)").addClass("active");
+        	paging(firstPage - 1); // 페이징 함수
         	
         })
         

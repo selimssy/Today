@@ -35,7 +35,7 @@ public class UserTest {
 	@Test
 	public void registerPet() {
 		
-		for(int i=1; i<=100; i++) {
+		for(int i=1; i<=1; i++) {
 			
 			PetVO pet = new PetVO();
 			pet.setUserId("rupong");
