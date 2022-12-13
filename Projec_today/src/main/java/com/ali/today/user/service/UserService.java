@@ -149,15 +149,23 @@ public class UserService implements IUserService{
 	
 	// 공개 상태 반려견 조회
 	@Override
-	public List<PetVO> selectOpenPet(Integer page) {
-		Integer pageStart = (page - 1) * 9;
-		return mapper.selectOpenPet(pageStart);
+	public List<PetVO> selectOpenPet(Integer page, String condition, String keyword) {
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("pageStart", (page - 1) * 9);
+		datas.put("condition", condition);
+		datas.put("keyword", keyword);
+		//Integer pageStart = (page - 1) * 9;
+		
+		return mapper.selectOpenPet(datas);
 	}
 	
 	// 공개 상태인 반려견 수 조회
 	@Override
-	public Integer countOpenPet() {
-		return mapper.countOpenPet();
+	public Integer countOpenPet(String condition, String keyword) {
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("condition", condition);
+		datas.put("keyword", keyword);
+		return mapper.countOpenPet(datas);
 	}
 	
 	// 특정 계정 첫 번째 반려견 조회

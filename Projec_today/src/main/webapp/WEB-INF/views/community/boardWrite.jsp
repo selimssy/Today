@@ -16,7 +16,7 @@
 .titleBox{width:100%; height:40px; border:1px solid #d1d1d1; margin-bottom: 10px}
 .titleBox input{border:none; width:100%; height:40px; background: transparent; padding-left: 15px}
 .titleBox input:focus{outline: none;}
-.boardBox{width: 800px; margin: 0 auto}
+.boardBox{width: 700px; margin: 0 auto}
 .boardBox .boardwt{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-right: 15px}
 /*.boardBox p{font-size: 16px}안멱힌다ㅠ*/
 .boardBox h2{padding-bottom: 20px; font-size: 28px}

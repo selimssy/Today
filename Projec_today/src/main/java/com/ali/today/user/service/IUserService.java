@@ -58,11 +58,11 @@ public interface IUserService {
 	// 유저, 반려동물 세션정보 
 	UserVO UserPetInfo(PetVO pet);
 	
-	// 공개 상태인 모든 반려동물 조회
-	List<PetVO> selectOpenPet(Integer page);
+	// 공개 상태인 모든 반려동물 조회(페이징, 검색처리)
+	List<PetVO> selectOpenPet(Integer page, String condition, String keyword);
 	
-	// 공개 상태인 반려견 수 조회
-	Integer countOpenPet();
+	// 공개 상태인 반려견 수 조회(페이징, 검색처리)
+	Integer countOpenPet(String condition, String keyword);
 	
 	// 특정 계정 첫 번째 반려견 조회
 	PetVO firstPet(String userId);

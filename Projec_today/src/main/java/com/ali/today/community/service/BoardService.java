@@ -1,7 +1,9 @@
 package com.ali.today.community.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -121,8 +123,11 @@ public class BoardService implements IBoardService {
 	
 	// 댓글 목록 조회
 	@Override
-	public List<ReplyVO> getReplyList(int boardNo) {
-		return mapper.getReplyList(boardNo);
+	public List<ReplyVO> getReplyList(Integer boardNo, Integer page) {
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("pageStart", (page - 1) * 10);
+		datas.put("boardNo", boardNo);
+		return mapper.getReplyList(datas);
 	}
 
 	

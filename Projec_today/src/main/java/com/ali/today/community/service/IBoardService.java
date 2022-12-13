@@ -37,7 +37,7 @@ public interface IBoardService {
 	void register(ReplyVO replyVO);  
 	
 	// 댓글 목록 조회
-	List<ReplyVO> getReplyList(int boardNo);
+	List<ReplyVO> getReplyList(Integer boardNo, Integer page);
 	
 	// 특정 댓글 조회
 	ReplyVO getReply(Integer replyNo);

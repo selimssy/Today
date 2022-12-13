@@ -35,15 +35,15 @@ public class UserTest {
 	@Test
 	public void registerPet() {
 		
-		for(int i=1; i<=1; i++) {
+		for(int i=1; i<=100; i++) {
 			
 			PetVO pet = new PetVO();
 			pet.setUserId("rupong");
-			pet.setPetName("아롱이");
-			pet.setPetSpecies("시고르자브종");
+			pet.setPetName("사랑이");
+			pet.setPetSpecies("말티즈");
 			pet.setAge(3);
 			pet.setGender("여");
-			pet.setFeature("솜뭉치");
+			pet.setFeature("겁쟁이");
 			pet.setImagePath("/resources/images/noticeImg/infoPhoto.png");
 			pet.setOpen(1);
 			

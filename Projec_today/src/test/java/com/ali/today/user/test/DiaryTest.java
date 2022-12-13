@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ali.today.community.model.ReplyVO;
+import com.ali.today.community.repository.IBoardMapper;
 import com.ali.today.diary.model.DiaryVO;
 import com.ali.today.diary.repository.IDiaryMapper;
 import com.ali.today.mypet.model.GalleryVO;
@@ -21,6 +23,8 @@ public class DiaryTest {
 	
 	@Autowired
 	IGalleryMapper gmapper;
+	@Autowired
+	IBoardMapper bmapper;
 	
 	
 	// 게시글 등록 테스트
@@ -40,6 +44,29 @@ public class DiaryTest {
 		System.out.println("게시물 등록 성공!");
 	}
 	
+	
+	
+	// 댓글 더미데이터
+	@Test
+	public void insertReply() {
+		
+		for(int i=1; i<=120; i++) {
+		
+			ReplyVO reply = new ReplyVO();
+			reply.setBoardNo(33);
+			reply.setContent(Integer.toString(i));
+			reply.setReplyer("sarang");
+			bmapper.register(reply);
+		}		
+		
+		System.out.println("게시물 등록 성공!");
+	}
+	
+	
+	@Test
+	public void deleteReply() {
+		bmapper.deleteAllReply(33);
+	}
 	
 	
 	// 갤러리 더미데이터

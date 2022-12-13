@@ -32,6 +32,20 @@
 		<result property="open" column="open"/>	
 	</resultMap>
 	
+
+	<!-- 중복되는 동적 SQL문에 대한 처리 -->
+	<sql id="searchPet">  
+		<!-- 동적 SQL구문 -->
+		<if test="condition == 'petName'">  
+		AND pet_name LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'petSpecies'">
+		AND pet_species LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'feature'">
+		AND feature LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</sql>
 	
 	
 	
@@ -173,10 +187,11 @@
 	
 	
 	
-	<!-- 공개상태인 모든 반려동물 조회 -->
+	<!-- 공개상태인 반려동물 조회 -->
 	<select id="selectOpenPet" resultMap="PetMap">
 		SELECT * FROM pet
 		WHERE open = 1
+		<include refid="searchPet"/>
 		LIMIT #{pageStart}, 9
 	</select>
 	
@@ -185,6 +200,7 @@
 		SELECT COUNT(*)
 		FROM pet
 		WHERE open = 1
+		<include refid="searchPet"/>
 	</select>
 	
 </mapper>

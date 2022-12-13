@@ -34,7 +34,11 @@
 	.modifyIcon{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/community/modify.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	#petMf_modal{display:none}
 	
-    
+    .search{width: 1000px; margin:0 auto; text-align: right; padding-right: 110px;}	
+	.select_con{display: inline-block; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
+	.keyword{display: inline-block;}
+	.keyword input[type=text]{width:200px; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
+	.keyword input[type=button]{width:45px; height: 30px; border:none; background: #ddd; cursor: pointer;}
     .PCards{width:1000px; height:1250px; margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
     .PCards .cardWrap{width: 33%; float: left; padding: 20px; box-sizing: border-box;}
      .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border: 5px solid #BCDB97; border-radius: 20px; }
@@ -134,47 +138,27 @@
 	    </div>	
 	    
 	    
+	    
+	    <!-- 검색 버튼 -->
+		<div class="search">	           
+               <select class="select_con" id="condition" name="condition">                            	
+                   <option value="petName">반려견 이름</option>
+                   <option value="petSpecies">견종</option>
+                   <option value="feature">성격</option>
+               </select>	            	            
+               <div class="keyword">
+                   <input type="text" id="keywordInput" placeholder="검색어">
+                   <span>
+                       <input type="button" value="검색" id="searchBtn">                                       
+                   </span>
+               </div>	            	            
+		</div>
+	    
+	    
+	    
 	    <!-- 반려동물 카드가 들어갈 공간 -->	
-		<c:if test="${petList.size() <= 0}">		
-			<strong>검색 결과가 없습니다.</strong>			
-		</c:if>
-		
-		
 		<div class="PCards">
-			<c:if test="${petList.size() > 0}">
-				<c:forEach var="petVO" items="${petList}">			
-		            <div class="cardWrap">
-		                <div class="OPcard">
-		                    <div class="cardTop">
-		                        <div class="cBullet"></div>
-		                        <h3>${petVO.petName}</h3>
-		                        <ul class="cLink">
-		                        	<c:if test="${empty petVO.instagram}">
-									</c:if>
-									<c:if test="${not empty petVO.instagram}">
-										<li><a href="${petVO.instagram}" target="_blank">1</a></li>
-									</c:if>
-		                        	<c:if test="${empty petVO.youtube}">
-									</c:if>
-									<c:if test="${not empty petVO.youtube}">
-										<li><a href="${petVO.youtube}" target="_blank">1</a></li>
-									</c:if>   	                            
-		                        </ul>  
-		                    </div>
-		                    <div class="cardBody">
-		                    	<a href="<c:url value='/community/otherPet/${petVO.petId}'/>">
-			                        <img src="<c:url value='${petVO.imagePath}'/>">
-			                        <ul>
-			                            <li><span class="cardTitle">견종:</span> ${petVO.petSpecies}</li>
-			                            <li><span class="cardTitle">나이:</span> ${petVO.age}살 (${petVO.gender})</li>
-			                            <li><span class="cardTitle">성격:</span> ${petVO.feature}</li>                        
-			                        </ul>
-		                        </a>
-		                    </div>  	                    
-		                </div>
-		            </div>
-				</c:forEach>
-			</c:if>	
+			
 		</div>		
 		
 		
@@ -192,7 +176,7 @@
 				<!-- 다음 버튼 -->
 				<button type="button" class="next_link">다음</button>	
 			</div>
-			</div>
+		</div>
 		<!-- 페이징 처리 끝 -->
 	    
 	    
@@ -206,25 +190,26 @@
 	
 	
 	<script type="text/javascript">
+		
 	
 		$(function(){
+			 let countPet = 10;
+			 let condition = "petName";
+			 let keyword = "";
 			 
 			 $(".mainMenu.mainMenu3").addClass("checked");
 			 
-			 // 페이징
-			 if(${openCount} <= 90){
-				 for(let i=1; i<=parseInt(${openCount}/9)+1; i++){
-					 $(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
-				 }
-				 $(".next_link").css("display", "none");
-			 }else{
-				 for(let i=1; i<=10; i++){
-					 $(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
-				 }
-			 }
-			 $(".page_link:eq(0)").addClass("active");
+			 // 반려견 불러오기 요청
+			 paging(1, condition, keyword);
+			 //paging(1, "petName", "");
 			 
-		})
+			 countPetList(condition, keyword);
+			 pageNum(countPet)
+			 
+			 
+			 
+			 
+		
 	
 		
 		
@@ -244,10 +229,27 @@
 	    
 	    
 	    
-	    // 페이징 함수 
-	    function paging(page){
+	    // 검색 처리
+	    $("#searchBtn").click(function(){
+	    	condition = $("#condition option:selected").val(); // 검색 조건
+			keyword = $("#keywordInput").val().trim();	// 검색어		
+			
+			paging(1, condition, keyword); // 반려견 리스트
+			countPetList(condition, keyword); // 반려견 수 보정
+			pageNum(countPet); // 페이징 처리
+	    })
+	    
+	    
+	    
+	    // 페이징 결과 반려견 불러오기 함수 
+	    function paging(page, condition, keyword){
+			
 			$('.PCards').empty(); // 초기화
-			let data = {page: page};
+			let data = {
+					page: page,
+					condition: condition,
+					keyword: keyword
+					};
 	   		
 	   		$.ajax({
 	               type: 'post',
@@ -306,6 +308,49 @@
 	    
 	    
 	    
+	    // 반려견 수 조회 함수
+	    function countPetList(cond, keyw){
+	    	
+	    	let data = {
+					condition: cond,
+					keyword: keyw
+					};
+	    	
+	    	$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               async:false, // 동기방식으로 전역변수에 셋팅
+	               contentType: 'application/json',
+	               url: '/today/community/countPet',
+	               data: JSON.stringify(data),
+	               success: function (response) {
+	                    console.log(response); // 리스트 
+	                    countPet = response["countPet"];	
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패");
+	               } 
+	           });
+	    }
+	    
+	    
+	    
+	    // 페이징 목록 함수
+	    function pageNum(countPet){
+	    	 $(".pageNumBox").empty(); //초기화
+			 if(countPet <= 90){
+				 for(let i=1; i<=parseInt(countPet/9)+1; i++){
+					 $(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+				 }
+				 $(".next_link").css("display", "none");
+			 }else{
+				 for(let i=1; i<=10; i++){
+					 $(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
+				 }
+			 }
+			 $(".page_link:eq(0)").addClass("active");
+	    }
+	    
 	    
 		
 	    // 페이지 버튼 클릭 이벤트
@@ -314,8 +359,13 @@
 			$('.page_link').removeClass("active");
 			$(this).addClass("active");
 			
-			let page = $(this).text();				
-	    	paging(page); // 페이징 함수
+			let page = $(this).text();	
+			if(!keyword || keyword.replace(/\s| /gi, "").length==0){ // null값이거나 공백만 입력
+				paging(page, "petName", ""); 
+			}else{ // 검색값 있을 경우
+				paging(page, condition, keyword); 
+			}
+	    	
         })
         
         
@@ -325,7 +375,7 @@
         	$(".pre_link").css("display", "inline-block"); // 이전버튼 활성화      	
         	
         	let lastPage = parseInt($(".page_link:eq(9)").text()); // 현재 마지막 페이지  	
-        	let re_count = ${openCount} -(9*lastPage); // 남은 반려견 카드 수
+        	let re_count = countPet -(9*lastPage); // 남은 반려견 카드 수
         	console.log(re_count);
         	$(".pageNumBox").empty(); //초기화
         	
@@ -348,7 +398,12 @@
         	}
         	
         	$(".page_link:eq(0)").addClass("active");
-        	paging(lastPage + 1); // 페이징 함수
+        		
+			if(!keyword || keyword.replace(/\s| /gi, "").length==0){ // null값이거나 공백만 입력
+				paging(lastPage + 1, "petName", ""); 
+			}else{ // 검색값 있을 경우
+				paging(lastPage + 1, condition, keyword); 
+			}
         	
         })
         
@@ -365,18 +420,25 @@
     			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');
     		}
         	
+        	// 페이징 함수
         	if(firstPage-10 == 1){
         		$(".pre_link").css("display", "none");
         	}else{
         		$(".pre_link").css("display", "inline-block");
         	}
         	
-        	$(".page_link:eq(9)").addClass("active");
-        	paging(firstPage - 1); // 페이징 함수
+        	$(".page_link:eq(9)").addClass("active"); // 현재페이지 마크
+        	
+        	// 페이징 함수
+        	if(!keyword || keyword.replace(/\s| /gi, "").length==0){ // null값이거나 공백만 입력
+				paging(firstPage - 1, "petName", ""); 
+			}else{ // 검색값 있을 경우
+				paging(firstPage - 1, condition, keyword); 
+			}
         	
         })
         
-	
+	})
 	</script>
 	
 	

@@ -64,10 +64,10 @@ public interface IUserMapper {
 	UserVO UserPetInfo(PetVO pet);
 	
 	// 공개 상태인 모든 반려동물 조회
-	List<PetVO> selectOpenPet(Integer pageStart);
+	List<PetVO> selectOpenPet(Map<String, Object> datas);
 	
 	// 공개 상태인 반려견 수 조회
-	Integer countOpenPet();
+	Integer countOpenPet(Map<String, Object> datas);
 	
 	// 특정 계정 첫 번째 반려견 조회
 	PetVO firstPet(String userId);

@@ -1,6 +1,7 @@
 package com.ali.today.community.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ali.today.common.SearchVO;
 import com.ali.today.community.model.BoardVO;
@@ -47,7 +48,7 @@ public interface IBoardMapper {
 	void register(ReplyVO replyVO);  
 	
 	// 댓글 목록 조회
-	List<ReplyVO> getReplyList(Integer boardNo);
+	List<ReplyVO> getReplyList(Map<String, Object> datas);
 	
 	// 특정 댓글 조회
 	ReplyVO getReply(Integer replyNo);

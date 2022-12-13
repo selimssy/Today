@@ -1,11 +1,12 @@
 package com.ali.today.community.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ali.today.community.model.ReplyVO;
@@ -64,6 +65,16 @@ public class ReplyController {
 	}
 		
 	
+	
+	// 댓글 페이징 불러오기 요청
+	@PostMapping("/getReplyList")
+	public List<ReplyVO> getReplyList(@RequestBody Map<String, String> map){
+		Integer boardNo = Integer.parseInt(map.get("boardNo"));
+		Integer page = Integer.parseInt(map.get("page"));
+		List<ReplyVO> list = service.getReplyList(boardNo, page);
+		
+		return list;
+	}
 	
 	
 	

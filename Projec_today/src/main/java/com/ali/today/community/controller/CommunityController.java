@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -73,12 +74,12 @@ public class CommunityController {
 			e.getMessage();
 		}
 		
-		
+		/*
 		// 공개상태 반려동물 리스트
-		List<PetVO> petList = userService.selectOpenPet(1);
+		List<PetVO> petList = userService.selectOpenPet(1, "petName", "");
 		model.addAttribute("petList", petList);
-		model.addAttribute("openCount", userService.countOpenPet()); // 공개상태 반려견 수
-		
+		model.addAttribute("openCount", userService.countOpenPet("petName", "")); // 공개상태 반려견 수
+		*/
 		return "community/introduce";
 	}
 	
@@ -88,12 +89,25 @@ public class CommunityController {
 	@PostMapping("/openPetList")
 	@ResponseBody
 	public List<PetVO> openPetList(@RequestBody Map<String, String> map){		
-		System.out.println(map.get("page"));
-		//page = Integer.parseInt(page);
-		List<PetVO> petList = userService.selectOpenPet(Integer.parseInt(map.get("page")));
+		Integer page = Integer.parseInt(map.get("page"));
+		String condition = map.get("condition");
+		String keyword = map.get("keyword");
+		List<PetVO> petList = userService.selectOpenPet(page, condition, keyword);
 		return petList;
 	}
 	
+	
+	// 공개상태 반려견 수 통신
+	@PostMapping("/countPet")
+	@ResponseBody
+	public Map<String, Integer> countPet(@RequestBody Map<String, String> map){		
+		String condition = map.get("condition");
+		String keyword = map.get("keyword");
+		Integer countPet = userService.countOpenPet(condition, keyword);
+		Map<String, Integer> data = new HashMap<>();
+		data.put("countPet", countPet);
+		return data;
+	}
 	
 	
 	// 다른 반려동물 보러 놀러가기 요청
@@ -208,7 +222,7 @@ public class CommunityController {
 		model.addAttribute("p", search); 
 			
 		// 댓글관련 작업
-		List<ReplyVO> replyList = boardService.getReplyList(boardNo);
+		List<ReplyVO> replyList = boardService.getReplyList(boardNo, 1);
 		model.addAttribute("replyList", replyList);
 				
 		return "community/boardContent";
