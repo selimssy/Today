@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -371,15 +372,16 @@ public class DiaryController {
 	
 	// 일기 전체 리스트 조회 요청(페이징, 검색 포함)
 	@GetMapping("/list")
-	public String list(SearchVO search, Model model) { 
+	public String list(HttpSession session, SearchVO search, Model model) { 
 		
-		//String condition = search.getCondition();
+		UserVO user = (UserVO)session.getAttribute("login");
+		String userId = user.getUserId();
 		
 		PageCreator pc = new PageCreator();
 		pc.setPaging(search);  
 		
-		List<DiaryVO> list = service.getDiaryList(search);
-		pc.setArticleTotalCount(service.countDiaries(search));
+		List<DiaryVO> list = service.getDiaryList(userId, search);
+		pc.setArticleTotalCount(service.countDiaries(userId, search));
 		
 		model.addAttribute("diaryList", list);
 		model.addAttribute("pc", pc);		

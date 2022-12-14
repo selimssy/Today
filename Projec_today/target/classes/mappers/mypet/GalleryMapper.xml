@@ -31,7 +31,7 @@
 		SELECT * FROM gallery
 		WHERE pet_id = #{petId}
 		ORDER BY date DESC
-		LIMIT #{pageStart}, 15 
+		LIMIT #{pageStart}, 9 
 	</select>
 	
 	

@@ -3,12 +3,12 @@ package com.ali.today.mypet.model;
 public class GalleryPageVO {
 	
 	private Integer page; // 사용자가 요청한 페이지 번호
-	private Integer countPerPage = 15; // 한 페이지당 들어갈 게시물의 수
+	private Integer countPerPage = 9; // 한 페이지당 들어갈 게시물의 수
 	
 	
 	public GalleryPageVO() {
 		this.page = 1;
-		this.countPerPage = 15;
+		this.countPerPage = 9;
 	}
 	
 		

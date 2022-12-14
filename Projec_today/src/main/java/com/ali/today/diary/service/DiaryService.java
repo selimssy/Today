@@ -106,9 +106,13 @@ public class DiaryService implements IDiaryService{
 	
 	// 전체 일기 리스트
 	@Override
-	public List<DiaryVO> getDiaryList(SearchVO search) {
-		
-		List<DiaryVO> list = mapper.getDiaryList(search);
+	public List<DiaryVO> getDiaryList(String userId, SearchVO search) {
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("userId", userId);
+		datas.put("pageStart", search.getPageStart());
+		datas.put("condition", search.getCondition());
+		datas.put("keyword", search.getKeyword());
+		List<DiaryVO> list = mapper.getDiaryList(datas);
 		
 		// 1일 이내 신규 글 new마크 처리 로직
 		for(DiaryVO diary : list) {
@@ -129,8 +133,13 @@ public class DiaryService implements IDiaryService{
 	
 	// 총 일기 갯수
 	@Override
-	public Integer countDiaries(SearchVO search) {
-		return mapper.countDiaries(search);
+	public Integer countDiaries(String userId, SearchVO search) {
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("userId", userId);
+		datas.put("pageStart", search.getPageStart());
+		datas.put("condition", search.getCondition());
+		datas.put("keyword", search.getKeyword());
+		return mapper.countDiaries(datas);
 	}
 
 

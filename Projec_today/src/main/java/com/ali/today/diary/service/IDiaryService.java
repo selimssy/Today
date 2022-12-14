@@ -37,7 +37,7 @@ public interface IDiaryService {
 	DiaryVO getDiary(Integer diaryNo);
 	
 	// 일기 목록 조회기능(검색, 페이징 기능 포함)
-	List<DiaryVO> getDiaryList(SearchVO search);	
+	List<DiaryVO> getDiaryList(String userId, SearchVO search);	
 	
 	// 일기 삭제
 	void delete(Integer diaryNo);
@@ -45,8 +45,8 @@ public interface IDiaryService {
 	// 일기 수정
 	void update(DiaryVO diary);
 	
-	// 게시물 수 조회(검색, 페이징 기능 포함)
-	Integer countDiaries(SearchVO search);
+	// 일기 수 조회(검색, 페이징 기능 포함)
+	Integer countDiaries(String userId, SearchVO search);
 	
 	
 	

@@ -134,6 +134,7 @@
 	<select id="getReplyList" resultMap="ReplyMap">
 		SELECT * FROM reply
 		WHERE board_no = #{boardNo}
+		ORDER BY reply_no DESC
 		LIMIT #{pageStart}, 10
 	</select>
 	

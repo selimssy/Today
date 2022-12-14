@@ -48,6 +48,7 @@
 .comment textarea{width:700px; height: 100px; resize: none; overflow-y:auto; font-family: 'NanumSquare','맑은 고딕', sans-serif;}
 .modifyBox{position: relative;width:700px; height:120px}
 .modifyBox .mdButton{width:78px; position: absolute; top:-30px; right:0; display:block}
+.replyRgBox .count {position:absolute; right:20px; bottom:20px; color:#666; font-family:"ht_r"; font-size:15px; }
 
 /* 댓글 페이징 */
 .paging{width:100%; margin:0 auto; padding: 50px 0 0; text-align: center; display: flex;}
@@ -185,6 +186,7 @@
 			<div class="replyRgBox">			
 				<input type="hidden" name="boardNo" value="${article.boardNo}">						
 				<textarea name="content" id="replyContent" placeholder="댓글을 입력해주세요."></textarea>
+				<div class="count"><span>0</span>/500</div>
 				<button type="button" id="replyBtn">댓글 등록</button>						
 			</div>		
 				
@@ -260,7 +262,19 @@
 		})
 	
 		
-	
+		
+		// 댓글 글자수
+		$('.replyRgBox textarea').keyup(function(){
+	        var content = $(this).val();
+	        $('.replyRgBox .count span').html(content.length);
+	        if (content.length > 500){
+	           alert("최대 500자까지 입력 가능합니다.");
+	           $(this).val(content.substring(0, 500));
+	           $('.replyRgBox .count span').html(500);
+	        }
+	    });
+		
+		
 	
 		// Ajax방식 댓글등록 
 		$("#replyBtn").click(function(){
@@ -425,11 +439,11 @@
 					success: function(result){
 						if(result === "deleteSuccess"){
 							console.log("통신 성공!");
-							$(".replyModify[href=" + replyNo + "]").prev().prev().parent().parent().remove();
+							//$(".replyModify[href=" + replyNo + "]").prev().prev().parent().parent().remove();
 							//$(this).prev().prev().css("border", "3px solid red");
 							//$(this).prev().prev().prev().parent().parent().remove();
 							//alert("댓글이 삭제되었습니다.");
-							//window.location.reload();
+							window.location.reload();
 							//paging(parseInt($(".page_link.active").text()))
 						}else{
 							console.log("통신 실패");

@@ -72,7 +72,7 @@ ul{list-style: none;}
 .cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
 .InfoText{background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 
-.galleryBox{width:100%; min-height:500px; height:1760px; padding: 40px 30px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+.galleryBox{width:100%; min-height:500px; height:1070px; padding: 40px 30px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
 .gcardWrap{ width:290px; height:295px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
 .gcardWrap:nth-of-type(3n){margin-right:0}
 .imgBox img{width: 100%; height:225px; object-fit: cover;}

@@ -17,17 +17,18 @@
 .openUGCard{width: 95px; height: 40px;  position: absolute; top:45px; right:40px; /*margin: 45px 15px 0 0;*/ border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; /*float: right;*/ cursor: pointer;}
 .photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/today/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
 
-.galleryBox{width:100%; min-height:500px; height:1760px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+.galleryBox{width:100%; min-height:500px; height:1030px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
 .gcardWrap{/*width: 33.333%;*/ width:300px; height:280px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
 .gcardWrap:nth-of-type(3n){margin-right:0}
-.imgBox img{/*width:300px; */ width: 100%; height:210px; object-fit: cover;}
+.imgBox img{/*width:300px; */ width: 100%; height:210px; object-fit: cover; cursor: pointer;}
 .imgInfo{padding:10px 20px 10px}
 .imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;/*height:45px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;white-space: nowrap;*/}
-.gselect{width: 20px; height: 25px; background-image: url(/today/img/mypet/more2.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 15px; right:5px; cursor: pointer;}
+.gselect{width: 10px; height: 21px; background-image: url(/today/img/mypet/more.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 17px; right:6px; cursor: pointer;}
 .gselect .list{display:none; width:100px; list-style: none; position: absolute; bottom: -65px; right:-95px; background:#f1f1f1; z-index:100;}
 .gselect .list button{background:#none; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
 .gselect .list.on{display:block}
+.gselect:hover{background-color: #ccc;}
 
 .register_form, .modifyCard{display: none; width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
 .closeUGCard, .mdGcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
@@ -42,6 +43,13 @@
 .paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
 .paging ul li a.page-active{color: #fff; background: #384d75; border-radius: 10px}
 
+
+#showGallery{display:none; width:700px; height: 610px; overflow-y: auto; background:#fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:7;}
+.pop_list li {padding:20px 35px 0px; box-sizing: border-box;}
+.pop_list li h2.pop_title{padding:10px 0 24px; text-align:center; font-weight:bold; font-size:32px; font-family: 'Jua', sans-serif; letter-spacing:2px;}
+.pop_list li img.pop_img{width:100%;}
+.pop_list li .pop_content{width:100%; overflow: visible; padding:15px 10px; line-height:1.8; font-size:18.5px; font-family: 'Jua', sans-serif; box-sizing: border-box;}
+.closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 </style>
 </head>
 <body>
@@ -85,12 +93,13 @@
 		        <button type="button" class="photoPoster">반려견 포스터 만들기</button>
 	        </div>
 	        
+	        <!-- 갤러리 등록 폼 -->
 	        <div class="register_form">
 	            <button id="uploadGBtn">등록</button>
 	        	<button class="closeUGCard">접기</button>
 				<div class="flex-container">       
 	               <div class="wrapper">
-	                   <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
+	                   <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" style="margin: 20px auto;"/>
 	                   <label for="file" class="upload-btn">
 	                       <input id="file" name="file" type="file" accept="image/*" />
 	                       <span>Upload Image</span>
@@ -98,8 +107,8 @@
 	               </div>
 	            </div>
 	            <div class="galInfo">
-	                  <input type="text" id="gtitle" placeholder="title" required>
-	                  <textarea id="gcontent" placeholder="사진 설명이 있다면 적어주세요."></textarea>
+	                  <input type="text" id="gtitle" placeholder="title (최대 30자)" maxlength="30" required>
+	                  <textarea id="gcontent" placeholder="사진 설명이 있다면 적어주세요.(최대 300자)" maxlength="300"></textarea>
 	                  <input type="hidden" name="petId" value="${pet.petId}">
 	        	</div>
 	       </div>
@@ -111,7 +120,7 @@
 					<c:forEach var="imgCard" items="${galleryList}">			
 			            <div class="gcardWrap" id="gcardWrap${imgCard.imgId}">		              
 		                    <div class="imgBox">
-		                        <img alt="gallery_image" src="<c:url value='${imgCard.imagePath}'/>">			                        
+		                        <img alt="${imgCard.imgId}" src="<c:url value='${imgCard.imagePath}'/>">			                        
 		                    </div>
 		                    <div class="imgInfo">
 								<h3>${imgCard.title}</h3>
@@ -194,8 +203,17 @@
 			
 
 			
-				
-			
+	<!-- 갤러리 상세조회 모달 -->			
+	<div id="showGallery">
+		<div class="closeShowGal">닫기</div>
+		<ul class="pop_list">
+			<li>
+				<h2 class="pop_title"></h2>
+				<img class="pop_img" src="" alt="showGalImg" />
+				<div class="pop_content"></div>
+			</li>
+		</ul>
+	</div>		
 				
 			
 <jsp:include page="../common/pet_modal.jsp" />            
@@ -481,6 +499,68 @@
         
         
         
+        // 이미지 hover 이벤트  
+		/*$(".imgBox img").hover(function(){
+	        $(this).parent().parent().css("background", "#ddd");
+	    }, function(){
+	        $(this).parent().parent().css("background", "#fff");
+	    })*/
+        
+	    $(document).on({
+                mouseenter: function () {
+                	$(this).parent().css("background", "#ddd");
+                },
+                mouseleave: function () {
+                	$(this).parent().css("background", "#fff");
+                }
+        }, '.imgBox');
+        
+        // 이미지 클릭시 상세 조회
+        $(document).on("click", ".imgBox img", function () {
+        	$("#showGallery").css("display", "block");
+        	
+        	//초기화
+			$(".pop_content").html("");			
+			
+			let imgId = $(this).attr("alt");            
+    		let gallery = {imgId: imgId};
+
+    		$.ajax({
+                type: 'post',
+                dataType : "json",
+                contentType: 'application/json',
+                url: '/today/mypet/modifyGalleryGet',
+                data: JSON.stringify(gallery),
+                success: function (response) {
+                	console.log(response); // GalleryVO 
+                   		
+                		let imgId = response['imgId'];
+                    	let imagePath = "/today" + response['imagePath'];
+                		let title = response['title'];
+                		let content = response['content'];
+                		content = content.replaceAll("<br>", "\r\n");
+ 						
+                        $(".mdpop").css("display","block");                        
+                        $(".pop_img").attr("src", imagePath);
+                        $(".pop_title").html(title);
+                        $(".pop_content").html(content);                                          
+                }, 
+                error: function() {
+                    console.log("통신 실패"); 
+                } 
+            });
+        })
+        
+        
+        
+        // 상세조회 모달 닫기
+        $(".closeShowGal").click(function(){
+        	$("#showGallery").css("display", "none");
+        	$(".mdpop").css("display","none");
+        })
+        
+        
+        
         // 각 사진 이미지로 저장
         $(".toImage").on("click",function(){   
         	
@@ -497,27 +577,6 @@
         });    
         
         
-        
-        $(function(){
-			
-        	/*
-            $("#uploadBtn").click(function(){
-                $("#register_form").css("display", "flex");
-            })
-
-            $("#closeForm").click(function(){
-                $("#register_form").css("display", "none");
-                $("#gform")[0].reset();
-                $(".image-box").attr("src","https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg")
-            })
-            */
-
-        })
-
-
-
-        
-
-
+     
     </script>   
 </html>

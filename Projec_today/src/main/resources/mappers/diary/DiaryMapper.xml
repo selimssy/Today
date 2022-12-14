@@ -29,14 +29,14 @@
 	<sql id="searchDiary">  
 		<!-- 동적 SQL구문 -->
 		<if test="condition == 'title'">  
-		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		AND title LIKE CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="condition == 'content'">
-		WHERE content LIKE CONCAT('%',#{keyword},'%')
+		AND content LIKE CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="condition == 'titleContent'">
-		WHERE title LIKE CONCAT('%',#{keyword},'%')
-		OR content LIKE CONCAT('%',#{keyword},'%')
+		AND (title LIKE CONCAT('%',#{keyword},'%')
+		OR content LIKE CONCAT('%',#{keyword},'%'))
 		</if>
 	</sql>
 	
@@ -101,13 +101,14 @@
 	
 	
 	
-	
+	<!-- 일기 추가 -->
 	<insert id="insert">
 		INSERT INTO pet_diary (title, content, writer, thumb_img)
 		VALUES (#{title}, #{content}, #{writer}, #{thumbImg})
 	</insert>
 	
-
+	
+	<!-- 특정 일기 조회 -->
 	<select id="getDiary" resultMap="DiaryMap">
 		SELECT *
 		FROM pet_diary
@@ -115,22 +116,25 @@
 	</select>
 
 	
+	<!-- 해당 계정 일기 전체 조회(검색, 페이징) -->
 	<select id="getDiaryList" resultMap="DiaryMap">
 		SELECT *
 		FROM pet_diary
+		WHERE writer = #{userId}
 		<include refid="searchDiary"/>
 		ORDER BY diary_no DESC
 		LIMIT #{pageStart}, 10 
 	</select>
 	
 	
+	<!-- 일기 삭제 -->
 	<delete id="delete">
 		DELETE FROM pet_diary
 		WHERE diary_no = #{diaryNo}
 	</delete>
 	
 	
-	
+	<!-- 일기 수정 -->
 	<update id="update">
 		UPDATE pet_diary
 		SET title = #{title}, content = #{content}
@@ -138,10 +142,11 @@
 	</update>
 	
 	
-	
+	<!-- 검색 결과 일기 수 조회 -->
 	<select id="countDiaries" resultType="int">
 		SELECT COUNT(*)
 		FROM pet_diary
+		WHERE writer = #{userId}
 		<include refid="searchDiary"/>
 	</select>
 	

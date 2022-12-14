@@ -221,11 +221,20 @@
 		
 		
 		// 반려동물 카드 hover 이벤트
-		$(".cardBody").hover(function(){
+		$(document).on({
+                mouseenter: function () {
+                    $(this).parent().css("border", "5px solid #7AB730");
+                },
+                mouseleave: function () {
+                    $(this).parent().css("border", "5px solid #BCDB97");
+                }
+        }, '.cardBody');
+        /*
+ 		$(".cardBody").hover(function(){
 	        $(this).parent().css("border", "5px solid #7AB730");
 	    }, function(){
 	        $(this).parent().css("border", "5px solid #BCDB97");
-	    })
+	    })*/
 	    
 	    
 	    

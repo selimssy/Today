@@ -43,7 +43,7 @@ public interface IDiaryMapper {
 	DiaryVO getDiary(Integer diaryNo);
 	
 	// 일기 목록 조회기능(검색, 페이징 기능 포함)
-	List<DiaryVO> getDiaryList(SearchVO search);
+	List<DiaryVO> getDiaryList(Map<String, Object> datas);
 	
 	// 일기 삭제
 	void delete(Integer diaryNo);
@@ -52,7 +52,7 @@ public interface IDiaryMapper {
 	void update(DiaryVO diary);
 	
 	// 게시물 수 조회(검색, 페이징 기능 포함)
-	Integer countDiaries(SearchVO search);
+	Integer countDiaries(Map<String, Object> datas);
 	
 	// 회원탈퇴시 모든 일기 삭제
 	void deleteAllDiary(String userId);
