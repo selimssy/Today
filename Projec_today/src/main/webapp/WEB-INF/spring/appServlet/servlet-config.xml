@@ -43,4 +43,15 @@
 	
 	
 	
+	<!-- 인터셉터 빈 등록 -->
+	<beans:bean id="AutoLoginInterceptor" class="com.ali.today.common.Interceptor.AutoLoginInterceptor"/>
+	
+	<!-- 인터셉터 설정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/"/>   <!-- /ttubeok 제외하고 -->
+			<beans:ref bean="AutoLoginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>

@@ -43,12 +43,9 @@
     	.modifyCard{display:none; /*width: 550px; height: 320px;*/ background:#fff; border: 3.5px solid #777; /*border-radius: 15px; padding: 15px; */
     	/*position: relative; display: flex; justify-content: space-evenly; margin: 50px auto; box-sizing: border-box;*/ 
     	position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;}
-    	/*.modifyCard img{width: 200px; height: 200px; object-fit: cover; display: block; margin: 20px auto;}
-    	.modifyCard textarea{width: 280px; height: 145px}
-    	.modifyCard .lifeCardInfo, .modifyCard .InfoList{width: 280px;}
-    	.modifyCard input[type=date]{width:200px; margin-left: 35px}
-    	.modifyCard button{width:55px; height:28px}
-    	.modifyCard button:nth-of-type(1){position: absolute; right: 80px}*/
+    	
+    	.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 70px 0 30px;}
+    	.noneMsg+img{width:100%; text-align: center; opacity: 0.85; box-shadow: 0 0 15px 0 #e8e8e8; border-radius: 15px;}
     </style>
 </head>
 
@@ -114,6 +111,14 @@
 	    
 	    <!-- 생애기록 카드가 들어갈 공간 -->
 	    <div class="lifetimeBox">
+	        <c:if test="${not empty msg}"> <!-- 반려견 등록 안 한 경우 -->
+	        	<p class="noneMsg">반려견을 등록하고 우리 아이의 특별한 순간을 남겨보세요.</p>
+	        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg1.PNG'/>">
+	        </c:if>
+	        <c:if test="${cards.size() <= 0}"> <!-- 반려견 등록 했지만 생애기록 등록이 없는 경우 -->
+	        	<p class="noneMsg">우리 아이의 특별한 순간을 남겨보세요.</p>
+	        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg1.PNG'/>">
+	        </c:if>
 		    <c:if test="${cards.size() > 0}">
 					<c:forEach var="card" items="${cards}">
 						<div id="cardWrap${card.cardId}">

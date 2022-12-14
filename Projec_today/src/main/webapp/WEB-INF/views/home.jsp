@@ -13,10 +13,11 @@
 <style>     
 .container{width: 1200px; height: 880px; background: url(/today/img/common/homebg2.png); margin: 10px auto; position: relative;}
 .main_nav{text-align: right; font-size: 1.5em; padding-right: 25px;}
-.main_nav ul li{list-style: none; display:inline-block; padding: 20px 35px 0px 40px}
-.main_nav ul a{text-decoration: none; color: #000; font-size:0.9em}
-.main_nav ul a:nth-child(1){background-image:url(/today/img/common/login.png); background-size: contain; background-repeat: no-repeat; background-origin:content-box ;}
-.main_nav ul a:nth-child(2){background-image:url(/today/img/common/join.png); background-size: contain; background-repeat: no-repeat; background-origin:content-box; }
+.main_nav ul li{list-style: none; display:inline-block; padding: 20px 35px 0px 0px}
+.main_nav ul a{text-decoration: none; color: #000; font-size:0.9em;}
+#login{padding-left:30px; background-image:url(/today/img/common/login.png); background-size: contain; background-repeat: no-repeat;}
+#join{padding-left:35px; background-image:url(/today/img/common/join.png); background-size: contain; background-repeat: no-repeat;}
+#logout{padding-left:35px; background-image:url(/today/img/common/logout.png); background-size: contain; background-repeat: no-repeat;}
 .main_nav ul a:hover{font-weight: bold;}    
 .title{position: absolute; top: 30px; left: 150px;}
 .tfont{font-size: 7.5em; font-family: 'Nanum Pen Script', cursive;}
@@ -145,12 +146,23 @@ input[type=file] {
    
     <div>
         <div class="container">
-            <nav class="main_nav">
-                <ul>
-                    <a href="#" id="login"><li>로그인</li></a>
-                    <a href="#" id="join"><li>회원가입</li></a>
-                </ul>
-            </nav>
+        
+            <c:if test="${login == null}" >  <!-- 로그인 안되어있을 경우 -->
+	            <nav class="main_nav">
+	                <ul>
+	                    <li><a href="#" id="login">로그인</a></li>
+	                    <li><a href="#" id="join">회원가입</a></li>                
+	                </ul>    
+	           </nav>     
+           </c:if>                
+           <c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
+           		<nav class="main_nav">
+           			<ul>
+           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
+           			</ul>
+           		</nav>
+           </c:if>
+           
             <div class="title">
                 <span class="tfont">오늘의 너</span>
                 <p>사랑스러운 너와의 오늘을 기억해</p>
@@ -838,11 +850,7 @@ input[type=file] {
                     const pw = $('#signInPw').val();
                     // is()함수는 괄호 안 상태여부를 판단하여 논리값을 반환
                     const autoLogin = $("input[name=autoLogin]").is(":checked");  // name속성이 autoLogin인 input 태그
-                   
-                    console.log("id: " + id);
-                    console.log("pw: " + pw);
-                    console.log("auto: " + autoLogin);
-                   
+
                     const userInfo = {
                             userId : id,
                             password : pw,

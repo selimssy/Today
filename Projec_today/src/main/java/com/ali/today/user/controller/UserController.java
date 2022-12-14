@@ -139,7 +139,6 @@ public class UserController {
 				session.setAttribute("login", dbUser); // 로그인 세션 등록
 				result = "loginSuccess";
 				
-				
 				long limitTime = 60 * 60 * 24 * 90;				
 				// 자동로그인 체크시 처리
 				if(user.isAutoLogin()) {

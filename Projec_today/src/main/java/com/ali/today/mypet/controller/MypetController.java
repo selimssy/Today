@@ -48,14 +48,20 @@ public class MypetController {
 	@GetMapping("/lifetime")
 	public void mypet(HttpSession session, Model model) {
 		
-		UserVO user = (UserVO)session.getAttribute("login");
+		try { // 반려견 등록되어 있는 경우
+			UserVO user = (UserVO)session.getAttribute("login");
+			Integer petId = user.getPet().getPetId();
 
-		Integer petId = user.getPet().getPetId();
-		
-		List<LifetimeVO> list = service.getLifetimeCardList(petId);
-		model.addAttribute("cards", list);
-		model.addAttribute("pet", uservice.selectOnePet(petId));
-		
+			List<LifetimeVO> list = service.getLifetimeCardList(petId);
+			model.addAttribute("cards", list);
+			model.addAttribute("pet", uservice.selectOnePet(petId));
+			
+		} catch (NullPointerException e) { // 등록된 반려견 없는 경우 
+			System.out.println("111111");
+			e.getMessage();
+			model.addAttribute("msg", "cardNone");
+		}
+				
 	}
 	
 	
@@ -192,18 +198,24 @@ public class MypetController {
 	// 내 반려동물 갤러리 조회
 	@GetMapping("/gallery")
 	public void gallery(HttpSession session, GalleryPageVO paging, Model model) {
+		
+		try { // 반려견 등록 되어있는 경우
+			UserVO user = (UserVO)session.getAttribute("login");
+			Integer petId = user.getPet().getPetId();		
+			List<GalleryVO> list = service.getGalleryList(petId, paging);
 			
-		UserVO user = (UserVO)session.getAttribute("login");
-		Integer petId = user.getPet().getPetId();		
-		List<GalleryVO> list = service.getGalleryList(petId, paging);
+			GalleryPageCreator pc = new GalleryPageCreator();
+			pc.setPaging(paging);
+			pc.setArticleTotalCount(service.countGalleries(petId));
+			
+			model.addAttribute("pet", uservice.selectOnePet(petId));
+			model.addAttribute("galleryList", list);
+			model.addAttribute("pc", pc);
+		} catch (NullPointerException e) { // 반려견 등록 되어있지 않은 경우
+			e.getMessage();
+			model.addAttribute("msg", "galleryNone");
+		}
 		
-		GalleryPageCreator pc = new GalleryPageCreator();
-		pc.setPaging(paging);
-		pc.setArticleTotalCount(service.countGalleries(petId));
-		
-		model.addAttribute("pet", uservice.selectOnePet(petId));
-		model.addAttribute("galleryList", list);
-		model.addAttribute("pc", pc);
 		
 	}
 	
