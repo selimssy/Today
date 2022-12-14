@@ -330,7 +330,7 @@ input[type=file] {display: none;}
     		return false;
     	}
     	$("#petRg_modal").css("display","block");      
-        $("#petRg_modal .image-box").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
+        $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
         $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
         $("#petRg_modal input[type='radio']").prop("checked", false);
     })

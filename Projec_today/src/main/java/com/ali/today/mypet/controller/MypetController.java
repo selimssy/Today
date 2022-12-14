@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ali.today.mypet.model.GalleryPageCreator;
 import com.ali.today.mypet.model.GalleryPageVO;
@@ -43,6 +44,36 @@ public class MypetController {
 	private IUserService uservice;
 	
 	
+	/*
+	// 나의 반려동물 생애기록 전체 조회
+	@GetMapping("/lifetime")
+	public void mypet(HttpSession session, Model model) {
+			System.out.println("시작");
+			if(session.getAttribute("login") == null) { // 로그인 안 한 경우
+				//ra.addFlashAttribute("msg", "notLogin");
+				model.addAttribute("msg", "notLogin");
+				System.out.println("로그인 안 한 경우");
+			}else { // 로그인 한 경우
+				System.out.println("로그인 했따");
+				UserVO user = (UserVO)session.getAttribute("login");
+				
+				if(user.getPet() == null) { // 등록된 반려견 없는 경우
+					System.out.println(user.getPet());
+					model.addAttribute("msg", "petNone");	
+					System.out.println("등록된 반려견 없는 경우");
+				}else {   // 등록된 반려견 있는 경우
+					System.out.println("세션에 반려견 있음");
+					Integer petId = user.getPet().getPetId(); 
+					List<LifetimeVO> list = service.getLifetimeCardList(petId);
+					model.addAttribute("cards", list);
+					model.addAttribute("pet", uservice.selectOnePet(petId));
+				}
+				
+			}
+
+				
+	}*/
+	
 	
 	// 나의 반려동물 생애기록 전체 조회
 	@GetMapping("/lifetime")
@@ -50,16 +81,16 @@ public class MypetController {
 		
 		try { // 반려견 등록되어 있는 경우
 			UserVO user = (UserVO)session.getAttribute("login");
-			Integer petId = user.getPet().getPetId();
-
+			Integer petId = user.getPet().getPetId(); 
+			System.out.println(user.getPet());
 			List<LifetimeVO> list = service.getLifetimeCardList(petId);
 			model.addAttribute("cards", list);
-			model.addAttribute("pet", uservice.selectOnePet(petId));
+			model.addAttribute("pet", uservice.selectOnePet(petId));	
 			
 		} catch (NullPointerException e) { // 등록된 반려견 없는 경우 
-			System.out.println("111111");
+			System.out.println("여기여기여기여기");
 			e.getMessage();
-			model.addAttribute("msg", "cardNone");
+			model.addAttribute("msg", "petNone");
 		}
 				
 	}
@@ -213,7 +244,7 @@ public class MypetController {
 			model.addAttribute("pc", pc);
 		} catch (NullPointerException e) { // 반려견 등록 되어있지 않은 경우
 			e.getMessage();
-			model.addAttribute("msg", "galleryNone");
+			model.addAttribute("msg", "petNone");
 		}
 		
 		

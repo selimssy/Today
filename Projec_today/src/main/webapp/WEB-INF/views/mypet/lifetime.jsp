@@ -111,14 +111,21 @@
 	    
 	    <!-- 생애기록 카드가 들어갈 공간 -->
 	    <div class="lifetimeBox">
-	        <c:if test="${not empty msg}"> <!-- 반려견 등록 안 한 경우 -->
+	    	<c:if test="${msg eq 'notLogin'}"> <!-- 로그인 안 한 경우 -->
+	        	<p class="noneMsg">로그인 후 우리 아이의 특별한 순간을 남겨보세요.</p>
+	        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg1.PNG'/>">
+	        </c:if>
+	        
+	        <c:if test="${msg eq 'petNone'}"> <!-- 반려견 등록 안 한 경우 -->
 	        	<p class="noneMsg">반려견을 등록하고 우리 아이의 특별한 순간을 남겨보세요.</p>
 	        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg1.PNG'/>">
 	        </c:if>
+	        
 	        <c:if test="${cards.size() <= 0}"> <!-- 반려견 등록 했지만 생애기록 등록이 없는 경우 -->
 	        	<p class="noneMsg">우리 아이의 특별한 순간을 남겨보세요.</p>
 	        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg1.PNG'/>">
 	        </c:if>
+	        
 		    <c:if test="${cards.size() > 0}">
 					<c:forEach var="card" items="${cards}">
 						<div id="cardWrap${card.cardId}">

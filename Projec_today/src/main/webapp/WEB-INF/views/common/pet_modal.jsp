@@ -115,7 +115,7 @@ input[type=file] {display: none;}
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="pet_name" class="modal_input" placeholder="최대 10자"></td>
+                        <td><input type="text" id="pet_name" class="modal_input" placeholder="최대 10자" required="required"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -135,7 +135,7 @@ input[type=file] {display: none;}
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="age" class="modal_input" placeholder="ex) 5"></td>
+                        <td><input type="text" id="age" class="modal_input" placeholder="ex) 5" required="required"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -341,100 +341,131 @@ input[type=file] {display: none;}
     
     <script type="text/javascript">
     
-    // 펫등록 모달 열기 
-    $("#petRgform_open").click(function(){ 
-    	if($(this).attr("href") > 2){  // 3마리까지만 등록 가능
-    		alert("3마리까지 등록 가능합니다.");
-    		return false;
-    	}
-    	
-    	$("#petRg_modal").css("display","block");      
-        $("#petRg_modal .image-box").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
-        $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
-        $("#petRg_modal input[type='radio']").prop("checked", false);
-        /*
-        $("#pet_name").val("");
-        $("#age").val("");
-        $("input[name='gender']").prop("checked", false);
-        $("#feature").val("");
-        $("#instagram").val("");
-        $("#youtube").val("");
-        $("input[name='open']").prop("checked", false);*/
-        //$("#petList").css("display","none");
-    })
-  
-    
-    // 반려견 수정,삭제 메뉴 여닫기
-     $(document).on("click", ".select", function (e) {
-    	$(".select").removeClass("on");
-           //toggle 방식
-           if($(this).hasClass("on")){
-               $(this).add($(this).children(".list")).removeClass("on");
-           }else{ // !$(this).hasClass("on") 없으면
-               $(this).add($(this).children(".list")).addClass("on");
-           }         
-       });
-     
-    $(document).mouseup(function (e){
-    	let LayerPopup = $(".select .list");
-    	if(LayerPopup.has(e.target).length === 0){
-    	  LayerPopup.removeClass("on");
-    	  $(".select").removeClass("on");
-    	}
-    }); 
-    
-    
-    // 새로운 펫 추가 이벤트    
-    $("#petRg-btn").click(function(){    	  	
-    	
-        //formData 객체 생성
-        let formData = new FormData();
-    	formData.append("petImg", $("input[id='imgfile1']")[0].files[0]);
-    	// 넘겨줄 반려동물 데이터
-    	let petData = {
-    			"userId": "${login.userId}",
-    			"petName": $("#pet_name").val(),
-    			"petSpecies": $("#pet_species").val(),
-    			"age": $("#age").val(),
-    			"gender": $("input[name='gender']:checked").val(),
-    			"feature": $("#feature").val(),
-    			"instagram": $("#instagram").val(),
-    			"youtube": $("#youtube").val(),
-    			"open": $("input[name='open']:checked").val()
-    	}
-    	
-    	// formData에 json타입으로 petData 추가
-    	formData.append("petData", new Blob([ JSON.stringify(petData) ], {type : "application/json"}));
-    	
-    	// ajax 처리
-    	$.ajax({
-    		  type: "POST",
-    	      url: "/today/user/registerPet",
-    	      data: formData,
-    	      dataType: "text",
-    	      contentType: false,               // * 중요 *
-    	      processData: false,               // * 중요 *
-    	      enctype : 'multipart/form-data',  // * 중요 *
-    	      success: function(result) { 
-                  console.log("통신 성공!: ");
-                  if(result === "success") {
-                      alert("반려동물 등록이 완료되었습니다.");                      
-                      $("#petList-open").click();
-                      $("#petRg_modal").css("display","none");
+	    // 펫등록 모달 열기 
+	    $("#petRgform_open").click(function(){ 
+	    	if($(this).attr("href") > 2){  // 3마리까지만 등록 가능
+	    		alert("3마리까지 등록 가능합니다.");
+	    		return false;
+	    	}
+	    	
+	    	$("#petRg_modal").css("display","block");      
+	        $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
+	        $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
+	        $("#petRg_modal input[type='radio']").prop("checked", false);
+	        /*
+	        $("#pet_name").val("");
+	        $("#age").val("");
+	        $("input[name='gender']").prop("checked", false);
+	        $("#feature").val("");
+	        $("#instagram").val("");
+	        $("#youtube").val("");
+	        $("input[name='open']").prop("checked", false);*/
+	        //$("#petList").css("display","none");
+	    })
+	  
+	    
+	    // 반려견 수정,삭제 메뉴 여닫기
+	     $(document).on("click", ".select", function (e) {
+	    	$(".select").removeClass("on");
+	           //toggle 방식
+	           if($(this).hasClass("on")){
+	               $(this).add($(this).children(".list")).removeClass("on");
+	           }else{ // !$(this).hasClass("on") 없으면
+	               $(this).add($(this).children(".list")).addClass("on");
+	           }         
+	       });
+	     
+	    $(document).mouseup(function (e){
+	    	let LayerPopup = $(".select .list");
+	    	if(LayerPopup.has(e.target).length === 0){
+	    	  LayerPopup.removeClass("on");
+	    	  $(".select").removeClass("on");
+	    	}
+	    }); 
+	    
+	    
+	    // 새로운 펫 추가 이벤트    
+	    $("#petRg-btn").click(function(){    	  	
+	    	
+	        //formData 객체 생성
+	        let formData = new FormData();
+	    	formData.append("petImg", $("input[id='imgfile1']")[0].files[0]);
+	    	// 넘겨줄 반려동물 데이터
+	    	let petData = {
+	    			"userId": "${login.userId}",
+	    			"petName": $("#pet_name").val(),
+	    			"petSpecies": $("#pet_species").val(),
+	    			"age": $("#age").val(),
+	    			"gender": $("input[name='gender']:checked").val(),
+	    			"feature": $("#feature").val(),
+	    			"instagram": $("#instagram").val(),
+	    			"youtube": $("#youtube").val(),
+	    			"open": $("input[name='open']:checked").val()
+	    	}
+	    	
+	    	// formData에 json타입으로 petData 추가
+	    	formData.append("petData", new Blob([ JSON.stringify(petData) ], {type : "application/json"}));
+	    	
+	    	// ajax 처리
+	    	$.ajax({
+	    		  type: "POST",
+	    	      url: "/today/user/registerPet",
+	    	      data: formData,
+	    	      dataType: "text",
+	    	      contentType: false,               // * 중요 *
+	    	      processData: false,               // * 중요 *
+	    	      enctype : 'multipart/form-data',  // * 중요 *
+	    	      success: function(result) { 
+	                  console.log("petId: " + result);
+	                  petId = parseInt(result);
+                      alert("반려동물 등록이 완료되었습니다."); 
+                      changeSession(petId);
+                      //$("#petList-open").click();                     
+                      //$("#petRg_modal").css("display","none");
                       //window.location.reload();      
                       //$("#petList").css("display","block");
                       //location.href="/today/mypet/lifetime"; session petId등록 문제
-                  } else {
-                      alert("반려동물 등록에 실패했습니다.");
-                  }
-              }, 
-              error: function() {
-                  console.log("통신 실패!");
-              } 
-    	});
-    })    
+	                  
+	              }, 
+	              error: function() {
+	                  console.log("통신 실패!");
+	              } 
+	    	});
+	    })    
 
-    
+    	
+	    
+	    // 반려견 등록 후 세션 변경
+	    function changeSession(petId){
+	    	
+	    	let userId = "${login.userId}";
+    		let pet = {
+                        userId: userId,
+                        petId: petId
+                    };
+	    	$.ajax({
+                type: "POST", 
+                url: "/today/user/selectPet", 
+                headers: {
+                    "Content-Type": "application/json"
+                }, 
+                dataType: "text", 
+                data: JSON.stringify(pet), 
+                success: function(result) { 
+                    console.log("통신 성공!: ");
+                    if(result === "success") {
+                    	window.location.reload(); 
+                    } else {
+                        alert("반려동물 선택에 실패했습니다.");
+                    }
+                }, 
+                error: function() {
+                    console.log("통신 실패!");
+                } 
+            });
+	    }
+	    
+	    
     
     	// 펫리스트 팝업 열기
         $(document).on("click", "#petList-open", function (e){
@@ -640,8 +671,12 @@ input[type=file] {display: none;}
         $(document).on("click", ".deletePetBtn", function () {
 			if(confirm("반려견을 삭제하시겠습니까?")){
 				
+				let userId = "${login.userId}";
 				let petId = $(this).attr("href");	            
-	    		let petVO = {petId: petId};
+	    		let petVO = {
+	    				petId: petId,
+	    				userId: userId
+	    				};
 	    		
 	    		$.ajax({
 	                type: 'post',
@@ -652,7 +687,8 @@ input[type=file] {display: none;}
 	                success: function (response) {
 	         			if(response === 'success'){
 	         				alert("반려견이 삭제되었습니다.");
-	         				$("#petList-open").click();
+	         				window.location.reload();
+	         				//$("#petList-open").click();
 	         			}else{
 	         				alert("반려견 삭제에 실패했습니다.");
 	         			}
@@ -661,6 +697,7 @@ input[type=file] {display: none;}
 	                    console.log("통신 실패"); 
 	                } 
 	            });
+	    		
 			}
         })
         

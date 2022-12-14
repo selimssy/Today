@@ -67,4 +67,7 @@ public interface IUserService {
 	// 특정 계정 첫 번째 반려견 조회
 	PetVO firstPet(String userId);
 	
+	// 특정 계정 가장 최근 등록한 반려견 petId 조회
+	Integer recentPet(String userId);
+	
 }

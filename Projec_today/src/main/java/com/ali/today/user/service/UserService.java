@@ -174,4 +174,10 @@ public class UserService implements IUserService{
 		return mapper.firstPet(userId);
 	}	
 	
+	// 특정 계정 가장 최근 등록한 반려견 petId 조회
+	@Override
+	public Integer recentPet(String userId) {
+		return mapper.recentPet(userId);
+	}
+	
 }

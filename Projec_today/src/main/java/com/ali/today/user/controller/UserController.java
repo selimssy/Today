@@ -51,8 +51,8 @@ public class UserController {
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String userId) {
 		
-		System.out.println("/user/checkId 요청 : POST");
-		System.out.println("param : " + userId);
+		//System.out.println("/user/checkId 요청 : POST");
+		//System.out.println("param : " + userId);
 		String result = null;
 		
 		Integer checkNum = service.checkId(userId);
@@ -82,7 +82,7 @@ public class UserController {
 		/* 이메일 보내기 */
         String setFrom = "today.auth@gmail.com";
         String toMail = email;
-        String title = "[오늘의 너]회원가입 인증 메일입니다.";
+        String title = "[오늘의 너] 회원가입 인증 메일입니다.";
         String content = 
                 "<h1>이메일 인증번호</h1>" +
                 "<hr>" +

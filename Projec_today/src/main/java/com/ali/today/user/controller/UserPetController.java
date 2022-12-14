@@ -53,7 +53,6 @@ public class UserPetController {
 	        //fileData의 내용을 target에 복사함
 	        FileCopyUtils.copy(file.getBytes(), target);
 	        originalName = savedName;
-	        
 	        pet.setImagePath("/resources/images/petRegister/" + originalName);
 		} catch (Exception e) {
 			pet.setImagePath("/resources/images/noticeImg/infoPhoto.png");
@@ -61,8 +60,9 @@ public class UserPetController {
 		
 		
         service.registerPet(pet);
+        Integer petId = service.recentPet(pet.getUserId());
         
-		return "success";
+		return Integer.toString(petId);
 	}
 	
 	
@@ -116,11 +116,9 @@ public class UserPetController {
 	@PostMapping("/petList")
 	public List<PetVO> petList(@RequestBody UserVO user) {
 		
-		System.out.println("아이디: " + user.getUserId());
-		
+		//System.out.println("아이디: " + user.getUserId());	
 		List<PetVO> list = service.selectAllPet(user.getUserId());
-		
-		System.out.println(list.size());
+		//System.out.println(list.size());
 		
 		return list;
 	}
@@ -130,8 +128,20 @@ public class UserPetController {
 	
 	// 반려동물 삭제
 	@PostMapping("/deletePet")
-	public String deletePet(@RequestBody PetVO pet) {
-		service.deletePet(pet.getPetId());
+	public String deletePet(@RequestBody PetVO pet, HttpSession session) {
+		
+		UserVO user = (UserVO)session.getAttribute("login");
+		Integer petId = user.getPet().getPetId(); 
+		
+		if(petId.equals(pet.getPetId())) { // 현재 세션에 있는 반려견을 삭제할 경우 세션도 같이 수정
+			service.deletePet(pet.getPetId());
+			PetVO otherPet = service.firstPet(pet.getUserId());
+			user.setPet(otherPet);
+			session.setAttribute("login", user);
+		}else {
+			service.deletePet(pet.getPetId());
+		}
+				
 		return "success"; 
 	}
 	

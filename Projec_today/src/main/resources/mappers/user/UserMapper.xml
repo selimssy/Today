@@ -171,7 +171,7 @@
 	
 	<!-- 유저, 반려동물 세션정보 -->
 	<select id="UserPetInfo" resultMap="UserMap">
-		SELECT u.user_id, u.name, u.nickname, p.pet_id, p.pet_name 
+		SELECT u.user_id, u.name, u.nickname, p.pet_id 
 		FROM user u LEFT JOIN pet p
 		ON u.user_id = p.user_id
 		WHERE u.user_id = #{userId} AND p.pet_id = #{petId}
@@ -179,13 +179,20 @@
 	
 	
 	
-	<!-- 해당 계정 첫 번째 반려견 조회 -->
+	<!-- 특정 계정 첫 번째 반려견 조회 -->
 	<select id="firstPet" resultMap="PetMap">
 		SELECT * FROM pet
 		WHERE user_id= #{userId} LIMIT 1
 	</select>
 	
 	
+	<!-- 특정 계정 가장 최근에 등록한 반려견 petId -->
+	<select id="recentPet" resultType="int">
+		SELECT pet_id FROM pet
+		WHERE user_id= #{userId}
+		ORDER BY pet_id DESC
+		LIMIT 1
+	</select>
 	
 	<!-- 공개상태인 반려동물 조회 -->
 	<select id="selectOpenPet" resultMap="PetMap">
