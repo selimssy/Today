@@ -33,6 +33,9 @@
 .paging ul li a.page-active{color: #000; background:rgba(187, 217, 150, 0.8); border-radius: 10px}
 
 .writeB{width: 60px; color: #fff; border-radius: 10px; background: #7AB730; text-decoration: none;  float:right; position: absolute; bottom:-20px; right:45px; padding: 13px 15px; font-size:19px; line-height:19px; }
+
+.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px;}
+.noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
 </style>
 </head>
 <body>
@@ -65,6 +68,13 @@
 	    
 	    <div class="mainContent">
 	    
+	    	<!-- 로그인 안 한 경우 -->
+    		<c:if test="${msg eq 'notLogin'}"> 
+	        	<p class="noneMsg">로그인 후 반려견과의 추억을 기록해 보세요.</p>
+	        	<img alt="noticeImg" src="<c:url value='/img/diary/diaryImg.PNG'/>">
+	        </c:if>	 
+	        
+	    
 	    	<!-- 검색 버튼 -->
 			<div class="search">	           
                 <select class="select" id="condition" name="condition">                            	
@@ -91,6 +101,8 @@
 						</tr>
 					</thead>
 					
+					
+					<!-- 작성한 다이어리 없는 경우 -->
 					<c:if test="${diaryList.size() <= 0}">
 						<tr>
 							<td colspan="3" align="center">
@@ -103,7 +115,7 @@
 					<c:if test="${diaryList.size() > 0}">
 						<c:forEach var="diary" items="${diaryList}" varStatus="status">
 							<tr>
-								<td>${diaryList.size()  status.index}</td>
+								<td class="diaryNum"></td>
 								<!--							
 								<td>
 									<c:if test="${empty diary.thumbImg}">
@@ -154,7 +166,7 @@
 				<!-- 페이지 버튼 -->
 				<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 					<li>                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-					   <a href="<c:url value='/diary/list${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}" >${pageNum}</a>
+					   <a href="<c:url value='/diary/list${pc.makeURI(pageNum)}' />" class="pageNum ${(pc.paging.page == pageNum) ? 'page-active' : ''}" >${pageNum}</a>
 					</li>
 				</c:forEach>
 				  
@@ -175,25 +187,35 @@
 </div>	
 	
 	
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
-	
-	
-	
-	
 	
 	
 	
 	<script type="text/javascript">
 	
+		$(function(){
+			
+			$(".mainMenu.mainMenu2").addClass("checked");
+					
+			
+			if(!"${msg}"){ // 로그인 했을 경우에만 요청
+				// 글 번호    // 얘네들을 다 ajax로 가져오는????
+				for(let i=0; i < ${diaryList.size()}; i++){
+					let total = ${pc.articleTotalCount};
+					let pageNum = parseInt($(".pageNum.page-active").text());
+					let diaryNum = total - ((pageNum - 1) * 10 + i)
+					
+					console.log(total);
+					console.log(pageNum);
+					console.log(diaryNum);
+					
+					$(".diaryNum:eq(" + i + ")").html(diaryNum);
+				}	
+			}
+			
+		})
+	
+		
 		// 글쓰기 성공시 띄울 알림창
 		const result = "${msg}"
 		
@@ -205,33 +227,37 @@
 		
 		
 		
+		// 로그인 여부에 따른 메뉴 숨기기
+		if("${msg}" === 'notLogin'){ // 로그인 안한 경우
+			$(".diaryBox").add($(".search")).add($(".paging")).css("display", "none");
+	    	//$(".galleryBox").css("height", "800px");
+	    }
 		
-		$(function(){
+		
+		
+		// 검색 버튼 이벤트 처리
+		$("#searchBtn").click(function(){
+			console.log("검색 버튼이 클릭됨!")
+			const keyword = $("#keywordInput").val();
+			const condition = $("#condition option:selected").val();  // 라디오박스는 checked... 근데 아래처럼 해도 되는 것 같은데.....
+			//const condition = $("#condition").val();
+			console.log(condition)
 			
-			$(".mainMenu.mainMenu2").addClass("checked");
+			location.href="/today/diary/list?keyword=" + keyword + "&condition=" + condition;
+		})
+		
+		
+		// 엔터키 입력 이벤트
+		$("#keywordInput").keydown(function(key){ // 검색어창(id="keywordInput")에서 keydown이 일어났을 때
 			
-			// 검색 버튼 이벤트 처리
-			$("#searchBtn").click(function(){
-				console.log("검색 버튼이 클릭됨!")
-				const keyword = $("#keywordInput").val();
-				const condition = $("#condition option:selected").val();  // 라디오박스는 checked... 근데 아래처럼 해도 되는 것 같은데.....
-				//const condition = $("#condition").val();
-				console.log(condition)
-				
-				location.href="/today/diary/list?keyword=" + keyword + "&condition=" + condition;
-			})
-			
-			
-			// 엔터키 입력 이벤트
-			$("#keywordInput").keydown(function(key){ // 검색어창(id="keywordInput")에서 keydown이 일어났을 때
-				
-				if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
-					$("#searchBtn").click();
-				}
-				
-			})
+			if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
+				$("#searchBtn").click();
+			}
 			
 		})
+		
+		
+		
 		
 	
 	</script>

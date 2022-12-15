@@ -289,18 +289,23 @@ public class DiaryController {
 	@GetMapping("/list")
 	public String list(HttpSession session, SearchVO search, Model model) { 
 		
-		UserVO user = (UserVO)session.getAttribute("login");
-		String userId = user.getUserId();
-		
-		PageCreator pc = new PageCreator();
-		pc.setPaging(search);  
-		
-		List<DiaryVO> list = service.getDiaryList(userId, search);
-		pc.setArticleTotalCount(service.countDiaries(userId, search));
-		
-		model.addAttribute("diaryList", list);
-		model.addAttribute("pc", pc);		
-		
+		if(session.getAttribute("login") == null) {  //로그인 안 한 경우			
+			model.addAttribute("msg", "notLogin");
+			
+		}else {	 //로그인 한 경우			
+			UserVO user = (UserVO)session.getAttribute("login");
+			String userId = user.getUserId();
+			
+			PageCreator pc = new PageCreator();
+			pc.setPaging(search);  
+			
+			List<DiaryVO> list = service.getDiaryList(userId, search);
+			pc.setArticleTotalCount(service.countDiaries(userId, search));
+			
+			model.addAttribute("diaryList", list);
+			model.addAttribute("pc", pc);				
+		}
+				
 		return "diary/diaryList";
 	}  
 	
