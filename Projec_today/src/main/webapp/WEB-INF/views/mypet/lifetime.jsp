@@ -210,27 +210,18 @@
 	     })
      	
 	     
-	    /*
-	    // 파일업로드(추가)
-        const fileDOM = document.querySelector('#file');
-        const previews = document.querySelectorAll('.image-box');
-
-        $(document).on("change", fileDOM, function () {
-            let imageSrc = URL.createObjectURL(fileDOM.files[0]);
-            previews[0].src = imageSrc;
-        })
-        
-        
-        // 파일업로드(수정)
-        const MdFileDOM = document.querySelector('#modifyFile');
-        const MdPreviews = document.querySelector('#mdImage-box');
-		
-        
-        $(document).on("change", MdFileDOM, function () {
-            let imageSrc = URL.createObjectURL(MdFileDOM.files[0]);
-            MdPreviews.src = imageSrc;
-        })
-	    */
+	    
+	     
+	     // 로그인 여부, 등록된 반려견 여부에 따른 메뉴 숨기기
+	     if("${msg}" === 'notLogin'){ // 로그인 안한 경우
+	    	 $(".openUCard").css("display", "none");
+	    	 $("#petList-open").css("display", "none");
+	     }
+	     
+     	if("${msg}" === 'petNone'){ // 등록된 반려견 없는 경우
+	    	 $(".openUCard").css("display", "none");
+	     }
+	     
 	    
 	    
 		// 파일업로드(추가)

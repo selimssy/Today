@@ -44,25 +44,19 @@ public class MypetController {
 	private IUserService uservice;
 	
 	
-	/*
+	
 	// 나의 반려동물 생애기록 전체 조회
 	@GetMapping("/lifetime")
 	public void mypet(HttpSession session, Model model) {
-			System.out.println("시작");
-			if(session.getAttribute("login") == null) { // 로그인 안 한 경우
-				//ra.addFlashAttribute("msg", "notLogin");
+	
+			if(session.getAttribute("login") == null) { //로그인 안 한 경우
 				model.addAttribute("msg", "notLogin");
-				System.out.println("로그인 안 한 경우");
-			}else { // 로그인 한 경우
-				System.out.println("로그인 했따");
-				UserVO user = (UserVO)session.getAttribute("login");
-				
-				if(user.getPet() == null) { // 등록된 반려견 없는 경우
-					System.out.println(user.getPet());
-					model.addAttribute("msg", "petNone");	
-					System.out.println("등록된 반려견 없는 경우");
-				}else {   // 등록된 반려견 있는 경우
-					System.out.println("세션에 반려견 있음");
+
+			}else { //로그인 한 경우				
+				UserVO user = (UserVO)session.getAttribute("login");				
+				if(user.getPet() == null) {   //등록된 반려견 없는 경우
+					model.addAttribute("msg", "petNone");						
+				}else {   //등록된 반려견 있는 경우
 					Integer petId = user.getPet().getPetId(); 
 					List<LifetimeVO> list = service.getLifetimeCardList(petId);
 					model.addAttribute("cards", list);
@@ -70,11 +64,10 @@ public class MypetController {
 				}
 				
 			}
-
-				
-	}*/
+		
+	}
 	
-	
+	/*
 	// 나의 반려동물 생애기록 전체 조회
 	@GetMapping("/lifetime")
 	public void mypet(HttpSession session, Model model) {
@@ -93,7 +86,7 @@ public class MypetController {
 			model.addAttribute("msg", "petNone");
 		}
 				
-	}
+	}*/
 	
 	
 	//생애기록 추가
@@ -223,9 +216,35 @@ public class MypetController {
 	
 	
 	
+	// 내 반려동물 갤러리 조회
+	@GetMapping("/gallery")
+	public void gallery(HttpSession session, GalleryPageVO paging, Model model) {
+		
+		if(session.getAttribute("login") == null) { //로그인 안 한 경우
+			model.addAttribute("msg", "notLogin");
+
+		}else { //로그인 한 경우				
+			UserVO user = (UserVO)session.getAttribute("login");				
+			if(user.getPet() == null) {   //등록된 반려견 없는 경우
+				model.addAttribute("msg", "petNone");						
+			}else {   //등록된 반려견 있는 경우
+				Integer petId = user.getPet().getPetId(); 
+				List<GalleryVO> list = service.getGalleryList(petId, paging);				
+				GalleryPageCreator pc = new GalleryPageCreator();
+				pc.setPaging(paging);
+				pc.setArticleTotalCount(service.countGalleries(petId));
+				
+				model.addAttribute("pet", uservice.selectOnePet(petId));
+				model.addAttribute("galleryList", list);
+				model.addAttribute("pc", pc);
+			}			
+		}
+				
+	}
 	
 	
 	
+	/*
 	// 내 반려동물 갤러리 조회
 	@GetMapping("/gallery")
 	public void gallery(HttpSession session, GalleryPageVO paging, Model model) {
@@ -248,7 +267,7 @@ public class MypetController {
 		}
 		
 		
-	}
+	}*/
 	
 	
 	

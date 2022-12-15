@@ -51,8 +51,8 @@
 .pop_list li .pop_content{width:100%; overflow: visible; padding:15px 10px; line-height:1.8; font-size:18.5px; font-family: 'Jua', sans-serif; box-sizing: border-box;}
 .closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
-.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 70px 0 30px;}
-.noneMsg+img{width:60%;  text-align: center; opacity: 0.85; box-shadow: 0 0 15px 0 #e8e8e8; border-radius: 15px;}
+.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px;}
+.noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
 </style>
 </head>
 <body>
@@ -119,7 +119,12 @@
 	        
 	        <!-- 갤러리 들어갈 공간 -->	                	   		     
 	        <div class="galleryBox">
-	        	<c:if test="${not empty msg}"> <!-- 반려견 등록 안 한 경우 -->
+	        	<c:if test="${msg eq 'notLogin'}"> <!-- 로그인 안 한 경우 -->
+		        	<p class="noneMsg">로그인 후 우리 아이의 소중한 일상을 남겨보세요.</p>
+		        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg2.PNG'/>">
+		        </c:if>
+	        
+	        	<c:if test="${msg eq 'petNone'}"> <!-- 반려견 등록 안 한 경우 -->
 		        	<p class="noneMsg">반려견을 등록하고 우리 아이의 소중한 일상을 남겨보세요.</p>
 		        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg2.PNG'/>">
 		        </c:if>
@@ -238,8 +243,22 @@
     	
 	    $(function(){
 			 $(".mainMenu.mainMenu1").addClass("checked");
-			 })
-    
+		})
+    	
+			 
+		
+		// 로그인 여부, 등록된 반려견 여부에 따른 메뉴 숨기기
+	    if("${msg}" === 'notLogin'){ // 로그인 안한 경우
+	    	$(".openUGCard").add($(".photoPoster")).add($("#petList-open")).add($(".paging")).css("display", "none");
+	    	$(".galleryBox").css("height", "800px");
+	    }
+	     
+        if("${msg}" === 'petNone'){ // 등록된 반려견 없는 경우
+        	$(".openUGCard").add($(".photoPoster")).add($(".paging")).css("display", "none");
+	    	$(".galleryBox").css("height", "800px");
+	    }
+			 
+			 
         
      	// 등록카드 여닫기(갤러리)
 	     $(".openUGCard").click(function(){           
