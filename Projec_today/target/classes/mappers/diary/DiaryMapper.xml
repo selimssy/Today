@@ -122,7 +122,7 @@
 		FROM pet_diary
 		WHERE writer = #{userId}
 		<include refid="searchDiary"/>
-		ORDER BY diary_no DESC
+		ORDER BY reg_date DESC
 		LIMIT #{pageStart}, 10 
 	</select>
 	

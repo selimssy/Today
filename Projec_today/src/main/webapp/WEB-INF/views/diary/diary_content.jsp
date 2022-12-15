@@ -172,6 +172,25 @@
 				forElement.submit();
 			})
 			
+			
+			
+			// 이미지 크기 max 초과할 경우
+			let imgElements = document.getElementsByTagName('img');
+			for(let i=0; i<imgElements.length; i++){
+
+				let img = imgElements[i];
+				let path = img.src;
+
+			    if(img.width > 787){
+			    	img.alt = "maxWidth";
+			    	let width = img.width;
+			    	let height = img.height;
+			    	let ratio = height / width;
+			    	let modifyHgt = 787 * ratio;
+			    	img.style="width:787px; height:" + modifyHgt + "px";
+			    }
+			}
+			
 		});
 		
 	</script>	

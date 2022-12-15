@@ -53,97 +53,12 @@ public class DiaryController {
 	
 	
 	@GetMapping("/calendar")
-	public String calendar(/*Model model, HttpServletRequest request, DateData dateData*/){
-		/*
-		Calendar cal = Calendar.getInstance();
-		DateData calendarData;
-		//검색 날짜
-		if(dateData.getDate().equals("")&&dateData.getMonth().equals("")){
-		dateData = new DateData(String.valueOf(cal.get(Calendar.YEAR)),String.valueOf(cal.get(Calendar.MONTH)),String.valueOf(cal.get(Calendar.DATE)),null,null);
-		}
-
-		Map<String, Integer> today_info =  dateData.today_info(dateData);
-		List<DateData> dateList = new ArrayList<DateData>();
-
-		//검색 날짜 end
+	public String calendar(HttpSession session, Model model){
 		
-		
-		
-		UserVO user = (UserVO)request.getSession().getAttribute("login");
-		String userId = user.getUserId();
-		List<ScheduleVO> Schedule_list = service.getOnedaySchedules(userId, dateData);
-
-		
-
-		//달력데이터에 넣기 위한 배열 추가
-		ScheduleVO[][] schedule_data_arr = new ScheduleVO[32][4];
-		if(Schedule_list.isEmpty()!=true){
-			
+		if(session.getAttribute("login") == null) { //로그인 안 한 경우
+			model.addAttribute("msg", "notLogin");
 		}
 		
-		int j = 0;
-		for(int i=0; i<Schedule_list.size(); i++){
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-			String strDate = simpleDateFormat.format(Schedule_list.get(i).getScheduleDate()); 			
-			int date = Integer.parseInt(strDate.substring(strDate.length()-2, strDate.length()));
-
-			if(i>0){
-				String str_preDate = simpleDateFormat.format(Schedule_list.get(i-1).getScheduleDate()); 
-				int date_before = Integer.parseInt(str_preDate.substring(str_preDate.length()-2, str_preDate.length()));
-				if(date_before==date){
-					j=j+1;
-					schedule_data_arr[date][j] = Schedule_list.get(i);
-				}else{
-					j=0;
-					schedule_data_arr[date][j] = Schedule_list.get(i);
-				}
-			}else{
-				schedule_data_arr[date][j] = Schedule_list.get(i);
-			}
-
-		}
-		
-		
-		//실질적인 달력 데이터 리스트에 데이터 삽입 시작.
-		//일단 시작 인덱스까지 아무것도 없는 데이터 삽입
-		for(int i=1; i<today_info.get("start"); i++){
-		calendarData= new DateData(null, null, null, null, null);
-		dateList.add(calendarData);
-		}
-		
-		
-		//날짜 삽입
-		for (int i = today_info.get("startDay"); i <= today_info.get("endDay"); i++) {
-		ScheduleVO[] schedule_data_arr3 = new ScheduleVO[4];
-		schedule_data_arr3 = schedule_data_arr[i];
-
-		
-		if(i==today_info.get("today")){
-			calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), 1000, schedule_data_arr3);
-			}else{
-			calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), 0, schedule_data_arr3);
-			}
-			dateList.add(calendarData);
-
-			}
-
-		//달력 빈 곳 빈 데이터로 삽입
-		int index = 7-dateList.size()%7;
-
-		if(dateList.size()%7!=0){
-
-			for (int i = 0; i < index; i++) {
-				calendarData= new DateData(null, null, null, null, null);
-				dateList.add(calendarData);
-			}
-		}
-		
-		String monthEng[] = {"January", "February", "March", "April", "May" ,"June" ,"july", "august", "september", "october" ,"november", "december"};
-		
-		//배열에 담음
-		model.addAttribute("dateList", dateList); //날짜 데이터 배열
-		model.addAttribute("today_info", today_info);	
-		model.addAttribute("monthEng", monthEng);  */
 		return "diary/calendar2";
 	
 	}	

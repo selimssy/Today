@@ -128,6 +128,9 @@
 		
 		.today{background-color:#eee}
 		
+		.dateNum{/*padding: 2px 4px;*/}
+		.dateNum:hover{cursor: pointer; font-weight: bold; color:#7AB730  /*background: #BBD996; border-radius: 50%;*/}
+		
 		.scheduleRgModal{display:none;width: 350px; height: 480px;  border: 3.5px solid #BBD996; border-radius: 15px; position: relative;
 			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:10;}			
 		.closeSchedule{width:20px; height: 20px; position: absolute; top: 20px; right: 15px;}
@@ -153,6 +156,9 @@
 		
 		
 		.contents{width:100%}
+		
+		.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 150px 0 30px; color:#4F4F4F}
+		.noneMsg+img{width:40%; display: block; margin: auto; opacity: 0.8; box-shadow: 0 0 30px 0 #e8e8e8; border-radius: 15px;}
 	</style>
 </head>
 <body>
@@ -181,7 +187,13 @@
 	    	</div>
 	    </div>
 	    
-	    <div class="calendarBox">	    	    	
+	    <div class="calendarBox">
+	    
+	    	<c:if test="${msg eq 'notLogin'}"> <!-- 로그인 안 한 경우 -->
+	        	<p class="noneMsg">로그인 후 반려견 일정을 기록해 보세요.</p>
+	        	<img alt="noticeImg" src="<c:url value='/img/diary/calendar.png'/>">
+	        </c:if>	    	    	
+		        
 	    	<div class="calendar" >
 				<!--날짜 네비게이션  -->
 				<div class="navigation">
@@ -218,51 +230,8 @@
 				
 				<table class="calendar_body">						
 					<tbody class="tbody">
-						<tr>
-							<c:forEach var="dateList" items="${dateList}" varStatus="date_status"> 
-								<c:choose>
-									
-									<c:when test="${date_status.index%7==6}">
-										<td class="sat_day ${(dateList.value == 1000) ? 'today' : ''}">
-											<div class="sat">
-												${dateList.date}
-												<div class="scheduleBox">
-													<c:forEach var="scheduleList" items="${dateList.schedule_data_arr}" varStatus="schedule_data_arr_status"> 
-														<p id="${scheduleList.scheduleId}" class="plan">${scheduleList.scheduleTitle}</p>
-													</c:forEach>
-												</div>
-											</div>	
-										</td>
-									</c:when>
-									<c:when test="${date_status.index%7==0}">
-						</tr>
-						<tr>	
-							<td class="sun_day ${(dateList.value == 1000) ? 'today' : ''}">
-								<div class="sun">
-									${dateList.date}
-									<div class="scheduleBox">
-										<c:forEach var="scheduleList" items="${dateList.schedule_data_arr}" varStatus="schedule_data_arr_status"> 
-											<p id="${scheduleList.scheduleId}" class="plan">${scheduleList.scheduleTitle}</p>
-										</c:forEach>
-									</div>
-								</div>								
-							</td>
-									</c:when>
-									<c:otherwise>
-							<td class="normal_day ${(dateList.value == 1000) ? 'today' : ''}">
-								<div class="date">
-									${dateList.date}
-									<div class="scheduleBox">
-										<c:forEach var="scheduleList" items="${dateList.schedule_data_arr}" varStatus="schedule_data_arr_status"> 
-											<p id="${scheduleList.scheduleId}" class="plan">${scheduleList.scheduleTitle}</p>
-										</c:forEach>
-									</div>
-								</div>
-							</td>
-									</c:otherwise>
-								</c:choose>
-								
-							</c:forEach>
+						
+						
 					</tbody>				
 				</table>
 			</div>
@@ -499,9 +468,21 @@
 <script type="text/javascript">
 
 	$(function(){
-		$("#redirect").click();
+		if(!"${msg}"){ // 로그인 했을 경우에만 데이터 요청
+			$("#redirect").click(); 
+		}
+		
 		$(".mainMenu.mainMenu2").addClass("checked");
 	})
+	
+	
+	
+	// 로그인 여부에 따른 메뉴 숨기기
+	if("${msg}" === 'notLogin'){ // 로그인 안한 경우
+    	$(".calendar").css("display", "none");
+    	//$(".galleryBox").css("height", "800px");
+    }
+	
 	
 	// 스케줄 모달 여닫기
 	$(".scheModal_open").click(function(){
@@ -515,6 +496,26 @@
 		$(".scheduleRgModal").css("display","none");
 	})
 
+	
+	
+	// 글자 날짜 선택시 스케줄 등록모달 열기
+	$(document).on("click", ".dateNum", function () {
+		let year = $(".this_year").text(); // 년
+		let month = parseInt($(".monthInt").text()) // 월
+		month = (month >= 10 ? month : '0' + month); // 10미만이면 0 붙이기
+		let day = parseInt($(this).text()); // 일
+		day = (day >= 10 ? day : '0' + day);	
+		console.log(year);
+		console.log(month);
+		console.log(day);
+		
+		let selectDate = year + '-' + month + '-' + day;
+		console.log(selectDate);
+		$(".scheduleRgModal").css("display","block");		
+		$("#schedule_date").val(selectDate);
+    })
+	
+	
 	
 	// 일정제목 글자수 제한 알림
 	$('#schedule_title').keyup(function(){
@@ -667,7 +668,7 @@
                	for(let i = 0; i < dateList.length; i++){
 
                     if(i % 7 == 6){
-                        html += "<td class='sat_day'><div class='sat'>" + dateList[i]["date"] + "<div class='scheduleBox'>";
+                        html += "<td class='sat_day'><div class='sat'>" + "<span class='dateNum'>" + dateList[i]["date"] + "</span><div class='scheduleBox'>";
                         for(let j=0; j<dateList[i]["schedule_data_arr"].length; j++){
                             if(dateList[i]['schedule_data_arr'][j]){
                                 html += "<p id='" + dateList[i]['schedule_data_arr'][j]['scheduleId'] + "' class='plan'>" + dateList[i]['schedule_data_arr'][j]['scheduleTitle'] + "</p>"; 
@@ -675,7 +676,7 @@
                         }
                         html += "</div></div></td>";
                     }else if(i % 7 == 0){
-                        html += "</tr><tr><td class='sun_day'><div class='sun'>" + dateList[i]["date"] + "<div class='scheduleBox'>";
+                        html += "</tr><tr><td class='sun_day'><div class='sun'>" + "<span class='dateNum'>" + dateList[i]["date"] + "</span><div class='scheduleBox'>";
                         for(let j=0; j<dateList[i]["schedule_data_arr"].length; j++){
                             if(dateList[i]['schedule_data_arr'][j]){
                             	html += "<p id='" + dateList[i]['schedule_data_arr'][j]['scheduleId'] + "' class='plan'>" + dateList[i]['schedule_data_arr'][j]['scheduleTitle'] + "</p>";  
@@ -683,7 +684,7 @@
                         }
                         html += "</div></div></td>";  
                     }else{
-                        html += "<td class='normal_day'><div class='date'>" + dateList[i]["date"] + "<div class='scheduleBox'>";
+                        html += "<td class='normal_day'><div class='date'>" + "<span class='dateNum'>" + dateList[i]["date"] + "</span><div class='scheduleBox'>";
                         for(let j=0; j<dateList[i]["schedule_data_arr"].length; j++){
                             if(dateList[i]['schedule_data_arr'][j]){
                             	html += "<p id='" + dateList[i]['schedule_data_arr'][j]['scheduleId'] + "' class='plan'>" + dateList[i]['schedule_data_arr'][j]['scheduleTitle'] + "</p>";  
@@ -736,7 +737,7 @@
                     $("#planDate").attr('value',scheduleDate);
                     console.log(scheduleDate);
                     $("#planNum").attr('value',scheduleNum);
-                    $("#planTitle").attr('value',scheduleTitle);                                              
+                    $("#planTitle").val(scheduleTitle);                                              
                     $("#planDesc").val(scheduleDesc);
                     $("#modifyPlan").attr('href',scheduleId); 
                     $("#deletePlan").attr('href',scheduleId); 
@@ -795,8 +796,8 @@
                		$(".mdpop").css("display","block");
                		$("#modifyBtn").attr('href',scheduleId); 
                     $("#MplanDate").attr('value',scheduleDate);
-                    $("#MplanNum").attr('value',scheduleNum);
-                    $("#MplanTitle").attr('value',scheduleTitle);                                              
+                    $("#MplanNum").val(scheduleNum);
+                    $("#MplanTitle").val(scheduleTitle);                                              
                     $("#MplanDesc").val(scheduleDesc);                              
                }, 
                error: function() {

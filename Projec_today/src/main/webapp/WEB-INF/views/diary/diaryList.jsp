@@ -101,9 +101,9 @@
 				
 					<!-- 게시물이 들어갈 공간 -->
 					<c:if test="${diaryList.size() > 0}">
-						<c:forEach var="diary" items="${diaryList}">
+						<c:forEach var="diary" items="${diaryList}" varStatus="status">
 							<tr>
-								<td>${diary.diaryNo}</td>
+								<td>${diaryList.size()  status.index}</td>
 								<!--							
 								<td>
 									<c:if test="${empty diary.thumbImg}">
