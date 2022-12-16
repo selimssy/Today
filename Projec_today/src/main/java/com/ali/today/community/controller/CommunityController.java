@@ -65,21 +65,20 @@ public class CommunityController {
 	public String intro(HttpSession session, Model model) {
 		
 		// 반려동물 데이터
-		try {
+		if(session.getAttribute("login") == null) { // 로그인 x
+			model.addAttribute("msg", "notLogin");
+		}else { // 로그인 O
 			UserVO user = (UserVO)session.getAttribute("login");
-			Integer perId = user.getPet().getPetId();
-			PetVO pet = userService.selectOnePet(perId);
-			model.addAttribute("pet", pet);
-		} catch (NullPointerException e) {
-			e.getMessage();
+			if(user.getPet() == null) { //등록된 반려견 없는 경우
+				model.addAttribute("msg", "petNone");
+			}else {  //등록된 반려견 있는 경우
+				Integer perId = user.getPet().getPetId();
+				PetVO pet = userService.selectOnePet(perId);
+				model.addAttribute("pet", pet);
+			}
+			
 		}
-		
-		/*
-		// 공개상태 반려동물 리스트
-		List<PetVO> petList = userService.selectOpenPet(1, "petName", "");
-		model.addAttribute("petList", petList);
-		model.addAttribute("openCount", userService.countOpenPet("petName", "")); // 공개상태 반려견 수
-		*/
+
 		return "community/introduce";
 	}
 	

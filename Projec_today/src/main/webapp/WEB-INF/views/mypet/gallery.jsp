@@ -43,7 +43,7 @@
 .paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
 .paging ul li a.page-active{color: #fff; background: #384d75; border-radius: 10px}
 
-
+/* 갤러리 상세 조회 */
 #showGallery{display:none; width:700px; height: 610px; overflow-y: auto; background:#fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:7;}
 .pop_list li {padding:20px 35px 0px; box-sizing: border-box;}
 .pop_list li h2.pop_title{padding:10px 0 24px; text-align:center; font-weight:bold; font-size:32px; font-family: 'Jua', sans-serif; letter-spacing:2px;}
@@ -250,7 +250,7 @@
 		// 로그인 여부, 등록된 반려견 여부에 따른 메뉴 숨기기
 	    if("${msg}" === 'notLogin'){ // 로그인 안한 경우
 	    	$(".openUGCard").add($(".photoPoster")).add($("#petList-open")).add($(".paging")).css("display", "none");
-	    	$(".galleryBox").css("height", "800px");
+	    	$(".galleryBox").css("height", "800px").css("width", "950px").css("margin", "70px auto");
 	    }
 	     
         if("${msg}" === 'petNone'){ // 등록된 반려견 없는 경우
@@ -547,6 +547,8 @@
                 }
         }, '.imgBox');
         
+	 	
+	 	
         // 이미지 클릭시 상세 조회
         $(document).on("click", ".imgBox img", function () {
         	$("#showGallery").css("display", "block");

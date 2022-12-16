@@ -34,7 +34,7 @@
 
 .writeB{width: 60px; color: #fff; border-radius: 10px; background: #7AB730; text-decoration: none;  float:right; position: absolute; bottom:-20px; right:45px; padding: 13px 15px; font-size:19px; line-height:19px; }
 
-.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px;}
+.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px; color:#3F3F3F}
 .noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
 </style>
 </head>
@@ -115,7 +115,7 @@
 					<c:if test="${diaryList.size() > 0}">
 						<c:forEach var="diary" items="${diaryList}" varStatus="status">
 							<tr>
-								<td class="diaryNum"></td>
+								<td class="diaryNum">${pc.articleTotalCount - (((param.page == null ? 1 : param.page)-1)*10 + status.index)}</td>
 								<!--							
 								<td>
 									<c:if test="${empty diary.thumbImg}">
@@ -198,20 +198,7 @@
 			$(".mainMenu.mainMenu2").addClass("checked");
 					
 			
-			if(!"${msg}"){ // 로그인 했을 경우에만 요청
-				// 글 번호    // 얘네들을 다 ajax로 가져오는????
-				for(let i=0; i < ${diaryList.size()}; i++){
-					let total = ${pc.articleTotalCount};
-					let pageNum = parseInt($(".pageNum.page-active").text());
-					let diaryNum = total - ((pageNum - 1) * 10 + i)
-					
-					console.log(total);
-					console.log(pageNum);
-					console.log(diaryNum);
-					
-					$(".diaryNum:eq(" + i + ")").html(diaryNum);
-				}	
-			}
+			
 			
 		})
 	

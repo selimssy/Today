@@ -17,8 +17,9 @@
     .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
     .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
     .Mycontent{width:100%; display: flex; justify-content:space-between; padding:20px; position: relative; box-sizing: border-box;}
-    .MyPetPhoto{width:43%; box-sizing: border-box; position: relative;}
+    .MyPetPhoto{width:43%; margin: 0 20px; box-sizing: border-box; position: relative; background-image:url(/today/img/community/ring2.png); background-size: contain; background-repeat: no-repeat; }
     .MyPetPhoto::after {display: block; content: ""; padding-bottom: 100%;}
+    .ring{width:100%; height:100%; }
     .Myintro .MyPetPhoto img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box;} 
     .Mycontent .MyPetinfo{padding-left: 15px; width:52%; box-sizing: border-box;}
     .Mycontent .MyPetinfo li{font-size: 19px; line-height: 40px;}
@@ -66,6 +67,10 @@
 	.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
 	.page_link{padding:0 5px; margin: 0 5px;}
 	.page_link.active{background: #BCDB97; color: #fff; border-radius: 50%;}
+	
+	.noneMsgBox{width:35%; position: relative; margin: 100px auto 120px;}
+	.noneMsg{width:100%;font-family: 'Nanum Pen Script'; text-align: center; font-size: 40px; margin: 50px 0 30px; position: absolute; top: 70px;}
+	.noneMsgBox img{width:100%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
 </style>
 </head>
 <body>
@@ -87,11 +92,26 @@
 	    </div>
 	    
 	    
+	    <!-- 로그인 안 한 경우 -->
+	    <c:if test="${msg eq 'notLogin'}"> 
+	    		<div class="noneMsgBox">		        	
+		        	<img alt="noticeImg" src="<c:url value='/img/community/intro2.png'/>">
+		        	<p class="noneMsg">로그인 후 반려견을 소개해 보세요!</p>
+	        	</div>
+	    </c:if>
+	    <!-- 반려견 등록 안 한 경우 -->
+	    <c:if test="${msg eq 'petNone'}"> 
+	    	<div class="noneMsgBox">		        	
+	        	<img alt="noticeImg" src="<c:url value='/img/community/intro2.png'/>">
+	        	<p class="noneMsg">반려견을 등록하고 우리 아이를 소개해 보세요!</p>
+        	</div>
+        </c:if>
 	    
+    
 	    <div class="Myintro">
 	        <h2>내 반려견 소개란</h2>
 	        <div class="Mycontent">
-	            <div class="MyPetPhoto">
+	            <div class="MyPetPhoto">	            	
 		            <img src="<c:url value='${pet.imagePath}'/>">
 		        </div>
 	            <div class="MyPetinfo">
@@ -205,13 +225,10 @@
 			 
 			 countPetList(condition, keyword);
 			 pageNum(countPet)
-			 
-			 
-			 
+		})	 
 			 
 		
 	
-		
 		
 		// 비공개 반려동물 접근 알림창
 		let msg = "${msg}"
@@ -219,7 +236,17 @@
 				alert("비공개 반려동물입니다.")
 			}
 		
+	
+		// 로그인, 반려견 등록 여부에 따른 메뉴 숨기기
+		if("${msg}" === 'notLogin'){ // 로그인 안한 경우
+			$("#petList-open").add($(".Myintro")).css("display", "none");
+	    }
+		if("${msg}" === 'petNone'){ // 반려견 등록 안한 경우
+			$(".Myintro").css("display", "none");
+	    }
 		
+		
+	
 		// 반려동물 카드 hover 이벤트
 		$(document).on({
                 mouseenter: function () {
@@ -229,14 +256,8 @@
                     $(this).parent().css("border", "5px solid #BCDB97");
                 }
         }, '.cardBody');
-        /*
- 		$(".cardBody").hover(function(){
-	        $(this).parent().css("border", "5px solid #7AB730");
-	    }, function(){
-	        $(this).parent().css("border", "5px solid #BCDB97");
-	    })*/
-	    
-	    
+        
+
 	    
 	    // 검색 처리
 	    $("#searchBtn").click(function(){
@@ -447,7 +468,7 @@
         	
         })
         
-	})
+	
 	</script>
 	
 	

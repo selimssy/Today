@@ -13,13 +13,13 @@
 <style type="text/css">
 .siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
 /*.container{width: 1000px; margin: 0 auto;}*/
-.Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
+.Myintro{width: 600px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
 .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
 .Mycontent{width:100%; display: flex; justify-content:space-between; padding:20px; position: relative; box-sizing: border-box;}
-.MyPetPhoto{width:43%; box-sizing: border-box; position: relative;}
+.MyPetPhoto{width:260px; box-sizing: border-box; position: relative; margin: 0 20px; background-image:url(/today/img/community/ring2.png); background-size: contain; background-repeat: no-repeat;}
 .MyPetPhoto::after {display: block; content: ""; padding-bottom: 100%;}
-.Myintro .MyPetPhoto img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box;} 
-.Mycontent .MyPetinfo{width:52%; box-sizing: border-box;}
+.Myintro .MyPetPhoto img{width:255px; height: 255px; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box;} 
+.Mycontent .MyPetinfo{width:45%; padding-left: 20px;}
 .Mycontent .MyPetinfo li{font-size: 19px; line-height: 40px;}
 .MyPetinfo li:last-of-type{padding-top: 5px;}
 .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
@@ -83,8 +83,18 @@ ul{list-style: none;}
 .paging{padding: 40px 0 0; text-align: center;}
 .paging ul li{list-style: none; display: inline-block;}
 .paging ul li a{text-decoration: none; color: transparent;}
-.paging ul li:nth-of-type(1){background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat; margin-right:25px;}
-.paging ul li:nth-of-type(2){background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat;}
+.paging ul li:nth-of-type(1){background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat;}
+.paging ul li:nth-of-type(2){margin: 0 15px;}
+.paging ul li:nth-of-type(3){background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat;}
+/* 갤러리 상세조회 */
+#showGallery{display:none; width:700px; height: 610px; overflow-y: auto; background:#fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:7;}
+.pop_list li {padding:20px 35px 0px; box-sizing: border-box;}
+.pop_list li h2.pop_title{padding:10px 0 24px; text-align:center; font-weight:bold; font-size:32px; font-family: 'Jua', sans-serif; letter-spacing:2px;}
+.pop_list li img.pop_img{width:100%;}
+.pop_list li .pop_content{width:100%; overflow: visible; padding:15px 10px; line-height:1.8; font-size:18.5px; font-family: 'Jua', sans-serif; box-sizing: border-box;}
+.closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.gcardWrap:hover{background: #ddd; cursor: pointer;}
+
 </style>
 </head>
 <body>
@@ -208,7 +218,7 @@ ul{list-style: none;}
 							<c:forEach var="imgCard" items="${galleryList}">			
 					            <div class="gcardWrap">		              
 				                    <div class="imgBox">
-				                        <img alt="gallery_image" src="<c:url value='${imgCard.imagePath}'/>">			                        
+				                        <img alt="${imgCard.imgId}" src="<c:url value='${imgCard.imagePath}'/>">			                        
 				                    </div>
 				                    <div class="imgInfo">
 										<h3>${imgCard.title}</h3>
@@ -226,7 +236,11 @@ ul{list-style: none;}
 					        <li>
 								<a href="javascript:;" class="pre_link">이전</a>
 							</li>						
-											
+							
+							<!-- 페이지 정보 -->
+							<li class="pageInfo">
+							
+							</li>				
 							  
 						   <!-- 다음 버튼 -->
 						   <li>
@@ -247,6 +261,20 @@ ul{list-style: none;}
 
 
 
+<!-- 갤러리 상세조회 모달 -->
+<div class="mdpop" style="position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>			
+<div id="showGallery">
+	<div class="closeShowGal">닫기</div>
+	<ul class="pop_list">
+		<li>
+			<h2 class="pop_title"></h2>
+			<img class="pop_img" src="" alt="showGalImg" />
+			<div class="pop_content"></div>
+		</li>
+	</ul>
+</div>		
+
+
 
 
 <jsp:include page="../common/footer.jsp" />
@@ -257,116 +285,60 @@ ul{list-style: none;}
 	
 	$(function(){
 		 $(".mainMenu.mainMenu3").addClass("checked");
-		 })
+		 
+		 $(".pageInfo").html(1 + " / " + ${pc.lastPage});
+	})
 
-	/*
-	$(document).on("click", ".page_link", function () {
-		
-		//초기화
-		$('.galleryBox').empty();
-		$('.page_link').removeClass('page-active');
-		$(this).addClass('page-active');
-            				
-   		let petId = "${pet.petId}";
-   		console.log(petId);
-   		let page = $(this).text();
-   		console.log(page);
-   		let data = {
-   				petId: petId,
-   				page: page
-                   };
-   		   		
-   		$.ajax({
-               type: 'post',
-               dataType : "json",
-               contentType: 'application/json',
-               url: '/today/community/getGalleries',
-               data: JSON.stringify(data),
-               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
-               success: function (response) {
-               	console.log(response); // 리스트 
-                   
-                   for(let i = 0; i < response.length; i++){
-                	   let src = "/today" + response[i]['imagePath'];
-                	   let title = response[i]['title'];
-                	   let content = response[i]['content'];
-                	   
-                       let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='gallery_image' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
-						                      
-                       $('.galleryBox').append(temp_html);
-                   }
-               }, 
-               error: function() {
-                   console.log("통신 실패!");
-               } 
-           });
-    		 
-
-        })
-        */
+	
         
-        
+        // 페이징 + 갤러리 불러오기
         let page = 1;
         
         $(document).on("click", ".next_link", function () {
 		
-		//초기화
-		$('.galleryBox').empty();
-		/*if($(this).hasClass('page_link')){
-			$('.page_link').removeClass('page-active');
-			$(this).addClass('page-active');
-		}*/
-		
-		
-            				
-   		let petId = "${pet.petId}";
-   		
-   		page += 1;
-   		if(page > ${pc.lastPage}){
-   			alert("마지막 페이지입니다.");
-   			page = ${pc.lastPage};
-   		}
-   		
-   		
-   		/*let page = parseInt($(".page-active").text()) + 1;*/
-   		/*if(parseInt($(".page-active").text()) %10 === 0){
-			for(let i=0; i<10; i++){
-				$(".page_link").eq(i).text(parseInt($(".page_link").eq(i).text()) + 10);
-			}			
-		}*/
-   		/*$('.page-active').parent().next().children().addClass('page-active');  
-   		$('.page-active').first().removeClass('page-active');   		*/
-   		
-   		let data = {
-   				petId: petId,
-   				page: page
-                   };
-   		   		
-   		$.ajax({
-               type: 'post',
-               dataType : "json",
-               contentType: 'application/json',
-               url: '/today/community/getGalleries',
-               data: JSON.stringify(data),
-               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
-               success: function (response) {
-                    console.log(response); // 리스트 
-               	   
-               		for(let i = 0; i < response.length; i++){
-                 	   let src = "/today" + response[i]['imagePath'];
-                 	   let title = response[i]['title'];
-                 	   let content = response[i]['content'];
-                 	   
-                        let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='gallery_image' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
- 						                      
-                        $('.galleryBox').append(temp_html);
-                    } 
-               	   	   	                 
-               }, 
-               error: function() {
-                   console.log("통신 실패!");
-               } 
-           });
+			//초기화
+			$('.galleryBox').empty();
+	   				
+	   		let petId = "${pet.petId}";
+	   		
+	   		page += 1;
+	   		if(page > ${pc.lastPage}){
+	   			alert("마지막 페이지입니다.");
+	   			page = ${pc.lastPage};
+	   		}   		
+	   		
+	   		let data = {
+	   				petId: petId,
+	   				page: page
+	                   };
+	   		   		
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               contentType: 'application/json',
+	               url: '/today/community/getGalleries',
+	               data: JSON.stringify(data),
+	               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
+	               success: function (response) {
+	                    console.log(response); // 리스트 
+	               	   
+	               		for(let i = 0; i < response.length; i++){
+	               		   let imgId = response[i]['imgId'];
+	                 	   let src = "/today" + response[i]['imagePath'];
+	                 	   let title = response[i]['title'];
+	                 	   let content = response[i]['content'];
+	                 	   
+	                        let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='" + imgId + "' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
+	 						                      
+	                        $('.galleryBox').append(temp_html);
+	                        $(".pageInfo").html(page + " / " + ${pc.lastPage});
+	                    } 
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	        });
     		 	
         })
         
@@ -403,13 +375,15 @@ ul{list-style: none;}
 	               		console.log(response); // 리스트 
 	               	   
 		               		for(let i = 0; i < response.length; i++){
+		               		   let imgId = response[i]['imgId'];
 		                 	   let src = "/today" + response[i]['imagePath'];
 		                 	   let title = response[i]['title'];
 		                 	   let content = response[i]['content'];
 		                 	   
-		                        let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='gallery_image' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
+		                        let temp_html = "<div class='gcardWrap'><div class='imgBox'><img alt='" + imgId + "' src='" + src + "'></div><div class='imgInfo'><h3>" + title + "</h3><p>" + content + "</p></div></div>";
 		 						                      
 		                        $('.galleryBox').append(temp_html);
+		                        $(".pageInfo").html(page + " / " + ${pc.lastPage});
 		                    } 
 	               	   	   	                 
 	               }, 
@@ -419,7 +393,66 @@ ul{list-style: none;}
 	           });
     		 	
         })
+        
+        
+        
+        
+        // 이미지 클릭시 상세 조회
+        $(document).on("click", ".gcardWrap", function () {
+        	$("#showGallery").css("display", "block");
+        	
+        	//초기화
+			$(".pop_content").html("");			
+			
+			let imgId = $(this).children(".imgBox").children().attr("alt");            
+    		let gallery = {imgId: imgId};
 
+    		$.ajax({
+                type: 'post',
+                dataType : "json",
+                contentType: 'application/json',
+                url: '/today/mypet/modifyGalleryGet',
+                data: JSON.stringify(gallery),
+                success: function (response) {
+                	console.log(response); // GalleryVO 
+                   		
+                		let imgId = response['imgId'];
+                    	let imagePath = "/today" + response['imagePath'];
+                		let title = response['title'];
+                		let content = response['content'];
+                		content = content.replaceAll("<br>", "\r\n");
+ 						
+                        $(".mdpop").css("display","block");                        
+                        $(".pop_img").attr("src", imagePath);
+                        $(".pop_title").html(title);
+                        $(".pop_content").html(content);                                          
+                }, 
+                error: function() {
+                    console.log("통신 실패"); 
+                } 
+            });
+        })
+		
+        
+        /*
+        // 갤러리 hover 이벤트
+        $(document).on({
+                mouseenter: function () {
+                	$(this).parent().css("background", "#ddd");
+                },
+                mouseleave: function () {
+                	$(this).parent().css("background", "#fff");
+                }
+        }, '.imgBox');*/
+        
+        
+     	// 상세조회 모달 닫기
+        $(".closeShowGal").click(function(){
+        	$("#showGallery").css("display", "none");
+        	$(".mdpop").css("display","none");
+        })
+        
+        
 </script>
 
 
