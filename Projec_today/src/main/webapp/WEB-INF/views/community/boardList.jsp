@@ -132,7 +132,9 @@
 				</table>
 				
 				<!-- 글쓰기 버튼 -->
-	  			<a class="writeB" href="<c:url value='/community/write'/>">글쓰기</a>				
+				<c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
+	  				<a class="writeB" href="<c:url value='/community/write'/>">글쓰기</a>			
+	  			</c:if>	
 			</div>	    
 	    </div>
 	    

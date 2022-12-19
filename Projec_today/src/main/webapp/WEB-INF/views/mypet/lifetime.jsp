@@ -25,11 +25,12 @@
         #uploadCardBtn, .mdBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
         .lifeCardInfo{width: 350px; padding-top: 20px;}
         .lifeCardInfo input[type=date]{width: 230px; font-size: 18px; font-family: "NanumSquare","맑은 고딕", sans-serif; text-align: center; margin-left: 65px;}        
-        .InfoList{width: 350px; height: 165px; background: #fff; border-radius: 10px; margin-top: 25px;  box-sizing: border-box;}
+        .InfoList{width: 350px; height: 165px; background: #fff; border-radius: 10px; margin-top: 25px;  box-sizing: border-box; position: relative;} 
         /*.InfoList ul{padding-left: 10px;}
         .InfoList ul li{margin: 30px 0;}
         .lifeCardInfo input[type=text]{width: 100%; border: 2px solid #eee; font-size: 21px; font-family: 'Nanum Pen Script'}*/
         .InfoList textarea{resize: none; width: 100%; height: 100%; background: none; border: none; box-shadow: 0 0 11px 0 #e8e8e8; font-size: 21px; line-height: 1.5em; font-family: 'Nanum Pen Script'; box-sizing: border-box; padding: 25px 30px;}
+    	.InfoList .count {position:absolute; right:20px; bottom:15px; color:#777; font-family:"ht_r"; font-size:13px; }
     
     	.lifetimeBox{width:550px; margin: 50px auto;}
     	.lifetimeCard{width:550px; height: 200px; position: relative; display: flex; justify-content: space-evenly; margin-bottom:80px}
@@ -39,7 +40,7 @@
     	.lifetimeCard img{width:200px; height:200px;  object-fit: cover; border-radius: 7px;}
     	.cardInfo{width:350px; height: 200px; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
     	.cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
-    	.InfoText{background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+    	.InfoText{background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; /*overflow: hidden; text-overflow : ellipsis; white-space: nowrap;*/}
     	.modifyCard{display:none; /*width: 550px; height: 320px;*/ background:#fff; border: 3.5px solid #777; /*border-radius: 15px; padding: 15px; */
     	/*position: relative; display: flex; justify-content: space-evenly; margin: 50px auto; box-sizing: border-box;*/ 
     	position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;}
@@ -90,7 +91,7 @@
 		            <button class="closeUCard">접기</button>
 		            <div class="flex-container">       
 		                <div class="wrapper">
-		                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
+		                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" style="margin: 20px auto;"/>
 		                    <label for="file" class="upload-btn">
 		                        <input id="file" name="file" type="file" accept="image/*" />
 		                        <span>Upload Image</span>
@@ -102,6 +103,7 @@
 		                <input type="date" id="date" name="Ldate" required>
 		                <div class="InfoList">
 		                    <textarea name="content" id="lifetimeCont" required placeholder="특별한 순간의 설명을 적어주세요."></textarea>
+		                    <div class="count"><span>0</span>/150</div>
 		                </div>  
 		            </div>		    	       
 	        	</div>
@@ -261,7 +263,18 @@
 	     
 	     
         
+        // 생애기록 글자수
+		$('.InfoList textarea').keyup(function(){
+	        var content = $(this).val();
+	        $('.InfoList .count span').html(content.length);
+	        if (content.length > 150){
+	           alert("최대 150자까지 입력 가능합니다.");
+	           $(this).val(content.substring(0, 150));
+	           $('.InfoList .count span').html(150);
+	        }
+	    });
         
+     	
 	    // 생애기록 카드 추가     
         $("#uploadCardBtn").click(function(){
             //formData 객체 생성
@@ -269,6 +282,12 @@
         	formData.append("petImg", $("input[name=file]")[0].files[0]);
         	
         	// 넘겨줄 반려동물 데이터
+        	let date = $("#date").val();
+			if(!date){ // 날짜 null값
+				alert("날짜를 입력해주세요.");
+			    return false;
+			}
+        	
         	//enter => <br>
 			let text = $("#lifetimeCont").val();
 			if(!text || text.replace(/\s| /gi, "").length==0){ // null값이거나 공백만 입력한 경우
@@ -277,13 +296,7 @@
 			    return false;
 			}
 			text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-        	
-			let date = $("#date").val();
-			if(!date){ // 날짜 null값
-				alert("날짜를 입력해주세요.");
-			    return false;
-			}
-			
+        				
         	let petData = {
         			"petId": "${login.pet.petId}",
         			"content": text,

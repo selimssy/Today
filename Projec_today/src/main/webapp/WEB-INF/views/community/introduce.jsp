@@ -104,6 +104,7 @@
 	    	<div class="noneMsgBox">		        	
 	        	<img alt="noticeImg" src="<c:url value='/img/community/intro2.png'/>">
 	        	<p class="noneMsg">반려견을 등록하고 우리 아이를 소개해 보세요!</p>
+	        	<button type="button" id="petList-open" title="반려동물 변경" class="changePet"></button>
         	</div>
         </c:if>
 	    
@@ -145,7 +146,7 @@
 	            </div>
 	            <div class="modifyPetBtn" href="${pet.petId}"><span class="modifyIcon">modify</span></div>
 	        </div>     
-	        <button type="button" id="petList-open" title="반려동물 변경" class="changePet"></button>  
+	        <button type="button" id="petList-open" title="반려동물 변경" class="changePet"></button>
 	    </div>
 	    
 	    
@@ -210,12 +211,13 @@
 	
 	
 	<script type="text/javascript">
-		
+	
+		 let countPet = 0;
+		 let condition = "petName";
+		 let keyword = "";
 	
 		$(function(){
-			 let countPet = 10;
-			 let condition = "petName";
-			 let keyword = "";
+			 
 			 
 			 $(".mainMenu.mainMenu3").addClass("checked");
 			 
@@ -231,10 +233,10 @@
 	
 		
 		// 비공개 반려동물 접근 알림창
-		let msg = "${msg}"
-			if(msg === "closed"){
-				alert("비공개 반려동물입니다.")
-			}
+		let closed = "${closed}"
+		if(closed === "closed"){
+			alert("비공개 반려동물입니다.")
+		}
 		
 	
 		// 로그인, 반려견 등록 여부에 따른 메뉴 숨기기
@@ -355,7 +357,7 @@
 	               data: JSON.stringify(data),
 	               success: function (response) {
 	                    console.log(response); // 리스트 
-	                    countPet = response["countPet"];	
+	                    countPet = response["countPet"];	 
 	               }, 
 	               error: function() {
 	                   console.log("통신 실패");

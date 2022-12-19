@@ -110,12 +110,13 @@ input[type=file] {display: none;}
                     <tr>
                         <td class="mlabel">
                             <p>
-                                <strong>반려동물 이름</strong>
+                                <strong>반려견 이름</strong>
+                                <span id="pNameChk"></span>
                             </p>
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="pet_name" class="modal_input" placeholder="최대 10자" required="required"></td>
+                        <td><input type="text" id="pet_name" class="modal_input" placeholder="최대 10자" required="required" maxlength="10"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -125,12 +126,13 @@ input[type=file] {display: none;}
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="pet_species" class="modal_input" placeholder="ex) 말티즈, 포메라니안, 믹스견"></td>
+                        <td><input type="text" id="pet_species" class="modal_input" placeholder="ex) 말티즈, 포메라니안, 믹스견" maxlength="30"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
                             <p>
                                 <strong>나이</strong>
+                                <span id="pAgeChk"></span>
                             </p>
                         </td>
                     </tr>
@@ -141,13 +143,14 @@ input[type=file] {display: none;}
                         <td class="mlabel">
                             <p>
                                 <strong>성별</strong>
+                                <span id="pGenderChk"></span>
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label><input type="radio" name="gender" value="남"> 남</label>
-                            <label><input type="radio" name="gender" value="여"> 여</label>
+                            <label><input type="radio" id='gender' name="gender" value="남"> 남</label>
+                            <label><input type="radio" id='gender' name="gender" value="여"> 여</label>
                         </td>
                     </tr>
                     <tr>
@@ -158,7 +161,7 @@ input[type=file] {display: none;}
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="feature" class="modal_input" placeholder="ex) 애교쟁이, 순둥이"></td>
+                        <td><input type="text" id="feature" class="modal_input" placeholder="ex) 애교쟁이, 순둥이" maxlength="30"></td>
                     </tr>
                   
                     <tr>
@@ -170,7 +173,7 @@ input[type=file] {display: none;}
                     </tr>
                     <tr>
                     	<td>
-							<input type="url" id="instagram" placeholder="url" class="modal_input">
+							<input type="url" id="instagram" placeholder="url" class="modal_input" maxlength="80">
                     	</td>
                     </tr>
                     
@@ -183,20 +186,21 @@ input[type=file] {display: none;}
                     </tr>
                     <tr>
                     	<td>
-							<input type="url" id="youtube" placeholder="url" class="modal_input">
+							<input type="url" id="youtube" placeholder="url" class="modal_input" maxlength="80">
                     	</td>
                     </tr>  
                     <tr>
                         <td class="mlabel">
                             <p>
-                                <strong>반려동물 공개 여부</strong>
+                                <strong>반려견 공개 여부</strong>
+                                <span id="openChk"></span>
                             </p>
                         </td>
                     </tr>            
                   	<tr>
                         <td>
-                            <label><input type="radio" name="open" value="1"> 공개</label>
-                            <label><input type="radio" name="open" value="0"> 비공개</label>
+                            <label><input type="radio" id='gender' name="open" value="1"> 공개</label>
+                            <label><input type="radio" id='gender' name="open" value="0"> 비공개</label>
                         </td>
                     </tr>                
                     <tr>
@@ -238,12 +242,13 @@ input[type=file] {display: none;}
                     <tr>
                         <td class="mlabel">
                             <p>
-                                <strong>반려동물 이름</strong>
+                                <strong>반려견 이름</strong>
+                                <span id="MpNameChk"></span>
                             </p>
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="Mpet_name" class="modal_input" value=""></td>
+                        <td><input type="text" id="Mpet_name" class="modal_input" value="" maxlength="10"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
@@ -253,12 +258,13 @@ input[type=file] {display: none;}
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="Mpet_species" class="modal_input" value=""></td>
+                        <td><input type="text" id="Mpet_species" class="modal_input" value="" maxlength="30"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
                             <p>
                                 <strong>나이</strong>
+                                <span id="MpAgeChk"></span>
                             </p>
                         </td>
                     </tr>
@@ -269,6 +275,7 @@ input[type=file] {display: none;}
                         <td class="mlabel">
                             <p>
                                 <strong>성별</strong>
+                                <span id="MpGenderChk"></span>
                             </p>
                         </td>
                     </tr>
@@ -286,7 +293,7 @@ input[type=file] {display: none;}
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="Mfeature" class="modal_input" value=""></td>
+                        <td><input type="text" id="Mfeature" class="modal_input" value="" maxlength="30"></td>
                     </tr>
                   
                     <tr>
@@ -298,7 +305,7 @@ input[type=file] {display: none;}
                     </tr>
                     <tr>
                     	<td>
-							<input type="url" id="Minstagram" class="modal_input" value="">
+							<input type="url" id="Minstagram" class="modal_input" value="" maxlength="80">
                     	</td>
                     </tr>
                     
@@ -311,13 +318,14 @@ input[type=file] {display: none;}
                     </tr>
                     <tr>
                     	<td>
-							<input type="url" id="Myoutube" class="modal_input" value="">
+							<input type="url" id="Myoutube" class="modal_input" value="" maxlength="80">
                     	</td>
                     </tr>  
                     <tr>
                         <td class="mlabel">
                             <p>
                                 <strong>반려동물 공개 여부</strong>
+                                <span id="MopenChk"></span>
                             </p>
                         </td>
                     </tr>            
@@ -385,7 +393,42 @@ input[type=file] {display: none;}
 	    
 	    
 	    // 새로운 펫 추가 이벤트    
-	    $("#petRg-btn").click(function(){    	  	
+	    $("#petRg-btn").click(function(){    	
+	    	
+	    	let checkAge = /^[0-9]+$/;  // 나이 체크 정규식
+	    	//반려견 이름
+	    	if(!$("#pet_name").val() || $("#pet_name").val().replace(/\s| /gi, "").length == 0){ // 공백만 입력한 경우
+	    		$('#pNameChk').html('<b style="font-size:12px;color:red;">[반려견 이름을 입력하세요.]</b>');
+	    		return false;
+	    	}else {
+            	$('#pNameChk').html('');
+            }
+	    	// 반려견 나이
+	    	if(!$("#age").val() || $("#age").val().replace(/\s| /gi, "").length == 0){ // 공백만 입력한 경우
+	    		$('#pAgeChk').html('<b style="font-size:12px;color:red;">[반려견 나이를 입력하세요.]</b>');
+	    		return false;
+	    	}else if(!checkAge.test($("#age").val()) || $("#age").val() <= 0 || $("#age").val() > 100){  // 1~100 범위의 숫자가 아닌 경우
+	    		$('#pAgeChk').html('<b style="font-size:12px;color:red;">[1 ~ 100범위 내 숫자만 입력 가능합니다.]</b>');
+	    		return false;
+	    	}else {
+            	$('#pAgeChk').html('');
+            }
+	    	// 반려견 성별
+	    	if($(':radio[id="gender"]:checked').length < 1){
+	    		$('#pGenderChk').html('<b style="font-size:12px;color:red;">[반려견 성별을 입력하세요.]</b>');          
+	    		return false;
+	    	    //event.preventDefault();
+	    	}else {
+            	$('#pGenderChk').html('');
+            }
+	    	// 공개 여부
+	    	if($(':radio[id="open"]:checked').length < 1){
+	    		$('#openChk').html('<b style="font-size:12px;color:red;">[반려견 공개 여부를 선택하세요.]</b>');     
+	    		return false;
+	    	}else {
+            	$('#openChk').html('');
+            }
+	    	
 	    	
 	        //formData 객체 생성
 	        let formData = new FormData();
@@ -416,7 +459,6 @@ input[type=file] {display: none;}
 	    	      processData: false,               // * 중요 *
 	    	      enctype : 'multipart/form-data',  // * 중요 *
 	    	      success: function(result) { 
-	                  console.log("petId: " + result);
 	                  petId = parseInt(result);
                       alert("반려동물 등록이 완료되었습니다."); 
                       changeSession(petId);
@@ -620,6 +662,41 @@ input[type=file] {display: none;}
 	    
 	    // 반려동물 수정 버튼 이벤트
         $("#petMf-btn").click(function(){
+        	
+        	let checkAge = /^[0-9]+$/;  // 나이 체크 정규식
+	    	//반려견 이름
+	    	if(!$("#Mpet_name").val() || $("#Mpet_name").val().replace(/\s| /gi, "").length == 0){ // 공백만 입력한 경우
+	    		$('#MpNameChk').html('<b style="font-size:12px;color:red;">[반려견 이름을 입력하세요.]</b>');
+	    		return false;
+	    	}else {
+            	$('#MpNameChk').html('');
+            }
+	    	// 반려견 나이
+	    	if(!$("#Mage").val() || $("#Mage").val().replace(/\s| /gi, "").length == 0){ // 공백만 입력한 경우
+	    		$('#MpAgeChk').html('<b style="font-size:12px;color:red;">[반려견 나이를 입력하세요.]</b>');
+	    		return false;
+	    	}else if(!checkAge.test($("#Mage").val()) || $("#Mage").val() <= 0 || $("#Mage").val() > 100){  // 1~100 범위의 숫자가 아닌 경우
+	    		$('#MpAgeChk').html('<b style="font-size:12px;color:red;">[1 ~ 100범위 내 숫자만 입력 가능합니다.]</b>');
+	    		return false;
+	    	}else {
+            	$('#MpAgeChk').html('');
+            }
+	    	// 반려견 성별
+	    	if($(':radio[id="Mgender"]:checked').length < 1){
+	    		$('#MpGenderChk').html('<b style="font-size:12px;color:red;">[반려견 성별을 입력하세요.]</b>');          
+	    		return false;
+	    	    //event.preventDefault();
+	    	}else {
+            	$('#MpGenderChk').html('');
+            }
+	    	// 공개 여부
+	    	if($(':radio[id="Mopen"]:checked').length < 1){
+	    		$('#MopenChk').html('<b style="font-size:12px;color:red;">[반려견 공개 여부를 선택하세요.]</b>');     
+	    		return false;
+	    	}else {
+            	$('#MopenChk').html('');
+            }
+        	
             //formData 객체 생성
             let formData = new FormData();
         	formData.append("petImg", $("input[id='imgfile2']")[0].files[0]);

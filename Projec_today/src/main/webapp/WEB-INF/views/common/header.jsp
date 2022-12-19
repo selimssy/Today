@@ -61,12 +61,8 @@
         .otherP p{font-size: 36px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/}
         .otherP p:last-of-type{font-size: 72px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:3px; word-spacing:5px;*/ color: #000;}
         
-        
 
-        
-
-
-        /* 파일업로드(사이즈, btn 제외 중복) */
+        /* 파일업로드(사이즈, btn 제외 중복) */       
         .flex-container {display: flex;}
         .wrapper {text-align: center;flex-grow: 1;}        
         .image-box, #mdImage-box {width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
@@ -86,9 +82,17 @@
 			<!-- header_cont -->
 			<div class="header_cont">
 				<ul class="user_nav">
-					<li><a href="javascript:;">로그인</a></li>
-					<li><a href="javascript:;">회원가입</a></li>
+				    <c:if test="${login == null}" >  <!-- 로그인 안되어있을 경우 -->
+						<li><a href="javascript:;" id="login">로그인</a></li>
+						<li><a href="javascript:;" id="join">회원가입</a></li>
+					</c:if>
+					<c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
+	           			<ul>
+	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
+	           			</ul>
+		           </c:if>
 				</ul>	
+				
 				<nav>
 				<ul class="main_nav">
 					<li><a href="<c:url value='/mypet/lifetime'/>" class="mainMenu mainMenu1">나의 반려견</a>
@@ -139,9 +143,6 @@
 
 
     
-
-
-
 
 
 

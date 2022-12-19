@@ -115,7 +115,7 @@ public class CommunityController {
 		
 		PetVO pet = userService.selectOnePet(petId);
 		if(pet.getOpen() == 0) {  // 비공개 반려동물 접근 방지
-			ra.addFlashAttribute("msg", "closed");
+			ra.addFlashAttribute("closed", "closed");
 			return "redirect:/community/intro";
 		}else {
 			List<LifetimeVO> cardList = mypetService.getLifetimeCardList(petId);

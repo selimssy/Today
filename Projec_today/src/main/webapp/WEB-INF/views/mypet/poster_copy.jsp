@@ -29,18 +29,18 @@
 .photo:nth-of-type(5) .tape{width: 77px; height: 70px;position: absolute; top:-34px; left:98px; transform: rotate(357deg);}
 
 .photo img{object-fit: cover;}
-.photo:nth-of-type(1) .inPhoto{width: 347px; height: 260px; position: absolute; top: 13px; left: 14px; display:none}
-.photo:nth-of-type(2) .inPhoto{width: 198px; height: 148.5px; position: absolute; top: 8px; left: 6px; display:none}
-.photo:nth-of-type(3) .inPhoto{width: 211px; height: 158px; position: absolute; top: 8px; left: 7px; display:none}
-.photo:nth-of-type(4) .inPhoto{width: 215px; height: 161.25px; position: absolute; top: 9px; left: 6px; display:none}
-.photo:nth-of-type(5) .inPhoto{width: 228px; height: 171px; position: absolute; top: 8px; left: 7px; display:none}
+.photo:nth-of-type(1) .inPhoto{width: 347px; height: 265px; position: absolute; top: 13px; left: 14px; display:none}
+.photo:nth-of-type(2) .inPhoto{width: 198px; height: 158px; position: absolute; top: 8px; left: 6px; display:none}
+.photo:nth-of-type(3) .inPhoto{width: 211px; height: 168px; position: absolute; top: 8px; left: 7px; display:none}
+.photo:nth-of-type(4) .inPhoto{width: 215px; height: 158px; position: absolute; top: 9px; left: 6px; display:none}
+.photo:nth-of-type(5) .inPhoto{width: 228px; height: 180px; position: absolute; top: 8px; left: 7px; display:none}
 
 .photo p{position: absolute; text-align: center; font-weight: bold; font-family: 'Nanum Pen Script'; margin: 0;}
-.photo:nth-of-type(1) p{bottom: 17px; left: 10px; width: 353px; font-size: 35px;}
-.photo:nth-of-type(2) p{bottom: 15px; left: 7px; width: 198px; font-size: 20px;}
-.photo:nth-of-type(3) p{bottom: 15px; left: 7px; width: 211px; font-size: 21px;}
+.photo:nth-of-type(1) p{bottom: 15px; left: 10px; width: 353px; font-size: 35px;}
+.photo:nth-of-type(2) p{bottom: 9px; left: 7px; width: 198px; font-size: 20px;}
+.photo:nth-of-type(3) p{bottom: 10px; left: 7px; width: 211px; font-size: 21px;}
 .photo:nth-of-type(4) p{bottom: 7px; left: 7px; width: 215px; font-size: 21.5px;}
-.photo:nth-of-type(5) p{bottom: 15px; left: 7px; width: 228px; font-size: 23px;}
+.photo:nth-of-type(5) p{bottom: 10px; left: 7px; width: 228px; font-size: 23px;}
 
 
 .gallerySelect{width: 270px; height: 600px; margin-left: 15px;box-shadow: 0 0 20px 0 #e8e8e8; padding: 25px 0 25px 25px; box-sizing: border-box; overflow-y: scroll;}
@@ -67,31 +67,31 @@
             <div class="frame">
                 <div class="photo" id="1_1">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <img class="inPhoto" src="" style="object-fit: contain;">
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_2">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <img class="inPhoto" src="" style="object-fit: contain;">
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_3">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <img class="inPhoto" src="" style="object-fit: contain;">
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_4">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <img class="inPhoto" src="" style="object-fit: contain;">
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_5">
                     <img class="tape" src="/today/img/mypet/tape.png">
-                    <img class="inPhoto" src="" style="object-fit: contain;">
+                    <img class="inPhoto" src="" style="object-fit: cover;">
                     <p></p>
                 </div>
             </div>
@@ -114,58 +114,41 @@
 
 
 	<script type="text/javascript">
-	
-	
-		// 포스터 모달 여닫기
-	    $(".photoPoster").click(function(){
-		   	$("#poster_container").css("display","block");	   	 
-		   	$(".SelectInner").css("display","block");
-	        $('.SelectInner').empty();
-	        
-	        const petId = "${login.pet.petId}";
-			console.log(petId);
-			const pet = {
-					petId: petId
-	                };
-			$.ajax({
-	            type: 'post',
-	            dataType : "json",
-	            contentType: 'application/json',
-	            url: '/today/mypet/posterGallery',
-	            data: JSON.stringify(pet),
-	            success: function (response) {
-	            	console.log(response); // GalleryVO 
-	                for(let i = 0; i < response.length; i++){
-	                	let src = "/today" + response[i]['imagePath'];
-	              	    let title = response[i]['title'];
-	
-	                    let temp_html = "<img class='posterPhotoList' alt='" + title + "' src='" + src + "'>"; 
-	
-	                    $('.SelectInner').append(temp_html);
-	                }
-	            }, 
-	            error: function() {
-	                console.log("통신 실패!");
-	            } 
-	        });	   	 
-	    })
-	    
-	    // 닫기
-	    $(".posterClose").click(function(){
-	   	 $("#poster_container").css("display","none");
-	    })
-	
-	
 		//포스터 섹션 위치
 		let postePhotoNum = "0_0";
-		
-				
+	
 		// 사진영역 클릭
 	    $(document).on("click", ".photo", function () {
 	    	postePhotoNum = $(this).attr("id");
-	    	//$(".photo").css("background-image","url(/today/img/mypet/photoselect.PNG)");
-	    	//$(this).css("background-image","url(/today/img/mypet/photoselect2.png)");
-	    	//$(this).css("border","5px solid #aaa").css("box-sizing","border-box");
+	        $(".SelectInner").css("display","block");
+	        $('.SelectInner').empty();
+	        
+	        const petId = "${login.pet.petId}";
+    		console.log(petId);
+    		const pet = {
+    				petId: petId
+                    };
+    		$.ajax({
+                type: 'post',
+                dataType : "json",
+                contentType: 'application/json',
+                url: '/today/mypet/posterGallery',
+                data: JSON.stringify(pet),
+                success: function (response) {
+                	console.log(response); // GalleryVO 
+                    for(let i = 0; i < response.length; i++){
+                    	let src = "/today" + response[i]['imagePath'];
+                  	    let title = response[i]['title'];
+
+                        let temp_html = "<img class='posterPhotoList' alt='" + title + "' src='" + src + "'>"; 
+
+                        $('.SelectInner').append(temp_html);
+                    }
+                }, 
+                error: function() {
+                    console.log("통신 실패!");
+                } 
+            });
 	    })
 	    
 	    
@@ -173,7 +156,7 @@
 	    // 사진 선택 이벤트
 	    $(document).on("click", ".posterPhotoList", function () {
 	    	
-	    	src = $(this).attr("src");	    	
+	    	src = $(this).attr("src");
 	    	title = $(this).attr("alt");
 
 	        $("#" + postePhotoNum + " .inPhoto").css("display","block").attr("src",src);

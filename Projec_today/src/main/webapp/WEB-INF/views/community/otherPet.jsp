@@ -395,7 +395,7 @@ ul{list-style: none;}
         })
         
         
-        
+		
         
         // 이미지 클릭시 상세 조회
         $(document).on("click", ".gcardWrap", function () {
@@ -404,46 +404,16 @@ ul{list-style: none;}
         	//초기화
 			$(".pop_content").html("");			
 			
-			let imgId = $(this).children(".imgBox").children().attr("alt");            
-    		let gallery = {imgId: imgId};
-
-    		$.ajax({
-                type: 'post',
-                dataType : "json",
-                contentType: 'application/json',
-                url: '/today/mypet/modifyGalleryGet',
-                data: JSON.stringify(gallery),
-                success: function (response) {
-                	console.log(response); // GalleryVO 
-                   		
-                		let imgId = response['imgId'];
-                    	let imagePath = "/today" + response['imagePath'];
-                		let title = response['title'];
-                		let content = response['content'];
-                		content = content.replaceAll("<br>", "\r\n");
- 						
-                        $(".mdpop").css("display","block");                        
-                        $(".pop_img").attr("src", imagePath);
-                        $(".pop_title").html(title);
-                        $(".pop_content").html(content);                                          
-                }, 
-                error: function() {
-                    console.log("통신 실패"); 
-                } 
-            });
-        })
+			let src = $(this).children(".imgBox").children().attr("src");            
+    		let title = $(this).children(".imgInfo").children("h3").html();
+    		let content = $(this).children(".imgInfo").children("p").html();
 		
-        
-        /*
-        // 갤러리 hover 이벤트
-        $(document).on({
-                mouseenter: function () {
-                	$(this).parent().css("background", "#ddd");
-                },
-                mouseleave: function () {
-                	$(this).parent().css("background", "#fff");
-                }
-        }, '.imgBox');*/
+            $(".mdpop").css("display","block");                        
+            $(".pop_img").attr("src", src);
+            $(".pop_title").html(title);
+            $(".pop_content").html(content);                                          
+                
+        })
         
         
      	// 상세조회 모달 닫기

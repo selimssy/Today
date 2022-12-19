@@ -45,13 +45,26 @@
 	
 	<!-- 인터셉터 빈 등록 -->
 	<beans:bean id="AutoLoginInterceptor" class="com.ali.today.common.Interceptor.AutoLoginInterceptor"/>
+	<beans:bean id="LoginInterceptor" class="com.ali.today.common.Interceptor.LoginInterceptor"/>
 	
 	<!-- 인터셉터 설정 -->
-	<interceptors>
+	<interceptors>	
 		<interceptor>
 			<mapping path="/"/>   <!-- /ttubeok 제외하고 -->
 			<beans:ref bean="AutoLoginInterceptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/diary/write"/>
+			<mapping path="/diary/modify"/>  
+			<mapping path="/community/write"/>
+			<mapping path="/community/modify"/> 
+			<mapping path="/mypage/profile"/>
+			<mapping path="/mypage/modifyUser"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+		
+		
 	</interceptors>
 	
 </beans:beans>

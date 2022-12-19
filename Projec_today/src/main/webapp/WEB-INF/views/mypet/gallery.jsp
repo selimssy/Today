@@ -275,15 +275,7 @@
 	     })
         
         
-	     
-	     // 포스터 모달 여닫기
-	     $(".photoPoster").click(function(){
-	    	 $("#poster_container").css("display","block");
-	     })
-	     $(".posterClose").click(function(){
-	    	 $("#poster_container").css("display","none");
-	     })
-	     
+
 	     
 	     // 갤러리 수정,삭제 메뉴 여닫기
 	     $(document).on("click", ".gselect", function (e) {
@@ -532,12 +524,6 @@
         
         
         // 이미지 hover 이벤트  
-		/*$(".imgBox img").hover(function(){
-	        $(this).parent().parent().css("background", "#ddd");
-	    }, function(){
-	        $(this).parent().parent().css("background", "#fff");
-	    })*/
-        
 	    $(document).on({
                 mouseenter: function () {
                 	$(this).parent().css("background", "#ddd");
@@ -549,7 +535,7 @@
         
 	 	
 	 	
-        // 이미지 클릭시 상세 조회
+        /*// 이미지 클릭시 상세 조회
         $(document).on("click", ".imgBox img", function () {
         	$("#showGallery").css("display", "block");
         	
@@ -583,6 +569,25 @@
                     console.log("통신 실패"); 
                 } 
             });
+        })*/
+        
+        
+        // 이미지 클릭시 상세 조회
+        $(document).on("click", ".imgBox img", function () {
+        	$("#showGallery").css("display", "block");
+        	
+        	//초기화
+			$(".pop_content").html("");			
+			
+			let src = $(this).attr("src");            
+    		let title = $(this).parent().next().children("h3").html();
+    		let content = $(this).parent().next().children("p").html();
+		
+            $(".mdpop").css("display","block");                        
+            $(".pop_img").attr("src", src);
+            $(".pop_title").html(title);
+            $(".pop_content").html(content);                                          
+                
         })
         
         

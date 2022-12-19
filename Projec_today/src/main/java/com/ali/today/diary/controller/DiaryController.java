@@ -245,7 +245,7 @@ public class DiaryController {
 	
 	
 	
-	// 게시물 수정페이지 요청
+	// 일기 수정페이지 요청
 	@GetMapping("/modify")
 	public String modify(Integer diaryNo, PageVO paging, Model model) {
 		System.out.println(diaryNo + "번 게시물 수정 요청 : GET");
@@ -254,7 +254,7 @@ public class DiaryController {
 		return "diary/diary_modify";
 	}
 	
-	// 게시물 수정 요청
+	// 일기 수정 요청
 	@PostMapping("/modify")
 	public String modify(Integer diaryNo, DiaryVO diary, RedirectAttributes ra) { 
 		System.out.println(diaryNo + "번 게시물 수정 요청 : POST");
