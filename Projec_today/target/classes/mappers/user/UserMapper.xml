@@ -134,7 +134,10 @@
 	<!-- 반려동물 정보 수정 -->
 	<update id="modifyPet">
 		UPDATE pet SET pet_name = #{petName}, pet_species = #{petSpecies}, age = #{age}, gender = #{gender}, feature = #{feature}, 
-			image_path = #{imagePath}, instagram = #{instagram}, youtube = #{youtube}, open = #{open}
+			instagram = #{instagram}, youtube = #{youtube}, open = #{open}
+		<if test="imagePath != null">  <!-- 이미지 변경한 경우 -->
+		, image_path = #{imagePath}
+		</if>	
 		WHERE pet_id = #{petId}
 	</update>
 	

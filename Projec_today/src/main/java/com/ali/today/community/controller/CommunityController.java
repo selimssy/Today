@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -289,6 +290,8 @@ public class CommunityController {
 		PrintWriter printWriter = null;
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
+		
+		System.out.println("파일크기?? : " + file.getSize());
 		
 		if(file != null) {
 			if(file.getSize() >0 &&  StringUtils.isNotBlank(file.getName())) {

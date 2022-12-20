@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ali.today.common.ImgUpload;
 import com.ali.today.mypet.model.GalleryPageCreator;
 import com.ali.today.mypet.model.GalleryPageVO;
 import com.ali.today.mypet.model.GalleryVO;
@@ -51,7 +52,6 @@ public class MypetController {
 	
 			if(session.getAttribute("login") == null) { //로그인 안 한 경우
 				model.addAttribute("msg", "notLogin");
-
 			}else { //로그인 한 경우				
 				UserVO user = (UserVO)session.getAttribute("login");				
 				if(user.getPet() == null) {   //등록된 반려견 없는 경우
@@ -61,32 +61,11 @@ public class MypetController {
 					List<LifetimeVO> list = service.getLifetimeCardList(petId);
 					model.addAttribute("cards", list);
 					model.addAttribute("pet", uservice.selectOnePet(petId));
-				}
-				
-			}
-		
+				}			
+			}		
 	}
 	
-	/*
-	// 나의 반려동물 생애기록 전체 조회
-	@GetMapping("/lifetime")
-	public void mypet(HttpSession session, Model model) {
-		
-		try { // 반려견 등록되어 있는 경우
-			UserVO user = (UserVO)session.getAttribute("login");
-			Integer petId = user.getPet().getPetId(); 
-			System.out.println(user.getPet());
-			List<LifetimeVO> list = service.getLifetimeCardList(petId);
-			model.addAttribute("cards", list);
-			model.addAttribute("pet", uservice.selectOnePet(petId));	
-			
-		} catch (NullPointerException e) { // 등록된 반려견 없는 경우 
-			System.out.println("여기여기여기여기");
-			e.getMessage();
-			model.addAttribute("msg", "petNone");
-		}
-				
-	}*/
+	
 	
 	
 	//생애기록 추가
@@ -94,65 +73,21 @@ public class MypetController {
 	@ResponseBody
 	public String uploadCard(
 			@RequestPart(value = "petData") LifetimeVO lifetime, HttpServletRequest request,
-			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
-		
-		System.out.println(lifetime.toString());
-		
-			try { // 사진 업로드				
-				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/lifetimeCard"); //저장경로		
-				//파일 원본 이름 저장
-				String originalName = file.getOriginalFilename();     
-		        // uuid 생성 
-		        UUID uuid = UUID.randomUUID();     
-		        //savedName 변수에 uuid + 원래 이름 추가
-		        String savedName = uuid.toString() + "_" + originalName;      
-		        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-		        File target = new File(uploadPath, savedName);      
-		        //fileData의 내용을 target에 복사함
-		        FileCopyUtils.copy(file.getBytes(), target);
-		        originalName = savedName;		        
-		        lifetime.setImagePath("/resources/images/lifetimeCard/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
-			
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			}
-			
-        service.insertCard(lifetime);
-        
-		return "success";
+			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {							
+
+			if(file == null) { // 이미지 업로드 안 한 경우
+				lifetime.setImagePath("/resources/images/noticeImg/no_image.webp");  // 앞에 경로에 /today 처리는 jsp c:url태그에서
+				//lifetime.setImagePath(null); // db비용상 고민
+			}else {
+				String fileName = ImgUpload.ImgFileUpload("lifetimeCard", file, request);
+		        lifetime.setImagePath("/resources/images/lifetimeCard/" + fileName);  
+			}		
+	        service.insertCard(lifetime);        
+	        return "success";
 	}
 
 	
-	/*
-	// 생애기록 추가
-	@PostMapping("/uploadCard")
-	public String uploadCard(LifetimeVO lifetimeVO, MultipartFile file, HttpServletRequest request,
-			@RequestParam("Ldate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws Exception {
-		
-		System.out.println(lifetimeVO.toString());
-		
-		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/lifetimeCard"); //저장경로
-		
-		//파일 원본 이름 저장
-        String originalName = file.getOriginalFilename();     
-        // uuid 생성 
-        UUID uuid = UUID.randomUUID();     
-        //savedName 변수에 uuid + 원래 이름 추가
-        String savedName = uuid.toString() + "_" + originalName;      
-        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-        File target = new File(uploadPath, savedName);      
-        //fileData의 내용을 target에 복사함
-        FileCopyUtils.copy(file.getBytes(), target);
-        originalName = savedName;
-        
-        lifetimeVO.setImagePath("/resources/images/lifetimeCard/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
-        lifetimeVO.setDate(date);
-		
-        service.insertCard(lifetimeVO);
-        
-		return "redirect:/mypet/lifetime";
-	}
-	*/
+	
 	
 	
 	// 생애기록 수정 화면 요청
@@ -174,33 +109,14 @@ public class MypetController {
 	public String modifyCard(
 			@RequestPart(value = "petData") LifetimeVO lifetime, HttpServletRequest request,
 			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
-		
-			//System.out.println(lifetime.toString());
-		
-			try { // 사진 업로드				
-				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/lifetimeCard"); //저장경로		
-				//파일 원본 이름 저장
-				String originalName = file.getOriginalFilename();     
-		        // uuid 생성 
-		        UUID uuid = UUID.randomUUID();     
-		        //savedName 변수에 uuid + 원래 이름 추가
-		        String savedName = uuid.toString() + "_" + originalName;      
-		        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-		        File target = new File(uploadPath, savedName);      
-		        //fileData의 내용을 target에 복사함
-		        FileCopyUtils.copy(file.getBytes(), target);
-		        originalName = savedName;		        
-		        lifetime.setImagePath("/resources/images/lifetimeCard/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
 			
-			} catch (NullPointerException e) { // 사진 변경 안할 경우
-				String originalImage = service.getLifeCard(lifetime.getCardId()).getImagePath();
-				lifetime.setImagePath(originalImage);
-				e.getMessage();
+			if(file != null) { // 이미지 변경한 경우			
+				String fileName = ImgUpload.ImgFileUpload("lifetimeCard", file, request);
+		        lifetime.setImagePath("/resources/images/lifetimeCard/" + fileName);
 			}
 
-        service.updateCard(lifetime);
-        
-		return "success";
+			service.updateCard(lifetime);
+			return "success";
 	}
 
 	
@@ -244,64 +160,7 @@ public class MypetController {
 	
 	
 	
-	/*
-	// 내 반려동물 갤러리 조회
-	@GetMapping("/gallery")
-	public void gallery(HttpSession session, GalleryPageVO paging, Model model) {
-		
-		try { // 반려견 등록 되어있는 경우
-			UserVO user = (UserVO)session.getAttribute("login");
-			Integer petId = user.getPet().getPetId();		
-			List<GalleryVO> list = service.getGalleryList(petId, paging);
-			
-			GalleryPageCreator pc = new GalleryPageCreator();
-			pc.setPaging(paging);
-			pc.setArticleTotalCount(service.countGalleries(petId));
-			
-			model.addAttribute("pet", uservice.selectOnePet(petId));
-			model.addAttribute("galleryList", list);
-			model.addAttribute("pc", pc);
-		} catch (NullPointerException e) { // 반려견 등록 되어있지 않은 경우
-			e.getMessage();
-			model.addAttribute("msg", "petNone");
-		}
-		
-		
-	}*/
 	
-	
-	
-	
-
-	/*
-	// 갤러리 추가
-	@PostMapping("/regGallery")
-	public String regGallery(GalleryVO galleryVO, MultipartFile file, HttpServletRequest request) throws Exception {
-		
-		System.out.println(galleryVO.toString());
-		
-		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/gallery"); 
-		
-		//파일 원본 이름 저장
-        String originalName = file.getOriginalFilename();     
-        // uuid 생성 
-        UUID uuid = UUID.randomUUID();     
-        //savedName 변수에 uuid + 원래 이름 추가
-        String savedName = uuid.toString() + "_" + originalName;      
-        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-        File target = new File(uploadPath, savedName);      
-        //fileData의 내용을 target에 복사함
-        FileCopyUtils.copy(file.getBytes(), target);
-        originalName = savedName;
-        
-        galleryVO.setImagePath("/resources/images/gallery/" + originalName);  
-  
-		
-        service.register(galleryVO);
-		
-		return "redirect:/mypet/gallery";
-	}
-	*/
 	
 	//갤러리 추가
 	@PostMapping("/regGallery")
@@ -309,31 +168,17 @@ public class MypetController {
 	public String regGallery(
 			@RequestPart(value = "petData") GalleryVO gallery, HttpServletRequest request,
 			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
-		
-		System.out.println(gallery.toString());
-		
-			try { // 사진 업로드				
-				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/gallery"); //저장경로		
-				//파일 원본 이름 저장
-				String originalName = file.getOriginalFilename();     
-		        // uuid 생성 
-		        UUID uuid = UUID.randomUUID();     
-		        //savedName 변수에 uuid + 원래 이름 추가
-		        String savedName = uuid.toString() + "_" + originalName;      
-		        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-		        File target = new File(uploadPath, savedName);      
-		        //fileData의 내용을 target에 복사함
-		        FileCopyUtils.copy(file.getBytes(), target);
-		        originalName = savedName;		        
-		        gallery.setImagePath("/resources/images/gallery/" + originalName);  
 			
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			}
+			if(file == null) { // 이미지 업로드 안 한 경우
+				gallery.setImagePath("/resources/images/noticeImg/no_image.webp");  // 앞에 경로에 /today 처리는 jsp c:url태그에서
+				//gallery.setImagePath(null);
+			}else {
+				String fileName = ImgUpload.ImgFileUpload("gallery", file, request);
+				gallery.setImagePath("/resources/images/gallery/" + fileName);  
+			}	
 			
-		service.register(gallery);
-        
-		return "success";
+			service.register(gallery);       
+	        return "success";
 	}
 	
 	
@@ -358,32 +203,13 @@ public class MypetController {
 			@RequestPart(value = "petData") GalleryVO gallery, HttpServletRequest request,
 			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
 		
-			System.out.println(gallery.toString());
-		
-			try { // 사진 업로드				
-				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/gallery"); //저장경로		
-				//파일 원본 이름 저장
-				String originalName = file.getOriginalFilename();     
-		        // uuid 생성 
-		        UUID uuid = UUID.randomUUID();     
-		        //savedName 변수에 uuid + 원래 이름 추가
-		        String savedName = uuid.toString() + "_" + originalName;      
-		        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-		        File target = new File(uploadPath, savedName);      
-		        //fileData의 내용을 target에 복사함
-		        FileCopyUtils.copy(file.getBytes(), target);
-		        originalName = savedName;		        
-		        gallery.setImagePath("/resources/images/gallery/" + originalName);  // 앞에 경로에 /today 처리는 jsp c:url태그에서
-			
-			} catch (NullPointerException e) { // 사진 변경 안할 경우
-				String originalImage = service.getOneGallery(gallery.getImgId()).getImagePath();
-				gallery.setImagePath(originalImage);
-				e.getMessage();
+			if(file != null) { // 이미지 변경한 경우			
+				String fileName = ImgUpload.ImgFileUpload("gallery", file, request);
+				gallery.setImagePath("/resources/images/gallery/" + fileName);
 			}
-
-        service.modifyGallery(gallery);
-        
-		return "success";
+	
+			service.modifyGallery(gallery);
+			return "success";					
 	}
 	
 	

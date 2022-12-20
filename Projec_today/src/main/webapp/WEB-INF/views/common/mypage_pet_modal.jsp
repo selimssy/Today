@@ -181,8 +181,8 @@ input[type=file] {display: none;}
                     </tr>            
                   	<tr>
                         <td>
-                            <label><input type="radio" name="open" id='gender' value="1"> 공개</label>
-                            <label><input type="radio" name="open" id='gender' value="0"> 비공개</label>
+                            <label><input type="radio" name="open" id='open' value="1"> 공개</label>
+                            <label><input type="radio" name="open" id='open' value="0"> 비공개</label>
                         </td>
                     </tr>                
                     <tr>
@@ -337,7 +337,8 @@ input[type=file] {display: none;}
     		alert("3마리까지 등록 가능합니다.");
     		return false;
     	}
-    	$("#petRg_modal").css("display","block");      
+    	$("#petRg_modal").css("display","block"); 
+    	$("#imgfile1").val(""); // 이미지 업로드 초기화
         $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
         $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
         $("#petRg_modal input[type='radio']").prop("checked", false);
@@ -430,13 +431,9 @@ input[type=file] {display: none;}
     	      processData: false,               // * 중요 *
     	      enctype : 'multipart/form-data',  // * 중요 *
     	      success: function(result) { 
-                  console.log("통신 성공!: ");
-                  if(result === "success") {
-                      alert("반려동물 등록이 완료되었습니다.");                      
-                      window.location.reload();      
-                  } else {
-                      alert("반려동물 등록에 실패했습니다.");
-                  }
+                  //console.log("통신 성공!: ");                 
+                  alert("반려동물 등록이 완료되었습니다.");                      
+                  window.location.reload();                       
               }, 
               error: function() {
                   console.log("통신 실패!");

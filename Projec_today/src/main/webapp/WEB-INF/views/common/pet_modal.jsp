@@ -199,8 +199,8 @@ input[type=file] {display: none;}
                     </tr>            
                   	<tr>
                         <td>
-                            <label><input type="radio" id='gender' name="open" value="1"> 공개</label>
-                            <label><input type="radio" id='gender' name="open" value="0"> 비공개</label>
+                            <label><input type="radio" id='open' name="open" value="1"> 공개</label>
+                            <label><input type="radio" id='open' name="open" value="0"> 비공개</label>
                         </td>
                     </tr>                
                     <tr>
@@ -356,7 +356,8 @@ input[type=file] {display: none;}
 	    		return false;
 	    	}
 	    	
-	    	$("#petRg_modal").css("display","block");      
+	    	$("#petRg_modal").css("display","block");  
+	    	$("#imgfile1").val(""); // 이미지 업로드 초기화
 	        $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
 	        $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
 	        $("#petRg_modal input[type='radio']").prop("checked", false);

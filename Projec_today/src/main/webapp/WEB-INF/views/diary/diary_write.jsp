@@ -56,7 +56,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 				
 	        <div class="writenav">
 				<input type="submit" value="등록">
-				<button id="writeCancle" onclick="location.href='<c:url value='/diary/list' />'">취소</button>
+				<button type="button" id="writeCancle" onclick="location.href='<c:url value='/diary/list' />'">취소</button>
 
 			</div>
 	          

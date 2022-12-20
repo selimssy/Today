@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ali.today.common.ImgUpload;
 import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.service.IUserService;
@@ -37,32 +38,19 @@ public class UserPetController {
 	public String registerPet(
 			@RequestPart(value="petData") PetVO pet, HttpServletRequest request,
 			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
-		
-		// 사진 등록했을 경우
-		try {
-			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/petRegister"); //저장경로
 			
-			//파일 원본 이름 저장
-	        String originalName = file.getOriginalFilename();     
-	        // uuid 생성 
-	        UUID uuid = UUID.randomUUID();     
-	        //savedName 변수에 uuid + 원래 이름 추가
-	        String savedName = uuid.toString() + "_" + originalName;      
-	        //uploadPath경로의 savedName 파일에 대한 file 객체 생성
-	        File target = new File(uploadPath, savedName);      
-	        //fileData의 내용을 target에 복사함
-	        FileCopyUtils.copy(file.getBytes(), target);
-	        originalName = savedName;
-	        pet.setImagePath("/resources/images/petRegister/" + originalName);
-		} catch (Exception e) {
-			pet.setImagePath("/resources/images/noticeImg/infoPhoto.png");
-		}
-		
-		
-        service.registerPet(pet);
-        Integer petId = service.recentPet(pet.getUserId());
-        
-		return Integer.toString(petId);
+			if(file == null) { // 이미지 업로드 안 한 경우
+				pet.setImagePath("/resources/images/noticeImg/infoPhoto.png");  // 앞에 경로에 /today 처리는 jsp c:url태그에서
+				//pet.setImagePath(null); // db비용상 고민
+			}else {
+				String fileName = ImgUpload.ImgFileUpload("petRegister", file, request);
+				pet.setImagePath("/resources/images/petRegister/" + fileName);  
+			}		
+			
+			service.registerPet(pet);
+	        Integer petId = service.recentPet(pet.getUserId());
+	        
+			return Integer.toString(petId);
 	}
 	
 	
@@ -83,30 +71,12 @@ public class UserPetController {
 			@RequestPart(value="petData") PetVO pet, HttpServletRequest request,
 			@RequestPart(value = "petImg",required = false) MultipartFile file) throws Exception {
 			
-			System.out.println(pet.toString());
-		
-			HttpSession session = request.getSession();
-		
-		try {
-			// 사진 변경했을 경우
-			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/petRegister"); //저장경로			
-	        String originalName = file.getOriginalFilename();     	        
-	        UUID uuid = UUID.randomUUID();     	     
-	        String savedName = uuid.toString() + "_" + originalName;           
-	        File target = new File(uploadPath, savedName);          
-	        FileCopyUtils.copy(file.getBytes(), target);
-	        originalName = savedName;        
-	        pet.setImagePath("/resources/images/petRegister/" + originalName);
-		} catch (NullPointerException e) {
-			// 사진 변경 안했을 경우
-			Integer petId = pet.getPetId();
-			String originalImage = service.selectOnePet(petId).getImagePath();
-			pet.setImagePath(originalImage);			
-		}
-		
-        service.modifyPet(pet);
-        
-		return "success";
+			if(file != null) { // 이미지 변경한 경우			
+				String fileName = ImgUpload.ImgFileUpload("petRegister", file, request);
+				pet.setImagePath("/resources/images/petRegister/" + fileName);
+			}	
+			service.modifyPet(pet);	        
+			return "success";		
 	}
 	
 	

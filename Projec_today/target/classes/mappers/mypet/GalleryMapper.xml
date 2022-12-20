@@ -43,7 +43,10 @@
 	
 	<update id="modifyGallery">
 		UPDATE gallery
-		SET title = #{title}, content = #{content}, image_path = #{imagePath}
+		SET title = #{title}, content = #{content}
+		<if test="imagePath != null">  <!-- 이미지 변경한 경우 -->
+		, image_path = #{imagePath}
+		</if>
 		WHERE img_id = #{imgId}
 	</update>
 	

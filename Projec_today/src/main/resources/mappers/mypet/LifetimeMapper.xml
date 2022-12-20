@@ -44,7 +44,10 @@
 	<!-- 생애기록 카드 수정 -->
 	<update id="updateCard">
 		UPDATE lifetime_card
-		SET date = #{date}, content = #{content}, image_path = #{imagePath}
+		SET date = #{date}, content = #{content}
+		<if test="imagePath != null">  <!-- 이미지 변경한 경우 -->
+		, image_path = #{imagePath}
+		</if>
 		WHERE card_id = #{cardId}
 	</update>
 	

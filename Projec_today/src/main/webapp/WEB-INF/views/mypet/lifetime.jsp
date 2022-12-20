@@ -40,7 +40,9 @@
     	.lifetimeCard img{width:200px; height:200px;  object-fit: cover; border-radius: 7px;}
     	.cardInfo{width:350px; height: 200px; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
     	.cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
-    	.InfoText{background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; /*overflow: hidden; text-overflow : ellipsis; white-space: nowrap;*/}
+    	.InfoText{width:255px; height:122px; background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow-y:auto; /*overflow: hidden; text-overflow : ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;*/}
+    	.InfoText::-webkit-scrollbar {display: none; /* 스크롤바 숨기기: Chrome, Safari, Opera*/}
+    	.InfoText{-ms-overflow-style: none; /* IE and Edge */scrollbar-width: none; /* Firefox */}
     	.modifyCard{display:none; /*width: 550px; height: 320px;*/ background:#fff; border: 3.5px solid #777; /*border-radius: 15px; padding: 15px; */
     	/*position: relative; display: flex; justify-content: space-evenly; margin: 50px auto; box-sizing: border-box;*/ 
     	position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;}
@@ -103,7 +105,7 @@
 		                <input type="date" id="date" name="Ldate" required>
 		                <div class="InfoList">
 		                    <textarea name="content" id="lifetimeCont" required placeholder="특별한 순간의 설명을 적어주세요."></textarea>
-		                    <div class="count"><span>0</span>/150</div>
+		                    <div class="count"><span>0</span>/60</div>
 		                </div>  
 		            </div>		    	       
 	        	</div>
@@ -231,11 +233,27 @@
 	    const previews = document.querySelectorAll('.image-box');
 
 	    fileDOM.addEventListener('change', () => {
-	      const reader = new FileReader();
-	      reader.onload = ({ target }) => {
-	        previews[0].src = target.result;
-	      };
-	      reader.readAsDataURL(fileDOM.files[0]);
+	    	// 이미지 확장자 체크
+	    	let ext = $("#file").val().split(".").pop().toLowerCase();		    
+	    	if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+	    		alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+	    		fileDOM.value = ""; // 이미지 업로드 초기화
+	    		previews[0].src = "<c:url value='/img/common/no_image.webp'/>";
+	    		return false;
+	    	}	    	
+	    	// 이미지 용량 체크
+     		if(fileDOM.files[0].size > 10485760){ // 10MB 초과
+    	        alert("최대 10MB까지 업로드 가능합니다.");
+    	        fileDOM.value = ""; // 이미지 업로드 초기화
+    	        previews[0].src = "<c:url value='/img/common/no_image.webp'/>";
+    	        return false; 
+    	   }
+        	
+	       const reader = new FileReader();
+	       reader.onload = ({ target }) => {
+	          previews[0].src = target.result;
+	       };
+	       reader.readAsDataURL(fileDOM.files[0]);
 	    });
 		
 	    
@@ -244,8 +262,24 @@
 	    const MdPreviews = document.querySelector('#mdImage-box');
 
 	    fileDOM2.addEventListener('change', () => {
-    	  const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
-    	  MdPreviews.src = imageSrc;
+	    	// 이미지 확장자 체크
+	    	let ext = $("#modifyFile").val().split(".").pop().toLowerCase();		    
+	    	if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+	    		alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+	    		fileDOM2.value = ""; // 이미지 업로드 초기화
+	    		MdPreviews.src = "<c:url value='/img/common/no_image.webp'/>";
+	    		return false;
+	    	}	    	
+	    	// 이미지 용량 체크
+     		if(fileDOM2.files[0].size > 10485760){ // 10MB 초과
+    	        alert("최대 10MB까지 업로드 가능합니다.");
+    	        fileDOM2.value = ""; // 이미지 업로드 초기화
+    	        MdPreviews.src = "<c:url value='/img/common/no_image.webp'/>";
+    	        return false; 
+    	   }	    	
+	    	
+    	    const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
+    	    MdPreviews.src = imageSrc;
     	});
 	    
 	    
@@ -267,16 +301,17 @@
 		$('.InfoList textarea').keyup(function(){
 	        var content = $(this).val();
 	        $('.InfoList .count span').html(content.length);
-	        if (content.length > 150){
-	           alert("최대 150자까지 입력 가능합니다.");
-	           $(this).val(content.substring(0, 150));
-	           $('.InfoList .count span').html(150);
+	        if (content.length > 60){
+	           alert("최대 60자까지 입력 가능합니다.");
+	           $(this).val(content.substring(0, 60));
+	           $('.InfoList .count span').html(60);
 	        }
 	    });
         
      	
 	    // 생애기록 카드 추가     
         $("#uploadCardBtn").click(function(){
+        	
             //formData 객체 생성
             let formData = new FormData();
         	formData.append("petImg", $("input[name=file]")[0].files[0]);
