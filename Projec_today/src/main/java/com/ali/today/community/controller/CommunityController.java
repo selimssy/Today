@@ -291,7 +291,7 @@ public class CommunityController {
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
 		
-		System.out.println("파일크기?? : " + file.getSize());
+		System.out.println("파일크기?? : " + file.getSize());  // 파일크기 getsize()!! 
 		
 		if(file != null) {
 			if(file.getSize() >0 &&  StringUtils.isNotBlank(file.getName())) {
