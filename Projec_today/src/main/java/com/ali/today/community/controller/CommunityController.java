@@ -262,7 +262,7 @@ public class CommunityController {
 		return "redirect:/community/content/" + article.getBoardNo();
 	}
 	
-	 
+	  
 	
 	
 	
