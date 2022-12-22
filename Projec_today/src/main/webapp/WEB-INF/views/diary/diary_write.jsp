@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style type="text/css">
 .container{width:1000px; margin: 0 auto}
 .titleBox{width:100%; height:40px; border:1px solid #d1d1d1; margin-bottom: 10px}
@@ -34,7 +35,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
     <div class="boardBox">    	
         <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>다이어리 등록</h2>	
 	
-        <form role="form" action="<c:url value='/diary/write' />" method="post">
+        <form role="form" action="<c:url value='/diary/write' />" method="post" id="form">
 	          <input type="hidden" name='writer' value="${login.userId}">        
 	          <div class="titleBox">
 	              <input type="text" name='title' placeholder="제목을 입력하세요." required="required">
@@ -55,7 +56,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		  
 				
 	        <div class="writenav">
-				<input type="submit" value="등록">
+				<button type="button" id="regBtn">등록</button>
 				<button type="button" id="writeCancle" onclick="location.href='<c:url value='/diary/list' />'">취소</button>
 
 			</div>
@@ -66,6 +67,29 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 </div>	
 	
 </body>
+
+<script type="text/javascript">
+
+	//게시판 제목 글자수 초과 알림
+	$('input[name="title"]').keyup(function(){
+		console.log(111);
+		let content = $(this).val();      
+	    if (content.length > 80){
+	      alert("최대 80자까지 입력 가능합니다.");
+	      $(this).val(content.substring(0, 80));
+	    }
+	});
+	
+	
+	// 게시글 등록 버튼 이벤트
+	$("#regBtn").click(function(){
+		if(CKEDITOR.instances.ckeditor1.getData().length > 10000){ // content 10000바이트 초과
+			alert("본문 최대 용량(10,000byte)를 초과하였습니다.");
+			return false;
+		} 
+		$("#form").submit();
+	})
+</script>
 
 
 </html>

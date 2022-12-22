@@ -297,7 +297,7 @@
 	    }); 
 	     
 	     
-	     
+/*	     
 	     // 파일업로드(추가(중복))
 	    const fileDOM = document.querySelector('#file');
 	    const previews = document.querySelectorAll('.image-box');
@@ -309,9 +309,7 @@
 	      };
 	      reader.readAsDataURL(fileDOM.files[0]);
 	    });
-		
-	    
-	    
+			    	    
 	    // 파일업로드(수정(중복))
 	    const fileDOM2 = document.querySelector('#modifyFile');
 	    const MdPreviews = document.querySelector('#mdImage-box');
@@ -320,7 +318,64 @@
     	  const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
     	  MdPreviews.src = imageSrc;
     	});
-	    
+*/
+
+
+		// 파일업로드(추가)
+		const fileDOM = document.querySelector('#file');
+		const previews = document.querySelectorAll('.image-box');
+		
+		fileDOM.addEventListener('change', () => {
+			// 이미지 확장자 체크
+			let ext = $("#file").val().split(".").pop().toLowerCase();		    
+			if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+				alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+				fileDOM.value = ""; // 이미지 업로드 초기화
+				previews[0].src = "<c:url value='/img/common/no_image.webp'/>";
+				return false;
+			}	    	
+			// 이미지 용량 체크
+				if(fileDOM.files[0].size > 10485760){ // 10MB 초과
+		        alert("최대 10MB까지 업로드 가능합니다.");
+		        fileDOM.value = ""; // 이미지 업로드 초기화
+		        previews[0].src = "<c:url value='/img/common/no_image.webp'/>";
+		        return false; 
+		   }
+			
+		   const reader = new FileReader();
+		   reader.onload = ({ target }) => {
+		      previews[0].src = target.result;
+		   };
+		   reader.readAsDataURL(fileDOM.files[0]);
+		});
+		
+		
+		// 파일업로드(수정)
+		const fileDOM2 = document.querySelector('#modifyFile');
+		const MdPreviews = document.querySelector('#mdImage-box');
+		
+		fileDOM2.addEventListener('change', () => {
+			// 이미지 확장자 체크
+			let ext = $("#modifyFile").val().split(".").pop().toLowerCase();		    
+			if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+				alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+				fileDOM2.value = ""; // 이미지 업로드 초기화
+				MdPreviews.src = "<c:url value='/img/common/no_image.webp'/>";
+				return false;
+			}	    	
+			// 이미지 용량 체크
+				if(fileDOM2.files[0].size > 10485760){ // 10MB 초과
+		        alert("최대 10MB까지 업로드 가능합니다.");
+		        fileDOM2.value = ""; // 이미지 업로드 초기화
+		        MdPreviews.src = "<c:url value='/img/common/no_image.webp'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
+		        return false; 
+		   }	    	
+			
+		    const imageSrc = URL.createObjectURL(fileDOM2.files[0]);
+		    MdPreviews.src = imageSrc;
+		});
+
+
 		
 	    
 	    

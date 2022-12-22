@@ -297,7 +297,7 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <td><input type="text" id="schedule_title" class="modal_input" placeholder="일정 제목(최대 20자)"/></td>
+	                <td><input type="text" id="schedule_title" class="modal_input" placeholder="일정 제목(최대 25자)"/></td>
 	            </tr>
 	            <tr>
 	                <td class="mlabel">
@@ -307,7 +307,7 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <td><textarea id="schedule_desc" class="modal_textarea" rows="2" maxlength='250'></textarea></td>
+	                <td><textarea id="schedule_desc" class="modal_textarea" rows="2" maxlength='100'></textarea></td>
 	            </tr>
 	            
 	            <tr>
@@ -519,17 +519,33 @@
 	
 	// 일정제목 글자수 제한 알림
 	$('#schedule_title').keyup(function(){
-        var content = $(this).val();      
+		let content = $(this).val();      
         if (content.length > 25){
           alert("최대 25자까지 입력 가능합니다.");
           $(this).val(content.substring(0, 25));
         }
       });
 	$('#MplanTitle').keyup(function(){
-        var content = $(this).val();      
+		let content = $(this).val();      
         if (content.length > 25){
           alert("최대 25자까지 입력 가능합니다.");
           $(this).val(content.substring(0, 25));
+        }
+      });
+	
+	// 일정 메모 글자수 제한 알림
+	$('#schedule_desc').keyup(function(){
+        let content = $(this).val();      
+        if (content.length > 100){
+          alert("최대 100자까지 입력 가능합니다.");
+          $(this).val(content.substring(0, 100));
+        }
+      });
+	$('#MplanDesc').keyup(function(){
+		let content = $(this).val();      
+        if (content.length > 100){
+          alert("최대 100자까지 입력 가능합니다.");
+          $(this).val(content.substring(0, 100));
         }
       });
 	

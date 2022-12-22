@@ -183,6 +183,7 @@
             <input type="date" id="modifydate" name="Ldate" value="" required>
             <div class="InfoList">
                 <textarea name="content" id="modifyCont" required></textarea>
+                <div class="count"><span>0</span>/60</div>
             </div>
         </div>
     </div> 
@@ -413,7 +414,7 @@
                         $("#mdImage-box").attr("src", imagePath);
                         $("#modifydate").attr("value", date);
                         $("#modifyCont").val(content);
-                        
+                        $('.modifyCard .InfoList .count span').html($(".modifyCard textarea").val().length); // 글자수
                     
                 }, 
                 error: function() {

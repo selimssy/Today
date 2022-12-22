@@ -16,14 +16,14 @@
 .titleBox{width:100%; height:40px; border:1px solid #d1d1d1; margin-bottom: 10px}
 .titleBox input{border:none; width:100%; height:40px; background: transparent; padding-left: 15px}
 .titleBox input:focus{outline: none;}
-.boardBox{width: 700px; margin: 0 auto}
+.boardBox{width: 700px; margin: 0 auto;}
 .boardBox .boardwt{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-right: 15px}
 /*.boardBox p{font-size: 16px}안멱힌다ㅠ*/
 .boardBox h2{padding-bottom: 20px; font-size: 28px}
 #tagbox{padding-left: 20px}
 .tagbox{padding-left: 20px}
 .tagbox button{border: none; background: none; color: #ccc; font-size: 19px; cursor: pointer;}
-#tag_container{width:100%; height:50px; border:1px solid #d1d1d1; border-top: none}
+#tag_container{width:100%; height:50px; border:1px solid #d1d1d1; border-top: none; overflow:auto;}
 #tag_input{border: none; height: 50px; background: transparent;}
 #tag_input:focus{outline: none;}
 input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; margin-right: 15px}
@@ -40,7 +40,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 
     <div class="boardBox">    	
         <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>게시글 등록</h2>
-        <form action="<c:url value='/community/write'/>" method="post" name="writeForm">
+        <form action="<c:url value='/community/write'/>" method="post" name="writeForm" id="form">
             <input type="hidden" name='writer' value="${login.userId}" >
             <div class="titleBox">
             	<input type="text" name='title' placeholder="제목을 입력하세요." required="required">
@@ -69,7 +69,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    
 		    
 			<div class="writenav">
-				<input type="submit" value="등록">
+				<button type="button" id="regBtn">등록</button>
 				<button type="button" onclick="location.href='<c:url value='/community/list' />'">취소</button>
 			</div>
 			
@@ -107,10 +107,8 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
             temp_html = "<span class='tagbox'><span>#</span>" + $("#tag_input").val() + "<span><button class='del_tag'>x</button></span><input type='hidden' name='hashList' value='" + $("#tag_input").val() + "'></span>"; 
             //temp_html = 333;
             if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
-            	console.log("엔터..");
                 $('#tagbox').before(temp_html);
                 $("#tag_input").val("");  // 입력창 비워져있도록
-                console.log("엔터..");
             }          
         })
 
@@ -130,6 +128,30 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
         
 
     })
+    
+    
+    
+    // 게시판 제목 글자수 초과 알림
+	$('input[name="title"]').keyup(function(){
+		let content = $(this).val();      
+        if (content.length > 80){
+          alert("최대 80자까지 입력 가능합니다.");
+          $(this).val(content.substring(0, 80));
+        }
+    });
+    
+    
+    // 게시글 등록 버튼 이벤트
+    $("#regBtn").click(function(){
+    	if(CKEDITOR.instances.ckeditor1.getData().length > 10000){ // content 10000바이트 초과
+    		alert("본문 최대 용량(10,000byte)를 초과하였습니다.");
+    		return false;
+    	} 
+    	$("#form").submit();
+    })
+    
+
+    
 
 </script>
 

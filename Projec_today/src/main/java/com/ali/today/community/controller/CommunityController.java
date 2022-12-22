@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +47,7 @@ import com.ali.today.mypet.service.IMypetService;
 import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.service.IUserService;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 
@@ -286,7 +288,7 @@ public class CommunityController {
 	@ResponseBody
 	@PostMapping("/fileupload")
     public void communityImageUpload(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile) throws Exception{
-		JsonObject jsonObject = new JsonObject();
+		JsonObject json = new JsonObject();
 		PrintWriter printWriter = null;
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
@@ -296,45 +298,72 @@ public class CommunityController {
 		if(file != null) {
 			if(file.getSize() >0 &&  StringUtils.isNotBlank(file.getName())) {
 				if(file.getContentType().toLowerCase().startsWith("image/")) {
-				    try{
-				    	 
-			            String fileName = file.getOriginalFilename();
-			            byte[] bytes = file.getBytes();
-			           
-			            String uploadPath = req.getSession().getServletContext().getRealPath("/resources/images/board"); //저장경로
-			            System.out.println("uploadPath:"+uploadPath);
-
-			            File uploadFile = new File(uploadPath);
-			            if(!uploadFile.exists()) {
-			            	uploadFile.mkdir();
-			            }
-			            String fileName2 = UUID.randomUUID().toString();
-			            uploadPath = uploadPath + "/" + fileName2 +fileName;
-			            
-			            out = new FileOutputStream(new File(uploadPath)); 
-			            out.write(bytes);
-			            
-			            printWriter = resp.getWriter();
-			            //String fileUrl = req.getContextPath() + "/resources/images/petDiary/" +fileName2 +fileName; // ContextPath 포함 url경로
-			            String fileUrl = req.getContextPath() + "/resources/images/board/" +fileName2 +fileName; //url경로
-			            System.out.println("fileUrl :" + fileUrl);
-			            JsonObject json = new JsonObject();
-			            json.addProperty("uploaded", 1);
-			            json.addProperty("fileName", fileName);
-			            json.addProperty("url", fileUrl);
-			            printWriter.print(json);
+					if(file.getSize() > 10485760) {
+						
+						json.addProperty("uploaded", 0);
+						JsonObject json2 = new JsonObject();
+			            json2.addProperty("message", "최대 10MB까지 업로드 가능합니다.");				    	
+			    		json.add("error", json2);
+			    		printWriter = resp.getWriter();
+			    		printWriter.print(json);
 			            System.out.println(json);
-			 
-			        }catch(IOException e){
-			            e.printStackTrace();
-			        } finally {
-			            if (out != null) {
-		                    out.close();
-		                }
-		                if (printWriter != null) {
+			            if (printWriter != null) {
 		                    printWriter.close();
 		                }
-			        }
+			            
+					}else {
+						try{
+					    	 
+				            String fileName = file.getOriginalFilename();
+				            byte[] bytes = file.getBytes();
+				           
+				            String uploadPath = req.getSession().getServletContext().getRealPath("/resources/images/board"); //저장경로
+				            System.out.println("uploadPath:"+uploadPath);
+
+				            File uploadFile = new File(uploadPath);
+				            if(!uploadFile.exists()) {
+				            	uploadFile.mkdir();
+				            }
+				            String fileName2 = UUID.randomUUID().toString();
+				            uploadPath = uploadPath + "/" + fileName2 +fileName;
+				            
+				            out = new FileOutputStream(new File(uploadPath)); 
+				            out.write(bytes);
+				            
+				            printWriter = resp.getWriter();
+				            //String fileUrl = req.getContextPath() + "/resources/images/petDiary/" +fileName2 +fileName; // ContextPath 포함 url경로
+				            String fileUrl = req.getContextPath() + "/resources/images/board/" +fileName2 +fileName; //url경로
+				            System.out.println("fileUrl :" + fileUrl);
+				            //JsonObject json = new JsonObject();
+				            json.addProperty("uploaded", 1);
+				            json.addProperty("fileName", fileName);
+				            json.addProperty("url", fileUrl);
+				            printWriter.print(json);
+				            System.out.println(json);
+				 
+				        }catch(IOException e){
+				            e.printStackTrace();
+				        } finally {
+				            if (out != null) {
+			                    out.close();
+			                }
+			                if (printWriter != null) {
+			                    printWriter.close();
+			                }
+				        }
+					}
+				    
+				}else { // 이미지파일 외 파일 업로드한 경우
+					json.addProperty("uploaded", 0);
+					JsonObject json2 = new JsonObject();
+		            json2.addProperty("message", "이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");				    	
+		    		json.add("error", json2);
+		    		printWriter = resp.getWriter();
+		    		printWriter.print(json);
+		            System.out.println(json);
+		            if (printWriter != null) {
+	                    printWriter.close();
+	                }
 				}
 			
 		}

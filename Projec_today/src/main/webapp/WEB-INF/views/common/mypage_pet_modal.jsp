@@ -630,11 +630,27 @@ input[type=file] {display: none;}
 	    const previews_modal1 = document.querySelector('#image-box-modal1');
 
 	    fileDOM_modal1.addEventListener('change', () => {
-	      const reader = new FileReader();
-	      reader.onload = ({ target }) => {
-	    	  previews_modal1.src = target.result;
-	      };
-	      reader.readAsDataURL(fileDOM_modal1.files[0]);
+	    	// 이미지 확장자 체크
+			let ext = $("#imgfile1").val().split(".").pop().toLowerCase();		    
+			if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+				alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+				fileDOM_modal1.value = ""; // 이미지 업로드 초기화
+				previews_modal1.src = "<c:url value='/img/common/no_image.webp'/>";
+				return false;
+			}	    	
+			// 이미지 용량 체크
+				if(fileDOM_modal1.files[0].size > 10485760){ // 10MB 초과
+		        alert("최대 10MB까지 업로드 가능합니다.");
+		        fileDOM_modal1.value = ""; // 이미지 업로드 초기화
+		        previews_modal1.src = "<c:url value='/img/common/no_image.webp'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
+		        return false; 
+		   }	    	
+	    	
+	       const reader = new FileReader();
+	       reader.onload = ({ target }) => {
+	    	   previews_modal1.src = target.result;
+	       };
+	       reader.readAsDataURL(fileDOM_modal1.files[0]);
 	    });
 		
 	    
@@ -643,8 +659,24 @@ input[type=file] {display: none;}
 	    const MdPreviews_modal2 = document.querySelector('#image-box-modal2');
 
 	    fileDOM2_modal2.addEventListener('change', () => {
-    	  const imageSrc = URL.createObjectURL(fileDOM2_modal2.files[0]);
-    	  MdPreviews_modal2.src = imageSrc;
+	    	// 이미지 확장자 체크
+			let ext = $("#imgfile2").val().split(".").pop().toLowerCase();		    
+			if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+				alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+				fileDOM2_modal2.value = ""; // 이미지 업로드 초기화
+				MdPreviews_modal2.src = "<c:url value='/img/common/no_image.webp'/>";
+				return false;
+			}	    	
+			// 이미지 용량 체크
+				if(fileDOM2_modal2.files[0].size > 10485760){ // 10MB 초과
+		        alert("최대 10MB까지 업로드 가능합니다.");
+		        fileDOM2_modal2.value = ""; // 이미지 업로드 초기화
+		        MdPreviews_modal2.src = "<c:url value='/img/common/no_image.webp'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
+		        return false; 
+		   }	    
+	    	
+    	   const imageSrc = URL.createObjectURL(fileDOM2_modal2.files[0]);
+    	   MdPreviews_modal2.src = imageSrc;
     	});
 
     
