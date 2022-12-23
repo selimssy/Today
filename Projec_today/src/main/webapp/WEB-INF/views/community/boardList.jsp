@@ -196,14 +196,19 @@
 		} else if(result === "delSuccess"){
 			alert("게시물이 삭제되었습니다.")
 		}
-		
-		
-	
+				
 		
 		//수정 불가페이지 접근 알림창
 		let msg = "${msg}"
 		if(msg === "noAuthority"){
 			alert("권한이 없습니다.")
+		}
+		
+		
+		// 존재하지 않는 게시물 접근 알림창
+		let noAccess = "${noAccess}"
+		if(noAccess === "null"){
+			alert("삭제되었거나 존재하지 않는 게시물입니다.");
 		}
 		
 		

@@ -232,10 +232,12 @@
 		
 	
 		
-		// 비공개 반려동물 접근 알림창
-		let closed = "${closed}"
-		if(closed === "closed"){
-			alert("비공개 반려동물입니다.")
+		// 비공개, 존재하지 않는 반려견 접근 알림창
+		let noAccess = "${noAccess}"
+		if(noAccess === "closed"){
+			alert("비공개 반려견입니다.");
+		}else if(noAccess === "null"){
+			alert("삭제되었거나 존재하지 않는 반려견입니다.");
 		}
 		
 	

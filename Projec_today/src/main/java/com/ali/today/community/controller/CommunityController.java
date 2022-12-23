@@ -117,8 +117,11 @@ public class CommunityController {
 	public String otherPet(@PathVariable Integer petId, GalleryPageVO paging, Model model, RedirectAttributes ra) {
 		
 		PetVO pet = userService.selectOnePet(petId);
-		if(pet.getOpen() == 0) {  // 비공개 반려동물 접근 방지
-			ra.addFlashAttribute("closed", "closed");
+		if(pet == null) { // 존재하지 않는 petId 조회 요청한 경우
+			ra.addFlashAttribute("noAccess", "null");
+			return "redirect:/community/intro";
+		}else if(pet.getOpen() == 0) {  // 비공개 반려동물 접근 방지
+			ra.addFlashAttribute("noAccess", "closed");
 			return "redirect:/community/intro";
 		}else {
 			List<LifetimeVO> cardList = mypetService.getLifetimeCardList(petId);
@@ -215,19 +218,25 @@ public class CommunityController {
 	
 	// 게시물 상세보기 요청
 	@GetMapping("/content/{boardNo}")
-	public String content(@PathVariable Integer boardNo, SearchVO search, Model model) {
+	public String content(@PathVariable Integer boardNo, SearchVO search, Model model, RedirectAttributes ra) {
 		
-		System.out.println(boardNo + "번 게시물 조회 요청");
+		//System.out.println(boardNo + "번 게시물 조회 요청");
 		BoardVO article = boardService.getArticle(boardNo);
-		model.addAttribute("article", article);
-		model.addAttribute("hashtagList", article.getHashtagList()); //해시태그 리스트
-		model.addAttribute("p", search); 
-			
-		// 댓글관련 작업
-		List<ReplyVO> replyList = boardService.getReplyList(boardNo, 1);
-		model.addAttribute("replyList", replyList);
+		if(article == null) { // 존재하지 않는 boardNo 요청한 경우
+			ra.addFlashAttribute("noAccess", "null");
+			return "redirect:/community/list";
+		}else {
+			model.addAttribute("article", article);
+			model.addAttribute("hashtagList", article.getHashtagList()); //해시태그 리스트
+			model.addAttribute("p", search); 
 				
-		return "community/boardContent";
+			// 댓글관련 작업
+			List<ReplyVO> replyList = boardService.getReplyList(boardNo, 1);
+			model.addAttribute("replyList", replyList);
+					
+			return "community/boardContent";
+		}
+		
 	}
 	
 	
