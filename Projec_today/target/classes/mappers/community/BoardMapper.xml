@@ -134,7 +134,6 @@
 	<select id="getReplyList" resultMap="ReplyMap">
 		SELECT * FROM reply
 		WHERE board_no = #{boardNo}
-		ORDER BY reply_no DESC
 		LIMIT #{pageStart}, 10
 	</select>
 	
@@ -171,5 +170,13 @@
 		DELETE FROM reply
 		WHERE board_no = #{boardNo}
 	</delete>
+	
+	
+	<!-- 해당 게시물 댓글 수 -->
+	<select id="countReplies" resultType="int">
+		SELECT COUNT(*)
+		FROM reply
+		WHERE board_no = #{boardNo}
+	</select>
 	
 </mapper>

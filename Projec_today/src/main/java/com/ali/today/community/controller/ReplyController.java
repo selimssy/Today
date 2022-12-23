@@ -30,8 +30,9 @@ public class ReplyController {
 		System.out.println("댓글등록 요청 : POST");
 		
 		service.register(replyVO);  
+		Integer replyCnt = service.countReplies(replyVO.getBoardNo());
 		
-		return "replySuccess";
+		return replyCnt.toString();
 	}
 	
 	
@@ -60,8 +61,9 @@ public class ReplyController {
 	public String deleteReply(@RequestBody ReplyVO replyVO) {
 		
 		service.deleteReply(replyVO);
+		Integer replyCnt = service.countReplies(replyVO.getBoardNo());
 		
-		return "deleteSuccess";
+		return replyCnt.toString();
 	}
 		
 	

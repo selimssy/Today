@@ -154,5 +154,12 @@ public class BoardService implements IBoardService {
 		mapper.deleteReply(replyVO);
 		mapper.updateReplyCnt(replyVO.getBoardNo());
 	}
+	
+	
+	//특정 게시물 댓글 수
+	@Override
+	public Integer countReplies(Integer boardNo) {
+		return mapper.countReplies(boardNo);
+	}
 
 }

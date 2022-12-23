@@ -48,4 +48,7 @@ public interface IBoardService {
 	// 댓글 삭제
 	void deleteReply(ReplyVO replyVO);
 	
+	// 특정 게시물 댓글 수
+	Integer countReplies(Integer boardNo);
+	
 }

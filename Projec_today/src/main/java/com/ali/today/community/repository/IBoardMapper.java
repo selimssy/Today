@@ -34,7 +34,7 @@ public interface IBoardMapper {
 	
 		
 	
-	// 댓글 개수 조회 
+	// 댓글 개수 업데이트 
 	void updateReplyCnt(Integer boardNo);	
 	
 	
@@ -61,5 +61,8 @@ public interface IBoardMapper {
 	
 	// 특정 게시물 댓글 전체 삭제
 	void deleteAllReply(Integer boardNo);
+	
+	// 특정 게시물 댓글 수
+	Integer countReplies(Integer boardNo);
 	
 }

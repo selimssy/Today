@@ -29,8 +29,8 @@
 .boardcontent{min-height:300px; padding-bottom:15px;}
 .boardcontent p{line-height:28px;}
 .boardcontent img{margin: 10px 0; /*max-width:100%;*/}
-.hashList{width:100%; margin: 20px auto 0;  border-top:1.5px solid #d1d1d1; padding:18px 25px; box-sizing: border-box; }
-.hashList span{background: #F3F3F3; border-radius: 20px; padding: 5px 10px; margin-right: 15px;}
+.hashList{width:100%; margin: 20px auto 0;  border-top:1.5px solid #d1d1d1; padding:0 25px 15px; box-sizing: border-box; }
+.hashList span{background: #F3F3F3; border-radius: 20px; padding: 5px 10px; margin-right: 15px; margin-top: 15px; display: inline-block;}
 .hashList span:hover{background: #c3c3c3;}
 .hashList span a{text-decoration: none; color: #000;}
 .hashnull{display:none}
@@ -40,10 +40,10 @@
 .comment ul li{margin-top:25px}
 .comment p{font-size:0.9em}
 .comment .rpyW{margin-bottom:7px; background: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
-.comment span{font-size:0.9em; color:#aaa}
+.comment #replyList span{font-size:0.9em; color:#aaa}
 .comment button{width:35px; height: 20px; font-size:0.6em; padding: 2px; border-radius: 5px; border: none; cursor: pointer;}
 .replyRgBox{width:750px; height: 125px; margin-top:40px; position: relative; display:block; margin-bottom: 40px}
-.replyRgBox textarea{width:700px; height: 100px; position: absolute; top: 10px; right:0; resize: none; overflow-y:auto; font-family: "NanumSquare","맑은 고딕", sans-serif;}
+.replyRgBox textarea{width:700px; height: 100px; position: absolute; top: 10px; right:0; resize: none; overflow-y:auto; font-family: "NanumSquare","맑은 고딕", sans-serif; padding: 10px 10px 20px; box-sizing: border-box;}
 .replyRgBox button{position: absolute; bottom: -30px; right:0; width:85px; height: 30px; border:none; background: #F0F0F0; cursor: pointer;}
 .comment textarea{width:700px; height: 100px; resize: none; overflow-y:auto; font-family: 'NanumSquare','맑은 고딕', sans-serif;}
 .modifyBox{position: relative;width:700px; height:120px}
@@ -95,7 +95,7 @@
 				
 				<div class="countBox">
 					<span>조회수 <b>${article.viewCnt}</b></span>
-					<span>댓글 <b>${article.replyCnt}</b></span>
+					<span>댓글 <b class="replyCnt">${article.replyCnt}</b></span>
 				</div>
 				
 				<!-- 게시물 수정, 삭제, 목록 -->
@@ -137,7 +137,7 @@
 			
 			<!-- 댓글영역 -->
 			<div class="comment">
-				<h3>댓글[${article.replyCnt}]</h3>
+				<h3>댓글[<span class="replyCnt">${article.replyCnt}</span>]</h3>
 				<ul id="replyList">
 					<c:if test="${replyList.size() > 0}">
 						<c:forEach var="reply" items="${replyList}">
@@ -183,11 +183,16 @@
 			
 			
 			<!-- 댓글 등록 폼 -->
-			<div class="replyRgBox">			
-				<input type="hidden" name="boardNo" value="${article.boardNo}">						
-				<textarea name="content" id="replyContent" placeholder="댓글을 입력해주세요."></textarea>
-				<div class="count"><span>0</span>/500</div>
-				<button type="button" id="replyBtn">댓글 등록</button>						
+			<div class="replyRgBox">	
+				<c:if test="${login == null}" >  <!-- 로그인 안되어있을 경우 -->
+					<textarea readonly="readonly" placeholder="로그인 후 사용 가능합니다."></textarea>
+				</c:if>		
+				<c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
+					<input type="hidden" name="boardNo" value="${article.boardNo}">						
+					<textarea name="content" id="replyContent" placeholder="댓글을 입력해주세요."></textarea>
+					<div class="count"><span>0</span>/500</div>
+					<button type="button" id="replyBtn">댓글 등록</button>	
+				</c:if>					
 			</div>		
 				
 		</div>
@@ -275,18 +280,14 @@
 	    });
 		
 		
+		
 	
 		// Ajax방식 댓글등록 
 		$("#replyBtn").click(function(){
 					
-			let boardNo = ${article.boardNo};
-			console.log("글번호: " + boardNo);
-			
+			let boardNo = ${article.boardNo};			
 			let replyContent = $("#replyContent").val();
-			console.log("댓글내용: " + replyContent);
-		
 			let replyer = "${login.userId}";
-			console.log("댓글작성자: " + replyer);
 			
 			let replyVO = {
 				boardNo: boardNo,
@@ -304,12 +305,20 @@
 				dataType: "text", 
 				data: JSON.stringify(replyVO), 
 				success: function(result){
-					if(result === "replySuccess"){
-						console.log("통신 성공!")				
-						window.location.reload();
-					}else{
-						console.log("통신 실패");
-					}													
+					console.log("통신 성공!");				
+					//window.location.reload();
+					let replyCnt = result; // 총 댓글 수
+					$(".replyCnt").html(replyCnt); // 댓글 수 업데이트					
+					let page = Math.ceil(replyCnt / 10);
+					paging(page);
+					$(".pageNumBox").empty(); //페이지 초기화
+					for(let i=Math.floor(page/10)*10 +1; i<=page; i++){	
+		    			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');	            			
+		   		    }
+					let pageNum = (page%10)-1; //eq 번호
+		   			$(".page_link:eq(" + pageNum + ")").addClass("active"); // 현재 페이지 마킹
+		   			$(".count span").html(0); //댓글 글자수 초기화
+		   			
 				}, 
 				error: function() {
 					console.log("통신 실패!");
@@ -437,17 +446,23 @@
 					dataType: "text", 
 					data: JSON.stringify(replyVO), 
 					success: function(result){
-						if(result === "deleteSuccess"){
-							console.log("통신 성공!");
-							//$(".replyModify[href=" + replyNo + "]").prev().prev().parent().parent().remove();
-							//$(this).prev().prev().css("border", "3px solid red");
-							//$(this).prev().prev().prev().parent().parent().remove();
-							//alert("댓글이 삭제되었습니다.");
-							window.location.reload();
-							//paging(parseInt($(".page_link.active").text()))
-						}else{
-							console.log("통신 실패");
-						}													
+		
+						console.log("통신 성공!");
+						//$(".replyModify[href=" + replyNo + "]").prev().prev().parent().parent().remove();
+						//$(this).prev().prev().css("border", "3px solid red");
+						//$(this).prev().prev().prev().parent().parent().remove();
+						//alert("댓글이 삭제되었습니다.");
+						let replyCnt = result; // 총 댓글 수
+						$(".replyCnt").html(replyCnt); // 댓글 수 업데이트					
+						let page = Math.ceil(replyCnt / 10);
+						paging(page);
+						$(".pageNumBox").empty(); //페이지 초기화
+						for(let i=Math.floor(page/10)*10 +1; i<=page; i++){	
+			    			$(".pageNumBox").append('<li><a href="javascript:;" class="page_link">' + i + '</a></li>');	            			
+			   		    }
+						let pageNum = (page%10)-1; //eq 번호
+			   			$(".page_link:eq(" + pageNum + ")").addClass("active"); // 현재 페이지 마킹
+				   																					
 					}, 
 					error: function() {
 						console.log("통신 실패!");

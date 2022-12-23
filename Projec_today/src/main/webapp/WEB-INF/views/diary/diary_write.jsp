@@ -83,6 +83,13 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 	
 	// 게시글 등록 버튼 이벤트
 	$("#regBtn").click(function(){
+		let title = $("input[name='title']").val();
+		 if(!title || title.replace(/\s| /gi, "").length==0){ // 제목 null값이거나 공백만 입력한 경우
+			alert("제목을 입력해주세요.");
+			$("input[name='title']").focus();
+		    return false;
+		 }
+		
 		if(CKEDITOR.instances.ckeditor1.getData().length > 10000){ // content 10000바이트 초과
 			alert("본문 최대 용량(10,000byte)를 초과하였습니다.");
 			return false;
