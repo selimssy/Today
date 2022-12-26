@@ -8,8 +8,9 @@ public class ReplyVO {
 
 	private int replyNo;  // 댓글 번호
 	private int boardNo;  // 게시글 번호	
-	private String content;   // 댓글 내용 
-	private String replyer;   // 댓글 작성자
+	private String content; // 댓글 내용 
+	private String replyer; // userId
+	private String nickname; // userId(pk)로 조인 
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd HH:mm")
 	private Date replyDate;   // 댓글 작성일
@@ -40,6 +41,12 @@ public class ReplyVO {
 	}
 	public void setReplyer(String replyer) {
 		this.replyer = replyer;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public Date getReplyDate() {
 		return replyDate;

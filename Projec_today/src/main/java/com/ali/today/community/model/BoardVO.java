@@ -1,6 +1,7 @@
 package com.ali.today.community.model;
 
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,8 @@ public class BoardVO {
 	private Integer boardNo;
 	private String title;
 	private String content;
-	private String writer;
+	private String writer; //userId(pk)
+	private String nickname; // pk인 userId 통해 조인
 	private Date regDate;
 	private Integer viewCnt;
 	private int replyCnt;
@@ -56,6 +58,14 @@ public class BoardVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -104,11 +114,11 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt + ", hashtag=" + hashtag
+				+ ", nickname=" + nickname + ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt
+				+ ", hashtag=" + hashtag + ", hashList=" + Arrays.toString(hashList) + ", hashtagList=" + hashtagList
 				+ ", newMark=" + newMark + "]";
 	}
 
-	
 	
 	
 }

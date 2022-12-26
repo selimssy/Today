@@ -212,8 +212,14 @@
 			alert("다이어리가 삭제되었습니다.")
 		}
 		
+				
+		// 존재하지 않는 게시물 접근 알림창
+		let noAccess = "${noAccess}"
+		if(noAccess === "null"){
+			alert("삭제되었거나 존재하지 않는 게시물입니다.");
+		}
 		
-		
+				
 		// 로그인 여부에 따른 메뉴 숨기기
 		if("${msg}" === 'notLogin'){ // 로그인 안한 경우
 			$(".diaryBox").add($(".search")).add($(".paging")).css("display", "none");

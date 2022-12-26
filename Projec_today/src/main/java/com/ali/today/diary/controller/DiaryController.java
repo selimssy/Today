@@ -233,14 +233,18 @@ public class DiaryController {
 	
 	// 일기 상세보기 요청
 	@GetMapping("/content/{diaryNo}")
-	public String content(@PathVariable Integer diaryNo, SearchVO search, Model model) {
+	public String content(@PathVariable Integer diaryNo, SearchVO search, Model model, RedirectAttributes ra) {
 		
-		System.out.println(diaryNo + "번 게시물 조회 요청");
-		
-		model.addAttribute("diary", service.getDiary(diaryNo));
-		model.addAttribute("p", search);  	
-		
-		return "diary/diary_content";
+		//System.out.println(diaryNo + "번 게시물 조회 요청");
+		DiaryVO diary = service.getDiary(diaryNo);
+		if(diary == null) { // 존재하지 않는 diaryNo 요청한 경우
+			ra.addFlashAttribute("noAccess", "null");
+			return "redirect:/diary/list";			
+		}else {
+			model.addAttribute("diary", diary);
+			model.addAttribute("p", search);  				
+			return "diary/diary_content";
+		}		
 	}
 	
 	

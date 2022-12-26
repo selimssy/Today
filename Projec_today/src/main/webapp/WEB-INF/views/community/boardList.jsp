@@ -22,11 +22,12 @@
 .diaryTB th{background:rgba(187, 217, 150, 0.6); font-size:18px}
 .diaryTB tr{border-bottom: 1px solid #ccc;}
 .diaryTB th:nth-of-type(1){width:9%;}
-.diaryTB th:nth-of-type(2){width:52%;}
-.diaryTB th:nth-of-type(3){width:15%;}
+.diaryTB th:nth-of-type(2){width:50%;}
+.diaryTB th:nth-of-type(3){width:17%;}
 .diaryTB th:nth-of-type(4){width:15%;}
 .diaryTB th:nth-of-type(5){width:9%;}
 .diaryTB td.tableTitle{text-align: left; padding-left:50px;}
+.diaryTB td.tableWriter{text-align: left;}
 .diaryTB td.tableTitle a{text-decoration: none; /*color: #333;*/ color:#000;}
 .boardNew{background: #fff9d6; font-weight:bold ;font-size: 11px; line-height:11px; padding: 1px 5px 3px; border-radius: 8px; color:#678dab; }
 	
@@ -120,7 +121,7 @@
 									</c:if>      
 								</td>
 						
-								<td>${article.writer}</td>	
+								<td class="tableWriter">${article.nickname}</td>	
 						
 								<td>
 									<fmt:formatDate value="${article.regDate}" pattern="yyyy.MM.dd" />							

@@ -91,7 +91,7 @@
 		<div class="contentBox">
 			<div class="contentTop">
 				<h1>${article.title}</h1>
-				<p>${article.writer}<span><fmt:formatDate value="${article.regDate}" pattern="yyyy.MM.dd"/></span></p>
+				<p>${article.nickname}<span><fmt:formatDate value="${article.regDate}" pattern="yyyy.MM.dd"/></span></p>
 				
 				<div class="countBox">
 					<span>조회수 <b>${article.viewCnt}</b></span>
@@ -142,7 +142,7 @@
 					<c:if test="${replyList.size() > 0}">
 						<c:forEach var="reply" items="${replyList}">
 							<li>							
-								<p class="rpyW"><b>${reply.replyer}</b> &nbsp; &nbsp; &nbsp; &nbsp;
+								<p class="rpyW"><b>${reply.nickname}</b> &nbsp; &nbsp; &nbsp; &nbsp;
 								    <span><fmt:formatDate value="${reply.replyDate}" pattern="yyyy.MM.dd. HH:mm" /></span>
 								    <c:if test="${login.userId == reply.replyer}">
 								    	&nbsp;<button href="${reply.replyNo}" type="button" class="replyModify">수정</button>&nbsp;<button href="${reply.replyNo}" type="button" class="replyDelete">삭제</button>
