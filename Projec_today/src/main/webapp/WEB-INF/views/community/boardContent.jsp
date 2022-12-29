@@ -133,7 +133,7 @@
 				</c:if>						
 			</div>
 			  
-			
+			 
 			
 			<!-- 댓글영역 -->
 			<div class="comment">
