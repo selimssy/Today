@@ -88,7 +88,8 @@
 	        <div><button class="openUCard">+ 기록추가</button></div>
 	        <button type="button" id="petList-open" title="반려동물 변경" class="changePet2"></button>
 			
-	        	<div class="uploadCard">        			            
+	        	<div class="uploadCard">      	        	
+   					<!--   <input type="button" value="Resize Image" onclick="ResizeImage()"/>		-->	            
 		            <button id="uploadCardBtn">등록</button>
 		            <button class="closeUCard">접기</button>
 		            <div class="flex-container">       
@@ -310,13 +311,94 @@
 	    });
         
      	
+        	
+     	// 리사이징 함수
+     	function ResizeImage() {
+     		var blob;
+			var file = $("input[name=file]")[0].files[0];
+			console.log(1);
+			//img 객체 생성
+			var img = document.createElement("img");
+			
+			// 파일을 읽을 수 있는 File Reader 를 생성
+			
+			var reader = new FileReader();
+		    reader.onload = ({ target }) => {
+		    	img.src = target.result;
+		    };
+			console.log(img.width)  ; 
+			// 동기 2번째 방식으로 다시해보자
+	
+			// HTML5 canvas 객체를 생성합
+			        var canvas = document.createElement("canvas");      
+			        var ctx = canvas.getContext("2d");
+			
+			        // 캔버스에 업로드된 이미지를 그려줌
+			        ctx.drawImage(img, 0, 0);
+			
+			        // 최대폭을 넘어가는 경우 canvas 크기를 변경
+			        var MAX_WIDTH = 787;
+			        var MAX_HEIGHT = 590;
+			        var width = img.width;
+			        var height = img.height;
+			
+			        if (width > height) {
+			
+			            if (width > MAX_WIDTH) {
+			                height *= MAX_WIDTH / width;
+			                width = MAX_WIDTH;
+			            }
+			
+			        } else {
+			            if (height > MAX_HEIGHT) {
+			                width *= MAX_HEIGHT / height;
+			                height = MAX_HEIGHT;
+			            }
+			
+			        }
+			
+			        canvas.width = width;
+			        canvas.height = height;
+			
+			        // canvas에 변경된 크기의 이미지를 다시 그려줌
+			        var ctx = canvas.getContext("2d");
+			        ctx.drawImage(img, 0, 0, width, height);
+			
+			
+					// canvas에 있는 이미지를 img 태그로 넣어줌		        
+			        var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+			        const byteString = atob(dataURI.split(',')[1]);
+			        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+			        const ab = new ArrayBuffer(byteString.length);
+			        const ia = new Uint8Array(ab);
+			        for (let i = 0; i < byteString.length; i++) {
+			            ia[i] = byteString.charCodeAt(i);
+			        }
+			        blob = new Blob([ab], {
+			            type: mimeString
+			        });
+			        console.log(blob);
+			        console.log(4);
+			        return blob;
+			    
+			
+			reader.readAsDataURL(file);
+			console.log(5);
+			//console.log(blob);
+			//return blob;
+		}
+		
+     	
+     	
 	    // 생애기록 카드 추가     
         $("#uploadCardBtn").click(function(){
-        	
+        	var blob;
+        	ResizeImage();
             //formData 객체 생성
             let formData = new FormData();
-        	formData.append("petImg", $("input[name=file]")[0].files[0]);
-        	
+        	//formData.append("petImg", $("input[name=file]")[0].files[0]);
+        	formData.append("petImg", blob);
+        	console.log(blob);
         	// 넘겨줄 반려동물 데이터
         	let date = $("#date").val();
 			if(!date){ // 날짜 null값
