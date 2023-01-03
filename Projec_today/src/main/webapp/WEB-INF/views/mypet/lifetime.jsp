@@ -281,30 +281,30 @@
     	        return false; 
     	    }
      		
+	    	// 리사이징
      		var reader = new FileReader();
      		reader.onload = function (e) {
      		  //var img = new Image;
      		  img.onload = function() {
-     		    var thumbFile = getThumbFile(img); //여기서 이미지 객체 img를 활용하여 썸네일 처리를 할 수 있음
+     		    var thumbFile = getThumbFile(img); //여기서 이미지 객체 img를 활용하여 썸네일 처리
      		  };
      		  img.onerror = function() {
      		    //에러가 나는 경우 처리를 할 수 있음
      		  };
      		  img.src = reader.result;
      		};
-     		reader.readAsDataURL(fileDOM.files[0]); //파일객체를 넣어줌
+     		reader.readAsDataURL(fileDOM.files[0]); //파일객체 대입
 	    });
 	    
 	    function getThumbFile(img){
 	    	  //canvas에 이미지 객체를 리사이징해서 담는 과정
 	    	  var canvas = document.createElement("canvas");
 	    	  canvas.getContext("2d").drawImage(img, 0, 0);
-	    	  
-	    	  
-	    	  
+	    	      	  
+	    	  // 최대 크기 지정과 리사이징
 	    	  const maxSize = 400; //최대px 400px 기준
-	    	  let width = img.width; //5575px
-	    	  let height = img.height; //3923px
+	    	  let width = img.width; 
+	    	  let height = img.height; 
 	    	  if (width > height) { 
 	    	      if (width > maxSize) {
 	    	          height *= maxSize / width;
@@ -319,13 +319,6 @@
 	    	  canvas.width = width;
 	    	  canvas.height = height;
 	    	  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-	    	  
-	    	  
-	    	  
-	    	  /*
-	    	  canvas.width = 100; //리사이징하여 그릴 가로 길이
-	    	  canvas.height = 100; //리사이징하여 그릴 세로 길이
-	    	  canvas.getContext("2d").drawImage(_IMG, 0, 0, canvas.width, canvas.height);*/
 
 	    	  //canvas의 dataurl를 blob(file)화 하는 과정
 	    	  var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능

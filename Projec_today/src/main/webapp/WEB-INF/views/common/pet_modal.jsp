@@ -25,10 +25,10 @@
 .close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 /* 펫 등록 모달 */
-#petRg_modal{display: none; width:420px; height:600px; overflow-y:auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
+#petRg_modal{display: none; width:420px; height:80vh; overflow-y:auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
 			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 100}
 /* 펫 수정 모달 */
-#petMf_modal {display: none; width:420px; height:600px; overflow-y:auto;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
+#petMf_modal {display: none; width:420px; height:80vh; overflow-y:auto;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
 			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 999}
       
 /* 펫 리스트 창 */     
