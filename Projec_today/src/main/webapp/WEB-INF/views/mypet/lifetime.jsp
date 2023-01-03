@@ -229,7 +229,7 @@
 	     }
 	     
 	    
-	    
+	    /*
 		// 파일업로드(추가)
 	    const fileDOM = document.querySelector('#file');
 	    const previews = document.querySelectorAll('.image-box');
@@ -256,8 +256,93 @@
 	          previews[0].src = target.result;
 	       };
 	       reader.readAsDataURL(fileDOM.files[0]);
-	    });
+	    });*/
 		
+	    var img = new Image;
+	    // 파일업로드(추가)
+	    const fileDOM = document.querySelector('#file');
+	    const previews = document.querySelectorAll('.image-box');
+
+	    fileDOM.addEventListener('change', () => {
+	    	
+	    	// 이미지 확장자 체크
+	    	let ext = $("#file").val().split(".").pop().toLowerCase();		    
+	    	if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+	    		alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+	    		fileDOM.value = ""; // 이미지 업로드 초기화
+	    		previews[0].src = "<c:url value='/img/common/no_image.webp'/>";
+	    		return false;
+	    	}	    	
+	    	// 이미지 용량 체크
+     		if(fileDOM.files[0].size > 10485760){ // 10MB 초과
+    	        alert("최대 10MB까지 업로드 가능합니다.");
+    	        fileDOM.value = ""; // 이미지 업로드 초기화
+    	        previews[0].src = "<c:url value='/img/common/no_image.webp'/>";
+    	        return false; 
+    	    }
+     		
+     		var reader = new FileReader();
+     		reader.onload = function (e) {
+     		  //var img = new Image;
+     		  img.onload = function() {
+     		    var thumbFile = getThumbFile(img); //여기서 이미지 객체 img를 활용하여 썸네일 처리를 할 수 있음
+     		  };
+     		  img.onerror = function() {
+     		    //에러가 나는 경우 처리를 할 수 있음
+     		  };
+     		  img.src = reader.result;
+     		};
+     		reader.readAsDataURL(fileDOM.files[0]); //파일객체를 넣어줌
+	    });
+	    
+	    function getThumbFile(img){
+	    	  //canvas에 이미지 객체를 리사이징해서 담는 과정
+	    	  var canvas = document.createElement("canvas");
+	    	  canvas.getContext("2d").drawImage(img, 0, 0);
+	    	  
+	    	  
+	    	  
+	    	  const maxSize = 400; //최대px 400px 기준
+	    	  let width = img.width; //5575px
+	    	  let height = img.height; //3923px
+	    	  if (width > height) { 
+	    	      if (width > maxSize) {
+	    	          height *= maxSize / width;
+	    	          width = maxSize;
+	    	      }
+	    	  } else {
+	    	      if (height > maxSize) {
+	    	          width *= maxSize / height;
+	    	          height = maxSize;
+	    	       }
+	    	  }
+	    	  canvas.width = width;
+	    	  canvas.height = height;
+	    	  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+	    	  
+	    	  
+	    	  
+	    	  /*
+	    	  canvas.width = 100; //리사이징하여 그릴 가로 길이
+	    	  canvas.height = 100; //리사이징하여 그릴 세로 길이
+	    	  canvas.getContext("2d").drawImage(_IMG, 0, 0, canvas.width, canvas.height);*/
+
+	    	  //canvas의 dataurl를 blob(file)화 하는 과정
+	    	  var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+	    	  var byteString = atob(dataURI.split(',')[1]);
+	    	  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+	    	  var ab = new ArrayBuffer(byteString.length);
+	    	  var ia = new Uint8Array(ab);
+	    	  for (var i = 0; i < byteString.length; i++) {
+	    	    ia[i] = byteString.charCodeAt(i);
+	    	  }
+	    	  previews[0].src = dataURI;
+	    	  //리사이징된 file 객체
+	    	  var tmpThumbFile = new Blob([ab], {type: mimeString});
+	    	 
+	    	  return tmpThumbFile;
+	    	}
+	    
 	    
 	    // 파일업로드(수정)
 	    const fileDOM2 = document.querySelector('#modifyFile');
@@ -311,22 +396,25 @@
 	    });
         
      	
-        	
+        /*	
      	// 리사이징 함수
      	function ResizeImage() {
      		var blob;
-			var file = $("input[name=file]")[0].files[0];
+			//var file = $("input[name=file]")[0].files[0];
 			console.log(1);
 			//img 객체 생성
 			var img = document.createElement("img");
 			
-			// 파일을 읽을 수 있는 File Reader 를 생성
-			
-			var reader = new FileReader();
-		    reader.onload = ({ target }) => {
-		    	img.src = target.result;
-		    };
-			console.log(img.width)  ; 
+			console.log(2);
+			const fileImg = document.querySelector('#file');
+			fileImg.addEventListener('change', () => {	
+				console.log(3);
+				const imageSrc = URL.createObjectURL(fileImg.files[0]);
+				img.src = imageSrc;
+		    
+			console.log(img.src); 
+			console.log(img.width); 
+			console.log(img.height); 
 			// 동기 2번째 방식으로 다시해보자
 	
 			// HTML5 canvas 객체를 생성합
@@ -381,24 +469,24 @@
 			        console.log(4);
 			        return blob;
 			    
-			
-			reader.readAsDataURL(file);
+			});
+			;
 			console.log(5);
 			//console.log(blob);
 			//return blob;
-		}
+		}*/
 		
      	
      	
 	    // 생애기록 카드 추가     
         $("#uploadCardBtn").click(function(){
-        	var blob;
-        	ResizeImage();
+        	//var blob;
+        	//ResizeImage();
             //formData 객체 생성
             let formData = new FormData();
         	//formData.append("petImg", $("input[name=file]")[0].files[0]);
-        	formData.append("petImg", blob);
-        	console.log(blob);
+        	formData.append("petImg", getThumbFile(img));
+        	//console.log(blob);
         	// 넘겨줄 반려동물 데이터
         	let date = $("#date").val();
 			if(!date){ // 날짜 null값

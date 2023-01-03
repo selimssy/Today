@@ -15,7 +15,7 @@ public class ImgUpload {
 		// 저장경로	
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/" + pathFolder);		
 		//파일 원본 이름 저장
-		String fileName = file.getOriginalFilename();     
+		String fileName = file.getOriginalFilename() + ".png";     
         // uuid 생성 
         UUID uuid = UUID.randomUUID();     
         //savedName 변수에 uuid + 원래 이름 추가
