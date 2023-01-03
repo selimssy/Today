@@ -378,8 +378,7 @@
 
 		
 	    
-	    
-	    
+	        
 	 	// 갤러리 추가     
         $("#uploadGBtn").click(function(){
         	
@@ -387,11 +386,50 @@
 				alert("사진을 첨부해주세요.");
 			    return false;
 			}
-        	
+        	       	
+            // 이미지 리사이징
+      	    let img = new Image;
+      	    img.src = previews[0].src; 
+      	
+      	    var canvas = document.createElement("canvas");
+    	    canvas.getContext("2d").drawImage(img, 0, 0);
+    	      	  
+    	    // 최대 크기 지정과 리사이징
+    	    let maxWidth = 650; //가로 최대 650px
+    	    let maxHeight = 860; //세로 최대 860px
+    	    let width = img.width; 
+    	    let height = img.height; 
+    	    if (width > height) { 
+    	       if (width > maxWidth) {
+    	           height *= maxWidth / width;
+    	           width = maxWidth;
+    	       }
+    	    } else {
+    	       if (height > maxHeight) {
+    	           width *= maxHeight / height;
+    	           height = maxHeight;
+    	       }
+    	    }
+    	    canvas.width = width;
+    	    canvas.height = height;
+    	    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+    	    //canvas의 dataurl를 blob(file)화 하는 과정
+    	    var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+    	    var byteString = atob(dataURI.split(',')[1]);
+    	    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    	    var ab = new ArrayBuffer(byteString.length);
+    	    var ia = new Uint8Array(ab);
+    	    for (var i = 0; i < byteString.length; i++) {
+    	        ia[i] = byteString.charCodeAt(i);
+    	    }
+    	    //리사이징된 file 객체
+    	    var tmpThumbFile = new Blob([ab], {type: mimeString});
+ 
             //formData 객체 생성
             let formData = new FormData();
-        	formData.append("petImg", $("input[name=file]")[0].files[0]);
-        	
+     		formData.append("petImg", tmpThumbFile);
+        	    	
         	// 넘겨줄 반려동물 데이터
         	//enter => <br>
 			let title = $("#gtitle").val();
@@ -496,8 +534,51 @@
         $(document).on("click", ".mdGBtn", function () {
   	
         	//formData 객체 생성
-            let formData = new FormData();
-        	formData.append("petImg", $("#modifyFile")[0].files[0]);
+            let formData = new FormData(); 	
+         	
+            // 이미지 리사이징	
+       	    if($("input[id='modifyFile']").val()){ // 사진 첨부한 경우에만 리사이징 진행
+ 				
+       		  let img = new Image;
+      	      img.src = MdPreviews.src; 
+      	
+      	      var canvas = document.createElement("canvas");
+ 	    	  canvas.getContext("2d").drawImage(img, 0, 0);
+ 	    	      	  
+ 	    	// 최대 크기 지정과 리사이징
+ 	    	  let maxWidth = 650; //가로 최대 650px
+ 	    	  let maxHeight = 860; //세로 최대 860px
+ 	    	  let width = img.width; 
+ 	    	  let height = img.height; 
+ 	    	  if (width > height) { 
+ 	    	     if (width > maxWidth) {
+ 	    	         height *= maxWidth / width;
+ 	    	         width = maxWidth;
+ 	    	     }
+ 	    	  } else {
+ 	    	     if (height > maxHeight) {
+ 	    	         width *= maxHeight / height;
+ 	    	         height = maxHeight;
+ 	    	     }
+ 	    	  }
+ 	    	  canvas.width = width;
+ 	    	  canvas.height = height;
+ 	    	  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+ 	    	  //canvas의 dataurl를 blob(file)화 하는 과정
+ 	    	  var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+ 	    	  var byteString = atob(dataURI.split(',')[1]);
+ 	    	  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+ 	    	  var ab = new ArrayBuffer(byteString.length);
+ 	    	  var ia = new Uint8Array(ab);
+ 	    	  for (var i = 0; i < byteString.length; i++) {
+ 	    	      ia[i] = byteString.charCodeAt(i);
+ 	    	  }
+ 	    	  //리사이징된 file 객체
+ 	    	  var tmpThumbFile = new Blob([ab], {type: mimeString}); 	               
+      	      formData.append("petImg", tmpThumbFile);
+       		   
+ 			}
         	
         	// 넘겨줄 갤러리 데이터
         	let title = $("#mdGtitle").val();
