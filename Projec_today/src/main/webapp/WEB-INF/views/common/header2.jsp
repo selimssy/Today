@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +14,9 @@
     <title>Document</title>
     <style>
         *{margin: 0; padding: 0;}
-        .container{width: 100%; margin: 0 auto;}
+        .container{width: 100%; margin: 0 auto; padding-bottom:70px}
         header {width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
-        .header_innerBox{width: 1200px; margin: 0 auto}
+        .header_innerBox{width: 1050px; margin: 0 auto}
         .header_innerBox h1{float: left; padding-top: 35px;}
         .header_innerBox h1 a{width:220px; height:70px; background-image:url(/today/img/common/mainlogo.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}
         .header_cont {float:right; width:750px; display: block;}
@@ -35,19 +36,19 @@
     
         .submenu{position:absolute; left:0; top:115px; width:100%; background:#7AB730;; z-index:100; display:none;}
         .submenu .submenu_list {width:1200px; margin:0 auto; text-align:left;}
-        .sub_1 .submenu_list {box-sizing:border-box; padding-left:450px;}
-        .sub_2 .submenu_list {box-sizing:border-box; padding-left:610px;}
-        .sub_3 .submenu_list {box-sizing:border-box; padding-left:820px;}
-        .sub_4 .submenu_list {box-sizing:border-box; padding-left:960px;}
+        .sub_1 .submenu_list {box-sizing:border-box; padding-left:370px;}
+        .sub_2 .submenu_list {box-sizing:border-box; padding-left:520px;}
+        .sub_3 .submenu_list {box-sizing:border-box; padding-left:740px;}
+        .sub_4 .submenu_list {box-sizing:border-box; padding-left:950px;}
         .submenu .submenu_list li {display:inline;}
         .submenu .submenu_list li a {display:inline-block; padding:20px; color: #fff; font-size: 18.5px;}
         .submenu .submenu_list li:last-child a {padding-right:0;}
         .submenu .submenu_list li a.on {color:#fff;}
     
-        .infoText{position: absolute; top: 150px; left: 100px; z-index: 999;}
-        .infoText p:nth-of-type(1){font-size: 84px; font-family: 'Nanum Pen Script';}
-        .infoText p:nth-of-type(2){font-size: 36px; font-family: 'Nanum Pen Script';}
-        .siteNav{width: 1200px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
+        .infoText{position: absolute; top: 140px; left: 100px; z-index: 5;}
+        .infoText p:nth-of-type(1){font-size: 72px; font-family: 'Nanum Pen Script';}
+        .infoText p:nth-of-type(2){font-size: 30px; font-family: 'Nanum Pen Script';}
+        .siteNav{width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
         .homeLogo{width: 78px; height: 75px; background-image: url(/today/img/common/homeLogo2.png); background-size: cover; float: left; text-indent: -999px; position: absolute; top: -1px; left: -3px;}
         .siteNav ul{list-style: none; width: 90%; display: flex; justify-content: space-evenly; padding-left: 100px;}
         .siteNav ul li{width: 180px; display: inline-block; padding: 17px 60px 10px; border-bottom: 1px solid #000; text-align: center;}
@@ -55,18 +56,13 @@
         .siteNav ul li a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
         .siteNav ul li.checked a{color: #7AB730;}
 
-        .otherWrap{width: 1200px; margin: 0 auto; padding-left: 200px;}
-        .otherP{width: 1200px; height: 155px; border-left: 5px solid #7AB730; margin: 120px 0 120px;  padding-left:55px;}
-        .otherP p{font-size: 42px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/}
-        .otherP h1{font-size: 60px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:5px; word-spacing:7px*/}
-        .otherP p:last-of-type{font-size: 85px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:3px; word-spacing:5px;*/ color: #000;}
-        
+        .otherWrap{width: 1050px; margin: 0 auto; padding-left: 225px;}
+        .otherP{width: 1050px; height: 140px; border-left: 5px solid #7AB730; margin: 100px 0 100px;  padding-left:55px;}
+        .otherP p{font-size: 36px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/}
+        .otherP p:last-of-type{font-size: 72px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:3px; word-spacing:5px;*/ color: #000;}
         
 
-        
-
-
-        /* 파일업로드(사이즈, btn 제외 중복) */
+        /* 파일업로드(사이즈, btn 제외 중복) */       
         .flex-container {display: flex;}
         .wrapper {text-align: center;flex-grow: 1;}        
         .image-box, #mdImage-box {width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
@@ -79,48 +75,56 @@
 
     <header id="header">
 		<div class="header_innerBox">	
-			<h1><a href="javascript:;">오늘의 너</a></h1>
+			<h1><a href="<c:url value='/'/>">오늘의 너</a></h1>
 			<!-- 모바일메뉴
 			<p class="openMOgnb"><a href="#"><b class="hdd">메뉴</b> <span></span><span></span><span></span></a></p>
 			-->
 			<!-- header_cont -->
 			<div class="header_cont">
 				<ul class="user_nav">
-					<li><a href="javascript:;">로그인</a></li>
-					<li><a href="javascript:;">회원가입</a></li>
+				    <c:if test="${login == null}" >  <!-- 로그인 안되어있을 경우 -->
+						<li><a href="javascript:;" id="login">로그인</a></li>
+						<li><a href="javascript:;" id="join">회원가입</a></li>
+					</c:if>
+					<c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
+	           			<ul>
+	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
+	           			</ul>
+		           </c:if>
 				</ul>	
+				
 				<nav>
 				<ul class="main_nav">
-					<li><a href="javascript:;" class="mainMenu mainMenu1 checked">나의 반려견</a>
+					<li><a href="<c:url value='/mypet/lifetime'/>" class="mainMenu mainMenu1">나의 반려견</a>
 
                         <div class="submenu sub_1">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">반려견 생애기록</a></li>
-                                <li><a href="javascript:;">갤러리</a></li>
+                                <li><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></li>
+                                <li><a href="<c:url value='/mypet/gallery'/>">갤러리</a></li>
                             </ul>
                         </div>
 					</li>
-					<li><a href="javascript:;" class="mainMenu mainMenu2">반려견 다이어리</a>
+					<li><a href="<c:url value='/diary/calendar'/>" class="mainMenu mainMenu2">반려견 다이어리</a>
 				        <div class="submenu sub_2">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">반려견 전용 캘린더</a></li>
-                                <li><a href="javascript:;">견주 일기</a></li>
+                                <li><a href="<c:url value='/diary/calendar'/>">반려견 전용 캘린더</a></li>
+                                <li><a href="<c:url value='/diary/list'/>">견주 일기</a></li>
                             </ul>
                         </div>
 					</li>
-					<li><a href="javascript:;" class="mainMenu mainMenu3">커뮤니티</a>
+					<li><a href="<c:url value='/community/intro'/>" class="mainMenu mainMenu3">커뮤니티</a>
                         <div class="submenu sub_3">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">내 반려견 소개</a></li>
-                                <li><a href="javascript:;">커뮤니티 게시판</a></li>
+                                <li><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
+                                <li><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
                             </ul>
                         </div>
 					</li>
-					<li><a href="javascript:;" class="mainMenu mainMenu4">마이페이지</a>
+					<li><a href="<c:url value='/mypage/profile'/>" class="mainMenu mainMenu4">마이페이지</a>
                         <div class="submenu sub_4">
                             <ul class="submenu_list">
-                                <li><a href="javascript:;">개인정보 수정</a></li>
-                                <li><a href="javascript:;">내 게시물</a></li>
+                            	<li><a href="<c:url value='/mypage/profile'/>">프로필</a></li>
+                                <li><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></li>                              
                             </ul>
                         </div>
 					</li>
@@ -139,9 +143,6 @@
 
 
     
-
-
-
 
 
 
