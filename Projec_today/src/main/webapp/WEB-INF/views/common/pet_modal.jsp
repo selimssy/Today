@@ -62,6 +62,13 @@
 #image-box-modal1, #image-box-modal2{width: 200px;height: 200px;object-fit: cover;display: block;margin: 20px auto;}
 .upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;}
 input[type=file] {display: none;}
+
+
+/*반응형*/
+@media all and (max-width:1065px) and (min-width:801px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
+	.changePet2{left: 20px;}
+	
+}
 </style>
 
 

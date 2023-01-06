@@ -6,21 +6,28 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+*{margin: 0; padding: 0;}
 footer h4{margin:10px 0;}
 .addr{margin-top: 10px;}
-footer{width: 1200px; margin: 30px auto; border-top: 2px solid #222;}
+footer{margin: 30px auto; border-top: 2px solid #222;}
+.footer_inner{width: 1200px; margin: 0 auto;}
 #bottomMenu{padding-left:0; list-style: none; margin: 10px 10px 10px 0;}
 #bottomMenu li{display: inline-block; margin: 10px 0; border-right: 1px solid #aaa; padding: 0 10px;}
 #bottomMenu li:nth-of-type(1){padding: 0 10px 0 0;}
 #bottomMenu li:last-child{border:none}
 #bottomMenu li a{text-decoration: none; color: #333;}
 .copy.box_inner{margin-top: 10px;}
+
+@media all and (max-width:1065px) and (min-width:801px) {			
+.footer_inner{width:100%;}
+}
 </style>
 </head>
 <body>
 
 
 	  <footer>
+	  	<div class="footer_inner">
          
         <ul id="bottomMenu">
             <li><a href="#">회사 소개</a> </li>
@@ -36,6 +43,7 @@ footer{width: 1200px; margin: 30px auto; border-top: 2px solid #222;}
 				</span>
 			</p>
 			<p class="copy box_inner">Copyright(c) Today_You Ali all right reserved</p>
+			</div>
       </footer>
 
 

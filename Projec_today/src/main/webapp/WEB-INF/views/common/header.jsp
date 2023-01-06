@@ -14,6 +14,7 @@
     <title>Document</title>
     <style>
         *{margin: 0; padding: 0;}
+        .mob_menu{display: none;}
         .container{width: 100%; margin: 0 auto; padding-bottom:70px}
         header {width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
         .header_innerBox{width: 1050px; margin: 0 auto}
@@ -72,9 +73,18 @@
         
         /* 태블릿 기준 */
 @media all and (max-width:1065px) and (min-width:801px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */
-	.mob_menu{background-image:url(/today/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
-	.header_innerBox h1 a{/*float:none;*/ text-align: center;}
+	.mob_menu{display: block; position: absolute; top: 35px; left: 20px; width: 45px; height: 45px; background-color: transparent; border: none; background-image:url(/today/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.header_innerBox{width:100%;}
+	.header_innerBox h1{float:none; text-align: center;}
+	.header_innerBox h1 a{display:inline-block}
 	.header_cont{display: none;}
+	.siteInfo{width:100%;}
+	.siteNav{width:100%; padding-left: 80px;}
+	.otherWrap{width:100%; padding-left:70px; box-sizing: border-box;}
+	.otherP{width:90%;}
+	.mainContent{width:100%;}
+	.siteNav ul{box-sizing: border-box; padding-left:0; margin:0 auto;}
+	
 }
     </style>
 </head>
