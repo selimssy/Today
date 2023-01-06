@@ -68,6 +68,14 @@
         .image-box, #mdImage-box {width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
         .upload-btn {font-size: 18px; border: 1px solid #ddd; padding:10px 20px;display: inline-block; cursor: pointer; }
         .upload-btn input[type=file] {display:none}
+        
+        
+        /* 태블릿 기준 */
+@media all and (max-width:1065px) and (min-width:801px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */
+	.mob_menu{background-image:url(/today/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.header_innerBox h1 a{/*float:none;*/ text-align: center;}
+	.header_cont{display: none;}
+}
     </style>
 </head>
 <body>
@@ -75,10 +83,11 @@
 
     <header id="header">
 		<div class="header_innerBox">	
+			<!-- 모바일메뉴	-->
+			<button type="button" class="mob_menu">menu</button>
+			<!-- logo -->
 			<h1><a href="<c:url value='/'/>">오늘의 너</a></h1>
-			<!-- 모바일메뉴
-			<p class="openMOgnb"><a href="#"><b class="hdd">메뉴</b> <span></span><span></span><span></span></a></p>
-			-->
+					
 			<!-- header_cont -->
 			<div class="header_cont">
 				<ul class="user_nav">
