@@ -15,6 +15,7 @@
     <style>
         *{margin: 0; padding: 0;}
         .mob_menu{display: none;}
+        .mob_close{display: none;}
         .container{width: 100%; margin: 0 auto; padding-bottom:70px}
         header {width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
         .header_innerBox{width: 1050px; margin: 0 auto}
@@ -72,12 +73,17 @@
         
         
         /* 태블릿 기준 */
-@media all and (max-width:1065px) and (min-width:801px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */
+@media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */
 	.mob_menu{display: block; position: absolute; top: 35px; left: 20px; width: 45px; height: 45px; background-color: transparent; border: none; background-image:url(/today/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.mob_close{display: block; width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	.header_innerBox{width:100%;}
 	.header_innerBox h1{float:none; text-align: center;}
 	.header_innerBox h1 a{display:inline-block}
-	.header_cont{display: none;}
+	.header_cont{display: none; float:left; width:300px; height:100%; background-color: #fff; position: fixed; top:0; left:0; z-index: 30; box-shadow: 0 0 20px 0 #e8e8e8;}
+	.header_cont .submenu{display: none;}
+	.header_cont .user_nav{height:70px; background-color: #7AB730; padding-top:25px; box-sizing: border-box; text-align: center;}
+	.header_cont .main_nav{float: none; }
+	.header_cont .main_nav li{display:block; float: none; border-bottom: 1px solid #e1e1e1; padding-left:50px;}
 	.siteInfo{width:100%;}
 	.siteNav{width:100%; padding-left: 80px;}
 	.otherWrap{width:100%; padding-left:70px; box-sizing: border-box;}
@@ -95,11 +101,14 @@
 		<div class="header_innerBox">	
 			<!-- 모바일메뉴	-->
 			<button type="button" class="mob_menu">menu</button>
+			
 			<!-- logo -->
 			<h1><a href="<c:url value='/'/>">오늘의 너</a></h1>
 					
 			<!-- header_cont -->
 			<div class="header_cont">
+				<!-- 모바일메뉴	-->
+				<div class="mob_close">close</div>
 				<ul class="user_nav">
 				    <c:if test="${login == null}" >  <!-- 로그인 안되어있을 경우 -->
 						<li><a href="javascript:;" id="login">로그인</a></li>
@@ -186,13 +195,13 @@
 
     for(let i = 1; i <=4; i++){
         $(".mainMenu" + i).mouseover(function(){
-            // 서브메뉴 나타나기(header 너비가 800보다 클 때만
-            if(parseInt($("header").css("width")) > 800){   // parseInt 해줘야 인식한다!!
+            // 서브메뉴 나타나기(header 너비가 1065보다 클 때만
+            if(parseInt($("header").css("width")) > 1065){   // parseInt 해줘야 인식한다!!
                 $(".sub_" + i).fadeIn("fast")
                 isOver1[i - 1] = true
             }
         }).focus(function(){
-            if(parseInt($("header").css("width")) > 800){
+            if(parseInt($("header").css("width")) > 1065){
                 $(".sub_" + i).fadeIn("fast")
                 isOver1[i - 1] = true
             }
@@ -220,6 +229,30 @@
             setTimeout(goHide, 200)
         })
     }
+    
+    
+    
+  	//모바일 메뉴 띄움
+	$('.mob_menu').click(function(){
+		//$('header').addClass('on');
+		$('header .header_cont').fadeIn("fast")
+		$('header .mob_close').show();			
+		// $("body").bind('touchmove', function(e){e.preventDefault()});   // 이제는 그냥 onclick으로 해도 된다 
+	});
+	$('.header_cont .mob_close').click(function(){
+        $('.header_cont').fadeOut("fast");
+        //$('header').removeClass('on');
+        // $("body").unbind('touchmove');
+	});
+	
+	
+	$(document).ready(function(){
+	    // PC브라우저에서 좁혀서 메뉴 닫고 다시 넓힐 때 상단메뉴 노출되게.
+	    $(window).resize(function() {
+	        if ( parseInt($('header').css('width')) > 1065 ) $('.header_cont').show();
+	    }); 	    	   
+	   
+	});
 
 </script>  
 
