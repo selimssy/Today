@@ -47,7 +47,7 @@
         .submenu .submenu_list li:last-child a {padding-right:0;}
         .submenu .submenu_list li a.on {color:#fff;}
     
-        .infoText{position: absolute; top: 140px; left: 100px; z-index: 5;}
+        .infoText{position: absolute; top: 140px; left: 100px; /*z-index: 5;*/}
         .infoText p:nth-of-type(1){font-size: 72px; font-family: 'Nanum Pen Script';}
         .infoText p:nth-of-type(2){font-size: 30px; font-family: 'Nanum Pen Script';}
         .siteNav{width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
@@ -84,14 +84,27 @@
 	.header_cont .user_nav{height:70px; background-color: #7AB730; padding-top:25px; box-sizing: border-box; text-align: center;}
 	.header_cont .main_nav{float: none; }
 	.header_cont .main_nav li{display:block; float: none; border-bottom: 1px solid #e1e1e1; padding-left:50px;}
-	.siteInfo{width:100%;}
-	.siteNav{width:100%; padding-left: 80px;}
+	.infoText{top: 37.3333%; left: 9.524%; /*z-index: 5;*/}
+	.infoText p:nth-of-type(1){font-size: 6.76vw;}
+    .infoText p:nth-of-type(2){font-size: 2.82vw;}
+	.siteNav{width:100%; /*padding-left: 80px;*/}
 	.otherWrap{width:100%; padding-left:70px; box-sizing: border-box;}
 	.otherP{width:90%;}
 	.mainContent{width:100%;}
 	.siteNav ul{box-sizing: border-box; padding-left:0; margin:0 auto;}
 	
 }
+
+
+/* 모바일 기준 : 800px 미만 */
+@media all and (max-width:800px) {
+	.siteNav{height: auto; box-sizing: border-box;}
+    .homeLogo{width: 9%; height: auto; position: relative}
+	.homeLogo:before {content: ""; display: block; padding-top: 90%;}
+	.ratio_home {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+    .siteNav ul li{width: 40%; padding: 1.9vw 0; border-bottom: none; }
+    .siteNav ul li.checked{border-bottom: none;}
+    .siteNav ul li a{font-size: 1.955vw;}
     </style>
 </head>
 <body>

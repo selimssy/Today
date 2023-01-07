@@ -12,7 +12,7 @@
 
 *{margin: 0; padding: 0;}
 .container{width: 100%; margin: 0 auto;}      
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}      
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); background-size: contain; margin: 0 auto;  position: relative;}      
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
 .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; box-sizing: border-box; text-align: center;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
@@ -45,13 +45,21 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 .noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 70px 0 30px;}
 .noneMsg+img{width:100%; text-align: center; opacity: 0.85; box-shadow: 0 0 15px 0 #e8e8e8; border-radius: 15px;}
 
+
+
 /*반응형*/
-@media all and (max-width:1065px) and (min-width:801px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
-	.siteInfo{width:100%;}
-	.siteNav{width:100%;}		
+@media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
 	.mainContent{width:100%;}
 	.mainContent .conTitle{width:80%; margin: 0 auto;}
 	.lifecardbullet{display:none;}
+}
+
+/* 모바일 기준 : 800px 미만 */
+@media all and (max-width:800px) {
+	
 }
     </style>
 </head>
@@ -62,6 +70,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	<jsp:include page="../common/header.jsp" />
 	<main>
 	    <div class="siteInfo">
+	    	<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>반려견 생애기록</p>
 	            <p>잊을 수 없는 너의 특별했던 순간</p>
