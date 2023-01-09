@@ -16,7 +16,8 @@
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
 .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; box-sizing: border-box; text-align: center;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
-.uploadCard, .modifyCard{display: none; width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
+.uploadCard_wrap{display: none;}
+.uploadCard, .modifyCard{/*display: none;*/ width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly;}
 .openUCard{width: 90px; height: 40px; margin: 35px 60px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
 .closeUCard, .mdcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
 .uploadCard input[type=submit]{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
@@ -28,12 +29,12 @@
 .InfoList .count {position:absolute; right:20px; bottom:15px; color:#777; font-family:"ht_r"; font-size:13px; }
 
 .lifetimeBox{width:550px; margin: 50px auto;}
-.lifetimeCard{width:550px; height: 200px; position: relative; display: flex; justify-content: space-evenly; margin-bottom:80px}
+.lifetimeCard{width:550px; /*height: 200px;*/ display: flex; justify-content: space-evenly; margin-bottom:80px}
 .lifecardbullet{width:45px; height: 45px; position: absolute; top: 75px; left:-85px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
 .modifyCardBtn{display:none; width:16px; position: absolute; top: 15px; right:30px; border:none; background-color: transparent; background-image: url(/today/img/mypet/modify.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
 .deleteCardBtn{display:none; width:16px; position: absolute; top: 15px; right:7px; border:none; background-color: transparent; background-image: url(/today/img/mypet/delete.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
 .lifetimeCard img{width:200px; height:200px;  object-fit: cover; border-radius: 7px;}
-.cardInfo{width:350px; height: 200px; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
+.cardInfo{width:350px; height: 200px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
 .cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
 .InfoText{width:255px; height:122px; background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow-y:auto; /*overflow: hidden; text-overflow : ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;*/}
 .InfoText::-webkit-scrollbar {display: none; /* 스크롤바 숨기기: Chrome, Safari, Opera*/}
@@ -45,7 +46,8 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 .noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 70px 0 30px;}
 .noneMsg+img{width:100%; text-align: center; opacity: 0.85; box-shadow: 0 0 15px 0 #e8e8e8; border-radius: 15px;}
 
-
+.image-box{margin: 35px auto 20px;}
+.upload-btn{margin-bottom: 15px;}
 
 /*반응형*/
 @media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
@@ -58,9 +60,30 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 }
 
 /* 모바일 기준 : 800px 미만 */
-@media all and (max-width:800px) {
+@media all and (max-width:750px) {
+	.noneMsg{font-size: 4.5vw;}
+	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}
 	
-}
+	.uploadCard{width:60%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}
+	.image-box{width:30%; height:auto;}	
+	.lifeCardInfo{width:80%; padding-top:10px; margin:0 auto;}
+	.lifeCardInfo input[type=date]{margin:0 auto; display:block;}
+	.InfoList{width:100%;}	
+	
+	
+	.lifetimeBox{width:80%;}
+	.lifetimeCard{width:100%;}
+	.petImage{width: 36%; position: relative; box-sizing: border-box;}
+	.petImage::after {display: block; content: ""; padding-bottom: 100%;}
+	.lifetimeCard img{width:100%; height:100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}
+	
+	.cardInfo{width: 60%; height:auto; position: relative; margin-left:15px;}
+	.cardInfo p {font-size: 2.3vw;}
+	/*.cardInfo::after {content: ""; display: block; padding-top: 61.5%;}
+	.content { position: absolute; top: 0; right: 0; bottom: 0; left: 0;}*/
+	.InfoText{width:100%; height:auto; font-size: 3vw;}
+
+
     </style>
 </head>
 
@@ -76,12 +99,24 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	            <p>잊을 수 없는 너의 특별했던 순간</p>
 	        </div>
 	    </div>
+	    <!--  
 	    <div class="siteNav">
+	    	
 	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
 	        <ul>
 	            <li class="checked"><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></li>
 	            <li><a href="<c:url value='/mypet/gallery'/>">갤러리</a></li>
 	        </ul>
+	    </div>
+	    -->
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td class="checked"><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></td>
+		            <td><a href="<c:url value='/mypet/gallery'/>">갤러리</a></td>
+		        </tr>
+		    </table>
 	    </div>
 	
 	    <div class="otherWrap">
@@ -100,12 +135,13 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	
 	        <div><button class="openUCard">+ 기록추가</button></div>
 	        <button type="button" id="petList-open" title="반려동물 변경" class="changePet2"></button>
-			
+				
+				<div class="uploadCard_wrap">
 	        	<div class="uploadCard">      	        	
    					<!--   <input type="button" value="Resize Image" onclick="ResizeImage()"/>		-->	            
 		            <button id="uploadCardBtn">등록</button>
 		            <button class="closeUCard">접기</button>
-		            <div class="flex-container">       
+		            <div class="flex-container2">       
 		                <div class="wrapper">
 		                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" style="margin: 20px auto;"/>
 		                    <label for="file" class="upload-btn">
@@ -122,6 +158,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 		                    <div class="count"><span>0</span>/60</div>
 		                </div>  
 		            </div>		    	       
+	        	</div>
 	        	</div>
 	    </div>
 	    
@@ -149,9 +186,8 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 						<div id="cardWrap${card.cardId}">
 						    <div class="lifetimeCard" id="card${card.cardId}">
 						    	<div class="lifecardbullet">1</div>				    	
-					            <button class="modifyCardBtn" title="수정" href="${card.cardId}">수정</button>
-					            <button class="deleteCardBtn" title="삭제" href="${card.cardId}">삭제</button>   
-					            <div class="petImage">
+					               
+					            <div class="petImage">					            	
 					            	<c:if test="${not empty card.imagePath}">
 					                	<img alt="pet_image" src="<c:url value='${card.imagePath}'/>" />
 					            	</c:if>
@@ -160,6 +196,9 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 					            	</c:if>
 					            </div>
 					            <div class="cardInfo">
+					            <div class="content"></div>
+					            	<button class="modifyCardBtn" title="수정" href="${card.cardId}">수정</button>
+					           		<button class="deleteCardBtn" title="삭제" href="${card.cardId}">삭제</button>
 					                <p><fmt:formatDate value="${card.date}" pattern="yyyy. MM. dd" /></p>
 					                <div class="InfoText">
 					                    ${card.content}
@@ -218,13 +257,14 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
     	  
     	 // 등록카드 여닫기
 	     $(".openUCard").click(function(){           
-	         $(".uploadCard").css("display","flex");
-	         $(".uploadCard").css("justify-content","space-evenly");
+	         /*$(".uploadCard").css("display","flex");
+	         $(".uploadCard").css("justify-content","space-evenly");*/
+	         $(".uploadCard_wrap").css("display","block");
 	         $(this).css("display","none");
 	     })
 	
 	     $(".closeUCard").click(function(){
-	         $(".uploadCard").css("display","none");
+	         $(".uploadCard_wrap").css("display","none");
 	         $(".openUCard").css("display","inline-block");
 	     })
      	
@@ -330,49 +370,52 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
      	
 	    // 생애기록 카드 추가     
         $("#uploadCardBtn").click(function(){
-        	  // 이미지 리사이징
-        	  let img = new Image;
-        	  img.src = previews[0].src; 
+        	  //formData 객체 생성
+              let formData = new FormData();
+        	  
+        	  if($("input[id='file']").val()){ // 사진 첨부한 경우에만 리사이징 진행
+	        	  // 이미지 리사이징
+	        	  let img = new Image;
+	        	  img.src = previews[0].src; 
+	        	
+	        	  var canvas = document.createElement("canvas");
+		    	  canvas.getContext("2d").drawImage(img, 0, 0);
+		    	      	  
+		    	  // 최대 크기 지정과 리사이징
+		    	  let maxSize = 400; //최대px 400px 기준
+		    	  let width = img.width; 
+		    	  let height = img.height; 
+		    	  if (width > height) { 
+		    	      if (width > maxSize) {
+		    	          height *= maxSize / width;
+		    	          width = maxSize;
+		    	      }
+		    	  } else {
+		    	      if (height > maxSize) {
+		    	          width *= maxSize / height;
+		    	          height = maxSize;
+		    	       }
+		    	  }
+		    	  canvas.width = width;
+		    	  canvas.height = height;
+		    	  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+	
+		    	  //canvas의 dataurl를 blob(file)화 하는 과정
+		    	  var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+		    	  var byteString = atob(dataURI.split(',')[1]);
+		    	  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+		    	  var ab = new ArrayBuffer(byteString.length);
+		    	  var ia = new Uint8Array(ab);
+		    	  for (var i = 0; i < byteString.length; i++) {
+		    	    ia[i] = byteString.charCodeAt(i);
+		    	  }
+		    	  //리사이징된 file 객체
+		    	  var tmpThumbFile = new Blob([ab], {type: mimeString});
+		             
+	        	//formData.append("petImg", $("input[name=file]")[0].files[0]);
+	        	formData.append("petImg", tmpThumbFile);
+        	}
         	
-        	  var canvas = document.createElement("canvas");
-	    	  canvas.getContext("2d").drawImage(img, 0, 0);
-	    	      	  
-	    	  // 최대 크기 지정과 리사이징
-	    	  let maxSize = 400; //최대px 400px 기준
-	    	  let width = img.width; 
-	    	  let height = img.height; 
-	    	  if (width > height) { 
-	    	      if (width > maxSize) {
-	    	          height *= maxSize / width;
-	    	          width = maxSize;
-	    	      }
-	    	  } else {
-	    	      if (height > maxSize) {
-	    	          width *= maxSize / height;
-	    	          height = maxSize;
-	    	       }
-	    	  }
-	    	  canvas.width = width;
-	    	  canvas.height = height;
-	    	  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-
-	    	  //canvas의 dataurl를 blob(file)화 하는 과정
-	    	  var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
-	    	  var byteString = atob(dataURI.split(',')[1]);
-	    	  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-	    	  var ab = new ArrayBuffer(byteString.length);
-	    	  var ia = new Uint8Array(ab);
-	    	  for (var i = 0; i < byteString.length; i++) {
-	    	    ia[i] = byteString.charCodeAt(i);
-	    	  }
-	    	  //리사이징된 file 객체
-	    	  var tmpThumbFile = new Blob([ab], {type: mimeString});
-	 
-            //formData 객체 생성
-            let formData = new FormData();
-        	//formData.append("petImg", $("input[name=file]")[0].files[0]);
-        	formData.append("petImg", tmpThumbFile);
-
         	// 넘겨줄 반려동물 데이터
         	let date = $("#date").val();
 			if(!date){ // 날짜 null값
@@ -629,6 +672,8 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
       
       
 	  	 
+        
+        
         
      </script>
 

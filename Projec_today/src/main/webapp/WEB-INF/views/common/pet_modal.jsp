@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">    
 <style type="text/css">
-.image-box{margin: 35px auto 20px;}
-.upload-btn{/*font-size: 15px; padding: 7px 10px;*/ margin-bottom: 15px;}
+/*.image-box{margin: 35px auto 20px;}
+.upload-btn{margin-bottom: 15px;}*/
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .modal_header h2{line-height: 2.8em; font-size:22px;}
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}

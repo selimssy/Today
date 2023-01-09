@@ -18,7 +18,7 @@ footer{margin: 30px auto; border-top: 2px solid #222;}
 #bottomMenu li a{text-decoration: none; color: #333;}
 .copy.box_inner{margin-top: 10px;}
 
-@media all and (max-width:1065px) and (min-width:801px) {			
+@media all and (max-width:1065px) {			
 .footer_inner{width:100%;}
 }
 </style>

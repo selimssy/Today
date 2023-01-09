@@ -17,7 +17,7 @@
         .mob_menu{display: none;}
         .mob_close{display: none;}
         .container{width: 100%; margin: 0 auto; padding-bottom:70px}
-        header {width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
+        header{width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
         .header_innerBox{width: 1050px; margin: 0 auto}
         .header_innerBox h1{float: left; padding-top: 35px;}
         .header_innerBox h1 a{width:220px; height:70px; background-image:url(/today/img/common/mainlogo.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}
@@ -50,13 +50,23 @@
         .infoText{position: absolute; top: 140px; left: 100px; /*z-index: 5;*/}
         .infoText p:nth-of-type(1){font-size: 72px; font-family: 'Nanum Pen Script';}
         .infoText p:nth-of-type(2){font-size: 30px; font-family: 'Nanum Pen Script';}
-        .siteNav{width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
+        /*.siteNav{width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
         .homeLogo{width: 78px; height: 75px; background-image: url(/today/img/common/homeLogo2.png); background-size: cover; float: left; text-indent: -999px; position: absolute; top: -1px; left: -3px;}
         .siteNav ul{list-style: none; width: 90%; display: flex; justify-content: space-evenly; padding-left: 100px;}
         .siteNav ul li{width: 180px; display: inline-block; padding: 17px 60px 10px; border-bottom: 1px solid #000; text-align: center;}
         .siteNav ul li.checked{border-bottom: 2px solid #7AB730;}
         .siteNav ul li a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
-        .siteNav ul li.checked a{color: #7AB730;}
+        .siteNav ul li.checked a{color: #7AB730;}*/
+        
+        .siteNav table{border-collapse: collapse; border: 3px solid #7AB730; width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box;}
+        .homeLogo{width: 100%; height: 100%;}
+        .siteNav table tr td{box-sizing: content-box;}
+        .siteNav table tr td:nth-of-type(1){width: 7.5%; background-image: url(/today/img/common/homeLogo2.png); background-size: cover; text-indent: -999px;}
+        .siteNav table tr td:nth-of-type(2), .siteNav table tr td:nth-of-type(3){width: 46%; text-align: center;}
+        .siteNav table tr td a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
+        .siteNav table tr td.checked a{color: #7AB730;}
+        /*.siteNav2 table tr td:nth-of-type(3){width: 46%;}*/
+
 
         .otherWrap{width: 1050px; margin: 0 auto; padding-left: 225px;}
         .otherP{width: 1050px; height: 140px; border-left: 5px solid #7AB730; margin: 100px 0 100px;  padding-left:55px;}
@@ -74,11 +84,13 @@
         
         /* 태블릿 기준 */
 @media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */
-	.mob_menu{display: block; position: absolute; top: 35px; left: 20px; width: 45px; height: 45px; background-color: transparent; border: none; background-image:url(/today/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	header{height:80px;}
+	.header_innerBox h1{padding-top:15px;}
+	.mob_menu{display: block; position: absolute; top: 20px; left: 20px; width: 45px; height: 45px; background-color: transparent; border: none; background-image:url(/today/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
 	.mob_close{display: block; width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	.header_innerBox{width:100%;}
 	.header_innerBox h1{float:none; text-align: center;}
-	.header_innerBox h1 a{display:inline-block}
+	.header_innerBox h1 a{display:inline-block; width:200px;}
 	.header_cont{display: none; float:left; width:300px; height:100%; background-color: #fff; position: fixed; top:0; left:0; z-index: 30; box-shadow: 0 0 20px 0 #e8e8e8;}
 	.header_cont .submenu{display: none;}
 	.header_cont .user_nav{height:70px; background-color: #7AB730; padding-top:25px; box-sizing: border-box; text-align: center;}
@@ -87,24 +99,34 @@
 	.infoText{top: 37.3333%; left: 9.524%; /*z-index: 5;*/}
 	.infoText p:nth-of-type(1){font-size: 6.76vw;}
     .infoText p:nth-of-type(2){font-size: 2.82vw;}
-	.siteNav{width:100%; /*padding-left: 80px;*/}
+    .siteNav table{width:100%; height:auto; border: 2.5px solid #7AB730;}
+    .siteNav table tr td:nth-of-type(1){position: relative; padding-bottom: 7.5%;}
+    .siteNav table tr td a{font-size: 1.955vw;}
+    .homeLogo{position: absolute;}
 	.otherWrap{width:100%; padding-left:70px; box-sizing: border-box;}
-	.otherP{width:90%;}
+	.otherP{width:90%;}	
 	.mainContent{width:100%;}
-	.siteNav ul{box-sizing: border-box; padding-left:0; margin:0 auto;}
+	
 	
 }
 
 
 /* 모바일 기준 : 800px 미만 */
 @media all and (max-width:800px) {
-	.siteNav{height: auto; box-sizing: border-box;}
-    .homeLogo{width: 9%; height: auto; position: relative}
-	.homeLogo:before {content: ""; display: block; padding-top: 90%;}
-	.ratio_home {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
-    .siteNav ul li{width: 40%; padding: 1.9vw 0; border-bottom: none; }
-    .siteNav ul li.checked{border-bottom: none;}
-    .siteNav ul li a{font-size: 1.955vw;}
+	header{height:50px; position: relative;}
+	.mob_menu{width: 25px; height: 25px; left:10px; top:50%; transform: translate(0, -50%);}
+	.siteNav table{border: 1.5px solid #7AB730;}
+	.header_innerBox h1{padding-top:10px;}
+	.header_innerBox h1 a{width:120px;}
+    .otherWrap{padding-left:7.5%;}
+    .otherP{height:15%; margin:12.5% 0 12.5%; padding-left:6.5%;}
+    .otherP p{font-size: 4.5vw;}
+    .otherP p:last-of-type{font-size: 7.5vw;}
+	
+	.flex-container{display:block;}
+    .image-box, #mdImage-box {width: 70%; height: auto; margin: 10px auto;}
+    
+    
     </style>
 </head>
 <body>
@@ -209,12 +231,12 @@
     for(let i = 1; i <=4; i++){
         $(".mainMenu" + i).mouseover(function(){
             // 서브메뉴 나타나기(header 너비가 1065보다 클 때만
-            if(parseInt($("header").css("width")) > 1065){   // parseInt 해줘야 인식한다!!
+            if(parseInt($("header").css("width")) > 1047){   // parseInt 해줘야 인식한다!!
                 $(".sub_" + i).fadeIn("fast")
                 isOver1[i - 1] = true
             }
         }).focus(function(){
-            if(parseInt($("header").css("width")) > 1065){
+            if(parseInt($("header").css("width")) > 1047){
                 $(".sub_" + i).fadeIn("fast")
                 isOver1[i - 1] = true
             }
@@ -262,7 +284,7 @@
 	$(document).ready(function(){
 	    // PC브라우저에서 좁혀서 메뉴 닫고 다시 넓힐 때 상단메뉴 노출되게.
 	    $(window).resize(function() {
-	        if ( parseInt($('header').css('width')) > 1065 ) $('.header_cont').show();
+	        if ( parseInt($('header').css('width')) > 1047 ) $('.header_cont').show();
 	    }); 	    	   
 	   
 	});

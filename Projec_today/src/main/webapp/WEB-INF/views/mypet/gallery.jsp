@@ -17,7 +17,7 @@
 .openUGCard{width: 95px; height: 40px;  position: absolute; top:45px; right:40px; /*margin: 45px 15px 0 0;*/ border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; /*float: right;*/ cursor: pointer;}
 .photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/today/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
 
-.galleryBox{width:100%; min-height:500px; height:1030px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+.galleryBox{width:100%; width:1050px; min-height:500px; height:1030px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
 .gcardWrap{/*width: 33.333%;*/ width:300px; height:280px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
 .gcardWrap:nth-of-type(3n){margin-right:0}
 .imgBox img{/*width:300px; */ width: 100%; height:210px; object-fit: cover; cursor: pointer;}
