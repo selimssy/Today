@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<style TYPE="text/css">
-	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
+	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); background-size: contain; margin: 0 auto;  position: relative;}       
 	.otherWrap{}
 		body {
 		scrollbar-face-color: #F6F6F6;
@@ -159,6 +159,19 @@
 		
 		.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 150px 0 30px; color:#4F4F4F}
 		.noneMsg+img{width:40%; display: block; margin: auto; opacity: 0.8; box-shadow: 0 0 30px 0 #e8e8e8; border-radius: 15px;}
+		
+		
+		/*반응형*/
+@media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	.calendar{width:100%; box-sizing: border-box;}
+	.calendar_top{width:90%;}
+	.calendar_body{width:90%;}
+	.calendar_body td{height:11.27vw; }
+	.scheduleBox p{width:89%; height:auto; line-height:2.06vw; font-size:1.3vw;}
+}
 	</style>
 </head>
 <body>
@@ -167,19 +180,24 @@
 	<jsp:include page="../common/header.jsp" />
 	<main>
 		<div class="siteInfo">
+			<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>견주 다이어리</p>
 	            <p>네가 있기에 여전히 따듯한 오늘</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="#"><div class="homeLogo">1</div></a>
-	        <ul>
-	            <li class="checked"><a href="<c:url value='/diary/calendar'/>">캘린더</a></li>
-	            <li><a href="<c:url value='/diary/list'/>">견주 다이어리</a></li>
-	        </ul>
+	    
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td class="checked"><a href="<c:url value='/diary/calendar'/>">캘린더</a></td>
+		            <td><a href="<c:url value='/diary/list'/>">견주 다이어리</a></td>
+		        </tr>
+		    </table>
 	    </div>
-		<div class="otherWrap" style="width: 1150px; padding-left:310px; margin: 100px 0 70px;">
+	    
+		<div class="otherWrap" >
 	        <div class="otherP">
 	            <P>너와의 오늘, 우리의 시간</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->

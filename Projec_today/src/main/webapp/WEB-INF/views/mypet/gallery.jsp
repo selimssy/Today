@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style>
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); background-size: contain; margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
 .mainContent .conTitle{width: 950px; margin: 0 auto; background:#BBD996; text-align: center;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
@@ -30,7 +30,9 @@
 .gselect .list.on{display:block}
 .gselect:hover{background-color: #ccc;}
 
-.register_form, .modifyCard{display: none; width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; /*display: flex; justify-content: space-evenly;*/}
+.register_wrap{display: none;}
+.modifyCard_wrap{display: none;}
+.register_form, .modifyCard{/*display: none;*/ width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly;}
 .closeUGCard, .mdGcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
 #uploadGBtn, .mdGBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
 .galInfo{width: 250px; padding-top: 20px;}
@@ -53,6 +55,59 @@
 
 .noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px;}
 .noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
+
+/*반응형*/
+@media all and (max-width:1065px) {			
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	.mainContent{width:100%;}
+	.mainContent .conTitle{width:80%; margin: 0 auto;}
+	
+	.galleryBox{width:100%; height:auto; position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
+	.galleryBox:before {content: "";display: block;padding-top: 100%; /* 1:1 비율 */}
+	.galleryBox_wrap{width:100%; padding:3%; box-sizing: border-box; position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+	.openUGCard, .photoPoster{z-index:3;}
+	.paging{padding: 75px 0 0;}
+	
+	.gcardWrap{width:31%; height:auto; padding-bottom:0; margin:0 3% 3% 0;}
+	.imgBox{width:100%; position: relative; box-sizing: border-box;}
+	.imgBox::after {display: block; content: ""; padding-bottom: 75%;}
+	.imgBox img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}
+	.imgInfo h3{font-size:2.5vw;}
+}
+
+/* 모바일 기준 : 800px 미만 */
+@media all and (max-width:800px) {
+	.noneMsg{font-size: 4.5vw;}
+	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}
+	
+	.register_form, .modifyCard{width:57%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
+
+	.galInfo{width:80%; padding-top:20px; margin:0 auto;}
+	#gcontent, #mdGCont{margin-top:20px;}
+	.gcardWrap{padding:1.25%; padding-bottom:0;}
+	.buttonNav{width:100%;}
+	.openUGCard{width:12%; height:auto; font-size:3.5vw; padding:0.2vw; top:5.6vw; right: 5vw;}
+	.photoPoster{width:27%; height:auto; font-size:3.5vw; padding:0.2vw; padding-left:4.375vw; top:5.6vw; right: 20vw;}
+	.gselect{width:1.25vw; height: 2.5vw; right: 0.75vw; bottom:1.875vw;}
+	.paging{padding: 20px 0 0;}
+	.paging ul li a{font-size:2vw;}
+	 
+	.lifetimeBox{width:80%;}
+	.lifetimeCard{width:100%;}
+	.petImage{width: 36%; position: relative; box-sizing: border-box;}
+	.petImage::after {display: block; content: ""; padding-bottom: 100%;}
+	.lifetimeCard img{width:100%; height:100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}
+	
+	.cardInfo{width: 60%; height:auto; position: relative; margin-left:15px;}
+	.cardInfo p {font-size: 2.3vw;}
+	/*.cardInfo::after {content: ""; display: block; padding-top: 61.5%;}
+	.content { position: absolute; top: 0; right: 0; bottom: 0; left: 0;}*/
+	.InfoText{width:100%; height:auto; font-size: 3vw;}
+}
+
+
 </style>
 </head>
 <body>
@@ -63,20 +118,24 @@
 	<main>
 	
 		<div class="siteInfo">
+			<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>반려견 갤러리</p>
 	            <p>담아두고 싶은 너의 모든 순간</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
-	        <ul>
-	            <li><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></li>
-	            <li class="checked"><a href="<c:url value='/mypet/gallery'/>">갤러리</a></li>
-	        </ul>
+	    
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></td>
+		            <td class="checked"><a href="<c:url value='/mypet/gallery'/>">갤러리</a></td>
+		        </tr>
+		    </table>
 	    </div>
 	
-	    <div class="otherWrap" style="width: 1150px;">
+	    <div class="otherWrap">
 	        <div class="otherP">
 	            <P>세상에서 가장 사랑스러운</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
@@ -97,28 +156,32 @@
 	        </div>
 	        
 	        <!-- 갤러리 등록 폼 -->
-	        <div class="register_form">
-	            <button id="uploadGBtn">등록</button>
-	        	<button class="closeUGCard">접기</button>
-				<div class="flex-container">       
-	               <div class="wrapper">
-	                   <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" style="margin: 20px auto;"/>
-	                   <label for="file" class="upload-btn">
-	                       <input id="file" name="file" type="file" accept="image/*" />
-	                       <span>Upload Image</span>
-	                   </label>
-	               </div>
-	            </div>
-	            <div class="galInfo">
-	                  <input type="text" id="gtitle" placeholder="title (최대 30자)" maxlength="30" required>
-	                  <textarea id="gcontent" placeholder="사진 설명이 있다면 적어주세요.(최대 300자)" maxlength="300"></textarea>
-	                  <input type="hidden" name="petId" value="${pet.petId}">
-	        	</div>
+	        <div class="register_wrap">
+		        <div class="register_form">
+		            <button id="uploadGBtn">등록</button>
+		        	<button class="closeUGCard">접기</button>
+					<div class="flex-container">       
+		               <div class="wrapper">
+		                   <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" style="margin: 20px auto;"/>
+		                   <label for="file" class="upload-btn">
+		                       <input id="file" name="file" type="file" accept="image/*" />
+		                       <span>Upload Image</span>
+		                   </label>
+		               </div>
+		            </div>
+		            <div class="galInfo">
+		                  <input type="text" id="gtitle" placeholder="title (최대 30자)" maxlength="30" required>
+		                  <textarea id="gcontent" placeholder="사진 설명이 있다면 적어주세요.(최대 300자)" maxlength="300"></textarea>
+		                  <input type="hidden" name="petId" value="${pet.petId}">
+		        	</div>
+		       </div>
 	       </div>
 	        	        
 	        
-	        <!-- 갤러리 들어갈 공간 -->	                	   		     
+	        <!-- 갤러리 들어갈 공간 -->
+	                       	   		     
 	        <div class="galleryBox">
+	        <div class="galleryBox_wrap">
 	        	<c:if test="${msg eq 'notLogin'}"> <!-- 로그인 안 한 경우 -->
 		        	<p class="noneMsg">로그인 후 우리 아이의 소중한 일상을 남겨 보세요.</p>
 		        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg2.PNG'/>">
@@ -155,7 +218,7 @@
 					</c:forEach>
 				</c:if>	
 			</div>
-	        
+	        </div>	 
 	        
 	        
 	        
@@ -201,24 +264,27 @@
 	
 	<!-- 갤러리 수정 모달 -->
 	<div class="mdpop" style="position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
-	<div class="modifyCard">
-        <button href="" class="mdGBtn">저장</button>
-        <button href="" class="mdGcancle">취소</button>
-        <div class="flex-container">
-            <div class="wrapper">
-                <img src="" id="mdImage-box">
-                <label for="modifyFile" class="upload-btn">
-                    <input id="modifyFile" type="file" accept="image/*">
-                    <span>Upload Image</span>
-                </label>
-            </div>
-        </div>
-        <div class="galInfo">
-             <input type="text" id="mdGtitle" required>
-             <textarea id="mdGCont"></textarea>
-       	</div>        
-    </div> 
-			
+	<div class="modifyCard_wrap">
+		<div class="modifyCard">
+	        <button href="" class="mdGBtn">저장</button>
+	        <button href="" class="mdGcancle">취소</button>
+	        <div class="flex-container">
+	            <div class="wrapper">
+	            	<div class="img_wrapper">
+	                	<img src="" id="mdImage-box">
+	                </div>
+	                <label for="modifyFile" class="upload-btn">
+	                    <input id="modifyFile" type="file" accept="image/*">
+	                    <span>Upload Image</span>
+	                </label>
+	            </div>
+	        </div>
+	        <div class="galInfo">
+	             <input type="text" id="mdGtitle" required>
+	             <textarea id="mdGCont"></textarea>
+	       	</div>        
+	    </div> 
+	</div>		
 
 			
 	<!-- 갤러리 상세조회 모달 -->			
@@ -262,14 +328,13 @@
         
      	// 등록카드 여닫기(갤러리)
 	     $(".openUGCard").click(function(){           
-	         $(".register_form").css("display","flex");
-	         $(".register_form").css("justify-content","space-evenly");
+	         $(".register_wrap").css("display","block");
 	         $(".photoPoster").css("display","none");
 	         $(this).css("display","none");
 	     })
 	
 	     $(".closeUGCard").click(function(){
-	         $(".register_form").css("display","none");
+	         $(".register_wrap").css("display","none");
 	         $(".openUGCard").css("display","inline-block");
 	         $(".photoPoster").css("display","inline-block");
 	     })
@@ -506,7 +571,7 @@
  						
                 		$(".gselect").add($(".gselect").children(".list")).removeClass("on");
                         $(".mdpop").css("display","block");                        
-                        $(".modifyCard").css("display","flex").css("justify-content","space-evenly");
+                        $(".modifyCard_wrap").css("display","block");
                         $(".mdGBtn").attr("href", imgId);
                         $(".mdGcancle").attr("href", imgId);
                         $("#mdImage-box").attr("src", imagePath);
@@ -524,7 +589,7 @@
         //갤러리 수정 취소  
         $(document).on("click", ".mdGcancle", function () {
         	let imgId = $(this).attr("href");
-        	$(".modifyCard").css("display","none");
+        	$(".modifyCard_wrap").css("display","none");
         	$(".mdpop").css("display","none");
         })
         

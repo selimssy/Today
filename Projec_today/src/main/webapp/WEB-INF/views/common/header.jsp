@@ -76,8 +76,9 @@
 
         /* 파일업로드(사이즈, btn 제외 중복) */       
         .flex-container {display: flex;}
-        .wrapper {text-align: center;flex-grow: 1;}        
-        .image-box, #mdImage-box {width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
+        .wrapper {text-align: center;flex-grow: 1;}             
+        .image-box{width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
+         #mdImage-box{width: 220px;height: 220px;object-fit: cover;display: block;margin: 20px auto;}
         .upload-btn {font-size: 18px; border: 1px solid #ddd; padding:10px 20px;display: inline-block; cursor: pointer; }
         .upload-btn input[type=file] {display:none}
         
@@ -124,9 +125,10 @@
     .otherP p:last-of-type{font-size: 7.5vw;}
 	
 	.flex-container{display:block;}
-    .image-box, #mdImage-box {width: 70%; height: auto; margin: 10px auto;}
-    
-    
+    .image-box{width: 70%; height: auto; margin: 10px auto;}
+    #mdImage-box{width:100%; height: 100%; ;position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block; margin: 0 auto;}
+    .img_wrapper{width:70%; position: relative; box-sizing: border-box; margin:20px auto;}
+    .img_wrapper::after {display: block; content: ""; padding-bottom: 100%;}
     </style>
 </head>
 <body>

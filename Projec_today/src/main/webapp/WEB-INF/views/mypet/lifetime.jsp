@@ -16,7 +16,7 @@
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
 .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; box-sizing: border-box; text-align: center;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
-.uploadCard_wrap{display: none;}
+.uploadCard_wrap, .modifyCard_wrap{display: none;}
 .uploadCard, .modifyCard{/*display: none;*/ width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly;}
 .openUCard{width: 90px; height: 40px; margin: 35px 60px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
 .closeUCard, .mdcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
@@ -39,7 +39,7 @@
 .InfoText{width:255px; height:122px; background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow-y:auto; /*overflow: hidden; text-overflow : ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;*/}
 .InfoText::-webkit-scrollbar {display: none; /* 스크롤바 숨기기: Chrome, Safari, Opera*/}
 .InfoText{-ms-overflow-style: none; /* IE and Edge */scrollbar-width: none; /* Firefox */}
-.modifyCard{display:none; /*width: 550px; height: 320px;*/ background:#fff; border: 3.5px solid #777; /*border-radius: 15px; padding: 15px; */
+.modifyCard{/*display:none; width: 550px; height: 320px;*/ background:#fff; border: 3.5px solid #777; /*border-radius: 15px; padding: 15px; */
 /*position: relative; display: flex; justify-content: space-evenly; margin: 50px auto; box-sizing: border-box;*/ 
 position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;}
 
@@ -60,15 +60,16 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 }
 
 /* 모바일 기준 : 800px 미만 */
-@media all and (max-width:750px) {
+@media all and (max-width:800px) {
 	.noneMsg{font-size: 4.5vw;}
 	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}
 	
-	.uploadCard{width:60%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}
+	.uploadCard{width:60%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
 	.image-box{width:30%; height:auto;}	
 	.lifeCardInfo{width:80%; padding-top:10px; margin:0 auto;}
 	.lifeCardInfo input[type=date]{margin:0 auto; display:block;}
 	.InfoList{width:100%;}	
+	.modifyCard{width:60%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}
 	
 	
 	.lifetimeBox{width:80%;}
@@ -82,7 +83,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	/*.cardInfo::after {content: ""; display: block; padding-top: 61.5%;}
 	.content { position: absolute; top: 0; right: 0; bottom: 0; left: 0;}*/
 	.InfoText{width:100%; height:auto; font-size: 3vw;}
-
+}
 
     </style>
 </head>
@@ -220,26 +221,30 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	
 	<!-- 생애기록 수정 모달 -->
 	<div class="mdpop" style="position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
-	<div class="modifyCard">
-        <button href="" class="mdBtn">저장</button>
-        <button href="" class="mdcancle">취소</button>
-        <div class="flex-container">
-            <div class="wrapper">
-                <img src="" id="mdImage-box">
-                <label for="modifyFile" class="upload-btn">
-                    <input id="modifyFile" type="file" accept="image/*">
-                    <span>Upload Image</span>
-                </label>
-            </div>
-        </div>
-        <div class="lifeCardInfo">
-            <input type="date" id="modifydate" name="Ldate" value="" required>
-            <div class="InfoList">
-                <textarea name="content" id="modifyCont" required></textarea>
-                <div class="count"><span>0</span>/60</div>
-            </div>
-        </div>
-    </div> 
+	<div class="modifyCard_wrap">
+		<div class="modifyCard">
+	        <button href="" class="mdBtn">저장</button>
+	        <button href="" class="mdcancle">취소</button>
+	        <div class="flex-container">
+	            <div class="wrapper">
+	            	<div class="img_wrapper">
+	                	<img src="" id="mdImage-box">
+	                </div>
+	                <label for="modifyFile" class="upload-btn">
+	                    <input id="modifyFile" type="file" accept="image/*">
+	                    <span>Upload Image</span>
+	                </label>
+	            </div>
+	        </div>
+	        <div class="lifeCardInfo">
+	            <input type="date" id="modifydate" name="Ldate" value="" required>
+	            <div class="InfoList">
+	                <textarea name="content" id="modifyCont" required></textarea>
+	                <div class="count"><span>0</span>/60</div>
+	            </div>
+	        </div>
+	    </div> 
+    </div>
     
 
 <jsp:include page="../common/pet_modal.jsp" />
@@ -507,7 +512,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
                         //$("#card" + cardId).css("display","none");
                         //$('#cardWrap' + cardId).append(temp_html);
                         $(".mdpop").css("display","block");
-                        $(".modifyCard").css("display","flex").css("justify-content","space-evenly");
+                        $(".modifyCard_wrap").css("display","block");
                         $(".mdBtn").attr("href", cardId);
                         $(".mdcancle").attr("href", cardId);
                         $("#mdImage-box").attr("src", imagePath);
@@ -528,8 +533,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
         //생애기록 수정 취소  
         $(document).on("click", ".mdcancle", function () {
         	let cardId = $(this).attr("href");
-        	$("#card" + cardId).css("display","flex").css("justify-content","space-evenly");
-        	$(".modifyCard").css("display","none");
+        	$(".modifyCard_wrap").css("display","none");
         	$(".mdpop").css("display","none");
         	//$("#cardWrap" + cardId + " .modifyCard").remove();
         })
