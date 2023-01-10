@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); background-size: contain; margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
 .search{/*z-index: 999;float:right;*/text-align: right; padding-right: 125px; }	
 .select{display: inline-block; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
@@ -36,6 +36,15 @@
 
 .noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px; color:#3F3F3F}
 .noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
+
+/*반응형*/
+@media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	.diaryBox{width:100%; box-sizing: border-box;}
+	.search{padding-right:50px;}
+}
 </style>
 </head>
 <body>
@@ -44,20 +53,24 @@
 	<main>
 	
 		<div class="siteInfo">
+			<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>견주 다이어리</p>
 	            <p>네가 있기에 여전히 따듯한 오늘</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="#"><div class="homeLogo">1</div></a>
-	        <ul>
-	            <li><a href="<c:url value='/diary/calendar'/>">캘린더</a></li>
-	            <li class="checked"><a href="<c:url value='/diary/list'/>">견주 다이어리</a></li>
-	        </ul>
+	    
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td><a href="<c:url value='/diary/calendar'/>">캘린더</a></td>
+		            <td class="checked"><a href="<c:url value='/diary/list'/>">견주 다이어리</a></td>
+		        </tr>
+		    </table>
 	    </div>
 	
-	    <div class="otherWrap" style="width: 1150px; padding-left:350px">
+	    <div class="otherWrap">
 	        <div class="otherP">
 	            <P>너와의 오늘, 우리의 시간</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
@@ -136,7 +149,7 @@
 								</td>
 						
 								<td>
-									<fmt:formatDate value="${diary.regDate}" pattern="yyyy년 MM월 dd일" />							
+									<fmt:formatDate value="${diary.regDate}" pattern="yyyy.MM.dd" />							
 								</td>
 							</tr>
 						</c:forEach>

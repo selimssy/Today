@@ -25,8 +25,16 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 .writenav{margin-top: 20px; text-align:right}
 .writenav button{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; }
 
-
 #cke_1_bottom{display:none}
+
+/*반응형*/
+@media all and (max-width:1065px) {			
+	.container{width:100%;}
+}
+
+@media all and (max-width:800px) {			
+	.boardBox{width:95%;}
+}
 </style>
 </head>
 <body>

@@ -18,7 +18,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<style TYPE="text/css">
 	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); background-size: contain; margin: 0 auto;  position: relative;}       
-	.otherWrap{}
+	
 		body {
 		scrollbar-face-color: #F6F6F6;
 		scrollbar-highlight-color: #bbbbbb;
@@ -70,7 +70,7 @@
 		.calendar_top{width:900px; margin:0 auto; display:flex; border-bottom:5px solid #7AB730; /*position: absolute; top: 50px; left: 0;*/}
 		.calendar_top p{width:14.29%; text-align: center; padding-bottom:10px; font-family: 'Jua', sans-serif; font-size:1.2em;}
 		
-		
+	
 		.calendar_body{
 			width:900px;
 			margin:0 auto;
@@ -82,24 +82,9 @@
 		}
 		
 		
-		.calendar_body .date{
-			/*font-weight: bold;
-			font-size: 15px;*/
-			padding-left: 8px;
-			padding-top: 8px;
-		}
-		
-		.calendar_body .sat_day .sat{
-			/*color: #529dbc;*/
-			padding-left: 8px;
-			padding-top: 8px;
-		}
-		
-		.calendar_body .sun_day .sun{
-			/*color: red; */
-			padding-left: 8px;
-			padding-top: 8px;
-		}
+		.calendar_body .date{padding-left: 8px; padding-top: 8px;}		
+		.calendar_body .sat_day .sat{ padding-left: 8px; padding-top: 8px;}	
+		.calendar_body .sun_day .sun{padding-left: 8px; padding-top: 8px;}
 		
 		.calendar_body td{
 			width: 14.29%;
@@ -107,6 +92,7 @@
 			height:120px;
 			vertical-align: top;
 			text-align: left;
+			box-sizing: border-box;
 		}
 		
 		/*.top_tr{border-bottom: 3px solid #7AB730;}*/
@@ -161,17 +147,37 @@
 		.noneMsg+img{width:40%; display: block; margin: auto; opacity: 0.8; box-shadow: 0 0 30px 0 #e8e8e8; border-radius: 15px;}
 		
 		
-		/*반응형*/
+/*반응형*/
 @media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
 	.siteInfo{width:100%; height:auto; position: relative;}
 	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
 	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
-	.calendar{width:100%; box-sizing: border-box;}
+	.calendar{width:100%; padding: 2.8vw; box-sizing: border-box;}
 	.calendar_top{width:90%;}
+	.calendar_top p{font-size:1.8vw; padding-bottom:0.94vw;}
 	.calendar_body{width:90%;}
-	.calendar_body td{height:11.27vw; }
-	.scheduleBox p{width:89%; height:auto; line-height:2.06vw; font-size:1.3vw;}
+	.calendar_body td{height:11.27vw; border:none;}
+	.dateNum{font-family: 'Jua', sans-serif; font-size:1.35vw;}
+	.scheduleBox p{width:10vw; height:auto; line-height:2.1vw; font-size:1.3vw; box-sizing: border-box;}
+	.scheduleBox{box-sizing: border-box;}
+	.calendar_body .date{padding-left: 0.75vw; padding-top: 0.75vw;}		
+	.calendar_body .sat_day .sat{ padding-left: 0.75vw; padding-top: 0.75vw;}	
+	.calendar_body .sun_day .sun{padding-left: 0.75vw; padding-top: 0.75vw;}
+	.navigation{height:14vw;}
+	.move{width:2vw; height:2vw; padding:0 0.56vw;}
+	.this_year{padding-left:5.2vw; top:3.75vw; left:6.5vw; font-size:4.3vw;}
+	.move.prev_year{top:5.5vw; left:5.16vw;}
+	.move.next_year{top:5.5vw; left:22.5vw;}
+	.this_month{top:3.8vw; font-size:6.2vw;}
+	.move.prev_month{top:6.57vw; transform: translate(-7.511vw, 0);}
+	.move.next_month{top:6.57vw; transform: translate(5.634vw, 0);}
+	.month_eng{top:9.86vw; font-size:1.5vw;}
+	.scheModal_open{width:9vw; height:3.286vw; top:5.164vw; right:7.98vw; font-size:1.6vw; border-radius:0.657vw; word-spacing:0.01vw;}
 }
+
+@media all and (max-width:350px) {
+.scheduleRgModal, #plan_modal, #plan_MFmodal{width:80%;}
+}	
 	</style>
 </head>
 <body>
@@ -246,7 +252,7 @@
 					<p style="color: #529dbc;">SAT</p>
 				</div>
 				
-				<table class="calendar_body">						
+				<table class="calendar_body">										
 					<tbody class="tbody">
 						
 						
