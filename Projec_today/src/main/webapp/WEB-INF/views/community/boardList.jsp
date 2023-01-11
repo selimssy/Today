@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); background-size: contain; margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
 .search{/*z-index: 999;float:right;*/text-align: right; padding-right: 125px; }	
 .select{display: inline-block; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
@@ -37,6 +37,28 @@
 .paging ul li a.page-active{color: #000; background:rgba(187, 217, 150, 0.8); border-radius: 10px}
 
 .writeB{width: 60px; color: #fff; border-radius: 10px; background: #7AB730; text-decoration: none;  float:right; position: absolute; bottom:-20px; right:45px; padding: 13px 15px; font-size:19px; line-height:19px; }
+
+/*반응형*/
+@media all and (max-width:1065px) {				
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	.diaryBox{width:85%; padding:30px 0 50px;}
+	.search{padding-right:7.5%;}
+	.diaryTB th{font-size:17px; padding: 20px 0;}
+}
+
+@media all and (max-width:900px) {			
+	.diaryBox{width:90%; padding:30px 0 50px;}
+	.diaryTB th{height:40px; padding:15px 0; font-size:16px;}
+	.diaryTB td{padding:15px 10px; font-size:14px;}
+	.diaryTB th:nth-of-type(1), .diaryTB td:nth-of-type(1), .diaryTB th:nth-of-type(5), .diaryTB td:nth-of-type(5){display: none;}
+	.diaryTB th:nth-of-type(2){width:65%;}
+	.diaryTB th:nth-of-type(3){width:20%;}
+	.diaryTB th:nth-of-type(4){width:15%;}
+	.diaryTB td.tableTitle{/*padding-left: 20px;*/ padding:15px 20px; font-size:16px;}
+	.diaryTB td.tableWriter{text-align: center;}
+}
 </style>
 </head>
 <body>
@@ -45,20 +67,22 @@
 	<main>
 	
 		<div class="siteInfo">
+			<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>커뮤니티 게시판</p>
 	            <p>너와 나, 우리 모두 함께</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="#"><div class="homeLogo">1</div></a>
-	        <ul>
-	            <li><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
-	            <li class="checked"><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
-	        </ul>
+		<div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></td>
+		            <td class="checked"><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></td>
+		        </tr>
+		    </table>
 	    </div>
-	
-	    <div class="otherWrap" style="width: 1150px; padding-left:350px">
+	    <div class="otherWrap">
 	        <div class="otherP">
 	            <P>너와의 오늘, 우리의 시간</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->

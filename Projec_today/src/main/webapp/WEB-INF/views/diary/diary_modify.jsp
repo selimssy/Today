@@ -16,7 +16,7 @@
 .titleBox{width:100%; height:40px; border:1px solid #d1d1d1; margin-bottom: 10px}
 .titleBox input{border:none; width:100%; height:40px; background: transparent; padding-left: 15px}
 .titleBox input:focus{outline: none;}
-.boardBox{width: 800px; margin: 0 auto}
+.boardBox{width: 700px; margin: 0 auto}
 .boardBox .boardwt{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-right: 15px}
 .boardBox h2{padding-bottom: 20px; font-size: 28px}
 input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; margin-right: 15px}
@@ -24,6 +24,15 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 .writenav button{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; }
 
 #cke_1_bottom{display:none}
+
+/*반응형*/
+@media all and (max-width:1065px) {			
+	.container{width:100%;}
+}
+
+@media all and (max-width:800px) {			
+	.boardBox{width:95%;}
+}
 </style>
 </head>
 <body>

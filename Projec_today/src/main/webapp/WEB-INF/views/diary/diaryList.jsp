@@ -42,8 +42,21 @@
 	.siteInfo{width:100%; height:auto; position: relative;}
 	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
 	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
-	.diaryBox{width:100%; box-sizing: border-box;}
-	.search{padding-right:50px;}
+	.diaryBox{width:85%; box-sizing: border-box; padding:2.8vw 0 4.7vw}
+	.search{padding-right:7.5%;}
+}
+
+@media all and (max-width:800px) {				
+	.diaryTB th{padding:15px 0; font-size:15px;}
+	.diaryTB td{padding:15px 10px;font-size:14px;}
+	.diaryTB td.tableTitle{padding-left:5vw;}
+}
+
+@media all and (max-width:600px) {		
+	.search{font-size:14px;}		
+	.select{width:13.666vw; height:25px; font-size:9px;}
+	.keyword input[type=text]{width:33.333vw; height:25px; font-size:9px;}
+	.keyword input[type=button]{width:7.5vw; height:25px; font-size:9px;}
 }
 </style>
 </head>

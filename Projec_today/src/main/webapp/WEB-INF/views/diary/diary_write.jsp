@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style type="text/css">
-.container{width:1000px; margin: 0 auto}
+.container{width:1000px;margin: 0 auto}
 .titleBox{width:100%; height:40px; border:1px solid #d1d1d1; margin-bottom: 10px}
 .titleBox input{border:none; width:100%; height:40px; background: transparent; padding-left: 15px}
 .titleBox input:focus{outline: none;}
@@ -56,7 +56,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 			  <script type="text/javascript">
 				  CKEDITOR.replace( 'ckeditor1', {
 				         width:'100%',
-				         height:'400px',
+				         height:'70vh',
 				         filebrowserUploadUrl:  "/today/diary/fileupload"
 				     });
 			  </script>

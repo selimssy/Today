@@ -197,7 +197,7 @@
 					let img = imgElements[i];
 					let path = img.src;
 
-					if (parseInt($('header').css('width')) > 1047){ // pc버전
+					if (parseInt($('header').css('width')) > 1065){ // pc버전
 						if(img.width > 787){
 					    	img.alt = "maxWidth";
 					    	let width = img.width;

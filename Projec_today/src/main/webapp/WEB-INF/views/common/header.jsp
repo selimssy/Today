@@ -233,12 +233,12 @@
     for(let i = 1; i <=4; i++){
         $(".mainMenu" + i).mouseover(function(){
             // 서브메뉴 나타나기(header 너비가 1065보다 클 때만
-            if(parseInt($("header").css("width")) > 1047){   // parseInt 해줘야 인식한다!!
+            if(parseInt($("header").css("width")) > 1065){   // parseInt 해줘야 인식한다!!
                 $(".sub_" + i).fadeIn("fast")
                 isOver1[i - 1] = true
             }
         }).focus(function(){
-            if(parseInt($("header").css("width")) > 1047){
+            if(parseInt($("header").css("width")) > 1065){
                 $(".sub_" + i).fadeIn("fast")
                 isOver1[i - 1] = true
             }
@@ -286,7 +286,7 @@
 	$(document).ready(function(){
 	    // PC브라우저에서 좁혀서 메뉴 닫고 다시 넓힐 때 상단메뉴 노출되게.
 	    $(window).resize(function() {
-	        if ( parseInt($('header').css('width')) > 1047 ) $('.header_cont').show();
+	        if ( parseInt($('header').css('width')) > 1065 ) $('.header_cont').show();
 	    }); 	    	   
 	   
 	});

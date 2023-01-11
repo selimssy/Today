@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
-	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
+	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png);  background-size: contain; margin: 0 auto;  position: relative;}       
 	.container{width: 1000px; margin: 0 auto; position: relative;}
     .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
     .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
@@ -20,7 +20,7 @@
     .MyPetPhoto{width:43%; margin: 0 20px; box-sizing: border-box; position: relative; background-image:url(/today/img/community/ring2.png); background-size: contain; background-repeat: no-repeat; }
     .MyPetPhoto::after {display: block; content: ""; padding-bottom: 100%;}
     .ring{width:100%; height:100%; }
-    .Myintro .MyPetPhoto img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box;} 
+    .Myintro .MyPetPhoto img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box; display: block;} 
     .Mycontent .MyPetinfo{padding-left: 15px; width:52%; box-sizing: border-box;}
     .Mycontent .MyPetinfo li{font-size: 19px; line-height: 40px;}
     .MyPetinfo li:last-of-type{padding-top: 5px;}
@@ -71,6 +71,31 @@
 	.noneMsgBox{width:35%; position: relative; margin: 100px auto 120px;}
 	.noneMsg{width:100%;font-family: 'Nanum Pen Script'; text-align: center; font-size: 40px; margin: 50px 0 30px; position: absolute; top: 70px;}
 	.noneMsgBox img{width:100%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
+
+	/*반응형*/
+@media all and (max-width:1065px) {			
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	.Myintro{margin:9.39vw auto;}
+	.PCards{width:100%; height:117.37vw; padding:1.8vw;}
+	.PCards .cardWrap{padding:1.8vw;}
+	.search{width:100%; padding-right:3.6vw; box-sizing: border-box;}
+	.paging{width:100%;}
+}
+
+@media all and (max-width:900px) {			
+	.Myintro{width:80%; height:42.22vw;}
+	.MyPetPhoto{margin:0 2.222vw;}
+	.Myintro h2{font-size:2.5vw; padding:1.111vw;}
+	.Mycontent{padding:2.222vw;}	
+	.Mycontent .MyPetinfo li:first-of-type{font-size: 2.5vw; line-height: 7.778vw;}
+	.nameTitle{font-size:2.333vw;}
+	.Mycontent .MyPetinfo li{font-size:2.111vw; line-height:4.445vw;}
+	.infoTitle{font-size:1.778vw;}
+	.Myintro .MyPetPhoto img{padding:2.222vw;}
+	.modifyIcon{width:20px; height:20px; top:10px; right:10px;}
+}
 </style>
 </head>
 <body>
@@ -83,15 +108,16 @@
 	            <p>우리의 사랑스러운 아이 보러 놀러오세요!</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="#"><div class="homeLogo">1</div></a>
-	        <ul>
-	            <li class="checked"><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
-	            <li><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
-	        </ul>
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td class="checked"><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></td>
+		            <td><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></td>
+		        </tr>
+		    </table>
 	    </div>
-	    
-	    
+	     
 	    <!-- 로그인 안 한 경우 -->
 	    <c:if test="${msg eq 'notLogin'}"> 
 	    		<div class="noneMsgBox">		        	
@@ -151,7 +177,7 @@
 	    
 	    
 	    
-		<div class="otherWrap" style="width: 1150px; padding-left:310px;">
+		<div class="otherWrap">
 	        <div class="otherP">
 	            <P>우리 아이 보러 놀러오세요~</P>
 	            <p>다른 반려동물 보러 놀러가기</p>
