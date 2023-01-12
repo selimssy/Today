@@ -122,7 +122,7 @@
     .otherWrap{padding-left:7.5%;}
     .otherP{height:15%; margin:12.5% 0 12.5%; padding-left:6.5%;}
     .otherP p{font-size: 4.5vw;}
-    .otherP p:last-of-type{font-size: 7.5vw;}
+    .otherP p:last-of-type{font-size: 9vw;}
 	
 	.flex-container{display:block;}
     .image-box{width: 70%; height: auto; margin: 10px auto;}

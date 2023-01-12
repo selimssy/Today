@@ -64,8 +64,7 @@
 	.mainContent{width:100%;}
 	.mainContent .conTitle{width:80%; margin: 0 auto;}
 	
-	.galleryBox{width:100%; height:auto; position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
-	.galleryBox:before {content: "";display: block;padding-top: 100%; /* 1:1 비율 */}
+	.galleryBox{width:100%; height:96.7vw; min-height:47vw; position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
 	.galleryBox_wrap{width:100%; padding:3%; box-sizing: border-box; position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
 	.openUGCard, .photoPoster{z-index:3;}
 	.paging{padding: 75px 0 0;}
@@ -75,6 +74,7 @@
 	.imgBox::after {display: block; content: ""; padding-bottom: 75%;}
 	.imgBox img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}
 	.imgInfo h3{font-size:2.5vw;}
+	
 }
 
 /* 모바일 기준 : 800px 미만 */
@@ -94,17 +94,22 @@
 	.paging{padding: 20px 0 0;}
 	.paging ul li a{font-size:2vw;}
 	 
-	.lifetimeBox{width:80%;}
-	.lifetimeCard{width:100%;}
-	.petImage{width: 36%; position: relative; box-sizing: border-box;}
-	.petImage::after {display: block; content: ""; padding-bottom: 100%;}
-	.lifetimeCard img{width:100%; height:100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}
 	
-	.cardInfo{width: 60%; height:auto; position: relative; margin-left:15px;}
-	.cardInfo p {font-size: 2.3vw;}
-	/*.cardInfo::after {content: ""; display: block; padding-top: 61.5%;}
-	.content { position: absolute; top: 0; right: 0; bottom: 0; left: 0;}*/
-	.InfoText{width:100%; height:auto; font-size: 3vw;}
+	
+}
+
+
+@media all and (max-width:600px) {
+	.galleryBox{height: 685vw;}
+	.gcardWrap{width:80%; float:none; margin:30px auto; margin-bottom:8.333vw; padding:2.43vw; padding-bottom:0;}
+	.gcardWrap:nth-of-type(3n) {margin-right: auto;}
+	.imgInfo{padding: 2.43vw 4.86vw 2.43vw;}
+	.imgInfo h3{font-size: 5vw;}
+	.gselect{width: 10px; height: 21px; bottom: 2.833vw; right: 6px;}
+	#showGallery{width:90%; height:88.5vw;}
+	.pop_list li{padding: 1.87vw 3.286vw 0px;}
+	.pop_list li h2.pop_title{font-size:22px; padding:0.94vw 0 2.25vw;}
+	.pop_list li .pop_content{padding: 1.4vw 0.94vw; font-size:14.5px; /*font-size:1.73vw;*/}
 }
 
 
@@ -181,7 +186,6 @@
 	        <!-- 갤러리 들어갈 공간 -->
 	                       	   		     
 	        <div class="galleryBox">
-	        <div class="galleryBox_wrap">
 	        	<c:if test="${msg eq 'notLogin'}"> <!-- 로그인 안 한 경우 -->
 		        	<p class="noneMsg">로그인 후 우리 아이의 소중한 일상을 남겨 보세요.</p>
 		        	<img alt="noticeImg" src="<c:url value='/img/mypet/noticeImg2.PNG'/>">
@@ -217,7 +221,6 @@
 			            </div>
 					</c:forEach>
 				</c:if>	
-			</div>
 	        </div>	 
 	        
 	        
@@ -263,7 +266,7 @@
 	            
 	
 	<!-- 갤러리 수정 모달 -->
-	<div class="mdpop" style="position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
+	<div class="mdpop" style="z-index:4; position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
 	<div class="modifyCard_wrap">
 		<div class="modifyCard">
 	        <button href="" class="mdGBtn">저장</button>

@@ -55,34 +55,30 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
 	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
 	.mainContent{width:100%;}
-	.mainContent .conTitle{width:80%; margin: 0 auto;}
+	.mainContent .conTitle{width:80%; height:8vw; margin: 0 auto;}
 	.lifecardbullet{display:none;}
 }
 
 /* 모바일 기준 : 800px 미만 */
 @media all and (max-width:800px) {
 	.noneMsg{font-size: 4.5vw;}
-	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}
+	.mainContent .conTitle span{line-height:8vw; font-size:5.625vw; padding-left:10%;}
 	
 	.uploadCard{width:60%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
 	.image-box{width:30%; height:auto;}	
 	.lifeCardInfo{width:80%; padding-top:10px; margin:0 auto;}
 	.lifeCardInfo input[type=date]{margin:0 auto; display:block;}
 	.InfoList{width:100%;}	
-	.modifyCard{width:60%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}
-	
-	
-	.lifetimeBox{width:80%;}
-	.lifetimeCard{width:100%;}
+	.modifyCard{width:60%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
+	.lifetimeBox{width:80%; margin:6.25vw auto;}
+	.lifetimeCard{width:100%; margin-bottom:15vw;}
 	.petImage{width: 36%; position: relative; box-sizing: border-box;}
 	.petImage::after {display: block; content: ""; padding-bottom: 100%;}
-	.lifetimeCard img{width:100%; height:100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}
-	
-	.cardInfo{width: 60%; height:auto; position: relative; margin-left:15px;}
+	.lifetimeCard img{width:100%; height:100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}	
+	.cardInfo{width: 60%; height:auto; position: relative; margin-left:15px; padding:2.5vw;}
 	.cardInfo p {font-size: 2.3vw;}
-	/*.cardInfo::after {content: ""; display: block; padding-top: 61.5%;}
-	.content { position: absolute; top: 0; right: 0; bottom: 0; left: 0;}*/
-	.InfoText{width:100%; height:auto; font-size: 3vw;}
+	.InfoText{width:100%; height:auto; font-size: 3.5vw; padding:2.5vw 1.875vw 0;}
+	.openUCard{width: 15vw; height:6vw; margin: 5vw 10% 0 0; font-size: 4vw; border-radius: 5px;}
 }
 
     </style>

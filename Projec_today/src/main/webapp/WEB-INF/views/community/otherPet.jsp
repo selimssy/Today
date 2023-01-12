@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); background-size: contain; margin: 0 auto;  position: relative;}       
 /*.container{width: 1000px; margin: 0 auto;}*/
 .Myintro{width: 600px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
 .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
@@ -97,6 +97,14 @@ ul{list-style: none;}
 .closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .gcardWrap:hover{background: #ddd; cursor: pointer;}
 
+/*반응형*/
+@media all and (max-width:1065px) {				
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	
+}
+
 </style>
 </head>
 <body>
@@ -105,20 +113,21 @@ ul{list-style: none;}
 	<main>
 	
 		<div class="siteInfo">
+			<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>반려견 소개하기</p>
 	            <p>우리의 사랑스러운 아이 보러 놀러오세요!</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
-	        <ul>
-	            <li class="checked"><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
-	            <li><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
-	        </ul>
-	    </div>
-		
-		
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td class="checked"><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></td>
+		            <td><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></td>
+		        </tr>
+		    </table>
+	    </div>				
 		<div class="Myintro">
 	        <h2>${pet.petName} 소개란</h2>
 	        <div class="Mycontent">
@@ -159,7 +168,7 @@ ul{list-style: none;}
 	    </div>
 		
 		
-	    <div class="otherWrap" style="width: 1150px;">
+	    <div class="otherWrap">
 	        <div class="otherP">
 	            <P>보러 와주셔서 감사합니다</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->

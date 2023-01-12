@@ -40,13 +40,14 @@
 	.keyword{display: inline-block;}
 	.keyword input[type=text]{width:200px; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
 	.keyword input[type=button]{width:45px; height: 30px; border:none; background: #ddd; cursor: pointer;}
-    .PCards{width:1000px; height:1250px; margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/  box-sizing: border-box;}
-    .PCards .cardWrap{width: 33%; float: left; padding: 20px; box-sizing: border-box;}
-     .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border: 5px solid #BCDB97; border-radius: 20px; }
-    .PCards .cardWrap .OPcard .cardTop{height:55px; background: rgba(188, 219, 151, 0.5); display: flex; justify-content: space-between; box-sizing: border-box; position: relative;}
-    .PCards .cardTop h3{margin: 0; line-height: 55px; width: 45%; text-align: center; font-size: 1.5em; overflow: hidden; text-overflow : ellipsis; white-space: nowrap; position: absolute; left: 70px;}
+    .PCards{width:1000px; /*height:1250px;*/ margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/ box-sizing: border-box;}
+    .PCards .cardWrap{width: 33%; float: left; padding: 20px 20px 50px 20px; box-sizing: border-box;}
+    .PCards .cardWrap:hover{box-shadow: 0 0 20px 0 #e8e8e8;}
+     .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border:none; border-bottom: 1px solid #BCDB97;; /*border: 5px solid #BCDB97; border-radius: 20px;*/}
+    .PCards .cardWrap .OPcard .cardTop{padding:9px 0 9px 10px;/*height:55px;*/ background: rgba(188, 219, 151, 0.5); /*display: flex; justify-content: space-between;*/ box-sizing: border-box; position: relative;}
+    .PCards .cardTop h3{background-image:url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat;  width: 60%; text-align: center; font-size: 1.5em; padding-left:50px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
      .PCards .cardTop .cBullet{width: 20%; height: 40px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; margin-left: 10px; margin-top: 5px;}
-    .cLink{list-style: none; padding-left: 0; position: absolute; top:20px; right:10px}
+    .cLink{list-style: none; padding-left: 0; position: absolute; top:17px; right:10px}
     .cLink li{display: inline-block; margin: 0 5px;}
     .cLink li a{text-decoration: none; color: transparent;}
      .cLink li:nth-of-type(1){padding: 0 5px; background-image:url(/today/img/community/instagram.png); background-size: contain; background-repeat: no-repeat;}
@@ -78,8 +79,9 @@
 	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
 	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
 	.Myintro{margin:9.39vw auto;}
-	.PCards{width:100%; height:117.37vw; padding:1.8vw;}
+	.PCards{width:100%; /*height:117.37vw;*/ padding:1.8vw;}
 	.PCards .cardWrap{padding:1.8vw;}
+	.PCards .cardBody ul{margin: 5px 0 5px 2vw;}
 	.search{width:100%; padding-right:3.6vw; box-sizing: border-box;}
 	.paging{width:100%;}
 }
@@ -95,6 +97,28 @@
 	.infoTitle{font-size:1.778vw;}
 	.Myintro .MyPetPhoto img{padding:2.222vw;}
 	.modifyIcon{width:20px; height:20px; top:10px; right:10px;}
+}
+
+@media all and (max-width:800px) {		
+	.PCards{padding:0}	
+	.PCards .cardWrap{width:80%; float:none; padding:0; margin:40px auto;}
+	/*.cardBody{display:flex; justify-content: space-between;}*/
+	.cardBody a{display:flex; justify-content: space-between; align-items:center;}
+	.PCards .cardTop h3{width:80%; font-size:2.5vw; padding-left:6.25vw;}
+	.PCards .cardBody img{width:40%; height:30.788vw; border-radius:50%; padding: 3.5%; box-sizing: border-box;}
+	.PCards .cardBody ul{width:55%; margin:0; /*padding:60px 0;*/}
+	.cardTitle{font-size:2vw;}
+	.PCards .cardBody ul li{font-size:2.4vw; line-height:6vw;}
+	.PCards .cardBody ul li::before{font-size:3.125vw;}
+	.cLink{top:1.8vw; right:1.25vw;}
+	.search{padding-right:10%;}
+}
+
+@media all and (max-width:600px) {		
+	.search{font-size:14px;}		
+	.select_con{width:13.666vw; height:25px; font-size:9px;}
+	.keyword input[type=text]{width:33.333vw; height:25px; font-size:9px;}
+	.keyword input[type=button]{width:7.5vw; height:25px; font-size:9px;}
 }
 </style>
 </head>
@@ -276,7 +300,7 @@
 	    }
 		
 		
-	
+		/*
 		// 반려동물 카드 hover 이벤트
 		$(document).on({
                 mouseenter: function () {
@@ -285,7 +309,7 @@
                 mouseleave: function () {
                     $(this).parent().css("border", "5px solid #BCDB97");
                 }
-        }, '.cardBody');
+        }, '.cardBody');*/
         
 
 	    
@@ -335,15 +359,15 @@
 	                        let html ='<div class="cardWrap">'
 	                        html += '<div class="OPcard">'
 	                        html += '<div class="cardTop">'
-	                        html += '<div class="cBullet"></div><h3>'
+	                        html += '<h3>'
 	                        html += petName
 	                        html += '</h3>'
 	                        html += '<ul class="cLink">'
 	                        if(response[i]['instagram']){
-	                            html += '<li><a href="' + instagram + '" target="_blank">1</a></li>'
+	                            html += '<li><a href="' + 'https://' + instagram + '" target="_blank">1</a></li>'
 	                        }
 	                        if(response[i]['youtube']){
-	                            html += '<li><a href="' + youtube + '" target="_blank">1</a></li>'
+	                            html += '<li><a href="' + 'https://' + youtube + '" target="_blank">1</a></li>'
 	                        }
 	                        html += '</ul></div>'
 	                        html += '<div class="cardBody">'
