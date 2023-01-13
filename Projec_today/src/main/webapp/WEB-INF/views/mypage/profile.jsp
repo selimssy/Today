@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/mypage/mypage.png); margin: 0 auto;  position: relative;}      
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/mypage/mypage.png); background-size: contain; margin: 0 auto;  position: relative;}      
 .content{width: 100%;}
 .myProfile{width: 100%; margin: 0 auto;}
 .profileBox{width: 800px; height:600px; margin: 90px auto;  background: #fff;}   
@@ -26,6 +26,13 @@
 .prof_button:nth-of-type(1){margin-right: 25px;}
 .petListBox{width: 800px; margin: 0px auto;}
  
+ /*반응형*/
+@media all and (max-width:1065px) {			
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	
+}
 
 </style>
 </head>
@@ -35,20 +42,21 @@
 	<jsp:include page="../common/header.jsp" />
 	<main>
 	    <div class="siteInfo">
+	    	<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>마이페이지</p>
 	            <p>개인정보 / 반려견 정보 수정</p>
 	        </div>
-	    </div>
-	    <div class="siteNav">
-	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
-	        <ul>
-	        	<li class="checked"><a href="<c:url value='/mypage/profile'/>">프로필</a></li>
-	            <li><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></li>
-	        </ul>
-	    </div>
-	    
-	    
+	    </div>	   
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td class="checked"><a href="<c:url value='/mypage/profile'/>">프로필</a></td>
+		            <td><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></td>
+		        </tr>
+		    </table>
+	    </div>	    
 	    <div class="content">
 		    <div class="myProfile">
 	    	    <div class="profileBox">			        			        

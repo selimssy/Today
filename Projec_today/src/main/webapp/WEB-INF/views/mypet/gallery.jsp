@@ -65,7 +65,6 @@
 	.mainContent .conTitle{width:80%; margin: 0 auto;}
 	
 	.galleryBox{width:100%; height:96.7vw; min-height:47vw; position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
-	.galleryBox_wrap{width:100%; padding:3%; box-sizing: border-box; position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
 	.openUGCard, .photoPoster{z-index:3;}
 	.paging{padding: 75px 0 0;}
 	
@@ -80,12 +79,11 @@
 /* 모바일 기준 : 800px 미만 */
 @media all and (max-width:800px) {
 	.noneMsg{font-size: 4.5vw;}
-	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}
-	
-	.register_form, .modifyCard{width:57%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
-
-	.galInfo{width:80%; padding-top:20px; margin:0 auto;}
-	#gcontent, #mdGCont{margin-top:20px;}
+	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}	
+	.register_form, .modifyCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
+	.galInfo{width:80%; padding-top:2.5vw; margin:0 auto;}
+	#gcontent, #mdGCont{margin-top:2.5vw; padding:2.5vw 3.125vw; font-size:2.5vw;}
+	#gtitle, #mdGtitle{font-size:2.5vw;}
 	.gcardWrap{padding:1.25%; padding-bottom:0;}
 	.buttonNav{width:100%;}
 	.openUGCard{width:12%; height:auto; font-size:3.5vw; padding:0.2vw; top:5.6vw; right: 5vw;}
@@ -99,7 +97,9 @@
 }
 
 
-@media all and (max-width:600px) {
+@media all and (max-width:700px) {
+	#gtitle, #mdGtitle{height:5.72vw; padding-left:2.14vw;}
+	#gcontent, #mdGCont{height:21.43vw;}
 	.galleryBox{height: 685vw;}
 	.gcardWrap{width:80%; float:none; margin:30px auto; margin-bottom:8.333vw; padding:2.43vw; padding-bottom:0;}
 	.gcardWrap:nth-of-type(3n) {margin-right: auto;}
@@ -167,7 +167,7 @@
 		        	<button class="closeUGCard">접기</button>
 					<div class="flex-container">       
 		               <div class="wrapper">
-		                   <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" style="margin: 20px auto;"/>
+		                   <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" />
 		                   <label for="file" class="upload-btn">
 		                       <input id="file" name="file" type="file" accept="image/*" />
 		                       <span>Upload Image</span>

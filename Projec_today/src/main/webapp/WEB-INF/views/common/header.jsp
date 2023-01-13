@@ -127,7 +127,7 @@
 	.flex-container{display:block;}
     .image-box{width: 70%; height: auto; margin: 10px auto;}
     #mdImage-box{width:100%; height: 100%; ;position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block; margin: 0 auto;}
-    .img_wrapper{width:70%; position: relative; box-sizing: border-box; margin:20px auto;}
+    .img_wrapper{width:70%; position: relative; box-sizing: border-box; margin:10px auto;}
     .img_wrapper::after {display: block; content: ""; padding-bottom: 100%;}
     </style>
 </head>

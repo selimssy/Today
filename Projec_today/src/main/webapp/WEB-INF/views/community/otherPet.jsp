@@ -42,10 +42,9 @@ ul{list-style: none;}
 .contents{width: 1050px; /*height: 800px;*/ margin: 100px auto;}
 #tabMenu{width: 1000px; /*height: 100%;*/ margin: 0 auto; min-height:300px}
 #tabMenu input[type="radio"]{display: none;}
-#tabMenu label{width: 44.5%; display: inline-block; margin: 0; color: #aaa; 
-    padding: 15px 25px; text-align: center; border: 1px solid transparent;}
+#tabMenu label{width: 49%; display: inline-block; font-size:20px; margin: 0; color: #aaa; padding: 15px 25px; text-align: center; border: none; box-sizing: border-box;}
 #tabMenu label:hover{color: #222; cursor: pointer;}
-#tabMenu input:checked + label{color: #b00; border: 1px solid #ddd; background: #eee; /*background:rgba(122, 183, 48, 0.5)*/}
+#tabMenu input:checked + label{color: #b00; /*border: 1px solid #ddd;*/ background: #eee; border:none; /*;background:rgba(122, 183, 48, 0.5)*/}
 
 /* 공지사항은 checked 이므로 처음주터 보이고 갤러리는 숨김 */
 .tabContent{display: none; padding: 20px 0 0; border-top: 1px solid #ddd;}
@@ -63,14 +62,14 @@ ul{list-style: none;}
 #tab2:checked ~ #gallery{display: block;}
 
 .lifetimeBox{width:550px; margin: 50px auto;}
-.lifetimeCard{width:550px; height: 200px; position: relative; display: flex; justify-content: space-evenly; margin-bottom:80px}
+.lifetimeCard{width:550px; /*height: 200px;*/ display: flex; justify-content: space-evenly; margin-bottom:80px}
 .lifecardbullet{width:45px; height: 45px; position: absolute; top: 75px; left:-85px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
 .modifyCardBtn{display:none; width:16px; position: absolute; top: 15px; right:30px; border:none; background-color: transparent; background-image: url(/today/img/mypet/modify.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
 .deleteCardBtn{display:none; width:16px; position: absolute; top: 15px; right:7px; border:none; background-color: transparent; background-image: url(/today/img/mypet/delete.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
 .lifetimeCard img{width:200px; height:200px;  object-fit: cover; border-radius: 7px;}
-.cardInfo{width:350px; height: 200px; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
+.cardInfo{width:350px; height: 200px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
 .cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
-.InfoText{width:255px; height:122px; background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow-y:auto;}
+.InfoText{width:255px; height:122px; background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow-y:auto; /*overflow: hidden; text-overflow : ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;*/}
 .InfoText::-webkit-scrollbar {display: none; /* 스크롤바 숨기기: Chrome, Safari, Opera*/}
 .InfoText{-ms-overflow-style: none; /* IE and Edge */scrollbar-width: none; /* Firefox */}
 
@@ -101,8 +100,61 @@ ul{list-style: none;}
 @media all and (max-width:1065px) {				
 	.siteInfo{width:100%; height:auto; position: relative;}
 	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
-	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
-	
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}	
+	.contents{width:100%;}	
+	#tabMenu{width:90%;}
+	.lifecardbullet{display:none;}	
+	.galleryBox{width:100%; height:96.7vw; min-height:47vw; position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
+	.gcardWrap{width:31%; height:auto; padding-bottom:0; margin:0 3% 3% 0;}
+	.imgBox{width:100%; position: relative; box-sizing: border-box;}
+	.imgBox::after {display: block; content: ""; padding-bottom: 75%;}
+	.imgBox img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}
+	.imgInfo h3{font-size:2.5vw;}
+}
+
+/* 모바일 기준 : 800px 미만 */
+@media all and (max-width:800px) {	
+	.lifetimeBox{width:100%; margin:6.25vw auto;}
+	.lifetimeCard{width:100%; margin-bottom:15vw;}
+	.petImage{width: 36%; position: relative; box-sizing: border-box;}
+	.petImage::after {display: block; content: ""; padding-bottom: 100%;}
+	.lifetimeCard img{width:100%; height:100%; position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block;}	
+	.cardInfo{width: 60%; height:auto; position: relative; margin-left:15px; padding:2.5vw;}
+	.cardInfo p {font-size: 2.3vw;}
+	.InfoText{width:100%; height:auto; font-size: 4vw; padding:2.5vw 1.875vw 0;}
+	.gcardWrap{padding:1.25%; padding-bottom:0;}
+	.gselect{width:1.25vw; height: 2.5vw; right: 0.75vw; bottom:1.875vw;}
+	#tabMenu label{font-size: 2.5vw;}
+	.contents{margin:14.28vw auto;}
+}
+
+@media all and (max-width:700px) {
+	.Mycontent .MyPetinfo li:first-of-type{display:none;}
+	.Myintro{width:90%; height:50vw; margin:14.28vw auto;}
+	.Mycontent{align-items:center; padding:2.85vw;}
+	.Myintro h2{padding:1.43vw; font-size:3.43vw;}
+	.MyPetPhoto{width:44%; margin:0 2.85vw;}
+	.Myintro .MyPetPhoto img{width:36.43vw; height:36.43vw; padding:2.85vw;}
+	.Mycontent .MyPetinfo{width:43%; padding-left:0;}
+	.Mycontent .MyPetinfo li a{padding:2.2vw 15px;}
+	#tabMenu label{padding:2.14vw 0;}
+
+	.galleryBox{height: 685vw;}
+	.gcardWrap{width:85%; float:none; margin:30px auto; margin-bottom:8.333vw; padding:2.43vw; padding-bottom:0;}
+	.gcardWrap:nth-of-type(3n) {margin-right: auto;}
+	.imgInfo{padding: 2.43vw 4.86vw 2.43vw;}
+	.imgInfo h3{font-size: 5vw;}
+	.gselect{width: 10px; height: 21px; bottom: 2.833vw; right: 6px;}
+	#showGallery{width:90%; height:88.5vw;}
+	.pop_list li{padding: 1.87vw 3.286vw 0px;}
+	.pop_list li h2.pop_title{font-size:22px; padding:0.94vw 0 2.25vw;}
+	.pop_list li .pop_content{padding: 1.4vw 0.94vw; font-size:14.5px; /*font-size:1.73vw;*/}
+}
+
+@media all and (max-width:600px) {
+	.infoTitle{font-size:2.666vw;}
+	.Mycontent .MyPetinfo li{font-size:3.1666vw; line-height:6.667vw;}
+	.Mycontent .MyPetinfo li a{padding: 2.2vw 2.5vw;}
 }
 
 </style>

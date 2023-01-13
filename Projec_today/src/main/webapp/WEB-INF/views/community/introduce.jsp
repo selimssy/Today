@@ -97,6 +97,7 @@
 	.infoTitle{font-size:1.778vw;}
 	.Myintro .MyPetPhoto img{padding:2.222vw;}
 	.modifyIcon{width:20px; height:20px; top:10px; right:10px;}
+	.Mycontent .MyPetinfo li a{padding:1.7vw 2.5vw;}
 }
 
 @media all and (max-width:800px) {		
@@ -119,6 +120,10 @@
 	.select_con{width:13.666vw; height:25px; font-size:9px;}
 	.keyword input[type=text]{width:33.333vw; height:25px; font-size:9px;}
 	.keyword input[type=button]{width:7.5vw; height:25px; font-size:9px;}
+	/*.nameTitle{font-size:14px;}
+	.Mycontent .MyPetinfo li:first-of-type{font-size:15px;}
+	.infoTitle{font-size:10.5px;}
+	.Mycontent .MyPetinfo li{font-size:12.666px; line-height:26.67px;}*/
 }
 </style>
 </head>

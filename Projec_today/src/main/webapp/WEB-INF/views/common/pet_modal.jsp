@@ -33,8 +33,7 @@
       
 /* 펫 리스트 창 */     
 #petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px; display: none;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index: 100}
-#petList > img{width: 70px; height: 70px; position: absolute; top: 30px; left: 200px;}
-#petList > p{font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px 0 0; padding-left: 40px; font-family: 'Nanum Pen Script', cursive; text-align: center;}
+#petList > p{width:60%; background-image: url(/today/img/community/infoPhoto.png); background-size: contain; background-repeat: no-repeat; font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px auto 0; font-family: 'Nanum Pen Script', cursive; text-align: center;}
 .bdiv{text-align: right;}
 #petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px; cursor: pointer;}
 #petCards{/*display: flex; justify-content: space-evenly;*/ margin-top: 20px;}
@@ -69,6 +68,30 @@ input[type=file] {display: none;}
 	.changePet2{left: 20px;}
 	
 }
+
+@media all and (max-width:1000px) {
+	#petList{width:80%; height:43vw; border-radius:5vw; padding-bottom:0.5vw;}
+	#petList > p{font-size:7.2vw; margin: 2vw auto 0;}
+	#petRgform_open{font-size:2.5vw; border-radius:1vw; padding:1vw 0.5vw; margin-right:2vw;}
+	#petCards{margin-top:2vw;}
+	.petBox{width:22vw; height:21vw; margin-left:3.5vw; border-radius:2vw; padding:1.5vw 0;}
+	.pet_in img{width:14vw; height:14vw;}
+	.pet_in h3{margin:1vw 0; padding:0 3vw; font-size:1.872vw;}
+	.pet_in p{font-size:1.6vw;}
+	.close{top:2.5vw; right:2.5vw;}
+}
+
+@media all and (max-width:500px) {
+	#petList{width:60%; height:135vw; border: 3.5px solid #7AB730;}
+	#petList > p{width:90%; font-size:8.25vw;}
+	.bdiv{text-align:center;}
+	#petRgform_open{width:80%; margin: 3.75vw auto 0; font-size:5.25vw;}
+	.petBox{float:none; margin:3.75vw auto; width:33vw; height:27.5vw; border-radius:3vw; padding:2.25vw 0;}
+	.pet_in img{width:21vw; height:21vw;}
+	.pet_in h3{margin:1.5vw 0; padding:0 4.5vw; font-size:2.8vw;}
+	.pet_in p{/*font-size:2.4vw;*/ display:none;}
+	.close{width:6vw; height:6vw; top:3vw;}
+}
 </style>
 
 
@@ -77,8 +100,7 @@ input[type=file] {display: none;}
     <!----------------------------- 펫 리스트 창 --------------------------------->	
 	<div class="modalcontainer">
         <div id="petList">       
-        	<div class="close">1</div>
-            <img src="<c:url value='/img/community/infoPhoto.png'/>">             
+        	<div class="close">1</div>         
             <p>반려동물 선택</p>
             <div class="bdiv">
                 <button id="petRgform_open">+ 반려동물 추가</button>
@@ -436,50 +458,53 @@ input[type=file] {display: none;}
 	    	}else {
             	$('#openChk').html('');
             }
-	    	
-	    	
-	    	// 이미지 리사이징
-      	    let img = new Image;
-      	    img.src = previews_modal1.src; 
-      	
-      	    var canvas = document.createElement("canvas");
-    	    canvas.getContext("2d").drawImage(img, 0, 0);
-    	      	  
-    	    // 최대 크기 지정과 리사이징
-    	    let maxWidth = 400; //가로 최대 400px
-    	    let maxHeight = 300; //세로 최대 300px
-    	    let width = img.width; 
-    	    let height = img.height; 
-    	    if (width > height) { 
-    	       if (width > maxWidth) {
-    	           height *= maxWidth / width;
-    	           width = maxWidth;
-    	       }
-    	    } else {
-    	       if (height > maxHeight) {
-    	           width *= maxHeight / height;
-    	           height = maxHeight;
-    	       }
-    	    }
-    	    canvas.width = width;
-    	    canvas.height = height;
-    	    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-
-    	    //canvas의 dataurl를 blob(file)화 하는 과정
-    	    var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
-    	    var byteString = atob(dataURI.split(',')[1]);
-    	    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    	    var ab = new ArrayBuffer(byteString.length);
-    	    var ia = new Uint8Array(ab);
-    	    for (var i = 0; i < byteString.length; i++) {
-    	        ia[i] = byteString.charCodeAt(i);
-    	    }
-    	    //리사이징된 file 객체
-    	    var tmpThumbFile = new Blob([ab], {type: mimeString});
- 
-            //formData 객체 생성
+	    		    	
+	    	//formData 객체 생성
             let formData = new FormData();
-     		formData.append("petImg", tmpThumbFile);
+	    	
+	    	if($("input[id='imgfile1']").val()){ // 사진 첨부한 경우에만 리사이징 진행
+	    		
+	    		// 이미지 리사이징
+	      	    let img = new Image;
+	      	    img.src = previews_modal1.src; 
+	      	
+	      	    var canvas = document.createElement("canvas");
+	    	    canvas.getContext("2d").drawImage(img, 0, 0);
+	    	      	  
+	    	    // 최대 크기 지정과 리사이징
+	    	    let maxWidth = 400; //가로 최대 400px
+	    	    let maxHeight = 300; //세로 최대 300px
+	    	    let width = img.width; 
+	    	    let height = img.height; 
+	    	    if (width > height) { 
+	    	       if (width > maxWidth) {
+	    	           height *= maxWidth / width;
+	    	           width = maxWidth;
+	    	       }
+	    	    } else {
+	    	       if (height > maxHeight) {
+	    	           width *= maxHeight / height;
+	    	           height = maxHeight;
+	    	       }
+	    	    }
+	    	    canvas.width = width;
+	    	    canvas.height = height;
+	    	    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+	    	    //canvas의 dataurl를 blob(file)화 하는 과정
+	    	    var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+	    	    var byteString = atob(dataURI.split(',')[1]);
+	    	    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+	    	    var ab = new ArrayBuffer(byteString.length);
+	    	    var ia = new Uint8Array(ab);
+	    	    for (var i = 0; i < byteString.length; i++) {
+	    	        ia[i] = byteString.charCodeAt(i);
+	    	    }
+	    	    //리사이징된 file 객체
+	    	    var tmpThumbFile = new Blob([ab], {type: mimeString});
+	     		formData.append("petImg", tmpThumbFile);
+	    	}
+	    	 	
      		
 	    	// 넘겨줄 반려동물 데이터
 	    	let petData = {
