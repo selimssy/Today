@@ -40,18 +40,11 @@
 
 
 
-#login_modal{display: none; width: 400px; height: 500px; position: fixed;
-    top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
-    background: #fff; border-radius: 10px;
-}
-#join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed;
-    top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
-    background: #fff; border-radius: 10px;
-}    
+#login_modal{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}
+#join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed;top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}    
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.modal_close{height: 25px; float: right; position: absolute; top: 25px; right: 15px;}
-
+.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .modal_table{border-collapse: collapse; width: 100%;}
 .modal_body{padding: 0 20px; display: block;}
 .mlabel{padding-top: 10px;}
@@ -64,79 +57,13 @@
 .emailAuth:nth-of-type(1) button{width:35%;}
 
 
+@media all and (max-width:500px) {
+	#login_modal, #join_modal{width: 85%;}
+}
 
 
-/* 임시!!!(펫 관련) 
-#petList{width: 800px; height: 450px; border: 5px solid #7AB730; display: none;}
-#petList h2{background: #7AB730;}
-#petList #petCards{display: flex; overflow-x: auto}
-#petList #petCards a{text-decoration: none; color: #000;}*/
-
-
-#petRg_modal{display: none;}
-/*펫리스트
-.pet{width: 240px; border: 1px solid #000;}
-
-.pet_in img{width: 100%;}*/
 
 	
-/*팝업 모달*/
-.layer-popup {display: none; position: fixed;
-    top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;
-     border-radius: 10px; z-index: 100}
-.layer-popup.show {display: block;}
-      
-/* 펫 리스트 창 */     
-.petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px;}
-#layer-popup > img{width: 60px; height: 60px; position: absolute; top: 35px; left: 200px;}
-#layer-popup > p{font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px 0 0; padding-left: 40px; font-family: 'Nanum Pen Script', cursive; text-align: center;}
-.bdiv{text-align: right;}
-#petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px;}
-.petList #petCards{/*display: flex; justify-content: space-evenly;*/ margin-top: 20px;}
-.petList #petCards a{text-decoration: none; color: #000;}
-.pet{float: left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}       
-.pet:nth-of-type{margin-right: 35px}
-.pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
-.pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-.pet_in p{margin: 0;}
-/* petId 안보이게 */
-.pet_id{display:none}   
-
-
-
-
-.flex-container {
-    display: flex;
-}
-
-/*
-.wrapper {
-text-align: center;
-flex-grow: 1;
-}
-*/
-
-.image-box {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    display: block;
-    margin: 20px auto;
-}
-
-.upload-btn {
-    border: 1px solid #ddd;
-    padding: 6px 12px;
-    display: inline-block;
-    cursor: pointer;           
-}
-
-input[type=file] {
-    display: none;
-}
-
-
-
 
 
 </style>
@@ -224,7 +151,7 @@ input[type=file] {
             <h2 class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 로그인
             </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">close</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body">
             <form method="post" id="signInForm">
@@ -282,7 +209,7 @@ input[type=file] {
             <h2 class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 회원가입
             </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">close</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body" >
             <form method="post" id="joinForm">

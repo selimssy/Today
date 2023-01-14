@@ -5,19 +5,25 @@
 #login_modal{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px; z-index:100;}
 #join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px; z-index:100;}    
 .Umodal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
+.Umodal_header h2{line-height: 3.1em; font-size:1.5em;}
 .Umodal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.Umodal_close{height: 25px; float: right; position: absolute; top: 25px; right: 15px;}
-
+.Umodal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .Umodal_table{border-collapse: collapse; width: 100%;}
+/*.Umodal_table td{padding:1px;}*/
 .Umodal_body{padding: 0 20px; display: block;}
 .Ulabel{padding-top: 10px;}
-.Umodal_input{border: 1px solid #d9d9de; box-sizing: border-box; width: 100%; height: 40px;}
+.Ulabel p{margin:16px 0;}
+.Umodal_input{border: 1px solid #d9d9de; box-sizing: border-box; width: 100%; height: 40px; padding-left:10px;}
 #auto_login{margin-top: 20px; margin-bottom: 20px;}
 .U_button{margin-top: 20px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
 #signup-btn{margin: 30px 0; height: 45px;}
 .emailAuth{display:flex}
 .emailAuth button{height: 40px; padding:5px 0; margin-left: 5px; border:none; /*font-size:20px; line-height:20px;*/ box-sizing: border-box; cursor: pointer;}
 .emailAuth:nth-of-type(1) button{width:35%;}
+
+@media all and (max-width:500px) {
+	#login_modal, #join_modal{width: 85%;}
+}
 
 
 </style>
@@ -30,7 +36,7 @@
         <h2 class="Umodal-title">
             <span class="Umodal_logo">오늘의 너</span> 로그인
         </h2>
-        <button type="button" class="Umodal_close">X</button> <!--닫기 버튼-->
+        <div class="Umodal_close">close</div> <!--닫기 버튼-->
     </div>
     <div class="Umodal_body">
         <form method="post" id="signInForm">
@@ -84,15 +90,15 @@
 
 <!------------------------------ 회원가입 모달 --------------------------------->
 <div id="join_modal">
-    <div class="modal_header">
-        <h2 class="modal-title">
-            <span class="modal_logo">오늘의 너</span> 회원가입
+    <div class="Umodal_header">
+        <h2 class="Umodal-title">
+            <span class="Umodal_logo">오늘의 너</span> 회원가입
         </h2>
-        <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+        <div class="Umodal_close">close</div> <!--닫기 버튼-->
     </div>
-    <div class="modal_body" >
+    <div class="Umodal_body" >
         <form method="post" id="joinForm">
-            <table class="modal_table">
+            <table class="Umodal_table">
                 <tr>
                     <td class="Ulabel">
                         <p>

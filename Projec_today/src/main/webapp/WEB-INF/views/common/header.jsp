@@ -207,7 +207,7 @@
 
 
 
-    
+    <jsp:include page="../common/user_modal.jsp" />
 
 
 

@@ -53,7 +53,7 @@
 	.profileBox{height:100vw;}
 	.profile_tb td:nth-of-type(1){width:35%; font-size:3.2vw;}
 	.prof_button:nth-of-type(1){margin-right:0; margin-top:7vw;}
-	.prof_button{width:90%; height: 8.5vw; font-size:3vw;}
+	.prof_button{width:75%; height: 8.5vw; font-size:3vw;}
 }
 
 </style>

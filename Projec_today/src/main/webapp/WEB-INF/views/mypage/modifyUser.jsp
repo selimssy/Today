@@ -8,13 +8,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/mypage/mypage.png); margin: 0 auto;  position: relative;}      
+.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/mypage/mypage.png); background-size: contain; margin: 0 auto;  position: relative;}      
 .contents{width: 800px; /*height: 800px;*/ margin: 140px auto;}
-#tabMenu{width: 800px; /*height: 100%;*/ margin: 0 auto; min-height:300px}
+#tabMenu{width: 100%; /*height: 100%;*/ margin: 0 auto; min-height:300px}
 #tabMenu input[type="radio"]{display: none;}
 #tabMenu label{width: 49%; display: inline-block; margin: 0; color: #aaa; padding: 15px 25px; text-align: center; border: none; box-sizing: border-box;}
 #tabMenu label:hover{color: #222; cursor: pointer;}
-#tabMenu input:checked + label{color: #000; border: 1px solid #ddd; background: #eee; /*background:rgba(122, 183, 48, 0.5)*/}
+#tabMenu input:checked + label{color: #000; border: none; background: #eee; /*background:rgba(122, 183, 48, 0.5)*/}
 .tabContent{display: none; padding: 20px 0 0; border-top: 2px solid #000;}
 .tabContent h2{display: none;}
 #tab1:checked ~ #userInfo,
@@ -29,6 +29,33 @@
 .prof_input.none:focus{outline: none;}
 .prof_button{margin-top: 35px; width: 75%; height: 50px; font-size:16px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
 
+ /*반응형*/
+@media all and (max-width:1065px) {			
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}			
+}
+
+@media all and (max-width:1000px) {
+	.contents{width:80%; margin:23.333vw auto 0;} 	
+}
+
+@media all and (max-width:800px) {
+	.container{padding-bottom:14vw;}
+	.tabContent{padding:2.5vw 0 0;}
+	.profile_tb{margin:6.25vw auto;}
+	.profile_tb td:nth-of-type(1){width:35%;} 
+	/*.prof_input{height:5vw;}*/
+	.profile_tb tr{height:10vw;}
+	.prof_button{margin-top:4.375vw; padding:0;}
+}
+
+@media all and (max-width:600px) {
+	#tabMenu label{width:48.5%; padding:2.5vw 0; font-size:2.667vw;}
+	.prof_input{font-size:2.667vw;}
+	.profile_tb td:nth-of-type(1){font-size:2.667vw;}
+	.prof_button{height:8.33vw; font-size:2.667vw;}
+}
 </style>
 </head>
 <body>
@@ -37,20 +64,21 @@
 	<jsp:include page="../common/header.jsp" />
 	<main>
 	    <div class="siteInfo">
+	    	<div class="ratio_content"></div>
 	        <div class="infoText">
 	            <p>마이페이지</p>
 	            <p>개인정보 / 반려견 정보 수정</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="<c:url value='/'/>"><div class="homeLogo">1</div></a>
-	        <ul>
-	        	<li><a href="<c:url value='/mypage/profile'/>">프로필</a></li>
-	            <li class="checked"><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></li>
-	        </ul>
-	    </div>
-	    
-	    
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td><a href="<c:url value='/mypage/profile'/>">프로필</a></td>
+		            <td class="checked"><a href="<c:url value='/mypage/modifyUser'/>">개인정보 수정</a></td>
+		        </tr>
+		    </table>
+	    </div>		        
 	    <div class="contents">
             <div id="tabMenu">
                 <input type="radio" id="tab1" name="tabs" checked>
