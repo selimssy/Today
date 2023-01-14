@@ -12,7 +12,7 @@
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .modal_header h2{line-height: 2.8em; font-size:22px;}
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.modal_close{width: 25px; height: 25px; float: right; position: absolute; top: 20px; right: 15px;}
+.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 .modal_table{border-collapse: collapse; width: 100%;}
 .modal_body{padding: 0 30px 25px; display: block;}
@@ -26,13 +26,13 @@
 
 /* 펫 등록 모달 */
 #petRg_modal{display: none; width:420px; height:80vh; overflow-y:auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
-			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 100}
+			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 999;}
 /* 펫 수정 모달 */
 #petMf_modal {display: none; width:420px; height:80vh; overflow-y:auto;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
-			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 999}
+			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 999;}
       
 /* 펫 리스트 창 */     
-#petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px; display: none;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index: 100}
+#petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px; display: none;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index: 99;}
 #petList > p{width:60%; background-image: url(/today/img/community/infoPhoto.png); background-size: contain; background-repeat: no-repeat; font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px auto 0; font-family: 'Nanum Pen Script', cursive; text-align: center;}
 .bdiv{text-align: right;}
 #petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px; cursor: pointer;}
@@ -82,15 +82,20 @@ input[type=file] {display: none;}
 }
 
 @media all and (max-width:500px) {
-	#petList{width:60%; height:135vw; border: 3.5px solid #7AB730;}
+	#petList{width:60%; height:137.5vw; border: 3.5px solid #7AB730;}
 	#petList > p{width:90%; font-size:8.25vw;}
 	.bdiv{text-align:center;}
-	#petRgform_open{width:80%; margin: 3.75vw auto 0; font-size:5.25vw;}
+	#petRgform_open{width:80%; margin: 3.75vw auto 2.5vw; font-size:5.25vw;}
 	.petBox{float:none; margin:3.75vw auto; width:33vw; height:27.5vw; border-radius:3vw; padding:2.25vw 0;}
 	.pet_in img{width:21vw; height:21vw;}
 	.pet_in h3{margin:1.5vw 0; padding:0 4.5vw; font-size:2.8vw;}
 	.pet_in p{/*font-size:2.4vw;*/ display:none;}
 	.close{width:6vw; height:6vw; top:3vw;}
+	#petRg_modal, #petMf_modal{width:80%;}
+	.modal_body{padding: 0 6vw 5vw;}
+	#petMf_modal .modal_logo{font-size:5.5vw;}
+	#petMf_modal .modal_header h2{font-size:4.4vw;}
+	.modal_close{top:3.5vw;}
 }
 </style>
 
@@ -120,7 +125,7 @@ input[type=file] {display: none;}
             <h2 class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 펫 등록
             </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">close</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body" >
             <form method="post" id="petRgForm">
@@ -252,7 +257,7 @@ input[type=file] {display: none;}
             <h2 class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 반려동물 정보 수정
             </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">close</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body" >
             <form method="post" id="petRgForm">
@@ -390,6 +395,7 @@ input[type=file] {display: none;}
 	        $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
 	        $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
 	        $("#petRg_modal input[type='radio']").prop("checked", false);
+	        $(".mdpop").css("display","block");
 	        /*
 	        $("#pet_name").val("");
 	        $("#age").val("");
@@ -696,6 +702,7 @@ input[type=file] {display: none;}
 	                	let youtube = response['youtube']
 	                	let open = response['open']
 						
+	                	$(".mdpop").css("display","block");
 	                	$(".select").add($(".select").children(".list")).removeClass("on");
 	                	$("#petMf-btn").attr("href", petId);
 	                	$("#image-box-modal2").attr("src", imagePath);
@@ -725,9 +732,10 @@ input[type=file] {display: none;}
         
        
     	
-	    // 반려동물 수정 모달 닫기
+	    // 반려동물 추가, 수정 모달 닫기
 	    $(".modal_close").on("click", function(){
-            $(this).parent().parent().css("display", "none")
+            $(this).parent().parent().css("display", "none");
+            $(".mdpop").css("display","none");
         })
 	    
         

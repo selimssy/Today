@@ -12,7 +12,7 @@
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .modal_header h2{line-height: 2.8em; font-size:22px;}
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.modal_close{width: 25px; height: 25px; float: right; position: absolute; top: 20px; right: 15px;}
+.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 .modal_table{border-collapse: collapse; width: 100%;}
 .modal_body{padding: 0 30px 25px; display: block;}
@@ -26,10 +26,10 @@
 
 /* 펫 등록 모달 */
 #petRg_modal{display: none; width:420px; height:80vh; overflow-y:auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
-			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 100}
+			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 9999;}
 /* 펫 수정 모달 */
 #petMf_modal {display: none; width:420px; height:80vh; overflow-y:auto;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
-			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 999}
+			  box-shadow: 0 0 20px 0 #e8e8e8; border-radius: 10px; z-index: 9999;}
       
 /* 펫 리스트 창 */     
 #petList{width: 800px; height: 350px; background: #fff; padding-bottom: 5px; position: relative;}
@@ -61,6 +61,38 @@
 #image-box-modal1, #image-box-modal2{width: 200px;height: 200px;object-fit: cover;display: block;margin: 20px auto;}
 .upload-btn {border: 1px solid #ddd; padding: 6px 12px;display: inline-block; cursor: pointer;}
 input[type=file] {display: none;}
+
+
+@media all and (max-width:1000px) {
+	#petList{width:100%; height:30vw; border-radius:5vw; padding-bottom:0.5vw;}
+	#petCards{margin-top:2vw; padding-top:2vw;}
+	.petBox{width:22vw; height:21vw; margin-left:3.5vw; border-radius:2vw; padding:1.5vw 0;}
+	.pet_in img{width:14vw; height:14vw;}
+	.pet_in h3{margin:1vw 0; padding:0 3vw; font-size:1.872vw;}
+	.pet_in p{font-size:1.6vw;}
+	.close{top:2.5vw; right:2.5vw;}
+}
+
+@media all and (max-width:800px) {
+	.myProfile .modal_logo{font-size:5vw; padding-left:1.875vw;}
+	.profileBox h1, .petListBox h1{font-size:4vw;}
+	#petRgform_open{font-size:2.5vw; border-radius:1vw; padding:1vw 0.5vw; margin-right:2vw;}
+	.bdiv{top:-9.5vw;}
+}
+
+@media all and (max-width:500px) {
+	#petRg_modal, #petMf_modal{width:80%;}
+	.modal_body{padding: 0 6vw 5vw;}
+	#petMf_modal .modal_logo{font-size:5.5vw;}
+	#petMf_modal .modal_header h2{font-size:4.4vw;}
+	.modal_close{top:3.5vw;}
+	.petBox{height:20.5vw;}
+	.pet_in p{display:none;}
+	.select{width:4vw; height:2vw; top:1.4vw; right:2.4vw;}
+	.bdiv{top:-48px;}
+	#petRgform_open{padding:5px 2.5px; margin-right:14px;}
+}
+
 </style>
 
 
@@ -73,7 +105,7 @@ input[type=file] {display: none;}
             <h2 class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 펫 등록
             </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">close</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body" >
             <form method="post" id="petRgForm">
@@ -205,7 +237,7 @@ input[type=file] {display: none;}
             <h2 class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 반려동물 정보 수정
             </h2>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">close</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body" >
             <form method="post" id="petRgForm">
@@ -327,7 +359,7 @@ input[type=file] {display: none;}
         </div>
     </div>
     
-    
+    <div class="mdpop" style="z-index:100; position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
     
     <script type="text/javascript">
     
@@ -342,6 +374,7 @@ input[type=file] {display: none;}
         $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
         $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
         $("#petRg_modal input[type='radio']").prop("checked", false);
+        $(".mdpop").css("display","block");
     })
   
     
@@ -518,6 +551,7 @@ input[type=file] {display: none;}
 	                	let youtube = response['youtube']
 	                	let open = response['open']
 						
+	                	$(".mdpop").css("display","block");
 	                	$(".select").add($(".select").children(".list")).removeClass("on");
 	                	$("#petMf-btn").attr("href", petId);
 	                	$("#image-box-modal2").attr("src", imagePath);
@@ -547,9 +581,10 @@ input[type=file] {display: none;}
         
        
     	
-	    // 반려동물 수정 모달 닫기
+	    // 반려동물 추가, 수정 모달 닫기
 	    $(".modal_close").on("click", function(){
-            $(this).parent().parent().css("display", "none")
+            $(this).parent().parent().css("display", "none");
+            $(".mdpop").css("display","none");
         })
 	    
         

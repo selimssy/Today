@@ -34,6 +34,28 @@
 	
 }
 
+@media all and (max-width:1000px) {
+	.petListBox, .profileBox{width:80%;} 
+	
+}
+
+@media all and (max-width:800px) {
+	.profileBox{height:75vw; margin:11.25vw auto;}
+	.profile_tb th, .pet_tb th{padding:2.5vw 3.75vw;}
+	.profile_tb td:nth-of-type(1){width:35%;}
+	/*.prof_input{height:5vw;}*/
+	.profile_tb tr{height:10vw;}
+	.prof_button{margin-top:4.375vw; padding:0;}
+}
+
+@media all and (max-width:500px) {
+	.container{padding-bottom:14vw;}
+	.profileBox{height:100vw;}
+	.profile_tb td:nth-of-type(1){width:35%; font-size:3.2vw;}
+	.prof_button:nth-of-type(1){margin-right:0; margin-top:7vw;}
+	.prof_button{width:90%; height: 8.5vw; font-size:3vw;}
+}
+
 </style>
 </head>
 <body>

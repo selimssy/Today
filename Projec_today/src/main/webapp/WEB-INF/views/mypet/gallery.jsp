@@ -32,7 +32,7 @@
 
 .register_wrap{display: none;}
 .modifyCard_wrap{display: none;}
-.register_form, .modifyCard{/*display: none;*/ width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly;}
+.register_form, .modifyCard{/*display: none;*/ width: 550px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly; z-index:9999;}
 .closeUGCard, .mdGcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
 #uploadGBtn, .mdGBtn{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
 .galInfo{width: 250px; padding-top: 20px;}
@@ -80,7 +80,7 @@
 @media all and (max-width:800px) {
 	.noneMsg{font-size: 4.5vw;}
 	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}	
-	.register_form, .modifyCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
+	.register_form, .modifyCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; overflow-y: auto;}	
 	.galInfo{width:80%; padding-top:2.5vw; margin:0 auto;}
 	#gcontent, #mdGCont{margin-top:2.5vw; padding:2.5vw 3.125vw; font-size:2.5vw;}
 	#gtitle, #mdGtitle{font-size:2.5vw;}
@@ -266,7 +266,7 @@
 	            
 	
 	<!-- 갤러리 수정 모달 -->
-	<div class="mdpop" style="z-index:4; position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
+	<div class="mdpop" style="z-index:100; position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
 	<div class="modifyCard_wrap">
 		<div class="modifyCard">
 	        <button href="" class="mdGBtn">저장</button>

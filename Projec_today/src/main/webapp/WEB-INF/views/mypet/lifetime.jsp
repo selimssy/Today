@@ -224,7 +224,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 </div> 	
 	
 	<!-- 생애기록 수정 모달 -->
-	<div class="mdpop" style="position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
+	<div class="mdpop" style="z-index:100; position: fixed; top: 0; left: 0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; text-indent:-9999px"></div>
 	<div class="modifyCard_wrap">
 		<div class="modifyCard">
 	        <button href="" class="mdBtn">저장</button>
