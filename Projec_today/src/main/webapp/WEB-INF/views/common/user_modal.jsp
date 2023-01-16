@@ -18,11 +18,12 @@
 .U_button{margin-top: 20px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
 #signup-btn{margin: 30px 0; height: 45px;}
 .emailAuth{display:flex}
-.emailAuth button{height: 40px; padding:5px 0; margin-left: 5px; border:none; /*font-size:20px; line-height:20px;*/ box-sizing: border-box; cursor: pointer;}
+.emailAuth button{height: 40px; padding:5px 0; margin-left: 5px; border:none; /*font-size:20px; line-height:20px;*/ box-sizing: border-box; cursor: pointer; word-break: keep-all;}
 .emailAuth:nth-of-type(1) button{width:35%;}
 
 @media all and (max-width:500px) {
 	#login_modal, #join_modal{width: 85%;}
+	.emailAuth button{font-size:2.667vw;}
 }
 
 
@@ -549,7 +550,8 @@
 	                        $('#pwCheck').html('<b style="font-size:14px;color:red;">[비밀번호가 일치하지 않습니다.]</b>');
 	                        chk2 = false;
 	                    } else if(data === "loginSuccess") {
-	                        self.location="/today";
+	                        //self.location="/today";
+	                    	window.location.reload();
 	                    }
 	                }
 	            });

@@ -11,33 +11,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <style>     
-body{margin:0; padding:0;}
-.main_section{width: 100%; /*height: 880px; margin: 0 auto;*/ padding-bottom:45px; background: url(/today/img/common/homebg2.png); background-position: 0 50%; background-size:cover; background-repeat:no-repeat;}
-.section_wrap{width:1080px; margin:0 auto; position: relative; overflow: hidden}
-.main_nav{margin:0; text-align: right; font-size: 1.5em; /*padding-right: 25px;*/}
-.main_nav ul{margin:0;}
+.container{width: 1200px; height: 880px; background: url(/today/img/common/homebg2.png); margin: 10px auto; position: relative;}
+.main_nav{text-align: right; font-size: 1.5em; padding-right: 25px;}
 .main_nav ul li{list-style: none; display:inline-block; padding: 20px 35px 0px 0px}
 .main_nav ul a{text-decoration: none; color: #000; font-size:0.9em;}
 #login{padding-left:30px; background-image:url(/today/img/common/login.png); background-size: contain; background-repeat: no-repeat;}
 #join{padding-left:35px; background-image:url(/today/img/common/join.png); background-size: contain; background-repeat: no-repeat;}
 #logout{padding-left:35px; background-image:url(/today/img/common/logout.png); background-size: contain; background-repeat: no-repeat;}
 .main_nav ul a:hover{font-weight: bold;}    
-.title{/*position: absolute; top: 30px; left: 90px;*/ }
+.title{position: absolute; top: 30px; left: 150px;}
 .tfont{font-size: 7.5em; font-family: 'Nanum Pen Script', cursive;}
 .title p{font-size: 2.1em; font-family: 'Nanum Pen Script', cursive; margin:0}
 /*.menuboard{width: 1060px; position: absolute; bottom: 30px; display: flex; justify-content: space-between; margin-left: 10px;}*/
-.menuboard_wrap{text-align: right;}
-.menuboard{width:640px; height:650px; margin-top:50px; margin-bottom:80px; float: right; /*position: absolute; top:180px; right:0;*/}
-.menuboard a{width: 290px; height: 300px; display:block; float:left; background: rgba(255, 255, 255, 0.75); text-align: center; padding-top:15px; box-sizing: border-box; text-decoration: none; color: #000;}
-.menuboard a:nth-of-type(1){/*position: absolute; top:180px; right: 410px;*/ margin-right:60px;}
-.menuboard a:nth-of-type(2){/*position: absolute; top:180px; right: 60px;*/}
-.menuboard a:nth-of-type(3){/*position: absolute; top:530px; right: 410px;*/ margin-right:60px; margin-top:50px;}
-.menuboard a:nth-of-type(4){/*position: absolute; top:530px; right: 60px;*/ margin-top:50px;}
-
-.menuboard img{padding-top: 20px; width:60px; height: 60px;}
-.menuboard p:nth-of-type(1){font-size: 2.5em; font-family: 'Jua', sans-serif; margin: 10px 0;}
-.menuboard p:nth-of-type(2){margin-top: 30px}
-.menuboard p:nth-of-type(2), .menu p:nth-of-type(3){font-size: 1.1em; color:#000}
+.menuboard a{text-decoration: none; color: #000;}
+.menuboard a:nth-of-type(1){position: absolute; top:180px; right: 410px;}
+.menuboard a:nth-of-type(2){position: absolute; top:180px; right: 60px;}
+.menuboard a:nth-of-type(3){position: absolute; top:530px; right: 410px;}
+.menuboard a:nth-of-type(4){position: absolute; top:530px; right: 60px;}
+.menu{width: 290px; height: 300px; background: rgba(255, 255, 255, 0.75); text-align: center; padding-top:15px; box-sizing: border-box;}
+.menu img{padding-top: 20px; width:60px; height: 60px;}
+.menu p:nth-of-type(1){font-size: 2.5em; font-family: 'Jua', sans-serif; margin: 10px 0;}
+.menu p:nth-of-type(2){margin-top: 30px}
+.menu p:nth-of-type(2), .menu p:nth-of-type(3){font-size: 1.1em; color:#000}
 
 .fcontainer{width: 1200px; margin: 0 auto; position: relative;}
 .fcontainer span{position: absolute; left: 20px; bottom: 15px; color: #fff;}
@@ -77,66 +72,71 @@ body{margin:0; padding:0;}
 </head>
 <body>
    
-    
+    <div>
     	
-        <div class="main_section">  
-        	<jsp:include page="common/main_header.jsp" />
-        	<div class="section_wrap">   
-        		<!-- 
-	            <c:if test="${login == null}" >  
-		            <nav class="main_nav">
-		                <ul>
-		                    <li><a href="#" id="login">로그인</a></li>
-		                    <li><a href="#" id="join">회원가입</a></li>                
-		                </ul>    
-		           </nav>     
-	           </c:if>                
-	           <c:if test="${login != null}">  
-	           		<nav class="main_nav">
-	           			<ul>
-	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
-	           			</ul>
-	           		</nav>
-	           </c:if>
-	           -->
-	           <!-- 
-	            <div class="title">
-	                <span class="tfont">오늘의 너</span>
-	                <p>사랑스러운 너와의 오늘을 기억해</p>
-	            </div> -->
-	
-	            <div class="menuboard">
-	                <!-- <a href="javascript:select_pet();"> -->                             
-	               	<a href="<c:url value='/mypet/lifetime'/>">
-	                    <img src="/today/img/common/dog2.png">
-	                    <p>나의 반려견</p>
-	                    <p>반려견 생애 기록</p>
-	                    <p>갤러리</p>
-	                   </a>           
-	               	<a href="<c:url value='/diary/calendar'/>">
-	                    <img src="/today/img/common/cal.png">
-	                    <p>반려견 다이어리</p>
-	                    <p>반려견 전용 캘린더</p>
-	                    <p>견주 일기</p>
-	                   </a>                             
-	               	<a href="<c:url value='/community/intro'/>">
-	                    <img src="/today/img/common/community.png">
-	                    <p>커뮤니티</p>
-	                    <p>내 반려견 자랑하기</p>
-	                    <p>커뮤니티 게시판</p>
-	                    <!-- <p>견주 커뮤니티(꿀팁 공유, 묻고 답하기)</p> -->
-	                   </a>          
-	               	<a href="<c:url value='/mypage/profile'/>">
-	                    <img src="/today/img/common/boarduser.png">
-	                    <p>마이페이지</p>
-	                    <p>개인정보 수정</p>
-	                    <p>반려견 정보 수정</p>
-	                   </a>                           
-	            </div>         		
+        <div class="container">       	
+            <c:if test="${login == null}" >  <!-- 로그인 안되어있을 경우 -->
+	            <nav class="main_nav">
+	                <ul>
+	                    <li><a href="#" id="login">로그인</a></li>
+	                    <li><a href="#" id="join">회원가입</a></li>                
+	                </ul>    
+	           </nav>     
+           </c:if>                
+           <c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
+           		<nav class="main_nav">
+           			<ul>
+           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
+           			</ul>
+           		</nav>
+           </c:if>
+           
+            <div class="title">
+                <span class="tfont">오늘의 너</span>
+                <p>사랑스러운 너와의 오늘을 기억해</p>
+            </div>
 
-			</div>
+            <div class="menuboard">
+                <!-- <a href="javascript:select_pet();"> -->
+                <a href="<c:url value='/mypet/lifetime'/>">
+                    <div class="menu">
+                        <img src="/today/img/common/dog2.png">
+                        <p>나의 반려견</p>
+                        <p>반려견 생애 기록</p>
+                        <p>갤러리</p>
+                    </div>
+                </a>
+                <a href="<c:url value='/diary/calendar'/>">
+                    <div class="menu">
+                        <img src="/today/img/common/cal.png">
+                        <p>반려견 다이어리</p>
+                        <p>반려견 전용 캘린더</p>
+                        <p>견주 일기</p>
+                    </div>
+                </a>
+                <a href="<c:url value='/community/intro'/>">
+                    <div class="menu">
+                        <img src="/today/img/common/community.png">
+                        <p>커뮤니티</p>
+                        <p>내 반려견 자랑하기</p>
+                        <p>커뮤니티 게시판</p>
+                        <!-- <p>견주 커뮤니티(꿀팁 공유, 묻고 답하기)</p> -->
+                    </div>
+                </a>
+                <a href="<c:url value='/mypage/profile'/>">
+                    <div class="menu">
+                        <img src="/today/img/common/boarduser.png">
+                        <p>마이페이지</p>
+                        <p>개인정보 수정</p>
+                        <p>반려견 정보 수정</p>
+                    </div>
+                </a>
+            </div>
+           
+
+
         </div>
-    
+    </div>
 
     <footer>
         <div class="fcontainer">
