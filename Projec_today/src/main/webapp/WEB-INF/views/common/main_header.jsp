@@ -17,7 +17,7 @@
         .mob_menu{display: none;}
         .mob_close{display: none;}
         .container{width: 100%; margin: 0 auto; padding-bottom:70px}
-        header{width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
+        header{width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: rgba(255, 255, 255, 0.4);; }
         .header_innerBox{width: 1050px; margin: 0 auto}
         .header_innerBox h1{float: left; padding-top: 35px;}
         .header_innerBox h1 a{width:220px; height:70px; background-image:url(/today/img/common/title.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}

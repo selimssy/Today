@@ -13,7 +13,7 @@
 <style>     
 body{margin:0; padding:0;}
 .main_section{width: 100%; /*height: 880px; margin: 0 auto;*/ padding-bottom:45px; background: url(/today/img/common/homebg2.png); background-position: 0 50%; background-size:cover; background-repeat:no-repeat;}
-.section_wrap{width:1080px; margin:0 auto; position: relative; overflow: hidden}
+.section_wrap{width:1065px; margin:0 auto; position: relative; overflow: hidden}
 .main_nav{margin:0; text-align: right; font-size: 1.5em; /*padding-right: 25px;*/}
 .main_nav ul{margin:0;}
 .main_nav ul li{list-style: none; display:inline-block; padding: 20px 35px 0px 0px}
@@ -80,9 +80,9 @@ body{margin:0; padding:0;}
     
     	
         <div class="main_section">  
-        	<jsp:include page="common/main_header.jsp" />
+        	
         	<div class="section_wrap">   
-        		<!-- 
+        		
 	            <c:if test="${login == null}" >  
 		            <nav class="main_nav">
 		                <ul>
@@ -98,7 +98,7 @@ body{margin:0; padding:0;}
 	           			</ul>
 	           		</nav>
 	           </c:if>
-	           -->
+	           
 	           <!-- 
 	            <div class="title">
 	                <span class="tfont">오늘의 너</span>
