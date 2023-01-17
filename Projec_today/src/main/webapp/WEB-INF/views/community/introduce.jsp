@@ -35,7 +35,7 @@
 	.modifyIcon{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/community/modify.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	#petMf_modal{display:none}
 	
-    .search{width: 1000px; margin:0 auto; text-align: right; padding-right: 110px;}	
+    .search{width: 1000px; margin:0 auto; text-align: right; padding-right: 50px; box-sizing: border-box;}	
 	.select_con{display: inline-block; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
 	.keyword{display: inline-block;}
 	.keyword input[type=text]{width:200px; height: 30px; border:1px solid #aaa; box-sizing: border-box;}

@@ -10,7 +10,7 @@
 footer h4{margin:10px 0;}
 .addr{margin-top: 10px;}
 footer{margin: 30px auto; border-top: 2px solid #222;}
-.footer_inner{width: 1200px; margin: 0 auto;}
+.footer_inner{width: 100%; margin: 0 auto; box-sizing: border-box;}
 #bottomMenu{padding-left:0; list-style: none; margin: 10px 10px 10px 0;}
 #bottomMenu li{display: inline-block; margin: 10px 0; border-right: 1px solid #aaa; padding: 0 10px;}
 #bottomMenu li:nth-of-type(1){padding: 0 10px 0 0;}
@@ -18,9 +18,10 @@ footer{margin: 30px auto; border-top: 2px solid #222;}
 #bottomMenu li a{text-decoration: none; color: #333;}
 .copy.box_inner{margin-top: 10px;}
 
-@media all and (max-width:1065px) {			
+/*
+@media all and (max-width:1200px) {			
 .footer_inner{width:100%;}
-}
+}*/
 </style>
 </head>
 <body>

@@ -12,8 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <style>     
 body{margin:0; padding:0;}
-.main_section{width: 100%; /*height: 880px; margin: 0 auto;*/ padding-bottom:45px; background: url(/today/img/common/homebg2.png); background-position: 0 50%; background-size:cover; background-repeat:no-repeat;}
-.section_wrap{width:1065px; margin:0 auto; position: relative; overflow: hidden}
+.main_section{width: 100%; /*height: 880px; margin: 0 auto;*/ padding-bottom:45px; background: url(/today/img/common/homebg2.png);  background-size:cover; background-repeat:no-repeat;}
+.section_wrap{width:1080px; margin:0 auto; position: relative; overflow: hidden}
 .main_nav{margin:0; text-align: right; font-size: 1.5em; /*padding-right: 25px;*/}
 .main_nav ul{margin:0;}
 .main_nav ul li{list-style: none; display:inline-block; padding: 20px 35px 0px 0px}
@@ -22,12 +22,11 @@ body{margin:0; padding:0;}
 #join{padding-left:35px; background-image:url(/today/img/common/join.png); background-size: contain; background-repeat: no-repeat;}
 #logout{padding-left:35px; background-image:url(/today/img/common/logout.png); background-size: contain; background-repeat: no-repeat;}
 .main_nav ul a:hover{font-weight: bold;}    
-.title{/*position: absolute; top: 30px; left: 90px;*/ }
-.tfont{font-size: 7.5em; font-family: 'Nanum Pen Script', cursive;}
-.title p{font-size: 2.1em; font-family: 'Nanum Pen Script', cursive; margin:0}
+.title{position: absolute; top: 50px; left: 12.5%;}
+.tfont{/*font-size: 7.5em;*/font-size:9.5vw; font-family: 'Nanum Pen Script', cursive;}
+.title p{/*font-size: 2.1em;*/font-size:2.5vw; font-family: 'Nanum Pen Script', cursive; margin:0}
 /*.menuboard{width: 1060px; position: absolute; bottom: 30px; display: flex; justify-content: space-between; margin-left: 10px;}*/
-.menuboard_wrap{text-align: right;}
-.menuboard{width:640px; height:650px; margin-top:50px; margin-bottom:80px; float: right; /*position: absolute; top:180px; right:0;*/}
+.menuboard{width:640px; height:650px; margin-top:200px; margin-bottom:80px; float: right; /*position: absolute; top:180px; right:0;*/}
 .menuboard a{width: 290px; height: 300px; display:block; float:left; background: rgba(255, 255, 255, 0.75); text-align: center; padding-top:15px; box-sizing: border-box; text-decoration: none; color: #000;}
 .menuboard a:nth-of-type(1){/*position: absolute; top:180px; right: 410px;*/ margin-right:60px;}
 .menuboard a:nth-of-type(2){/*position: absolute; top:180px; right: 60px;*/}
@@ -39,7 +38,7 @@ body{margin:0; padding:0;}
 .menuboard p:nth-of-type(2){margin-top: 30px}
 .menuboard p:nth-of-type(2), .menu p:nth-of-type(3){font-size: 1.1em; color:#000}
 
-.fcontainer{width: 1200px; margin: 0 auto; position: relative;}
+.fcontainer{width: 100%; margin: 0 auto; position: relative;}
 .fcontainer span{position: absolute; left: 20px; bottom: 15px; color: #fff;}
 
 
@@ -62,6 +61,48 @@ body{margin:0; padding:0;}
 .emailAuth:nth-of-type(1) button{width:35%;}
 
 
+@media all and (max-width:1300px) {	
+	.title{top: 50px; left: 10.5%;}
+	.main_section{background-position: 30% 0;}
+	/*.menuboard{margin:200px auto 80px; float:none;}*/
+}
+
+@media all and (max-width:1100px) {	
+	.title{top: 50px; left: 50%; transform: translate(-50%, 0);}
+	.tfont{font-size:132px;}
+	.title p{font-size:34px;}
+	.main_section{background-position: 0 0;}
+	.section_wrap{width:100%;}
+	.fcontainer{width:100%;}
+	.menuboard{margin:250px auto 80px; float:none;}
+}
+
+
+@media all and (max-width:800px) {	
+	.main_nav ul a{font-size:0.7em;}
+	.main_nav ul li{padding: 10px 20px 0px 0px;}
+	.menuboard{width:100%; height:auto;}
+	.menuboard a{width:65%; height:auto; float:none; margin:0 auto; border-radius: 10px;}
+	.menuboard a:nth-of-type(1),.menuboard a:nth-of-type(2),.menuboard a:nth-of-type(3),.menuboard a:nth-of-type(4){margin-top:40px; margin-right:auto;}
+	.menuboard a img{display:none;}
+	.menuboard p{display:inline-block;}
+	.menuboard a p:nth-of-type(1){background-size: contain; background-repeat: no-repeat; display:block; margin-left:30px;}
+	.menuboard p:nth-of-type(2), .menuboard p:nth-of-type(3){margin-top:10px;}
+	.menuboard a p:nth-of-type(2):after{content: "|"; display: inline-block; padding: 0 10px;}
+	.menuboard a:nth-of-type(1) p:nth-of-type(1){background-image: url(/today/img/common/dog2.png);}
+	.menuboard a:nth-of-type(2) p:nth-of-type(1){background-image: url(/today/img/common/cal.png);}
+	.menuboard a:nth-of-type(3) p:nth-of-type(1){background-image: url(/today/img/common/community.png);}
+	.menuboard a:nth-of-type(4) p:nth-of-type(1){background-image: url(/today/img/common/boarduser.png);}
+}
+
+@media all and (max-width:650px) {
+	.menuboard{margin:45vw auto 80px;}
+	.tfont{font-size:20vw;}
+	.title p{font-size:5.2vw;}
+	.menuboard a p:nth-of-type(1){font-size:6.15vw; margin-left:4.5vw;}
+	.menuboard p:nth-of-type(2), .menuboard p:nth-of-type(3){font-size:2.5vw; margin-top:1.5vw;}
+}
+
 @media all and (max-width:500px) {
 	#login_modal, #join_modal{width: 85%;}
 	.emailAuth button{font-size:2.667vw;}
@@ -80,6 +121,10 @@ body{margin:0; padding:0;}
     
     	
         <div class="main_section">  
+        	<div class="title">
+                <span class="tfont">오늘의 너</span>
+                <p>사랑스러운 너와의 오늘을 기억해</p>
+            </div>
         	
         	<div class="section_wrap">   
         		
@@ -99,12 +144,6 @@ body{margin:0; padding:0;}
 	           		</nav>
 	           </c:if>
 	           
-	           <!-- 
-	            <div class="title">
-	                <span class="tfont">오늘의 너</span>
-	                <p>사랑스러운 너와의 오늘을 기억해</p>
-	            </div> -->
-	
 	            <div class="menuboard">
 	                <!-- <a href="javascript:select_pet();"> -->                             
 	               	<a href="<c:url value='/mypet/lifetime'/>">

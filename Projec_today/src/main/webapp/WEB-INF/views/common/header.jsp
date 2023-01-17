@@ -68,9 +68,9 @@
         /*.siteNav2 table tr td:nth-of-type(3){width: 46%;}*/
 
 
-        .otherWrap{width: 1050px; margin: 0 auto; padding-left: 225px;}
-        .otherP{width: 1050px; height: 140px; border-left: 5px solid #7AB730; margin: 100px 0 100px;  padding-left:55px;}
-        .otherP p{font-size: 36px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/}
+        .otherWrap{width: 850px; margin: 0 auto; padding-left: 120px; box-sizing: border-box;}
+        .otherP{width:90%; height: 140px; border-left: 5px solid #7AB730; margin: 100px 0 100px;  padding-left:55px; box-sizing: border-box;}
+        .otherP p{font-size: 36px; color:#5CAC3D; font-family: 'Nanum Pen Script', cursive; /*letter-spacing:1px; word-spacing:2px;*/ box-sizing: border-box;}
         .otherP p:last-of-type{font-size: 72px; font-family: 'Nanum Pen Script'; margin:20px 0; /*letter-spacing:3px; word-spacing:5px;*/ color: #000;}
         
 
