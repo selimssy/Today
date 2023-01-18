@@ -497,7 +497,7 @@
 	                    for(let i = 0; i < response.length; i++){
 	                    	
 	                    	let userId = "${login.userId}";
-	                    	let replyer = response[i]["replyer"];
+	                    	let replyer = response[i]["nickname"];
 	                    	let replyDate = response[i]["replyDate"];
 	                    	let replyNo = response[i]["replyNo"];
 	                    	let content = response[i]["content"];

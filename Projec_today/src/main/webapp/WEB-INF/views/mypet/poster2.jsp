@@ -7,7 +7,7 @@
 #poster_wrapper{width: 1250px; /*height: 1000px;*/ height: 725px; background: #fff; border: 3px solid #bbb; padding: 30px; border-radius: 15px;  box-sizing: border-box;  position: relative;}
 .poster{display: flex; justify-content: space-evenly; box-sizing: border-box;}
 .buttonBox{height: 33px; padding-bottom: 20px;}
-.posterClose{width: 27px; height: 27px; border: none; border-radius: 5px; background: #ddd; position:absolute; top:15px; right: 15px; cursor: pointer;}
+.posterClose{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .template{width: 70px; height: 33px; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder;  cursor: pointer;}
 .template:nth-of-type(1){position:absolute; left: 45px;}
 .template:nth-of-type(2){position:absolute; left: 130px;}
@@ -54,7 +54,7 @@
 
     <div id="poster_container">
     <div id="poster_wrapper" >
-		<button type="button" class="posterClose">X</button>
+		<div class="posterClose">close</div> <!--닫기 버튼-->
         <div class="buttonBox">
             <button class="template" type="button">템플릿1</button>
             <button class="template" type="button">템플릿2</button>

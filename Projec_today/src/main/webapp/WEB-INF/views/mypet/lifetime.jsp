@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <style>
@@ -17,7 +18,7 @@
 .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; box-sizing: border-box; text-align: center;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
 .uploadCard_wrap, .modifyCard_wrap{display: none;}
-.uploadCard, .modifyCard{/*display: none;*/ width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly;}
+.uploadCard, .modifyCard{/*display: none;*/ width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly; z-index:9999;}
 .openUCard{width: 90px; height: 40px; margin: 35px 60px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
 .closeUCard, .mdcancle{width: 70px; height: 33px; border: none; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder; position:absolute; bottom: 15px; right: 15px; cursor: pointer;}
 .uploadCard input[type=submit]{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; bottom: 15px; right: 100px; cursor: pointer;}
@@ -64,13 +65,13 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	.noneMsg{font-size: 4.5vw;}
 	.mainContent .conTitle span{line-height:8vw; font-size:5.625vw; padding-left:10%;}
 	
-	.uploadCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
+	.uploadCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:9999; overflow-y: auto;}	
 	.image-box{width:30%; height:auto;}	
 	.lifeCardInfo{width:80%; padding-top:10px; margin:0 auto;}
 	.lifeCardInfo input[type=date]{width:100%; margin:0 auto; display:block; box-sizing: border-box;}
 	.InfoList{width:100%;}
 	.InfoList textarea{padding:3.125vw 3.75vw;}	
-	.modifyCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:10; overflow-y: auto;}	
+	.modifyCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; z-index:9999; overflow-y: auto;}	
 	.lifetimeBox{width:90%; margin:6.25vw auto;}
 	.lifetimeCard{width:100%; margin-bottom:15vw;}
 	.petImage{width: 36%; position: relative; box-sizing: border-box;}

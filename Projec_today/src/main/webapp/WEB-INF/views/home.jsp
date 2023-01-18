@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -67,7 +68,7 @@ body{margin:0; padding:0;}
 	/*.menuboard{margin:200px auto 80px; float:none;}*/
 }
 
-@media all and (max-width:1100px) {	
+@media all and (max-width:1100px){	
 	.title{top: 50px; left: 50%; transform: translate(-50%, 0);}
 	.tfont{font-size:132px;}
 	.title p{font-size:34px;}
@@ -81,7 +82,7 @@ body{margin:0; padding:0;}
 @media all and (max-width:800px) {	
 	.main_nav ul a{font-size:0.7em;}
 	.main_nav ul li{padding: 10px 20px 0px 0px;}
-	.menuboard{width:100%; height:auto;}
+	.menuboard{width:100%; height:auto; float:none;}
 	.menuboard a{width:65%; height:auto; float:none; margin:0 auto; border-radius: 10px;}
 	.menuboard a:nth-of-type(1),.menuboard a:nth-of-type(2),.menuboard a:nth-of-type(3),.menuboard a:nth-of-type(4){margin-top:40px; margin-right:auto;}
 	.menuboard a img{display:none;}
@@ -96,11 +97,12 @@ body{margin:0; padding:0;}
 }
 
 @media all and (max-width:650px) {
-	.menuboard{margin:45vw auto 80px;}
+	.menuboard{width:100%; height:auto; margin:45vw auto 80px; float:none;}
+	.menuboard a{padding-top:2.5vw;}
 	.tfont{font-size:20vw;}
 	.title p{font-size:5.2vw;}
-	.menuboard a p:nth-of-type(1){font-size:6.15vw; margin-left:4.5vw;}
-	.menuboard p:nth-of-type(2), .menuboard p:nth-of-type(3){font-size:2.5vw; margin-top:1.5vw;}
+	.menuboard a p:nth-of-type(1){font-size:6.15vw; /*margin-left:4.5vw;*/ margin: 1.67vw 0 1.67vw 4.5vw;}
+	.menuboard p:nth-of-type(2), .menuboard p:nth-of-type(3){font-size:2.5vw; /*margin-top:1.5vw;*/ margin:1.67vw 0 2.67vw;}
 }
 
 @media all and (max-width:500px) {
