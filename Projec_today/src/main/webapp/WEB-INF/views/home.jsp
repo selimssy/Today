@@ -17,7 +17,7 @@ body{margin:0; padding:0;}
 .section_wrap{width:1080px; margin:0 auto; position: relative; overflow: hidden}
 .main_nav{margin:0; text-align: right; font-size: 1.5em; /*padding-right: 25px;*/}
 .main_nav ul{margin:0;}
-.main_nav ul li{list-style: none; display:inline-block; padding: 20px 35px 0px 0px}
+.main_nav ul li{list-style: none; display:inline-block; padding: 30px 35px 0px 0px}
 .main_nav ul a{text-decoration: none; color: #000; font-size:0.9em;}
 #login{padding-left:30px; background-image:url(/today/img/common/login.png); background-size: contain; background-repeat: no-repeat;}
 #join{padding-left:35px; background-image:url(/today/img/common/join.png); background-size: contain; background-repeat: no-repeat;}
@@ -27,7 +27,7 @@ body{margin:0; padding:0;}
 .tfont{/*font-size: 7.5em;*/font-size:9.5vw; font-family: 'Nanum Pen Script', cursive;}
 .title p{/*font-size: 2.1em;*/font-size:2.5vw; font-family: 'Nanum Pen Script', cursive; margin:0}
 /*.menuboard{width: 1060px; position: absolute; bottom: 30px; display: flex; justify-content: space-between; margin-left: 10px;}*/
-.menuboard{width:640px; height:650px; margin-top:200px; margin-bottom:80px; float: right; /*position: absolute; top:180px; right:0;*/}
+.menuboard{width:640px; height:650px; margin-top:160px; margin-bottom:80px; float: right; /*position: absolute; top:180px; right:0;*/}
 .menuboard a{width: 290px; height: 300px; display:block; float:left; background: rgba(255, 255, 255, 0.75); text-align: center; padding-top:15px; box-sizing: border-box; text-decoration: none; color: #000;}
 .menuboard a:nth-of-type(1){/*position: absolute; top:180px; right: 410px;*/ margin-right:60px;}
 .menuboard a:nth-of-type(2){/*position: absolute; top:180px; right: 60px;*/}
