@@ -20,7 +20,7 @@
         header{width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: rgba(255, 255, 255, 0.4);; }
         .header_innerBox{width: 1050px; margin: 0 auto}
         .header_innerBox h1{float: left; padding-top: 35px;}
-        .header_innerBox h1 a{width:220px; height:70px; background-image:url(/today/img/common/title.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}
+        .header_innerBox h1 a{width:220px; height:70px; background-image:url(/img/common/title.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}
         .header_cont {float:right; width:750px; display: block;}
         .header_cont ul{list-style: none;}
         .header_cont ul li a{text-decoration: none;}
@@ -61,7 +61,7 @@
         .siteNav table{border-collapse: collapse; border: 3px solid #7AB730; width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box;}
         .homeLogo{width: 100%; height: 100%;}
         .siteNav table tr td{box-sizing: content-box;}
-        .siteNav table tr td:nth-of-type(1){width: 7.5%; background-image: url(/today/img/common/homeLogo2.png); background-size: cover; text-indent: -999px;}
+        .siteNav table tr td:nth-of-type(1){width: 7.5%; background-image: url(/img/common/homeLogo2.png); background-size: cover; text-indent: -999px;}
         .siteNav table tr td:nth-of-type(2), .siteNav table tr td:nth-of-type(3){width: 46%; text-align: center;}
         .siteNav table tr td a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
         .siteNav table tr td.checked a{color: #7AB730;}
@@ -87,8 +87,8 @@
 @media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */
 	header{height:120px; background: rgba(255, 255, 255, 0.75);}
 	.header_innerBox h1{padding-top:15px;}
-	.mob_menu{display: block; position: absolute; top: 20px; left: 20px; width: 45px; height: 45px; background-color: transparent; border: none; background-image:url(/today/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
-	.mob_close{display: block; width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+	.mob_menu{display: block; position: absolute; top: 20px; left: 20px; width: 45px; height: 45px; background-color: transparent; border: none; background-image:url(/img/common/menu.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.mob_close{display: block; width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	.header_innerBox{width:100%;}
 	.header_innerBox h1{float:none; text-align: center;}
 	.header_innerBox h1 a{display:inline-block; width:200px;}

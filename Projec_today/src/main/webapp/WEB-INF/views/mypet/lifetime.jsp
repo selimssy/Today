@@ -13,10 +13,10 @@
 
 *{margin: 0; padding: 0;}
 .container{width: 100%; margin: 0 auto;}      
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); background-size: contain; margin: 0 auto;  position: relative;}      
+.siteInfo{width: 1050px; height: 375px; background-image: url(/img/common/mainbg3.png); background-size: contain; margin: 0 auto;  position: relative;}      
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
 .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; box-sizing: border-box; text-align: center;}
-.mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
+.mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
 .uploadCard_wrap, .modifyCard_wrap{display: none;}
 .uploadCard, .modifyCard{/*display: none;*/ width: 650px; height: 320px; margin: 50px auto; border: 3.5px solid #7AB730; border-radius: 15px; padding: 20px; position: relative; display: flex; justify-content: space-evenly; z-index:9999;}
 .openUCard{width: 90px; height: 40px; margin: 35px 60px 0 0; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; float: right; cursor: pointer;}
@@ -31,12 +31,12 @@
 
 .lifetimeBox{width:550px; margin: 50px auto;}
 .lifetimeCard{width:550px; /*height: 200px;*/ display: flex; justify-content: space-evenly; margin-bottom:80px}
-.lifecardbullet{width:45px; height: 45px; position: absolute; top: 75px; left:-85px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
-.modifyCardBtn{display:none; width:16px; position: absolute; top: 15px; right:30px; border:none; background-color: transparent; background-image: url(/today/img/mypet/modify.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
-.deleteCardBtn{display:none; width:16px; position: absolute; top: 15px; right:7px; border:none; background-color: transparent; background-image: url(/today/img/mypet/delete.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
+.lifecardbullet{width:45px; height: 45px; position: absolute; top: 75px; left:-85px; background-image: url(/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
+.modifyCardBtn{display:none; width:16px; position: absolute; top: 15px; right:30px; border:none; background-color: transparent; background-image: url(/img/mypet/modify.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
+.deleteCardBtn{display:none; width:16px; position: absolute; top: 15px; right:7px; border:none; background-color: transparent; background-image: url(/img/mypet/delete.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
 .lifetimeCard img{width:200px; height:200px;  object-fit: cover; border-radius: 7px;}
 .cardInfo{width:350px; height: 200px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
-.cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
+.cardInfo p{background-image: url(/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
 .InfoText{width:255px; height:122px; background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow-y:auto; /*overflow: hidden; text-overflow : ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;*/}
 .InfoText::-webkit-scrollbar {display: none; /* 스크롤바 숨기기: Chrome, Safari, Opera*/}
 .InfoText{-ms-overflow-style: none; /* IE and Edge */scrollbar-width: none; /* Firefox */}
@@ -454,7 +454,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
         	// ajax 처리
         	$.ajax({
         		  type: "POST",
-        	      url: "/today/mypet/uploadCard",
+        	      url: "/mypet/uploadCard",
         	      data: formData,
         	      dataType: "text",
         	      contentType: false,               // * 중요 *
@@ -501,13 +501,13 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
                 type: 'post',
                 dataType : "json",
                 contentType: 'application/json',
-                url: '/today/mypet/modifyGet',
+                url: '/mypet/modifyGet',
                 data: JSON.stringify(lifetimeCard),
                 success: function (response) {
                 	console.log(response); // lifetimeVO 
                    		
                 		let cardId = response['cardId'];
-                    	let imagePath = "/today" + response['imagePath'];
+                    	let imagePath = response['imagePath'];
                 		let date = response['date'];
                 		let content = response['content'];
                 		content = content.replaceAll("<br>", "\r\n");
@@ -625,7 +625,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
         	// ajax 처리
         	$.ajax({
         		  type: "POST",
-        	      url: "/today/mypet/modifyCard",
+        	      url: "/mypet/modifyCard",
         	      data: formData,
         	      dataType: "text",
         	      contentType: false,               // * 중요 *
@@ -661,7 +661,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	                type: 'post',
 	                dataType : "text",
 	                contentType: 'application/json',
-	                url: '/today/mypet/deleteCard',
+	                url: '/mypet/deleteCard',
 	                data: JSON.stringify(lifetimeCard),
 	                success: function (response) {
 	         			if(response === 'success'){

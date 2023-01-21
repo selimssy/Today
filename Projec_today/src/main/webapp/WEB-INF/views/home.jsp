@@ -13,15 +13,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <style>     
 body{margin:0; padding:0;}
-.main_section{width: 100%; /*height: 880px; margin: 0 auto;*/ padding-bottom:45px; background: url(/today/img/common/homebg2.png);  background-size:cover; background-repeat:no-repeat;}
+.main_section{width: 100%; /*height: 880px; margin: 0 auto;*/ padding-bottom:45px; background: url(/img/common/homebg2.png);  background-size:cover; background-repeat:no-repeat;}
 .section_wrap{width:1080px; margin:0 auto; position: relative; overflow: hidden}
 .main_nav{margin:0; text-align: right; font-size: 1.5em; /*padding-right: 25px;*/}
 .main_nav ul{margin:0;}
 .main_nav ul li{list-style: none; display:inline-block; padding: 30px 35px 0px 0px}
 .main_nav ul a{text-decoration: none; color: #000; font-size:0.9em;}
-#login{padding-left:30px; background-image:url(/today/img/common/login.png); background-size: contain; background-repeat: no-repeat;}
-#join{padding-left:35px; background-image:url(/today/img/common/join.png); background-size: contain; background-repeat: no-repeat;}
-#logout{padding-left:35px; background-image:url(/today/img/common/logout.png); background-size: contain; background-repeat: no-repeat;}
+#login{padding-left:30px; background-image:url(/img/common/login.png); background-size: contain; background-repeat: no-repeat;}
+#join{padding-left:35px; background-image:url(/img/common/join.png); background-size: contain; background-repeat: no-repeat;}
+#logout{padding-left:35px; background-image:url(/img/common/logout.png); background-size: contain; background-repeat: no-repeat;}
 .main_nav ul a:hover{font-weight: bold;}    
 .title{position: absolute; top: 50px; left: 12.5%;}
 .tfont{/*font-size: 7.5em;*/font-size:9.5vw; font-family: 'Nanum Pen Script', cursive;}
@@ -49,7 +49,7 @@ body{margin:0; padding:0;}
 #join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed;top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}    
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .modal_table{border-collapse: collapse; width: 100%;}
 .modal_body{padding: 0 20px; display: block;}
 .mlabel{padding-top: 10px;}
@@ -90,10 +90,10 @@ body{margin:0; padding:0;}
 	.menuboard a p:nth-of-type(1){background-size: contain; background-repeat: no-repeat; display:block; margin-left:30px;}
 	.menuboard p:nth-of-type(2), .menuboard p:nth-of-type(3){margin-top:10px;}
 	.menuboard a p:nth-of-type(2):after{content: "|"; display: inline-block; padding: 0 10px;}
-	.menuboard a:nth-of-type(1) p:nth-of-type(1){background-image: url(/today/img/common/dog2.png);}
-	.menuboard a:nth-of-type(2) p:nth-of-type(1){background-image: url(/today/img/common/cal.png);}
-	.menuboard a:nth-of-type(3) p:nth-of-type(1){background-image: url(/today/img/common/community.png);}
-	.menuboard a:nth-of-type(4) p:nth-of-type(1){background-image: url(/today/img/common/boarduser.png);}
+	.menuboard a:nth-of-type(1) p:nth-of-type(1){background-image: url(/img/common/dog2.png);}
+	.menuboard a:nth-of-type(2) p:nth-of-type(1){background-image: url(/img/common/cal.png);}
+	.menuboard a:nth-of-type(3) p:nth-of-type(1){background-image: url(/img/common/community.png);}
+	.menuboard a:nth-of-type(4) p:nth-of-type(1){background-image: url(/img/common/boarduser.png);}
 }
 
 @media all and (max-width:650px) {
@@ -149,26 +149,26 @@ body{margin:0; padding:0;}
 	            <div class="menuboard">
 	                <!-- <a href="javascript:select_pet();"> -->                             
 	               	<a href="<c:url value='/mypet/lifetime'/>">
-	                    <img src="/today/img/common/dog2.png">
+	                    <img src="/img/common/dog2.png">
 	                    <p>나의 반려견</p>
 	                    <p>반려견 생애 기록</p>
 	                    <p>갤러리</p>
 	                   </a>           
 	               	<a href="<c:url value='/diary/calendar'/>">
-	                    <img src="/today/img/common/cal.png">
+	                    <img src="/img/common/cal.png">
 	                    <p>반려견 다이어리</p>
 	                    <p>반려견 전용 캘린더</p>
 	                    <p>견주 일기</p>
 	                   </a>                             
 	               	<a href="<c:url value='/community/intro'/>">
-	                    <img src="/today/img/common/community.png">
+	                    <img src="/img/common/community.png">
 	                    <p>커뮤니티</p>
 	                    <p>내 반려견 자랑하기</p>
 	                    <p>커뮤니티 게시판</p>
 	                    <!-- <p>견주 커뮤니티(꿀팁 공유, 묻고 답하기)</p> -->
 	                   </a>          
 	               	<a href="<c:url value='/mypage/profile'/>">
-	                    <img src="/today/img/common/boarduser.png">
+	                    <img src="/img/common/boarduser.png">
 	                    <p>마이페이지</p>
 	                    <p>개인정보 수정</p>
 	                    <p>반려견 정보 수정</p>
@@ -373,7 +373,7 @@ body{margin:0; padding:0;}
                 type: 'post',
                 dataType : "json",
                 contentType: 'application/json',
-                url: '/today/user/petList',
+                url: '/user/petList',
                 data: JSON.stringify(user),
                 success: function (response) {
                 	console.log(response); // 리스트 
@@ -386,7 +386,7 @@ body{margin:0; padding:0;}
                         let age = response[i]['age']
                         let gender = response[i]['gender']
 
-                        let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
+                        let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
 
                         $('#petCards').append(temp_html)
                     }
@@ -433,7 +433,7 @@ body{margin:0; padding:0;}
         	// ajax 처리
         	$.ajax({
         		  type: "POST",
-        	      url: "/today/user/registerPet",
+        	      url: "/user/registerPet",
         	      data: formData,
         	      dataType: "text",
         	      contentType: false,               // * 중요 *
@@ -472,7 +472,7 @@ body{margin:0; padding:0;}
 
             $.ajax({
                 type: "POST", 
-                url: "/today/user/selectPet", 
+                url: "/user/selectPet", 
                 headers: {
                     "Content-Type": "application/json"
                 }, 
@@ -481,7 +481,7 @@ body{margin:0; padding:0;}
                 success: function(result) { 
                     console.log("통신 성공!: ");
                     if(result === "success") {
-                        location.href="/today/mypet/lifetime";
+                        location.href="/mypet/lifetime";
                     } else {
                         alert("반려동물 선택에 실패했습니다.");
                     }
@@ -542,7 +542,7 @@ body{margin:0; padding:0;}
                    
                     $.ajax({
                         type: "POST",
-                        url: "/today/user/checkId",  
+                        url: "/user/checkId",  
                         headers: {
                             "Content-Type": "application/json"
                         },
@@ -581,7 +581,7 @@ body{margin:0; padding:0;}
                     chk2 = false;
                 } else {
                     $('#password').css("background-color", "#e8f0fe");
-                    $('#pwChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    $('#pwChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
                     chk2 = true;
                 }
                
@@ -602,7 +602,7 @@ body{margin:0; padding:0;}
                     chk3 = false;
                 } else {
                     $('#password_check').css("background-color", "#e8f0fe");
-                    $('#pwChk2').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    $('#pwChk2').html('<img src="/img/common/check.png" width="15px" height="15px">');
                     chk3 = true;
                 }
                
@@ -623,7 +623,7 @@ body{margin:0; padding:0;}
                     chk4 = false;
                 } else {
                     $('#user_name').css("background-color", "#e8f0fe");
-                    $('#nameChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    $('#nameChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
                     chk4 = true;
                 }
                
@@ -644,7 +644,7 @@ body{margin:0; padding:0;}
                     chk5 = false;
                 } else {
                     $('#user_nick').css("background-color", "#e8f0fe");
-                    $('#nickNameChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    $('#nickNameChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
                     chk5 = true;
                 }
                
@@ -665,7 +665,7 @@ body{margin:0; padding:0;}
                     chk6 = false;
                 } else {
                     $('#user_email').css("background-color", "#e8f0fe");
-                    $('#emailChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    $('#emailChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
                     chk6 = true;
                 }
                
@@ -683,7 +683,7 @@ body{margin:0; padding:0;}
 				 }else{
 					 $.ajax({
 							type : "POST",
-							url : "/today/user/emailAuth",
+							url : "/user/emailAuth",
 							data : {email : email},
 							success: function(data){
 								$('#emailChk').html('<b style="font-size:14px;color:blue;">인증번호가 발송되었습니다.</b>');
@@ -739,7 +739,7 @@ body{margin:0; padding:0;}
                     //클라이언트에서 서버와 통신하는 ajax함수(비동기 통신)
                     $.ajax({
                         type: "POST", //서버에 전송하는 HTTP요청 방식
-                        url: "/today/user/", //서버 요청 URI
+                        url: "/user/", //서버 요청 URI
                         headers: {
                             "Content-Type": "application/json"
                         }, //요청 헤더 정보
@@ -749,7 +749,8 @@ body{margin:0; padding:0;}
                             console.log("통신 성공!: " + result);
                             if(result === "joinSuccess") {
                                 alert("회원가입이 완료되었습니다.");
-                                location.href="/today";
+                                window.location.reload();
+                                //location.href="/";
                             } else {
                                 alert("회원가입에 실패했습니다.");
                             }
@@ -784,7 +785,7 @@ body{margin:0; padding:0;}
                 } else {
                     $('#signInId').css("background-color", "#e8f0fe");
                     //$('#idCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
-                    $('#idCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    $('#idCheck').html('<img src="/img/common/check.png" width="15px" height="15px">');
                     chk1 = true;
                 }
             });
@@ -805,7 +806,7 @@ body{margin:0; padding:0;}
                 } else {
                     $('#signInPw').css("background-color", "#e8f0fe");
                     //$('#pwCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
-                    $('#pwCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+                    $('#pwCheck').html('<img src="/img/common/check.png" width="15px" height="15px">');
                     chk2 = true;
                 }
                
@@ -828,7 +829,7 @@ body{margin:0; padding:0;}
                    
                     $.ajax({
                         type: "POST",
-                        url: "/today/user/loginCheck",
+                        url: "/user/loginCheck",
                         headers: {
                             "Content-Type": "application/json"
                         },
@@ -849,7 +850,7 @@ body{margin:0; padding:0;}
                                 $('#pwCheck').html('<b style="font-size:14px;color:red;">[비밀번호가 일치하지 않습니다.]</b>');
                                 chk2 = false;
                             } else if(data === "loginSuccess") {
-                                self.location="/today";
+                                self.location="/";
                             }
                         }
                     });

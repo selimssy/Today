@@ -12,7 +12,7 @@
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .modal_header h2{line-height: 2.8em; font-size:22px;}
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 .modal_table{border-collapse: collapse; width: 100%;}
 .modal_body{padding: 0 30px 25px; display: block;}
@@ -22,7 +22,7 @@
 #auto_login{margin-top: 20px; margin-bottom: 20px;}
 .m_button{margin-top: 20px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
 .modalcontainer{position: relative;}
-.close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 /* 펫 등록 모달 */
 #petRg_modal{display: none; width:420px; height:80vh; overflow-y:auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
@@ -46,15 +46,15 @@
 .pet_in p{margin: 0;}
 /* petId 안보이게 */
 .pet_id{display:none} 
-.select{width: 20px; height: 10px; background-image: url(/today/img/community/more3.png); background-size: contain; background-repeat: no-repeat; position: absolute; top: 7px; right:12px; cursor: pointer;}
+.select{width: 20px; height: 10px; background-image: url(/img/community/more3.png); background-size: contain; background-repeat: no-repeat; position: absolute; top: 7px; right:12px; cursor: pointer;}
 .select:hover{background-color: #ccc;}
 .select .list{display:none; width:60px; list-style: none; position: absolute; bottom: -65px; right:-10px; background:#ddd; z-index:100;}
 .select .list button{background-color: transparent; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
 .select .list.on{display:block}
 
-.changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
+.changePet{width: 60px; height: 60px; background-image:url(/img/community/changePet.png); background-size: cover; border:none;
                 background-repeat: no-repeat; position: absolute; left: -100px; top: 70px; background-color: transparent; cursor: pointer;}  
-.changePet2{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
+.changePet2{width: 60px; height: 60px; background-image:url(/img/community/changePet.png); background-size: cover; border:none;
                 background-repeat: no-repeat; position: absolute; left: -20px; top: 100px; background-color: transparent; cursor: pointer;}
 .flex-container {display: flex;}
 .wrapper {text-align: center;flex-grow: 1;}        
@@ -501,7 +501,7 @@ input[type=file] {display: none;}
     	// ajax 처리
     	$.ajax({
     		  type: "POST",
-    	      url: "/today/user/registerPet",
+    	      url: "/user/registerPet",
     	      data: formData,
     	      dataType: "text",
     	      contentType: false,               // * 중요 *
@@ -535,13 +535,13 @@ input[type=file] {display: none;}
 	            type: 'post',
 	            dataType : "json",
 	            contentType: 'application/json',
-	            url: '/today/user/modifyGet',
+	            url: '/user/modifyGet',
 	            data: JSON.stringify(pet),
 	            success: function (response) {
 	            	console.log(response); // petVO 
 	
 	                	let petId = response['petId']
-	                    let imagePath = "/today" + response['imagePath']
+	                    let imagePath = response['imagePath']
 	                    let petName = response['petName']
 	                	let petSpecies = response['petSpecies']
 	                    let age = response['age']
@@ -693,7 +693,7 @@ input[type=file] {display: none;}
         	// ajax 처리
         	$.ajax({
         		  type: "POST",
-        	      url: "/today/user/modifyPet",
+        	      url: "/user/modifyPet",
         	      data: formData,
         	      dataType: "text",
         	      contentType: false,               
@@ -728,7 +728,7 @@ input[type=file] {display: none;}
 	                type: 'post',
 	                dataType : "text",
 	                contentType: 'application/json',
-	                url: '/today/user/deletePet',
+	                url: '/user/deletePet',
 	                data: JSON.stringify(petVO),
 	                success: function (response) {
 	         			if(response === 'success'){

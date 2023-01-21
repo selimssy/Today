@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); background-size: contain; margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/img/diary/mainbg6.png); background-size: contain; margin: 0 auto;  position: relative;}       
 
 .contentBox{width:850px; min-height: 550px; margin: 100px auto; border: 2px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; /*position: relative;*/}
 .contentTop{width:100%; border-bottom: 2px solid #bbb; padding-bottom: 20px; position: relative;}
@@ -172,7 +172,7 @@
 			// 목록버튼 클릭이벤트 처리
 			$("#list-btn").click(function(){
 				console.log("목록버튼 클릭");
-				location.href='/today/diary/list?page=${p.page}&keyword=${p.keyword}&condition=${p.condition}';
+				location.href='/diary/list?page=${p.page}&keyword=${p.keyword}&condition=${p.condition}';
 			})
 			
 			
@@ -182,7 +182,7 @@
 			
 			modifyBtn.click(function(){
 				console.log("수정버튼 클릭");
-				forElement.attr("action", "/today/diary/modify");
+				forElement.attr("action", "/diary/modify");
 				forElement.attr("method", "get");
 				forElement.submit();
 			})

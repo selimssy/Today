@@ -57,7 +57,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 				  CKEDITOR.replace( 'ckeditor1', {
 				         width:'100%',
 				         height:'70vh',
-				         filebrowserUploadUrl:  "/today/diary/fileupload"
+				         filebrowserUploadUrl:  "/diary/fileupload"
 				     });
 			  </script>
 			  

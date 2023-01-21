@@ -123,20 +123,20 @@
 				<div class="navigation">
 					
 					
-					<a class="move prev_year" href="/today/diary/calendar?year=${today_info.search_year-1}&month=${today_info.search_month-1}">
+					<a class="move prev_year" href="/diary/calendar?year=${today_info.search_year-1}&month=${today_info.search_month-1}">
 						&lt;&lt;
 					<!-- 이전해 -->
 					</a> 
 					<span class="this_year">
 						${today_info.search_year}						
 					</span>
-					<a class="move next_year" href="/today/diary/calendar?year=${today_info.search_year+1}&month=${today_info.search_month-1}">
+					<a class="move next_year" href="/diary/calendar?year=${today_info.search_year+1}&month=${today_info.search_month-1}">
 						<!-- 다음해 -->
 						&gt;&gt;
 					</a>
 					
 					
-					<a class="move prev_month" href="/today/diary/calendar?year=${today_info.before_year}&month=${today_info.before_month}">
+					<a class="move prev_month" href="/diary/calendar?year=${today_info.before_year}&month=${today_info.before_month}">
 						&lt;
 					<!-- 이전달 -->
 					</a> 					
@@ -144,7 +144,7 @@
 						<c:if test="${today_info.search_month<10}">0</c:if>${today_info.search_month}
 					</span>	
 					<span class="month_eng">${monthEng[today_info.search_month - 1]}</span>				
-					<a class="move next_month" href="/today/diary/calendar?year=${today_info.after_year}&month=${today_info.after_month}">
+					<a class="move next_month" href="/diary/calendar?year=${today_info.after_year}&month=${today_info.after_month}">
 					<!-- 다음달 -->
 						&gt;
 					</a> 
@@ -280,7 +280,7 @@
 			
 		$.ajax({
 			type: "POST", 
-			url: "/today/diary//scheduleAdd", 
+			url: "/diary//scheduleAdd", 
 			headers: {
 				"Content-Type": "application/json"
 			}, 

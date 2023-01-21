@@ -7,19 +7,19 @@
 #poster_wrapper{width: 1250px; /*height: 1000px;*/ height: 725px; background: #fff; border: 3px solid #bbb; padding: 30px; border-radius: 15px;  box-sizing: border-box;  position: relative;}
 .poster{display: flex; justify-content: space-evenly; box-sizing: border-box;}
 .buttonBox{height: 33px; padding-bottom: 20px;}
-.posterClose{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.posterClose{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .template{width: 70px; height: 33px; border-radius: 7px; background: #fff; border: 3px solid #7AB730; color: #7AB730;font-weight: bolder;  cursor: pointer;}
 .template:nth-of-type(1){position:absolute; left: 45px;}
 .template:nth-of-type(2){position:absolute; left: 130px;}
 .template:nth-of-type(3){position:absolute; left: 215px;}
 .posterDownload{width: 70px; height: 33px; border: none; border-radius: 7px; background: #7AB730; position:absolute; right: 320px; cursor: pointer;}
-.frame{width: 900px; height: 600px; background: url(/today/img/mypet/p1.jpg); position: relative;}
+.frame{width: 900px; height: 600px; background: url(/img/mypet/p1.jpg); position: relative;}
 .photo{cursor: pointer; background-size: cover; background-repeat: no-repeat; box-shadow: 12px 12px 20px rgba(0,0,0,0.5);}
-.photo:nth-of-type(1){background-image: url(/today/img/mypet/photoselect.PNG); width: 373px; height: 350px; transform: rotate(2deg); position: absolute; top:68px; left:245px; z-index: 9;}
-.photo:nth-of-type(2){background-image: url(/today/img/mypet/photoselect.PNG); width: 213px; height: 207px; transform: rotate(358deg); position: absolute; top:42px; left:53px;}
-.photo:nth-of-type(3){background-image: url(/today/img/mypet/photoselect.PNG); width: 227px; height: 220px; transform: rotate(359deg); position: absolute; top:36px; left:649px;}
-.photo:nth-of-type(4){background-image: url(/today/img/mypet/photoselect.PNG); width: 230px; height: 207px; transform: rotate(358deg); position: absolute; top:348px; left:40px;}
-.photo:nth-of-type(5){background-image: url(/today/img/mypet/photoselect.PNG); width: 243px; height: 236px; transform: rotate(358deg); position: absolute; top:329px; left:574px; z-index: 10;}
+.photo:nth-of-type(1){background-image: url(/img/mypet/photoselect.PNG); width: 373px; height: 350px; transform: rotate(2deg); position: absolute; top:68px; left:245px; z-index: 9;}
+.photo:nth-of-type(2){background-image: url(/img/mypet/photoselect.PNG); width: 213px; height: 207px; transform: rotate(358deg); position: absolute; top:42px; left:53px;}
+.photo:nth-of-type(3){background-image: url(/img/mypet/photoselect.PNG); width: 227px; height: 220px; transform: rotate(359deg); position: absolute; top:36px; left:649px;}
+.photo:nth-of-type(4){background-image: url(/img/mypet/photoselect.PNG); width: 230px; height: 207px; transform: rotate(358deg); position: absolute; top:348px; left:40px;}
+.photo:nth-of-type(5){background-image: url(/img/mypet/photoselect.PNG); width: 243px; height: 236px; transform: rotate(358deg); position: absolute; top:329px; left:574px; z-index: 10;}
 
 .tape{z-index: 20;}
 .photo:nth-of-type(1) .tape{width: 113px; height: 107px;position: absolute; top:-60px; left:153px; transform: rotate(3deg);}
@@ -66,31 +66,31 @@
         <div class="poster">
             <div class="frame">
                 <div class="photo" id="1_1">
-                    <img class="tape" src="/today/img/mypet/tape.png">
+                    <img class="tape" src="/img/mypet/tape.png">
                     <img class="inPhoto" src="" style="object-fit: contain;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_2">
-                    <img class="tape" src="/today/img/mypet/tape.png">
+                    <img class="tape" src="/img/mypet/tape.png">
                     <img class="inPhoto" src="" style="object-fit: contain;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_3">
-                    <img class="tape" src="/today/img/mypet/tape.png">
+                    <img class="tape" src="/img/mypet/tape.png">
                     <img class="inPhoto" src="" style="object-fit: contain;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_4">
-                    <img class="tape" src="/today/img/mypet/tape.png">
+                    <img class="tape" src="/img/mypet/tape.png">
                     <img class="inPhoto" src="" style="object-fit: contain;">
                     <p></p>
                 </div>
 
                 <div class="photo" id="1_5">
-                    <img class="tape" src="/today/img/mypet/tape.png">
+                    <img class="tape" src="/img/mypet/tape.png">
                     <img class="inPhoto" src="" style="object-fit: contain;">
                     <p></p>
                 </div>
@@ -131,12 +131,12 @@
 	            type: 'post',
 	            dataType : "json",
 	            contentType: 'application/json',
-	            url: '/today/mypet/posterGallery',
+	            url: '/mypet/posterGallery',
 	            data: JSON.stringify(pet),
 	            success: function (response) {
 	            	console.log(response); // GalleryVO 
 	                for(let i = 0; i < response.length; i++){
-	                	let src = "/today" + response[i]['imagePath'];
+	                	let src = response[i]['imagePath'];
 	              	    let title = response[i]['title'];
 	
 	                    let temp_html = "<img class='posterPhotoList' alt='" + title + "' src='" + src + "'>"; 

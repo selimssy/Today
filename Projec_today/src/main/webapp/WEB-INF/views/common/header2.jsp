@@ -18,7 +18,7 @@
         header {width: 100%; height: 115px;  /*position: absolute; top: 0; left: 0; display: block; */z-index: 100; background: #fff; }
         .header_innerBox{width: 1050px; margin: 0 auto}
         .header_innerBox h1{float: left; padding-top: 35px;}
-        .header_innerBox h1 a{width:220px; height:70px; background-image:url(/today/img/common/mainlogo.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}
+        .header_innerBox h1 a{width:220px; height:70px; background-image:url(/img/common/mainlogo.png); background-size: contain; background-repeat: no-repeat; overflow:hidden; display:block; text-indent: -999px;}
         .header_cont {float:right; width:750px; display: block;}
         .header_cont ul{list-style: none;}
         .header_cont ul li a{text-decoration: none;}
@@ -49,7 +49,7 @@
         .infoText p:nth-of-type(1){font-size: 72px; font-family: 'Nanum Pen Script';}
         .infoText p:nth-of-type(2){font-size: 30px; font-family: 'Nanum Pen Script';}
         .siteNav{width: 1050px; height: 80px; margin: 0 auto; border: 3.5px solid #7AB730; box-sizing: border-box; position: relative;}
-        .homeLogo{width: 78px; height: 75px; background-image: url(/today/img/common/homeLogo2.png); background-size: cover; float: left; text-indent: -999px; position: absolute; top: -1px; left: -3px;}
+        .homeLogo{width: 78px; height: 75px; background-image: url(/img/common/homeLogo2.png); background-size: cover; float: left; text-indent: -999px; position: absolute; top: -1px; left: -3px;}
         .siteNav ul{list-style: none; width: 90%; display: flex; justify-content: space-evenly; padding-left: 100px;}
         .siteNav ul li{width: 180px; display: inline-block; padding: 17px 60px 10px; border-bottom: 1px solid #000; text-align: center;}
         .siteNav ul li.checked{border-bottom: 2px solid #7AB730;}

@@ -12,16 +12,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/img/community/bg12.png); margin: 0 auto;  position: relative;}       
 
 .contentBox{width:850px; margin: 145px auto; border: 1.5px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; }
 .contentTop{width:100%; border-bottom: 1.5px solid #d1d1d1; padding-bottom: 10px; position: relative;}
 .contentTop h1{line-height: 55px; margin:0;}
-.contentTop p{background: url(/today/img/community/boarduser.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
+.contentTop p{background: url(/img/community/boarduser.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
 .contentTop span{padding-left: 30px;}
 .countBox{position: absolute; bottom: 25px; right: 0;}
-.countBox span:nth-of-type(1){background: url(/today/img/community/view.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
-.countBox span:nth-of-type(2){background: url(/today/img/community/reply.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px; margin-left: 20px;}
+.countBox span:nth-of-type(1){background: url(/img/community/view.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
+.countBox span:nth-of-type(2){background: url(/img/community/reply.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px; margin-left: 20px;}
 .navBox{position: absolute; top: -70px; right: -35px;}
 .navBox input{width:75px; height: 30px; border:none; cursor: pointer;}
 .contentBody{padding-top: 20px}
@@ -39,7 +39,7 @@
 .comment ul{list-style:none; padding-right:40px}
 .comment ul li{margin-top:25px}
 .comment p{font-size:0.9em}
-.comment .rpyW{margin-bottom:7px; background: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
+.comment .rpyW{margin-bottom:7px; background: url(/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
 .comment #replyList span{font-size:0.9em; color:#aaa}
 .comment button{width:35px; height: 20px; font-size:0.6em; padding: 2px; border-radius: 5px; border: none; cursor: pointer;}
 .replyRgBox{width:750px; height: 125px; margin-top:40px; position: relative; display:block; margin-bottom: 40px}
@@ -55,8 +55,8 @@
 .pageBox{margin:0 auto; display: flex;}
 .paging ul li{list-style: none; display: inline-block;}
 .paging ul li a{text-decoration: none; color: #000;}
-.pre_link{display:none; width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
-.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+.pre_link{display:none; width:20px; height:20px; border:none; background: none; background-image: url(/img/community/prev.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
 .page_link{padding:0 5px; margin: 0 5px;}
 .page_link.active{background: #BCDB97; color: #fff; border-radius: 50%;}
 </style>
@@ -251,7 +251,7 @@
 		// 목록버튼 클릭이벤트 처리
 		$("#list-btn").click(function(){
 			console.log("목록버튼 클릭");
-			location.href='/today/community/list?page=${p.page}&keyword=${p.keyword}&condition=${p.condition}';
+			location.href='/community/list?page=${p.page}&keyword=${p.keyword}&condition=${p.condition}';
 		})
 		
 		
@@ -261,7 +261,7 @@
 
 		$("#modBtn").click(function(){
 			console.log("수정버튼이 클릭됨!");
-			forElement.attr("action", "/today/community/modify");
+			forElement.attr("action", "/community/modify");
 			forElement.attr("method", "get");
 			forElement.submit();
 		})
@@ -298,7 +298,7 @@
 				
 			$.ajax({
 				type: "POST", 
-				url: "/today/community/reply", 
+				url: "/community/reply", 
 				headers: {
 					"Content-Type": "application/json"
 				}, 
@@ -353,7 +353,7 @@
                 type: 'post',
                 dataType : "json",
                 contentType: 'application/json',
-                url: '/today/community/modifReplyGet',
+                url: '/community/modifReplyGet',
                 data: JSON.stringify(reply),
                 success: function (response) {
                 	console.log(response); // replyVO 
@@ -402,7 +402,7 @@
 						
 			$.ajax({
 				type: "POST", 
-				url: "/today/community/modifyReply", 
+				url: "/community/modifyReply", 
 				headers: {
 					"Content-Type": "application/json"
 				}, 
@@ -439,7 +439,7 @@
 				
 				$.ajax({
 					type: "POST", 
-					url: "/today/community/deleteReply", 
+					url: "/community/deleteReply", 
 					headers: {
 						"Content-Type": "application/json"
 					}, 
@@ -489,7 +489,7 @@
 	               type: 'post',
 	               dataType : "json",
 	               contentType: 'application/json',
-	               url: '/today/community/getReplyList',
+	               url: '/community/getReplyList',
 	               data: JSON.stringify(data),
 	               success: function (response) {
 	                    console.log(response); // 리스트 

@@ -54,7 +54,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 			    CKEDITOR.replace( 'ckeditor1', {
 			         width:'100%',
 			         height:'400px',
-			         filebrowserUploadUrl:  "/today/diary/fileupload"
+			         filebrowserUploadUrl:  "/diary/fileupload"
 			       });
 		    </script>
 		    		       
@@ -114,7 +114,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 	
 	$("#diaryMC").click(function(){
 		if(confirm('다이어리 수정을 취소하시겠습니까?')){
-			location.href='/today/diary/content/'+${diary.diaryNo};
+			location.href='/diary/content/'+${diary.diaryNo};
 			//window.history.back();
 		}
 	})

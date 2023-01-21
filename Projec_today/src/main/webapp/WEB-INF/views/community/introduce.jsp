@@ -12,12 +12,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <style>
-	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png);  background-size: contain; margin: 0 auto;  position: relative;}       
+	.siteInfo{width: 1050px; height: 375px; background-image: url(/img/community/bg12.png);  background-size: contain; margin: 0 auto;  position: relative;}       
 	.container{width: 1000px; margin: 0 auto; position: relative;}
     .Myintro{width: 700px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
     .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
     .Mycontent{width:100%; display: flex; justify-content:space-between; padding:20px; position: relative; box-sizing: border-box;}
-    .MyPetPhoto{width:43%; margin: 0 20px; box-sizing: border-box; position: relative; background-image:url(/today/img/community/ring2.png); background-size: contain; background-repeat: no-repeat; }
+    .MyPetPhoto{width:43%; margin: 0 20px; box-sizing: border-box; position: relative; background-image:url(/img/community/ring2.png); background-size: contain; background-repeat: no-repeat; }
     .MyPetPhoto::after {display: block; content: ""; padding-bottom: 100%;}
     .ring{width:100%; height:100%; }
     .Myintro .MyPetPhoto img{width:100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box; display: block;} 
@@ -27,12 +27,12 @@
     .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
     .Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 70px;}
     .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
-    .Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/today/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
-    .Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/today/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
+    .Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
+    .Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
 	.MyPetinfo ul li{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 	.nameTitle{font-size: 21px; font-weight: bold;}
 	.infoTitle{font-size: 16px; font-weight: bold;}
-	.modifyIcon{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/community/modify.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+	.modifyIcon{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/img/community/modify.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	#petMf_modal{display:none}
 	
     .search{width: 1000px; margin:0 auto; text-align: right; padding-right: 50px; box-sizing: border-box;}	
@@ -45,13 +45,13 @@
     .PCards .cardWrap:hover{box-shadow: 0 0 20px 0 #e8e8e8;}
      .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border:none; border-bottom: 1px solid #BCDB97;; /*border: 5px solid #BCDB97; border-radius: 20px;*/}
     .PCards .cardWrap .OPcard .cardTop{padding:9px 0 9px 10px;/*height:55px;*/ background: rgba(188, 219, 151, 0.5); /*display: flex; justify-content: space-between;*/ box-sizing: border-box; position: relative;}
-    .PCards .cardTop h3{background-image:url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat;  width: 60%; text-align: center; font-size: 1.5em; padding-left:50px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-     .PCards .cardTop .cBullet{width: 20%; height: 40px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; margin-left: 10px; margin-top: 5px;}
+    .PCards .cardTop h3{background-image:url(/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat;  width: 60%; text-align: center; font-size: 1.5em; padding-left:50px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
+     .PCards .cardTop .cBullet{width: 20%; height: 40px; background-image: url(/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; margin-left: 10px; margin-top: 5px;}
     .cLink{list-style: none; padding-left: 0; position: absolute; top:17px; right:10px}
     .cLink li{display: inline-block; margin: 0 5px;}
     .cLink li a{text-decoration: none; color: transparent;}
-     .cLink li:nth-of-type(1){padding: 0 5px; background-image:url(/today/img/community/instagram.png); background-size: contain; background-repeat: no-repeat;}
-    .cLink li:nth-of-type(2){padding: 0 5px; background-image:url(/today/img/community/youtube.png); background-size: contain; background-repeat: no-repeat;}
+     .cLink li:nth-of-type(1){padding: 0 5px; background-image:url(/img/community/instagram.png); background-size: contain; background-repeat: no-repeat;}
+    .cLink li:nth-of-type(2){padding: 0 5px; background-image:url(/img/community/youtube.png); background-size: contain; background-repeat: no-repeat;}
     .PCards .cardBody a{text-decoration: none; color: #000;}
     .PCards .cardBody img{width: 100%; height: 160px; object-fit: cover;  box-sizing: border-box;}
     .PCards .cardBody ul{padding-left: 0; margin:5px 0 10px 30px; list-style: none;}
@@ -64,8 +64,8 @@
     .pageBox{margin:0 auto; display: flex;}
 	.paging ul li{list-style: none; display: inline-block;}
 	.paging ul li a{text-decoration: none; color: #000;}
-	.pre_link{display:none; width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
-	.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.pre_link{display:none; width:20px; height:20px; border:none; background: none; background-image: url(/img/community/prev.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+	.next_link{width:20px; height:20px; border:none; background: none; background-image: url(/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
 	.page_link{padding:0 5px; margin: 0 5px;}
 	.page_link.active{background: #BCDB97; color: #fff; border-radius: 50%;}
 	
@@ -344,7 +344,7 @@
 	               type: 'post',
 	               dataType : "json",
 	               contentType: 'application/json',
-	               url: '/today/community/openPetList',
+	               url: '/community/openPetList',
 	               data: JSON.stringify(data),
 	               success: function (response) {
 	                    console.log(response); // 리스트 
@@ -357,7 +357,7 @@
 	                    	let age = response[i]["age"];
 	                    	let gender = response[i]["gender"];
 	                    	let feature = response[i]["feature"];
-	                    	let imagePath = "/today" + response[i]['imagePath'];
+	                    	let imagePath = response[i]['imagePath'];
 	                    	let instagram = response[i]["instagram"];
 	                    	let youtube = response[i]["youtube"];
 
@@ -376,7 +376,7 @@
 	                        }
 	                        html += '</ul></div>'
 	                        html += '<div class="cardBody">'
-	                        html += '<a href="/today/community/otherPet/' + petId + '">'
+	                        html += '<a href="/community/otherPet/' + petId + '">'
 	                        html += '<img src="' + imagePath + '">'
 	                        html += '<ul>'
 	                        html += '<li><span class="cardTitle">견종: </span>' + petSpecies + '</li>'
@@ -410,7 +410,7 @@
 	               dataType : "json",
 	               async:false, // 동기방식으로 전역변수에 셋팅
 	               contentType: 'application/json',
-	               url: '/today/community/countPet',
+	               url: '/community/countPet',
 	               data: JSON.stringify(data),
 	               success: function (response) {
 	                    console.log(response); // 리스트 

@@ -11,12 +11,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); background-size: contain; margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/img/community/bg12.png); background-size: contain; margin: 0 auto;  position: relative;}       
 /*.container{width: 1000px; margin: 0 auto;}*/
 .Myintro{width: 600px; height: 380px; border: 1px solid #7AB730; margin: 100px auto; position: relative;}
 .Myintro h2{background: rgba(122, 183, 48, 0.5); margin: 0; padding: 10px; text-align: center;}  
 .Mycontent{width:100%; display: flex; justify-content:space-between; padding:20px; position: relative; box-sizing: border-box;}
-.MyPetPhoto{width:260px; box-sizing: border-box; position: relative; margin: 0 20px; background-image:url(/today/img/community/ring2.png); background-size: contain; background-repeat: no-repeat;}
+.MyPetPhoto{width:260px; box-sizing: border-box; position: relative; margin: 0 20px; background-image:url(/img/community/ring2.png); background-size: contain; background-repeat: no-repeat;}
 .MyPetPhoto::after {display: block; content: ""; padding-bottom: 100%;}
 .Myintro .MyPetPhoto img{width:255px; height: 255px; position: absolute; top: 0; left: 0; object-fit: cover; border-radius: 50%; padding:20px; box-sizing: border-box;} 
 .Mycontent .MyPetinfo{width:45%; padding-left: 20px;}
@@ -25,8 +25,8 @@
 .Mycontent .MyPetinfo li a{text-decoration: none; color: transparent;}
 .Mycontent .MyPetinfo li:first-of-type{font-size: 1.6em; line-height: 70px;}
 .Mycontent .MyPetinfo li a{padding: 15px; background-origin:content-box}
-.Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/today/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
-.Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/today/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
+.Mycontent .MyPetinfo li a:nth-of-type(1){background-image:url(/img/community/instagram.png); background-size: cover; background-repeat: no-repeat;}
+.Mycontent .MyPetinfo li a:nth-of-type(2){background-image:url(/img/community/youtube.png); background-size: cover; background-repeat: no-repeat;}
 .MyPetinfo ul li{overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .nameTitle{font-size: 21px; font-weight: bold;}
 .infoTitle{font-size: 16px; font-weight: bold;}
@@ -63,12 +63,12 @@ ul{list-style: none;}
 
 .lifetimeBox{width:550px; margin: 50px auto;}
 .lifetimeCard{width:550px; /*height: 200px;*/ display: flex; justify-content: space-evenly; margin-bottom:80px}
-.lifecardbullet{width:45px; height: 45px; position: absolute; top: 75px; left:-85px; background-image: url(/today/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
-.modifyCardBtn{display:none; width:16px; position: absolute; top: 15px; right:30px; border:none; background-color: transparent; background-image: url(/today/img/mypet/modify.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
-.deleteCardBtn{display:none; width:16px; position: absolute; top: 15px; right:7px; border:none; background-color: transparent; background-image: url(/today/img/mypet/delete.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
+.lifecardbullet{width:45px; height: 45px; position: absolute; top: 75px; left:-85px; background-image: url(/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px;}
+.modifyCardBtn{display:none; width:16px; position: absolute; top: 15px; right:30px; border:none; background-color: transparent; background-image: url(/img/mypet/modify.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
+.deleteCardBtn{display:none; width:16px; position: absolute; top: 15px; right:7px; border:none; background-color: transparent; background-image: url(/img/mypet/delete.png); background-size: contain; background-repeat: no-repeat; color: transparent; cursor: pointer;}
 .lifetimeCard img{width:200px; height:200px;  object-fit: cover; border-radius: 7px;}
 .cardInfo{width:350px; height: 200px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8; background: #F7F7F7; padding: 20px; margin-left: 25px; box-sizing: border-box;}
-.cardInfo p{background-image: url(/today/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
+.cardInfo p{background-image: url(/img/mypet/cal.png); background-size: contain; background-repeat: no-repeat; padding-left: 27px;}
 .InfoText{width:255px; height:122px; background:none; font-family: 'Nanum Pen Script'; font-size: 24px;  line-height: 1.7em; padding: 20px 15px 0; overflow-y:auto; /*overflow: hidden; text-overflow : ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;*/}
 .InfoText::-webkit-scrollbar {display: none; /* 스크롤바 숨기기: Chrome, Safari, Opera*/}
 .InfoText{-ms-overflow-style: none; /* IE and Edge */scrollbar-width: none; /* Firefox */}
@@ -84,16 +84,16 @@ ul{list-style: none;}
 .paging{padding: 40px 0 0; text-align: center;}
 .paging ul li{list-style: none; display: inline-block;}
 .paging ul li a{text-decoration: none; color: transparent;}
-.paging ul li:nth-of-type(1){background-image: url(/today/img/community/prev.png); background-size: contain; background-repeat: no-repeat;}
+.paging ul li:nth-of-type(1){background-image: url(/img/community/prev.png); background-size: contain; background-repeat: no-repeat;}
 .paging ul li:nth-of-type(2){margin: 0 15px;}
-.paging ul li:nth-of-type(3){background-image: url(/today/img/community/next.png); background-size: contain; background-repeat: no-repeat;}
+.paging ul li:nth-of-type(3){background-image: url(/img/community/next.png); background-size: contain; background-repeat: no-repeat;}
 /* 갤러리 상세조회 */
 #showGallery{display:none; width:700px; height: 610px; overflow-y: auto; background:#fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index:7;}
 .pop_list li {padding:20px 35px 0px; box-sizing: border-box;}
 .pop_list li h2.pop_title{padding:10px 0 24px; text-align:center; font-weight:bold; font-size:32px; font-family: 'Jua', sans-serif; letter-spacing:2px;}
 .pop_list li img.pop_img{width:100%;}
 .pop_list li .pop_content{width:100%; overflow: visible; padding:15px 10px; line-height:1.8; font-size:18.5px; font-family: 'Jua', sans-serif; box-sizing: border-box;}
-.closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .gcardWrap:hover{background: #ddd; cursor: pointer;}
 
 /*반응형*/
@@ -112,6 +112,7 @@ ul{list-style: none;}
 	.imgInfo h3{font-size:2.5vw;}
 }
 
+
 /* 모바일 기준 : 800px 미만 */
 @media all and (max-width:800px) {	
 	.lifetimeBox{width:100%; margin:6.25vw auto;}
@@ -127,6 +128,7 @@ ul{list-style: none;}
 	#tabMenu label{font-size: 2.5vw;}
 	.contents{margin:14.28vw auto;}
 }
+
 
 @media all and (max-width:700px) {
 	.Mycontent .MyPetinfo li:first-of-type{display:none;}
@@ -221,7 +223,7 @@ ul{list-style: none;}
 		
 		
 	    <div class="otherWrap">
-	        <div class="otherP">
+	        <div class="otherP" style="width:98%;">
 	            <P>보러 와주셔서 감사합니다</P>
 	            <!--<h1>다른 반려동물 보러 놀러가기</h1> -->
 	            <p>'${pet.petName}' 공간에 오신걸 환영해요!</p>
@@ -379,7 +381,7 @@ ul{list-style: none;}
 	               type: 'post',
 	               dataType : "json",
 	               contentType: 'application/json',
-	               url: '/today/community/getGalleries',
+	               url: '/community/getGalleries',
 	               data: JSON.stringify(data),
 	               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
 	               success: function (response) {
@@ -387,7 +389,7 @@ ul{list-style: none;}
 	               	   
 	               		for(let i = 0; i < response.length; i++){
 	               		   let imgId = response[i]['imgId'];
-	                 	   let src = "/today" + response[i]['imagePath'];
+	                 	   let src = response[i]['imagePath'];
 	                 	   let title = response[i]['title'];
 	                 	   let content = response[i]['content'];
 	                 	   
@@ -431,7 +433,7 @@ ul{list-style: none;}
 	               type: 'post',
 	               dataType : "json",
 	               contentType: 'application/json',
-	               url: '/today/community/getGalleries',
+	               url: '/community/getGalleries',
 	               data: JSON.stringify(data),
 	               //data: JSON.stringify({petId: pet_Id, page: pa_ge}),
 	               success: function (response) {
@@ -439,7 +441,7 @@ ul{list-style: none;}
 	               	   
 		               		for(let i = 0; i < response.length; i++){
 		               		   let imgId = response[i]['imgId'];
-		                 	   let src = "/today" + response[i]['imagePath'];
+		                 	   let src = response[i]['imagePath'];
 		                 	   let title = response[i]['title'];
 		                 	   let content = response[i]['content'];
 		                 	   

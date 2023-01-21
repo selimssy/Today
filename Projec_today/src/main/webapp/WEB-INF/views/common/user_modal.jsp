@@ -7,7 +7,7 @@
 .Umodal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .Umodal_header h2{line-height: 3.1em; font-size:1.5em;}
 .Umodal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.Umodal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.Umodal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 .Umodal_table{border-collapse: collapse; width: 100%;}
 /*.Umodal_table td{padding:1px;}*/
 .Umodal_body{padding: 0 20px; display: block;}
@@ -243,7 +243,7 @@
 	           
 	            $.ajax({
 	                type: "POST",
-	                url: "/today/user/checkId",  
+	                url: "/user/checkId",  
 	                headers: {
 	                    "Content-Type": "application/json"
 	                },
@@ -282,7 +282,7 @@
 	            chk2 = false;
 	        } else {
 	            $('#password').css("background-color", "#e8f0fe");
-	            $('#pwChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+	            $('#pwChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
 	            chk2 = true;
 	        }
 	       
@@ -303,7 +303,7 @@
 	            chk3 = false;
 	        } else {
 	            $('#password_check').css("background-color", "#e8f0fe");
-	            $('#pwChk2').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+	            $('#pwChk2').html('<img src="/img/common/check.png" width="15px" height="15px">');
 	            chk3 = true;
 	        }
 	       
@@ -324,7 +324,7 @@
 	            chk4 = false;
 	        } else {
 	            $('#user_name').css("background-color", "#e8f0fe");
-	            $('#nameChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+	            $('#nameChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
 	            chk4 = true;
 	        }
 	       
@@ -345,7 +345,7 @@
 	            chk5 = false;
 	        } else {
 	            $('#user_nick').css("background-color", "#e8f0fe");
-	            $('#nickNameChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+	            $('#nickNameChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
 	            chk5 = true;
 	        }
 	       
@@ -366,7 +366,7 @@
 	            chk6 = false;
 	        } else {
 	            $('#user_email').css("background-color", "#e8f0fe");
-	            $('#emailChk').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+	            $('#emailChk').html('<img src="/img/common/check.png" width="15px" height="15px">');
 	            chk6 = true;
 	        }
 	       
@@ -384,7 +384,7 @@
 			 }else{
 				 $.ajax({
 						type : "POST",
-						url : "/today/user/emailAuth",
+						url : "/user/emailAuth",
 						data : {email : email},
 						success: function(data){
 							$('#emailChk').html('<b style="font-size:14px;color:blue;">인증번호가 발송되었습니다.</b>');
@@ -440,7 +440,7 @@
 	            //클라이언트에서 서버와 통신하는 ajax함수(비동기 통신)
 	            $.ajax({
 	                type: "POST", //서버에 전송하는 HTTP요청 방식
-	                url: "/today/user/", //서버 요청 URI
+	                url: "/user/", //서버 요청 URI
 	                headers: {
 	                    "Content-Type": "application/json"
 	                }, //요청 헤더 정보
@@ -450,7 +450,8 @@
 	                    console.log("통신 성공!: " + result);
 	                    if(result === "joinSuccess") {
 	                        alert("회원가입이 완료되었습니다.");
-	                        location.href="/today";
+	                        //location.href="";
+	                        window.location.reload();
 	                    } else {
 	                        alert("회원가입에 실패했습니다.");
 	                    }
@@ -485,7 +486,7 @@
 	        } else {
 	            $('#signInId').css("background-color", "#e8f0fe");
 	            //$('#idCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
-	            $('#idCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+	            $('#idCheck').html('<img src="/img/common/check.png" width="15px" height="15px">');
 	            chk1 = true;
 	        }
 	    });
@@ -506,7 +507,7 @@
 	        } else {
 	            $('#signInPw').css("background-color", "#e8f0fe");
 	            //$('#pwCheck').html('<b style="font-size:14px;color:green;">[참 잘했어요]</b>');
-	            $('#pwCheck').html('<img src="/today/img/common/check.png" width="15px" height="15px">');
+	            $('#pwCheck').html('<img src="/img/common/check.png" width="15px" height="15px">');
 	            chk2 = true;
 	        }
 	       
@@ -529,7 +530,7 @@
 	           
 	            $.ajax({
 	                type: "POST",
-	                url: "/today/user/loginCheck",
+	                url: "/user/loginCheck",
 	                headers: {
 	                    "Content-Type": "application/json"
 	                },
@@ -550,7 +551,7 @@
 	                        $('#pwCheck').html('<b style="font-size:14px;color:red;">[비밀번호가 일치하지 않습니다.]</b>');
 	                        chk2 = false;
 	                    } else if(data === "loginSuccess") {
-	                        //self.location="/today";
+	                        //self.location="/";
 	                    	window.location.reload();
 	                    }
 	                }

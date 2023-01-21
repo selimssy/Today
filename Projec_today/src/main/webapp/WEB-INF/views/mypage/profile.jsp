@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/mypage/mypage.png); background-size: contain; margin: 0 auto;  position: relative;}      
+.siteInfo{width: 1050px; height: 375px; background-image: url(/img/mypage/mypage.png); background-size: contain; margin: 0 auto;  position: relative;}      
 .content{width: 100%;}
 .myProfile{width: 100%; margin: 0 auto;}
 .profileBox{width: 800px; height:600px; margin: 90px auto;  background: #fff;}   
@@ -198,7 +198,7 @@
             type: 'post',
             dataType : "json",
             contentType: 'application/json',
-            url: '/today/user/petList',
+            url: '/user/petList',
             data: JSON.stringify(user),
             success: function (response) {
             	console.log(response);
@@ -209,7 +209,7 @@
                     let age = response[i]['age']
                     let gender = response[i]['gender']
 					
-                	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>";                    
+                	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>";                    
 
                     $('#petCards').append(temp_html);
                     $('#petRgform_open').attr("href", response.length);
@@ -225,7 +225,7 @@
 	
 	// 회원정보 수정 페이지 이동
 	$("#modifyUser").click(function(){
-		location.href="/today/mypage/modifyUser";
+		location.href="/mypage/modifyUser";
 	})
 	
 	// 회원탈퇴 요청
@@ -239,12 +239,12 @@
                 type: 'post',
                 dataType : "text",
                 contentType: 'application/json',
-                url: '/today/user/deleteUser',
+                url: '/user/deleteUser',
                 data: JSON.stringify(user),
                 success: function (response) {
          			if(response === 'success'){
          				alert("회원탈퇴가 완료되었습니다.");
-         				location.href="/today/";
+         				location.href="/";
          			}else{
          				alert("회원탈퇴에 실패했습니다.");
          			}

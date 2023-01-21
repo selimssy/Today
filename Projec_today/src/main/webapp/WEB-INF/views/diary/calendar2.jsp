@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<style TYPE="text/css">
-	.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/diary/mainbg6.png); background-size: contain; margin: 0 auto;  position: relative;}       
+	.siteInfo{width: 1050px; height: 375px; background-image: url(/img/diary/mainbg6.png); background-size: contain; margin: 0 auto;  position: relative;}       
 	
 		body {
 		scrollbar-face-color: #F6F6F6;
@@ -104,13 +104,13 @@
 		
 		.move{width:20px; height:20px; padding:0 6px; text-indent: -9999px; border:none; border-radius: 50%; cursor: pointer;  background-size: contain; background-repeat: no-repeat; background-color: transparent;}
 		
-		.this_year{background-image: url(/today/img/diary/leaf3.png); background-size: contain; background-repeat: no-repeat; padding-left:55px; position: absolute; top: 40px; left: 70px; font-family: 'Jua', sans-serif; font-size:2.8em;}				
+		.this_year{background-image: url(/img/diary/leaf3.png); background-size: contain; background-repeat: no-repeat; padding-left:55px; position: absolute; top: 40px; left: 70px; font-family: 'Jua', sans-serif; font-size:2.8em;}				
 		.this_month{position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); font-family: 'Jua', sans-serif; font-size:4em; }
 		.month_eng{position: absolute; top: 105px; left: 50%; transform: translate(-50%, 0);}
-		.move.prev_year{background-image: url(/today/img/diary/move2.png); position: absolute; top: 58px; left: 55px;}
-		.move.next_year{background-image: url(/today/img/diary/move.png); position: absolute; top: 58px; left: 240px;}
-		.move.prev_month{background-image: url(/today/img/diary/left.png); position: absolute; top: 70px; left: 50%; transform: translate(-80px, 0);}
-		.move.next_month{background-image: url(/today/img/diary/right.png); position: absolute; top: 70px; left: 50%; transform: translate(60px, 0);}
+		.move.prev_year{background-image: url(/img/diary/move2.png); position: absolute; top: 58px; left: 55px;}
+		.move.next_year{background-image: url(/img/diary/move.png); position: absolute; top: 58px; left: 240px;}
+		.move.prev_month{background-image: url(/img/diary/left.png); position: absolute; top: 70px; left: 50%; transform: translate(-80px, 0);}
+		.move.next_month{background-image: url(/img/diary/right.png); position: absolute; top: 70px; left: 50%; transform: translate(60px, 0);}
 		
 		.today{background-color:#eee}
 		
@@ -604,7 +604,7 @@
 			
 		$.ajax({
 			type: "POST", 
-			url: "/today/diary//scheduleAdd", 
+			url: "/diary//scheduleAdd", 
 			headers: {
 				"Content-Type": "application/json"
 			}, 
@@ -674,7 +674,7 @@
 			
 		$.ajax({
 			type: "POST", 
-			url: "/today/diary//calendarChg", 
+			url: "/diary//calendarChg", 
 			headers: {
 				"Content-Type": "application/json"
 			}, 
@@ -761,7 +761,7 @@
                type: 'post',
                dataType : "json",
                contentType: 'application/json',
-               url: '/today/diary/onePlan',
+               url: '/diary/onePlan',
                data: JSON.stringify(ScheduleVO),
                success: function (response) {
                	console.log(response); // ScheduleVO 
@@ -820,7 +820,7 @@
                type: 'post',
                dataType : "json",
                contentType: 'application/json',
-               url: '/today/diary/onePlan',
+               url: '/diary/onePlan',
                data: JSON.stringify(ScheduleVO),
                success: function (response) {
                	console.log(response); // ScheduleVO 
@@ -884,7 +884,7 @@
 				
 			$.ajax({
 				type: "POST", 
-				url: "/today/diary//modifySchedule", 
+				url: "/diary//modifySchedule", 
 				headers: {
 					"Content-Type": "application/json"
 				}, 
@@ -922,7 +922,7 @@
 		               type: 'post',
 		               dataType : "text",
 		               contentType: 'application/json',
-		               url: '/today/diary/deleteSchedule',
+		               url: '/diary/deleteSchedule',
 		               data: JSON.stringify(ScheduleVO),
 		               success: function (response) {
 		            	   if(response === "success"){

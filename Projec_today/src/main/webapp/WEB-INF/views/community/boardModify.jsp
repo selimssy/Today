@@ -53,7 +53,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 			    CKEDITOR.replace( 'ckeditor1', {
 			         width:'100%',
 			         height:'400px',
-			         filebrowserUploadUrl:  "/today/community/fileupload"
+			         filebrowserUploadUrl:  "/community/fileupload"
 			       });
 		    </script>
 		    
@@ -98,7 +98,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
     	// 수정 취소
     	$("#boardMC").click(function(){
     		if(confirm('게시물 수정을 취소하시겠습니까?')){
-    			location.href='/today/community/content/'+${article.boardNo};
+    			location.href='/community/content/'+${article.boardNo};
     			//window.history.back();
     		}
     	})

@@ -25,7 +25,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			PrintWriter out = response.getWriter(); // 이 out 객체를 통해 자바에서 html 작성
 			String element = "<script>"
 						        + "alert('로그인 후 사용 가능합니다.');"
-					            + "location.href='/today';"
+					            + "location.href='/';"
 						        + "</script>";
 			out.print(element);
 			out.flush(); // 브라우저 출력버터 비우기

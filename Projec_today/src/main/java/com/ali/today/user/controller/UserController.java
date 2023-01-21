@@ -37,8 +37,8 @@ public class UserController {
 	// 회원가입 요청 처리
 	@PostMapping("/")
 	public String register(@RequestBody UserVO user) { 
-		System.out.println("/user/ 요청 : POST");
-		System.out.println("param22 : " + user);
+		//System.out.println("/user/ 요청 : POST");
+		//System.out.println("param22 : " + user);
 		
 		service.register(user);
 		return "joinSuccess";
@@ -146,7 +146,7 @@ public class UserController {
 					System.out.println("자동로그인 쿠키 생성중...");
 					
 					Cookie loginCookie = new Cookie("loginCookie", session.getId());
-					loginCookie.setPath("/today"); // 쿠키경로
+					loginCookie.setPath("/"); // 쿠키경로
 					loginCookie.setMaxAge((int)limitTime);
 				
 					response.addCookie(loginCookie); // 서버에서 생성한 쿠키를 클라이언트에게 보내줌

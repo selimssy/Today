@@ -12,7 +12,7 @@
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .modal_header h2{line-height: 2.8em; font-size:22px;}
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 .modal_table{border-collapse: collapse; width: 100%;}
 .modal_body{padding: 0 30px 25px; display: block;}
@@ -22,7 +22,7 @@
 #auto_login{margin-top: 20px; margin-bottom: 20px;}
 .m_button{margin-top: 20px; width: 100%; height: 40px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
 .modalcontainer{position: relative;}
-.close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 /* 펫 등록 모달 */
 #petRg_modal{display: none; width:420px; height:80vh; overflow-y:auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff;
@@ -33,7 +33,7 @@
       
 /* 펫 리스트 창 */     
 #petList{width: 800px; height: 430px; border: 5px solid #7AB730; border-radius: 50px; background: #fff; padding-bottom: 5px; display: none;  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; z-index: 99;}
-#petList > p{width:60%; background-image: url(/today/img/community/infoPhoto.png); background-size: contain; background-repeat: no-repeat; font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px auto 0; font-family: 'Nanum Pen Script', cursive; text-align: center;}
+#petList > p{width:60%; background-image: url(/img/community/infoPhoto.png); background-size: contain; background-repeat: no-repeat; font-size: 72px; /*background: rgba(122, 183, 48, 0.7);*/ margin: 20px auto 0; font-family: 'Nanum Pen Script', cursive; text-align: center;}
 .bdiv{text-align: right;}
 #petRgform_open{font-size: 25px; font-family: 'Nanum Pen Script';border: transparent; border-radius: 10px; background: #7AB730; padding: 10px 5px; margin-right: 20px; cursor: pointer;}
 #petCards{/*display: flex; justify-content: space-evenly;*/ margin-top: 20px;}
@@ -46,15 +46,15 @@
 .pet_in p{margin: 0;}
 /* petId 안보이게 */
 .pet_id{display:none} 
-.select{width: 20px; height: 10px; background-image: url(/today/img/community/more3.png); background-size: contain; background-repeat: no-repeat; position: absolute; top: 7px; right:12px; cursor: pointer;}
+.select{width: 20px; height: 10px; background-image: url(/img/community/more3.png); background-size: contain; background-repeat: no-repeat; position: absolute; top: 7px; right:12px; cursor: pointer;}
 .select:hover{background-color: #ccc;}
 .select .list{display:none; width:60px; list-style: none; position: absolute; bottom: -65px; right:-10px; background:#ddd; z-index:100;}
 .select .list button{background-color: transparent; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
 .select .list.on{display:block}
 
-.changePet{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
+.changePet{width: 60px; height: 60px; background-image:url(/img/community/changePet.png); background-size: cover; border:none;
                 background-repeat: no-repeat; position: absolute; left: -100px; top: 70px; background-color: transparent; cursor: pointer;}  
-.changePet2{width: 60px; height: 60px; background-image:url(/today/img/community/changePet.png); background-size: cover; border:none;
+.changePet2{width: 60px; height: 60px; background-image:url(/img/community/changePet.png); background-size: cover; border:none;
                 background-repeat: no-repeat; position: absolute; left: -20px; top: 100px; background-color: transparent; cursor: pointer;}
 .flex-container {display: flex;}
 .wrapper {text-align: center;flex-grow: 1;}        
@@ -531,7 +531,7 @@ input[type=file] {display: none;}
 	    	// ajax 처리
 	    	$.ajax({
 	    		  type: "POST",
-	    	      url: "/today/user/registerPet",
+	    	      url: "/user/registerPet",
 	    	      data: formData,
 	    	      dataType: "text",
 	    	      contentType: false,               // * 중요 *
@@ -566,7 +566,7 @@ input[type=file] {display: none;}
                     };
 	    	$.ajax({
                 type: "POST", 
-                url: "/today/user/selectPet", 
+                url: "/user/selectPet", 
                 headers: {
                     "Content-Type": "application/json"
                 }, 
@@ -602,7 +602,7 @@ input[type=file] {display: none;}
             type: 'post',
             dataType : "json",
             contentType: 'application/json',
-            url: '/today/user/petList',
+            url: '/user/petList',
             data: JSON.stringify(user),
             success: function (response) {
             	console.log(response); // 리스트 
@@ -615,7 +615,7 @@ input[type=file] {display: none;}
 	                    let age = response[i]['age']
 	                    let gender = response[i]['gender']
 						
-	                	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>"; 
+	                	let temp_html = "<div class='petBox'><div class='select'><ul class='list'><li><button class='modifyPetBtn' title='수정' href='" + pet_id + "'>수정</button></li><li><button class='deletePetBtn' title='삭제' href='" + pet_id + "'>삭제</button></li></ul></div><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></div>"; 
 	                    //let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='/today" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>"; 
 	
 	                    $('#petCards').append(temp_html);
@@ -650,7 +650,7 @@ input[type=file] {display: none;}
 
             $.ajax({
                 type: "POST", 
-                url: "/today/user/selectPet", 
+                url: "/user/selectPet", 
                 headers: {
                     "Content-Type": "application/json"
                 }, 
@@ -686,13 +686,13 @@ input[type=file] {display: none;}
 	            type: 'post',
 	            dataType : "json",
 	            contentType: 'application/json',
-	            url: '/today/user/modifyGet',
+	            url: '/user/modifyGet',
 	            data: JSON.stringify(pet),
 	            success: function (response) {
 	            	console.log(response); // petVO 
 	
 	                	let petId = response['petId']
-	                    let imagePath = "/today" + response['imagePath']
+	                    let imagePath = response['imagePath']
 	                    let petName = response['petName']
 	            		let petSpecies = response['petSpecies']
 	                    let age = response['age']
@@ -844,7 +844,7 @@ input[type=file] {display: none;}
         	// ajax 처리
         	$.ajax({
         		  type: "POST",
-        	      url: "/today/user/modifyPet",
+        	      url: "/user/modifyPet",
         	      data: formData,
         	      dataType: "text",
         	      contentType: false,               
@@ -883,7 +883,7 @@ input[type=file] {display: none;}
 	                type: 'post',
 	                dataType : "text",
 	                contentType: 'application/json',
-	                url: '/today/user/deletePet',
+	                url: '/user/deletePet',
 	                data: JSON.stringify(petVO),
 	                success: function (response) {
 	         			if(response === 'success'){

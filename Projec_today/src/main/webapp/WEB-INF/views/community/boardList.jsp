@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/community/bg12.png); background-size: contain; margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/img/community/bg12.png); background-size: contain; margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px;}
 .search{/*z-index: 999;float:right;*/text-align: right; padding-right: 125px; }	
 .select{display: inline-block; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
@@ -250,7 +250,7 @@
 				//const condition = $("#condition").val();
 				console.log(condition)
 				
-				location.href="/today/community/list?keyword=" + keyword + "&condition=" + condition;
+				location.href="/community/list?keyword=" + keyword + "&condition=" + condition;
 			})
 			
 			

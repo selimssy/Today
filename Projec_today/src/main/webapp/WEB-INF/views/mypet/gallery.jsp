@@ -9,13 +9,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style>
-.siteInfo{width: 1050px; height: 375px; background-image: url(/today/img/common/mainbg3.png); background-size: contain; margin: 0 auto;  position: relative;}       
+.siteInfo{width: 1050px; height: 375px; background-image: url(/img/common/mainbg3.png); background-size: contain; margin: 0 auto;  position: relative;}       
 .mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
 .mainContent .conTitle{width: 950px; margin: 0 auto; background:#BBD996; text-align: center;}
-.mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/today/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
+.mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
 .buttonNav{float:right; position: relative;}
 .openUGCard{width: 95px; height: 40px;  position: absolute; top:45px; right:40px; /*margin: 45px 15px 0 0;*/ border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; /*float: right;*/ cursor: pointer;}
-.photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/today/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
+.photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
 
 .galleryBox{width:100%; width:1050px; min-height:500px; height:1030px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
 .gcardWrap{/*width: 33.333%;*/ width:300px; height:280px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
@@ -24,7 +24,7 @@
 .imgInfo{padding:10px 20px 10px}
 .imgInfo h3{font-size: 28px; font-family: 'Nanum Pen Script'; text-align: center; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
 .imgInfo p{display:none ;word-wrap: break-word;width: 100%; line-height: 1.3em; font-size: 20px; font-family: 'Nanum Pen Script'; margin-top:10px; ; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;/*height:45px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;white-space: nowrap;*/}
-.gselect{width: 10px; height: 21px; background-image: url(/today/img/mypet/more.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 17px; right:6px; cursor: pointer;}
+.gselect{width: 10px; height: 21px; background-image: url(/img/mypet/more.png); background-size: contain; background-repeat: no-repeat; position: absolute; bottom: 17px; right:6px; cursor: pointer;}
 .gselect .list{display:none; width:100px; list-style: none; position: absolute; bottom: -65px; right:-95px; background:#f1f1f1; z-index:100;}
 .gselect .list button{background:#none; border:none; padding:8px 12px; cursor: pointer; font-size:12px}
 .gselect .list.on{display:block}
@@ -51,7 +51,7 @@
 .pop_list li h2.pop_title{padding:10px 0 24px; text-align:center; font-weight:bold; font-size:32px; font-family: 'Jua', sans-serif; letter-spacing:2px;}
 .pop_list li img.pop_img{width:100%;}
 .pop_list li .pop_content{width:100%; overflow: visible; padding:15px 10px; line-height:1.8; font-size:18.5px; font-family: 'Jua', sans-serif; box-sizing: border-box;}
-.closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/today/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+.closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 .noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px;}
 .noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
@@ -522,7 +522,7 @@
         	// ajax 처리
         	$.ajax({
         		  type: "POST",
-        	      url: "/today/mypet/regGallery",
+        	      url: "/mypet/regGallery",
         	      data: formData,
         	      dataType: "text",
         	      contentType: false,               // * 중요 *
@@ -561,13 +561,13 @@
                 type: 'post',
                 dataType : "json",
                 contentType: 'application/json',
-                url: '/today/mypet/modifyGalleryGet',
+                url: '/mypet/modifyGalleryGet',
                 data: JSON.stringify(gallery),
                 success: function (response) {
                 	console.log(response); // GalleryVO 
                    		
                 		let imgId = response['imgId'];
-                    	let imagePath = "/today" + response['imagePath'];
+                    	let imagePath = response['imagePath'];
                 		let title = response['title'];
                 		let content = response['content'];
                 		content = content.replaceAll("<br>", "\r\n");
@@ -670,7 +670,7 @@
         	// ajax 처리
         	$.ajax({
         		  type: "POST",
-        	      url: "/today/mypet/modifyGallery",
+        	      url: "/mypet/modifyGallery",
         	      data: formData,
         	      dataType: "text",
         	      contentType: false,               // * 중요 *
@@ -707,7 +707,7 @@
 	                type: 'post',
 	                dataType : "text",
 	                contentType: 'application/json',
-	                url: '/today/mypet/deleteGallery',
+	                url: '/mypet/deleteGallery',
 	                data: JSON.stringify(gallery),
 	                success: function (response) {
 	         			if(response === 'success'){
