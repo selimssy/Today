@@ -22,8 +22,8 @@
 #tagbox{padding-left: 20px}
 .tagbox{padding-left: 20px}
 .tagbox button{border: none; background: none; color: #ccc; font-size: 19px; cursor: pointer;}
-#tag_container{width:100%; height:50px; border:1px solid #d1d1d1; border-top: none}
-#tag_input{border: none; height: 50px; background: transparent;}
+#tag_container{width:100%; min-height:30px; padding:10px 0; border:1px solid #d1d1d1; border-top: none; overflow-y:auto;}
+#tag_input{min-width:60px; border: none; background: transparent;}
 #tag_input:focus{outline: none;}
 input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; margin-right: 15px}
 .writenav{margin-top: 20px; text-align:right}
@@ -78,7 +78,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    
 		    
 			<div class="writenav">
-				<input type="submit" value="저장">
+				<button type="button" id="MregBtn">저장</button>
 				<button type="button" id="boardMC">취소</button>
 			</div>
 			
@@ -102,6 +102,34 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
     			//window.history.back();
     		}
     	})
+    	
+    	
+    	
+        // 게시판 제목 글자수 초과 알림
+		 $('input[name="title"]').keyup(function(){
+		 	 let content = $(this).val();      
+	         if (content.length > 80){
+	            alert("최대 80자까지 입력 가능합니다.");
+	            $(this).val(content.substring(0, 80));
+	         }
+	     });
+	    
+	    
+	     // 게시글 등록 버튼 이벤트
+	     $("#MregBtn").click(function(){
+	    	 let title = $("input[name='title']").val();
+			 if(!title || title.replace(/\s| /gi, "").length==0){ // 제목 null값이거나 공백만 입력한 경우
+				alert("제목을 입력해주세요.");
+				$("input[name='title']").focus();
+			    return false;
+			 }
+	    	 
+	    	 if(CKEDITOR.instances.ckeditor1.getData().length > 10000){ // content 10000바이트 초과
+	    		alert("본문 최대 용량(10,000byte)를 초과하였습니다.");
+	    		return false;
+	    	 } 
+	    	 $("#form").submit();
+	     })    	
     	
     	
 

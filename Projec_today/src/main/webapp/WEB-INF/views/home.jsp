@@ -321,7 +321,7 @@ body{margin:0; padding:0;}
                     </tr>
                     <tr>
                         <td class="emailAuth">
-                       		<input type="email" id="user_email" class="modal_input" placeholder="ex) abc123@abcd.com">
+                       		<input type="email" id="user_email" class="modal_input" placeholder="ex) abc123@abcd.com" maxlength="100">
                        		<button type="button" class="email_auth_btn">인증번호 전송</button>
                         </td>
                     </tr>

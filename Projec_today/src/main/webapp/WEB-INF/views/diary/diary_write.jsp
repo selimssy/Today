@@ -80,7 +80,6 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 
 	//게시판 제목 글자수 초과 알림
 	$('input[name="title"]').keyup(function(){
-		console.log(111);
 		let content = $(this).val();      
 	    if (content.length > 80){
 	      alert("최대 80자까지 입력 가능합니다.");

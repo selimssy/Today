@@ -143,8 +143,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	        <button type="button" id="petList-open" title="반려동물 변경" class="changePet2"></button>
 				
 				<div class="uploadCard_wrap">
-	        	<div class="uploadCard">      	        	
-   					<!--   <input type="button" value="Resize Image" onclick="ResizeImage()"/>		-->	            
+	        	<div class="uploadCard">      	        		            
 		            <button id="uploadCardBtn">등록</button>
 		            <button class="closeUCard">접기</button>
 		            <div class="flex-container2">       
@@ -156,8 +155,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 		                    </label>
 		                </div>
 		            </div>
-		            <div class="lifeCardInfo">
-		            	
+		            <div class="lifeCardInfo">		            	
 		                <input type="date" id="date" name="Ldate" required>
 		                <div class="InfoList">
 		                    <textarea name="content" id="lifetimeCont" required placeholder="특별한 순간의 설명을 적어주세요."></textarea>
@@ -269,6 +267,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 	     $(".openUCard").click(function(){           
 	         /*$(".uploadCard").css("display","flex");
 	         $(".uploadCard").css("justify-content","space-evenly");*/
+	         $("#lifetimeCont").val("");
 	         $(".uploadCard_wrap").css("display","block");
 	         $(this).css("display","none");
 	     })

@@ -60,7 +60,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    		       
 		    
 			<div class="writenav">
-				<input type="submit" value="저장">
+				<button type="button" id="MregBtn">저장</button>
 				<button type="button" id="diaryMC">취소</button>
 			</div>
 			
@@ -119,5 +119,31 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		}
 	})
 	
+	
+	//제목 글자수 초과 알림
+	$('input[name="title"]').keyup(function(){
+		let content = $(this).val();      
+	    if (content.length > 80){
+	      alert("최대 80자까지 입력 가능합니다.");
+	      $(this).val(content.substring(0, 80));
+	    }
+	});
+	
+	
+	//등록 버튼 이벤트
+	$("#MregBtn").click(function(){
+		let title = $("input[name='title']").val();
+		 if(!title || title.replace(/\s| /gi, "").length==0){ // 제목 null값이거나 공백만 입력한 경우
+			alert("제목을 입력해주세요.");
+			$("input[name='title']").focus();
+		    return false;
+		 }
+		
+		if(CKEDITOR.instances.ckeditor1.getData().length > 10000){ // content 10000바이트 초과
+			alert("본문 최대 용량(10,000byte)를 초과하였습니다.");
+			return false;
+		} 
+		$("#form").submit();
+	})
 </script>
 </html>

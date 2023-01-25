@@ -283,8 +283,8 @@
 	            </div>
 	        </div>
 	        <div class="galInfo">
-	             <input type="text" id="mdGtitle" required>
-	             <textarea id="mdGCont"></textarea>
+	             <input type="text" id="mdGtitle" maxlength="30" required>
+	             <textarea id="mdGCont" maxlength="300"></textarea>
 	       	</div>        
 	    </div> 
 	</div>		
