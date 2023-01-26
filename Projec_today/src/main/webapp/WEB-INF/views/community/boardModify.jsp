@@ -39,7 +39,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 
     <div class="boardBox">    	
         <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>게시글 수정</h2>
-        <form action="<c:url value='/community/modify'/>" method="post" name="writeForm">
+        <form action="<c:url value='/community/modify'/>" method="post" name="writeForm" id="Mform">
         	<input type="hidden" name="boardNo" value="${article.boardNo}">
             <input type="hidden" name='writer' value="${login.userId}" >
             <div class="titleBox">
@@ -128,7 +128,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 	    		alert("본문 최대 용량(10,000byte)를 초과하였습니다.");
 	    		return false;
 	    	 } 
-	    	 $("#form").submit();
+	    	 $("#Mform").submit();
 	     })    	
     	
     	
@@ -141,14 +141,18 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 
 
         //엔터키 입력 이벤트
-        $("#tag_input").keydown(function(key){            	
+        $("#tag_input").keydown(function(key){   
+        	let hashCnt = $('.tagbox').length; // 현재 해시태그 개수
             temp_html = "<span class='tagbox'><span>#</span>" + $("#tag_input").val() + "<span><button class='del_tag'>x</button></span><input type='hidden' name='hashList' value='" + $("#tag_input").val() + "'></span>"; 
             //temp_html = 333;
             if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
-            	console.log("엔터..");
                 $('#tagbox').before(temp_html);
                 $("#tag_input").val("");  // 입력창 비워져있도록
-                console.log("엔터..");
+                $("#tag_input").css("width", "50px");
+                hashCnt++;
+                if(hashCnt == 10){ // 해시태그 최대 10개 제한
+              	  $("#tagbox").css("display", "none");
+                }
             }          
         })
 

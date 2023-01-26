@@ -71,10 +71,14 @@
 	.replyRgBox textarea{width:100%;}
 }
 
-@media all and (max-width:500px) {
+@media all and (max-width:800px) {
 	.comment .rpyW{background:none; padding-left:0;}
 	.comment ul{padding-right:0;}
 	.button_nav{display:block; text-align: right; padding-top:10px;}
+	.contentTop p{display: inline-block;}
+	.countBox{position: relative; display: inline-block; bottom:0;}
+	.countBox span:nth-of-type(1){/*color: transparent;*/}
+	.countBox span:nth-of-type(1) b{color:#000;/*font-size:16px; background: url(/img/community/view.png); padding-left:25px;*/}
 }
 
 </style>
