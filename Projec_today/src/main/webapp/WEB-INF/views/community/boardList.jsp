@@ -46,6 +46,16 @@
 	.diaryBox{width:85%; padding:30px 0 50px;}
 	.search{padding-right:7.5%;}
 	.diaryTB th{font-size:17px; padding: 20px 0;}
+	.writeB{bottom: -30px; right:0;}
+}
+
+@media all and (max-width:600px) {	
+	.search{font-size:14px;}		
+	.select{width:13.666vw; height:25px; font-size:9px;}
+	.keyword input[type=text]{width:33.333vw; height:25px; font-size:9px;}
+	.keyword input[type=button]{width:7.5vw; height:25px; font-size:9px;}
+	.writeB{width:100%; box-sizing: border-box; text-align:center; bottom:-50px;}
+	.paging{padding: 90px 0 0;}
 }
 
 @media all and (max-width:900px) {			

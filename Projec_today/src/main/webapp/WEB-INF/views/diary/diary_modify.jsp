@@ -41,7 +41,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 
     <div class="boardBox">    	
         <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>다이어리 수정</h2>
-        <form role="form" action="<c:url value='/diary/modify' />" method="post">
+        <form role="form" action="<c:url value='/diary/modify' />" method="post" id="Mform">
         	<input type="hidden" name="diaryNo" value="${diary.diaryNo}" >
             <div class="titleBox">
             	<input type="text" name='title' required="required" value="${diary.title}">
@@ -143,7 +143,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 			alert("본문 최대 용량(10,000byte)를 초과하였습니다.");
 			return false;
 		} 
-		$("#form").submit();
+		$("#Mform").submit();
 	})
 </script>
 </html>

@@ -73,7 +73,7 @@ ul{list-style: none;}
 .InfoText::-webkit-scrollbar {display: none; /* 스크롤바 숨기기: Chrome, Safari, Opera*/}
 .InfoText{-ms-overflow-style: none; /* IE and Edge */scrollbar-width: none; /* Firefox */}
 
-.galleryBox{width:100%; min-height:500px; height:1070px; padding: 40px 30px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+.galleryBox{width:100%; /*min-height:500px;height:1070px;*/  padding: 40px 30px 0; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box; overflow: hidden;}
 .gcardWrap{ width:290px; height:295px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
 .gcardWrap:nth-of-type(3n){margin-right:0}
 .imgBox img{width: 100%; height:225px; object-fit: cover;}
@@ -104,7 +104,7 @@ ul{list-style: none;}
 	.contents{width:100%;}	
 	#tabMenu{width:90%;}
 	.lifecardbullet{display:none;}	
-	.galleryBox{width:100%; height:96.7vw; min-height:47vw; position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
+	.galleryBox{width:100%; /*height:96.7vw; min-height:47vw;*/ position: relative; padding:3% 3% 0; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
 	.gcardWrap{width:31%; height:auto; padding-bottom:0; margin:0 3% 3% 0;}
 	.imgBox{width:100%; position: relative; box-sizing: border-box;}
 	.imgBox::after {display: block; content: ""; padding-bottom: 75%;}
@@ -141,7 +141,7 @@ ul{list-style: none;}
 	.Mycontent .MyPetinfo li a{padding:2.2vw 15px;}
 	#tabMenu label{padding:2.14vw 0;}
 
-	.galleryBox{height: 685vw;}
+	.galleryBox{/*height: 685vw;*/}
 	.gcardWrap{width:85%; float:none; margin:30px auto; margin-bottom:8.333vw; padding:2.43vw; padding-bottom:0;}
 	.gcardWrap:nth-of-type(3n) {margin-right: auto;}
 	.imgInfo{padding: 2.43vw 4.86vw 2.43vw;}

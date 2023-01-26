@@ -17,7 +17,7 @@
 .openUGCard{width: 95px; height: 40px;  position: absolute; top:45px; right:40px; /*margin: 45px 15px 0 0;*/ border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; /*float: right;*/ cursor: pointer;}
 .photoPoster{width: 215px; height: 40px;  position: absolute; top:45px; right:165px; border: none; border-radius: 7px; font-size: 26px; font-family: 'Nanum Pen Script'; background: #7AB730; cursor: pointer; background-image: url(/img/mypet/poster2.png); background-size: contain; background-repeat: no-repeat; padding-left:35px;}
 
-.galleryBox{width:100%; width:1050px; min-height:500px; height:1030px; padding: 40px; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box;}
+.galleryBox{width:100%; width:1050px; /*min-height:500px; height:1030px;*/ padding: 40px 40px 0; margin-top: 70px; background:#f5f6fa; /* display: flex; justify-content: space-between;*/  box-sizing: border-box; overflow: hidden;}
 .gcardWrap{/*width: 33.333%;*/ width:300px; height:280px; background:#fff; float: left; padding:10px; margin:0 30px 50px 0; border:none; box-sizing: border-box; position: relative; }
 .gcardWrap:nth-of-type(3n){margin-right:0}
 .imgBox img{/*width:300px; */ width: 100%; height:210px; object-fit: cover; cursor: pointer;}
@@ -54,7 +54,7 @@
 .closeShowGal{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 15px; right: 15px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 
 .noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px;}
-.noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
+.noneMsg+img{width:60%; display: block; margin: 0 auto 30px; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
 
 /*반응형*/
 @media all and (max-width:1065px) {			
@@ -64,7 +64,7 @@
 	.mainContent{width:100%;}
 	.mainContent .conTitle{width:80%; margin: 0 auto;}
 	
-	.galleryBox{width:100%; height:96.7vw; min-height:47vw; position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
+	.galleryBox{width:100%; /*height:96.7vw; min-height:47vw;*/ position: relative; padding:3%; margin-top:8.75%; /*margin-top: 70px; box-sizing: content-box;*/}
 	.openUGCard, .photoPoster{z-index:3;}
 	.paging{padding: 75px 0 0;}
 	
@@ -78,7 +78,7 @@
 
 /* 모바일 기준 : 800px 미만 */
 @media all and (max-width:800px) {
-	.noneMsg{font-size: 4.5vw;}
+	.noneMsg{font-size: 4.5vw;  margin:20px 0;}
 	.mainContent .conTitle span{line-height:100%; font-size:5.625vw; padding-left:10%;}	
 	.register_form, .modifyCard{width:50%; height:auto; display:block; margin:0 auto; padding-bottom:65px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#fff; overflow-y: auto;}	
 	.galInfo{width:80%; padding-top:2.5vw; margin:0 auto;}
@@ -100,7 +100,7 @@
 @media all and (max-width:700px) {
 	#gtitle, #mdGtitle{height:5.72vw; padding-left:2.14vw;}
 	#gcontent, #mdGCont{height:21.43vw;}
-	.galleryBox{height: 685vw;}
+	.galleryBox{/*height: 685vw;*/}
 	.gcardWrap{width:80%; float:none; margin:30px auto; margin-bottom:8.333vw; padding:2.43vw; padding-bottom:0;}
 	.gcardWrap:nth-of-type(3n) {margin-right: auto;}
 	.imgInfo{padding: 2.43vw 4.86vw 2.43vw;}
@@ -319,7 +319,7 @@
 		// 로그인 여부, 등록된 반려견 여부에 따른 메뉴 숨기기
 	    if("${msg}" === 'notLogin'){ // 로그인 안한 경우
 	    	$(".openUGCard").add($(".photoPoster")).add($("#petList-open")).add($(".paging")).css("display", "none");
-	    	$(".galleryBox").css("height", "800px").css("width", "950px").css("margin", "70px auto");
+	    	//$(".galleryBox").css("height", "800px").css("width", "950px").css("margin", "70px auto");
 	    }
 	     
         if("${msg}" === 'petNone'){ // 등록된 반려견 없는 경우

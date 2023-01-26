@@ -14,7 +14,7 @@
 *{margin: 0; padding: 0;}
 .container{width: 100%; margin: 0 auto;}      
 .siteInfo{width: 1050px; height: 375px; background-image: url(/img/common/mainbg3.png); background-size: contain; margin: 0 auto;  position: relative;}      
-.mainContent{width: 1050px; margin: 0 auto; min-height: 160px; position: relative;}
+.mainContent{width: 1050px; margin: 0 auto; /*min-height: 160px;*/ position: relative;}
 .mainContent .conTitle{width: 825px; margin: 0 auto; background:#BBD996; box-sizing: border-box; text-align: center;}
 .mainContent .conTitle span{line-height: 70px; font-size: 45px; font-family: 'Nanum Pen Script'; padding-left: 70px; background-image: url(/img/mypet/dogicon.png); background-size: contain; background-repeat: no-repeat;}
 .uploadCard_wrap, .modifyCard_wrap{display: none;}

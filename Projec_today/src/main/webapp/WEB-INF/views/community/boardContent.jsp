@@ -40,7 +40,7 @@
 .comment ul li{margin-top:25px}
 .comment p{font-size:0.9em}
 .comment .rpyW{margin-bottom:7px; background: url(/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
-.comment #replyList .rpyW span{font-size:0.9em; color:#aaa}
+.comment #replyList .rpyW span{font-size:13px; color:#aaa}
 .comment button{width:35px; height: 20px; font-size:0.6em; padding: 2px; border-radius: 5px; border: none; cursor: pointer;}
 .replyRgBox{width:750px; height: 125px; margin-top:40px; position: relative; display:block; margin-bottom: 40px}
 .replyRgBox textarea{width:700px; height: 100px; position: absolute; top: 10px; right:0; resize: none; overflow-y:auto; font-family: "NanumSquare","맑은 고딕", sans-serif; padding: 10px 10px 20px; box-sizing: border-box;}
@@ -49,6 +49,7 @@
 .modifyBox{position: relative;width:700px; height:120px}
 .modifyBox .mdButton{width:78px; position: absolute; top:-30px; right:0; display:block}
 .replyRgBox .count, .modifyBox .count{position:absolute; right:20px; bottom:20px; color:#666; font-family:"ht_r"; font-size:15px; }
+.button_nav{display:inline-block;}
 
 /* 댓글 페이징 */
 .paging{width:100%; margin:0 auto; padding: 50px 0 0; text-align: center; display: flex;}
@@ -59,6 +60,23 @@
 .next_link{width:20px; height:20px; border:none; background: none; background-image: url(/img/community/next.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
 .page_link{padding:0 5px; margin: 0 5px;}
 .page_link.active{background: #BCDB97; color: #fff; border-radius: 50%;}
+
+/*반응형*/
+@media all and (max-width:1065px) {			
+	.siteInfo{width:100%; height:auto; position: relative;}
+	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
+	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
+	.contentBox{width:90%; margin: 9vw auto; padding:25px 20px;}
+	.replyRgBox{width:80%; margin: 40px auto;}
+	.replyRgBox textarea{width:100%;}
+}
+
+@media all and (max-width:500px) {
+	.comment .rpyW{background:none; padding-left:0;}
+	.comment ul{padding-right:0;}
+	.button_nav{display:block; text-align: right; padding-top:10px;}
+}
+
 </style>
 </head>
 <body>
@@ -67,19 +85,22 @@
 	<jsp:include page="../common/header.jsp" />
 	<main>
 		<div class="siteInfo">
-	        <div class="infoText" style="top: 110px;">
+			<div class="ratio_content"></div>
+	        <div class="infoText">
 	            <p>커뮤니티 게시판</p>
 	            <p>너와 나, 우리 모두 함께</p>
 	        </div>
 	    </div>
-	    <div class="siteNav">
-	        <a href="#"><div class="homeLogo">1</div></a>
-	        <ul>
-	            <li><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
-	            <li class="checked"><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></li>
-	        </ul>
+	    <div class="siteNav">   
+	        <table>
+		        <tr>
+		            <td><a href="<c:url value='/'/>"><div class="homeLogo">home</div></a></td>
+		            <td><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></td>
+		            <td class="checked"><a href="<c:url value='/community/list'/>">커뮤니티 게시판</a></td>
+		        </tr>
+		    </table>
 	    </div>
-		<div class="otherWrap" style="width: 1150px; padding-left:310px">
+		<div class="otherWrap">
 	        <div class="otherP">
 	            <P>너와의 오늘, 우리의 시간</P>
 	            <p>'너'이기에 행복한 견주의 일기</p>
@@ -142,12 +163,12 @@
 					<c:if test="${replyList.size() > 0}">
 						<c:forEach var="reply" items="${replyList}">
 							<li>							
-								<p class="rpyW"><b>${reply.nickname}</b> &nbsp; &nbsp; &nbsp; &nbsp;
+								<div class="rpyW"><b>${reply.nickname}</b> &nbsp; &nbsp; &nbsp; &nbsp;
 								    <span><fmt:formatDate value="${reply.replyDate}" pattern="yyyy.MM.dd. HH:mm" /></span>
 								    <c:if test="${login.userId == reply.replyer}">
-								    	&nbsp;<button href="${reply.replyNo}" type="button" class="replyModify">수정</button>&nbsp;<button href="${reply.replyNo}" type="button" class="replyDelete">삭제</button>
+								    	&nbsp;<div class="button_nav"><button href="${reply.replyNo}" type="button" class="replyModify">수정</button>&nbsp;<button href="${reply.replyNo}" type="button" class="replyDelete">삭제</button></div>
 									</c:if>
-								</p>
+								</div>
 								<div id="reply${reply.replyNo}" class="rpyContentBox">
 									<p>${reply.content}</p>
 								</div>
@@ -520,12 +541,12 @@
 	                    	let content = response[i]["content"];
 	                    	
 	                    	let html ='<li>';
-                            html += '<p class="rpyW"><b>' + replyer + '</b> &nbsp; &nbsp; &nbsp; &nbsp;';
+                            html += '<div class="rpyW"><b>' + replyer + '</b> &nbsp; &nbsp; &nbsp; &nbsp;';
                             html += '<span>' + replyDate +  '</span>';
                             if(userId === replyer){
-                                html += '&nbsp;<button href="' + replyNo + '" type="button" class="replyModify">수정</button>&nbsp;<button href="' + replyNo + '" type="button" class="replyDelete">삭제</button>'  ;             
+                                html += '&nbsp;<div class="button_nav"><button href="' + replyNo + '" type="button" class="replyModify">수정</button>&nbsp;<button href="' + replyNo + '" type="button" class="replyDelete">삭제</button></div>'  ;             
                             }
-                            html += '</p>';
+                            html += '</div>';
                             html += '<div id="reply' + replyNo + '" class="rpyContentBox">';
                             html += '<p>' + content + '</p>';
                             html += '</div>';

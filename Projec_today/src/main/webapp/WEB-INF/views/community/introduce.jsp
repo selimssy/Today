@@ -40,7 +40,7 @@
 	.keyword{display: inline-block;}
 	.keyword input[type=text]{width:200px; height: 30px; border:1px solid #aaa; box-sizing: border-box;}
 	.keyword input[type=button]{width:45px; height: 30px; border:none; background: #ddd; cursor: pointer;}
-    .PCards{width:1000px; /*height:1250px;*/ margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/ box-sizing: border-box;}
+    .PCards{width:1000px; /*height:1250px;*/ margin:0 auto; padding: 20px;  /*display: flex; justify-content: space-between;*/ box-sizing: border-box; overflow: hidden;}
     .PCards .cardWrap{width: 33%; float: left; padding: 20px 20px 50px 20px; box-sizing: border-box;}
     .PCards .cardWrap:hover{box-shadow: 0 0 20px 0 #e8e8e8;}
      .PCards .cardWrap .OPcard{width: 100%;  box-sizing: border-box; border:none; border-bottom: 1px solid #BCDB97;; /*border: 5px solid #BCDB97; border-radius: 20px;*/}

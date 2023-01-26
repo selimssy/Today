@@ -261,12 +261,13 @@
                 		let newPwChk = $("#newPwChk").val();
                 		// 새 비밀번호 검증
                 		if(newPw === ""){ // 공백만 입력한 경우
-                            $('#pwChk').html('<br><b style="font-size:12px;color:red;">[비밀번호를 입력하세요.]</b>');
+                            //$('#pwChk').html('<br><b style="font-size:12px;color:red;">[비밀번호를 입력하세요.]</b>');
                 			alert("비밀번호를 입력하세요.");
                             chk1 = false;                     
                             return false;                          
                         }else if(!getPwCheck.test(newPw) || newPw.length < 8){ // 비밀번호 조건 충족 확인
-                            $('#pwChk').html('<br><b style="font-size:12px;color:red;">[특수문자 포함 8자이상]</b>');
+                            //$('#pwChk').html('<br><b style="font-size:12px;color:red;">[특수문자 포함 8자이상]</b>');
+                            alert("특수문자 포함 8자이상 입력하세요.");
                             chk1 = false;                           
                             return false;
                             $("#newPw").focus();
@@ -277,12 +278,14 @@
                 		
                 		// 비밀번호 확인란 검증
                 		if(!newPwChk || newPwChk.replace(/\s| /gi, "").length == 0){ // 공백만 입력한 경우
-                            $('#pwChk2').html('<br><b style="font-size:12px;color:red;">[비밀번호를 입력하세요.]</b>');
+                            //$('#pwChk2').html('<br><b style="font-size:12px;color:red;">[비밀번호를 입력하세요.]</b>');
+                			alert("비밀번호 확인란 입력값을 확인하세요.");
                             chk2 = false;
                             return false;
                             $("#newPwChk").focus();
                         }else if(newPw != newPwChk){  // 비밀번호 확인란 일치하지 않는 경우
-                        	$('#pwChk2').html('<br><b style="font-size:12px;color:red;">[새 비밀번호가 일치하지 않습니다.]</b>');
+                        	//$('#pwChk2').html('<br><b style="font-size:12px;color:red;">[새 비밀번호가 일치하지 않습니다.]</b>');
+                        	alert("새 비밀번호가 일치하지 않습니다.");
                         	chk2 = false;
                 			return false;
                 			$("#newPwChk").focus();

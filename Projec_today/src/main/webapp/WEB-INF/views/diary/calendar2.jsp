@@ -173,10 +173,15 @@
 	.move.next_month{top:6.57vw; transform: translate(5.634vw, 0);}
 	.month_eng{top:9.86vw; font-size:1.5vw;}
 	.scheModal_open{width:9vw; height:3.286vw; top:5.164vw; right:7.98vw; font-size:1.6vw; border-radius:0.657vw; word-spacing:0.01vw;}
+	.noneMsg+img{width:60%}
+}
+
+@media all and (max-width:500px) {
+	.noneMsg{font-size:7.2vw; margin:70px 0 30px;}
 }
 
 @media all and (max-width:350px) {
-.scheduleRgModal, #plan_modal, #plan_MFmodal{width:80%;}
+	.scheduleRgModal, #plan_modal, #plan_MFmodal{width:80%;}
 }	
 	</style>
 </head>
@@ -504,7 +509,6 @@
 	// 로그인 여부에 따른 메뉴 숨기기
 	if("${msg}" === 'notLogin'){ // 로그인 안한 경우
     	$(".calendar").css("display", "none");
-    	//$(".galleryBox").css("height", "800px");
     }
 	
 	
@@ -808,6 +812,7 @@
 	   $("#modifyPlan").click(function(){
 		   $("#plan_modal").css("display","none");
 		   $("#plan_MFmodal").css("display","block");
+		   $("#MplanDate").val("");
 		   
 		   let scheduleId = $(this).attr("href");
            console.log(scheduleId);
@@ -835,7 +840,7 @@
 					
                		$(".mdpop").css("display","block");
                		$("#modifyBtn").attr('href',scheduleId); 
-                    $("#MplanDate").attr('value',scheduleDate);
+                    $("#MplanDate").val(scheduleDate);
                     $("#MplanNum").val(scheduleNum);
                     $("#MplanTitle").val(scheduleTitle);                                              
                     $("#MplanDesc").val(scheduleDesc);                              

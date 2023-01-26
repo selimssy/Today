@@ -34,29 +34,38 @@
 
 .writeB{width: 60px; color: #fff; border-radius: 10px; background: #7AB730; text-decoration: none;  float:right; position: absolute; bottom:-20px; right:45px; padding: 13px 15px; font-size:19px; line-height:19px; }
 
-.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 50px 0 30px; color:#3F3F3F}
-.noneMsg+img{width:60%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
+.noneMsg{font-family: 'Nanum Pen Script'; text-align: center; font-size: 36px; margin: 150px 0 30px; color:#3F3F3F}
+.noneMsg+img{width:70%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
 
 /*반응형*/
 @media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */	
 	.siteInfo{width:100%; height:auto; position: relative;}
 	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
 	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
-	.diaryBox{width:85%; box-sizing: border-box; padding:2.8vw 0 4.7vw}
+	.diaryBox{width:85%; box-sizing: border-box; padding:30px 0 4.7vw}
 	.search{padding-right:7.5%;}
+	.writeB{bottom: -30px; right:0;}
 }
 
 @media all and (max-width:800px) {				
 	.diaryTB th{padding:15px 0; font-size:15px;}
 	.diaryTB td{padding:15px 10px;font-size:14px;}
 	.diaryTB td.tableTitle{padding-left:5vw;}
+	.diaryTB th:nth-of-type(1){display:none;}
+	.diaryTB td:nth-of-type(1){display:none;}
+	/*.diaryTB td.tableTitle{text-align:center;}*/
+	.noneMsg{margin:80px 0 30px;}
 }
 
-@media all and (max-width:600px) {		
+@media all and (max-width:600px) {
+	.diaryBox{width:85%; box-sizing: border-box; padding:20px 0 4.7vw}		
 	.search{font-size:14px;}		
 	.select{width:13.666vw; height:25px; font-size:9px;}
 	.keyword input[type=text]{width:33.333vw; height:25px; font-size:9px;}
 	.keyword input[type=button]{width:7.5vw; height:25px; font-size:9px;}
+	.writeB{width:100%; box-sizing: border-box; text-align:center; bottom:-50px;}
+	.paging{padding: 90px 0 0;}
+	.noneMsg{font-size:6vw;}
 }
 </style>
 </head>
@@ -132,7 +141,7 @@
 					<c:if test="${diaryList.size() <= 0}">
 						<tr>
 							<td colspan="3" align="center">
-								<strong>검색 결과가 없습니다.</strong>
+								<strong>저장된 일기가 없습니다.</strong>
 							</td>
 						</tr>
 					</c:if>				
