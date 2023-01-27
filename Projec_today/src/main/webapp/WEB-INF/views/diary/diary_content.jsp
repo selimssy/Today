@@ -31,6 +31,16 @@
 	
 }
 
+@media all and (max-width:600px) {			
+	.navBox{position: relative; bottom:0; left:0; display:block;}
+	.contentBox{padding:15px;}
+	.contentTop p{padding:10px 0;}
+}
+
+@media all and (max-width:400px) {			
+	.navBox input{width:60px; height:25px;}
+}
+
 </style>
 </head>
 <body>

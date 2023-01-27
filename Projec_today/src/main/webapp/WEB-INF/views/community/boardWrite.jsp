@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +32,16 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 .writenav button{width:120px; height: 35px; border:none; background: #F3F3F3; cursor: pointer; }
 
 #cke_1_bottom{display:none}
+
+/*반응형*/
+@media all and (max-width:1065px) {			
+	.container{width:100%;}	
+}
+
+@media all and (max-width:800px) {			
+	.boardBox{width:95%;}
+}
+
 </style>
 </head>
 <body>

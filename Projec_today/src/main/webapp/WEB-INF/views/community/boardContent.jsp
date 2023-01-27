@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,9 +17,9 @@
 
 .contentBox{width:850px; margin: 145px auto; border: 1.5px solid #d1d1d1; padding: 25px 30px; box-sizing: border-box; }
 .contentTop{width:100%; border-bottom: 1.5px solid #d1d1d1; padding-bottom: 10px; position: relative;}
-.contentTop h1{line-height: 55px; margin:0;}
-.contentTop p{background: url(/img/community/boarduser.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
-.contentTop span{padding-left: 30px;}
+.contentTop h1{line-height: 55px; margin:0 0 25px;}
+.contentTop .nickname{background: url(/img/community/boarduser.png); background-size: contain; background-repeat: no-repeat; padding: 5px 35px; display: inline-block;}
+.contentTop .regDate{/*padding-left: 30px;*/ display: inline-block; color:#666;}
 .countBox{position: absolute; bottom: 25px; right: 0;}
 .countBox span:nth-of-type(1){background: url(/img/community/view.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
 .countBox span:nth-of-type(2){background: url(/img/community/reply.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px; margin-left: 20px;}
@@ -66,21 +67,32 @@
 	.siteInfo{width:100%; height:auto; position: relative;}
 	.siteInfo:before {content: ""; display: block; padding-top: 35.7143%; /* 일정 비율 유지*/}
 	.ratio_content {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}		
-	.contentBox{width:90%; margin: 9vw auto; padding:25px 20px;}
+	.contentBox{width:90%; margin: 13.6vw auto; padding:25px 20px;}
 	.replyRgBox{width:80%; margin: 40px auto;}
 	.replyRgBox textarea{width:100%;}
+	.modifyBox{width:80%; margin: 0 auto;}
+	.comment textarea{width:100%;}
 }
 
 @media all and (max-width:800px) {
+	.contentBox{margin:110px auto;}
+	.replyRgBox, .modifyBox{width:90%;}
 	.comment .rpyW{background:none; padding-left:0;}
 	.comment ul{padding-right:0;}
 	.button_nav{display:block; text-align: right; padding-top:10px;}
-	.contentTop p{display: inline-block;}
-	.countBox{position: relative; display: inline-block; bottom:0;}
-	.countBox span:nth-of-type(1){/*color: transparent;*/}
-	.countBox span:nth-of-type(1) b{color:#000;/*font-size:16px; background: url(/img/community/view.png); padding-left:25px;*/}
+	.contentTop .nickname{display: block;}
+	.countBox{position: relative; bottom:0; display:inline-block; font-size: 13px;}
+	.countBox span:nth-of-type(1){padding-left:20px;}
+	.countBox span:nth-of-type(2){margin-left:10px; padding-left:20px;}
+	.contentTop .regDate{font-size: 13px; padding: 5px;}
 }
 
+@media all and (max-width:310px) {
+	.contentBox{padding:20px 15px;}
+	.navBox input{width:65px;}
+	.countBox{font-size: 12px;}
+	.contentTop .regDate{font-size: 12px;}
+}
 </style>
 </head>
 <body>
@@ -116,7 +128,8 @@
 		<div class="contentBox">
 			<div class="contentTop">
 				<h1>${article.title}</h1>
-				<p>${article.nickname}<span><fmt:formatDate value="${article.regDate}" pattern="yyyy.MM.dd"/></span></p>
+				<p class="nickname">${article.nickname}</p>
+				<p class="regDate"><fmt:formatDate value="${article.regDate}" pattern="yyyy.MM.dd"/></p>
 				
 				<div class="countBox">
 					<span>조회수 <b>${article.viewCnt}</b></span>

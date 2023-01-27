@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +30,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 
 /*반응형*/
 @media all and (max-width:1065px) {			
-	.container{width:100%;}
+	.container{width:100%;}	
 }
 
 @media all and (max-width:800px) {			

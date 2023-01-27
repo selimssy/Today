@@ -201,13 +201,15 @@
 
 	//이거 그냥 밑으로 넣어도 되지 않나
 	$("#login").click(function(){
-	    $("#login_modal").css("display", "block")
+	    $("#login_modal").css("display", "block");
+	    $(".header_cont").css("display", "none");
 	})
 	$("#join").click(function(){
-	    $("#join_modal").css("display", "block")
+	    $("#join_modal").css("display", "block");
+	    $(".header_cont").css("display", "none");
 	})
 	$(".Umodal_close").on("click", function(){
-	    $(this).parent().parent().css("display", "none")
+	    $(this).parent().parent().css("display", "none");
 	})
 
 
