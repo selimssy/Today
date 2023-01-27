@@ -70,7 +70,7 @@
 	.page_link{padding:0 5px; margin: 0 5px;}
 	.page_link.active{background: #BCDB97; color: #fff; border-radius: 50%;}
 	
-	.noneMsgBox{width:35%; position: relative; margin: 100px auto 120px;}
+	.noneMsgBox{width:600px; position: relative; margin: 100px auto 120px;}
 	.noneMsg{width:100%;font-family: 'Nanum Pen Script'; text-align: center; font-size: 40px; margin: 50px 0 30px; position: absolute; top: 70px;}
 	.noneMsgBox img{width:100%; display: block; margin: auto; opacity: 0.85; box-shadow: 0 0 25px 0 #e8e8e8; border-radius: 15px;}
 
@@ -85,6 +85,8 @@
 	.PCards .cardBody ul{margin: 5px 0 5px 2vw;}
 	.search{width:100%; padding-right:3.6vw; box-sizing: border-box;}
 	.paging{width:100%;}
+	.noneMsgBox{width:50%;}
+	.noneMsg{margin:4.7vw 0 2.8vw; font-size:4.44vw;}
 }
 
 @media all and (max-width:900px) {			
@@ -99,6 +101,8 @@
 	.Myintro .MyPetPhoto img{padding:2.222vw;}
 	.modifyIcon{width:20px; height:20px; top:10px; right:10px;}
 	.Mycontent .MyPetinfo li a{padding:1.7vw 2.5vw;}
+	.noneMsgBox{width:60%;}
+	.noneMsg{top:10vw;}
 }
 
 @media all and (max-width:800px) {		
@@ -114,6 +118,7 @@
 	.PCards .cardBody ul li::before{font-size:3.125vw;}
 	.cLink{top:1.8vw; right:1.25vw;}
 	.search{padding-right:10%;}
+	.noneMsgBox{margin:12.5vw auto 15vw;}
 }
 
 @media all and (max-width:600px) {		
@@ -121,10 +126,8 @@
 	.select_con{width:13.666vw; height:25px; font-size:9px;}
 	.keyword input[type=text]{width:33.333vw; height:25px; font-size:9px;}
 	.keyword input[type=button]{width:7.5vw; height:25px; font-size:9px;}
-	/*.nameTitle{font-size:14px;}
-	.Mycontent .MyPetinfo li:first-of-type{font-size:15px;}
-	.infoTitle{font-size:10.5px;}
-	.Mycontent .MyPetinfo li{font-size:12.666px; line-height:26.67px;}*/
+	.noneMsgBox{width:80%; margin:14vw auto 16vw;}
+	.noneMsg{font-size:6vw; top:14.16vw;}
 }
 </style>
 </head>
