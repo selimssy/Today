@@ -96,7 +96,6 @@
 				<nav>
 				<ul class="main_nav">
 					<li><a href="<c:url value='/mypet/lifetime'/>" class="mainMenu mainMenu1">나의 반려견</a>
-
                         <div class="submenu sub_1">
                             <ul class="submenu_list">
                                 <li><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></li>

@@ -31,19 +31,20 @@
         .header_cont .user_nav li a {font-size:14px; color:#555;}
         .header_cont .main_nav {float:right; box-sizing:border-box; padding-top:5px; /*height:113px;*/}
         .header_cont .main_nav li {float: left;}
-        .header_cont .main_nav li a {display:block; padding:20px 33px; font-size:20px; color:#000;}
+        .header_cont .main_nav li a {font-family: 'Noto Sans KR', sans-serif; display:block; padding:20px 33px; font-size:20px; color:#000;}
         .header_cont .main_nav li .mainMenu:hover{color: #7AB730;}
         .header_cont .main_nav li a.checked{color: #7AB730; font-weight: bold;}
         .header_cont .main_nav li:last-child a {padding-right:0;}
+        .open{display:none;}
     
         .submenu{position:absolute; left:0; top:115px; width:100%; background:#7AB730;; z-index:100; display:none;}
-        .submenu .submenu_list {width:1200px; margin:0 auto; text-align:left;}
-        .sub_1 .submenu_list {box-sizing:border-box; padding-left:370px;}
-        .sub_2 .submenu_list {box-sizing:border-box; padding-left:520px;}
-        .sub_3 .submenu_list {box-sizing:border-box; padding-left:740px;}
-        .sub_4 .submenu_list {box-sizing:border-box; padding-left:950px;}
+        .submenu .submenu_list {width:1050px; margin:0 auto; text-align:left;}
+        .sub_1 .submenu_list {box-sizing:border-box; padding-left:345px;}
+        .sub_2 .submenu_list {box-sizing:border-box; padding-left:495px;}
+        .sub_3 .submenu_list {box-sizing:border-box; padding-left:675px;}
+        .sub_4 .submenu_list {box-sizing:border-box; padding-left:830px;}
         .submenu .submenu_list li {display:inline;}
-        .submenu .submenu_list li a {display:inline-block; padding:20px; color: #fff; font-size: 18.5px;}
+        .submenu .submenu_list li a {font-family: 'Noto Sans KR', sans-serif; display:inline-block; padding:20px; color: #fff; font-size: 18.5px;}
         .submenu .submenu_list li:last-child a {padding-right:0;}
         .submenu .submenu_list li a.on {color:#fff;}
     
@@ -63,7 +64,7 @@
         .siteNav table tr td{box-sizing: content-box;}
         .siteNav table tr td:nth-of-type(1){width: 7.5%; background-image: url(/img/common/homeLogo2.png); background-size: cover; text-indent: -999px;}
         .siteNav table tr td:nth-of-type(2), .siteNav table tr td:nth-of-type(3){width: 46%; text-align: center;}
-        .siteNav table tr td a{text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
+        .siteNav table tr td a{font-family: 'Noto Sans KR', sans-serif; text-decoration: none; color: #000; font-size: 1.3em; color: #000;}
         .siteNav table tr td.checked a{color: #7AB730;}
         /*.siteNav2 table tr td:nth-of-type(3){width: 46%;}*/
 
@@ -93,16 +94,26 @@
 	.header_innerBox h1{float:none; text-align: center;}
 	.header_innerBox h1 a{display:inline-block; width:200px;}
 	.header_cont{display: none; float:left; width:300px; height:100%; background-color: #fff; position: fixed; top:0; left:0; z-index: 30; box-shadow: 0 0 20px 0 #e8e8e8;}
-	.header_cont .submenu{display: none;}
 	.header_cont .user_nav{height:70px; background-color: #7AB730; padding-top:25px; box-sizing: border-box; text-align: center;}
 	.header_cont .main_nav{float: none; }
-	.header_cont .main_nav li{display:block; float: none; border-bottom: 1px solid #e1e1e1; padding-left:50px;}
+	.header_cont .main_nav li{display:block; float: none; padding-left:0; position: relative;}
+	.header_cont .main_nav li a{padding:20px 0 20px 25px; font-size:17px; border-bottom: 1px solid #e1e1e1;}
+	.open{display:block; background-image:url(/img/common/down.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; width:25px; height: 25px; position: absolute; top:20px; right: 20px; cursor: pointer;}
+	.open.on{background-image:url(/img/common/up.png);}
+	
+	.submenu{position: static; width: 100%; background: #eee; z-index: auto; /*display: block;*/}
+    .submenu .submenu_list{width:100%; text-align:center; padding-left:0px;}
+    .submenu .submenu_list li {display:block;}
+    .submenu .submenu_list li a {display:block; color: #000; font-size: 14px; text-align: left; padding: 15px 0 15px 70px; border-bottom:none;}
+    .submenu .submenu_list li:last-child a {padding-right:0;}
+        .submenu .submenu_list li a.on {color:#fff;}
+        
 	.infoText{top: 37.3333%; left: 9.524%; /*z-index: 5;*/}
 	.infoText p:nth-of-type(1){font-size: 6.76vw;}
     .infoText p:nth-of-type(2){font-size: 2.82vw;}
     .siteNav table{width:100%; height:auto; border: 2.5px solid #7AB730;}
     .siteNav table tr td:nth-of-type(1){position: relative; padding-bottom: 7.5%;}
-    .siteNav table tr td a{font-size: 1.955vw;}
+    .siteNav table tr td a{/*font-size: 1.955vw;*/ font-size:20px;}
     .homeLogo{position: absolute;}
 	.otherWrap{width:100%; padding-left:70px; box-sizing: border-box;}
 	.otherP{width:95%;}	
@@ -117,6 +128,7 @@
 	header{height:50px; position: relative;}
 	.mob_menu{width: 25px; height: 25px; left:10px; top:50%; transform: translate(0, -50%);}
 	.siteNav table{border: 1.5px solid #7AB730;}
+	.siteNav table tr td a{font-size:18px;}
 	.header_innerBox h1{padding-top:10px;}
 	.header_innerBox h1 a{width:120px;}
     .otherWrap{padding-left:7.5%;}
@@ -129,6 +141,17 @@
     #mdImage-box{width:100%; height: 100%; ;position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block; margin: 0 auto;}
     .img_wrapper{width:70%; position: relative; box-sizing: border-box; margin:10px auto;}
     .img_wrapper::after {display: block; content: ""; padding-bottom: 100%;}
+}
+
+@media all and (max-width:600px) {
+	.siteNav table tr td:nth-of-type(1){width:9%; padding-bottom:9%;}
+	.siteNav table tr td a{font-size:17px;}
+}
+
+@media all and (max-width:600px) {
+	.siteNav table tr td a{font-size:15px;}
+}
+
     </style>
 </head>
 <body>
@@ -161,7 +184,7 @@
 				<nav>
 				<ul class="main_nav">
 					<li><a href="<c:url value='/mypet/lifetime'/>" class="mainMenu mainMenu1">나의 반려견</a>
-
+						<div class="open">open_submenu</div>
                         <div class="submenu sub_1">
                             <ul class="submenu_list">
                                 <li><a href="<c:url value='/mypet/lifetime'/>">반려견 생애기록</a></li>
@@ -170,6 +193,7 @@
                         </div>
 					</li>
 					<li><a href="<c:url value='/diary/calendar'/>" class="mainMenu mainMenu2">반려견 다이어리</a>
+						<div class="open">open_submenu</div>
 				        <div class="submenu sub_2">
                             <ul class="submenu_list">
                                 <li><a href="<c:url value='/diary/calendar'/>">반려견 전용 캘린더</a></li>
@@ -178,6 +202,7 @@
                         </div>
 					</li>
 					<li><a href="<c:url value='/community/intro'/>" class="mainMenu mainMenu3">커뮤니티</a>
+						<div class="open">open_submenu</div>
                         <div class="submenu sub_3">
                             <ul class="submenu_list">
                                 <li><a href="<c:url value='/community/intro'/>">반려견 소개하기</a></li>
@@ -186,6 +211,7 @@
                         </div>
 					</li>
 					<li><a href="<c:url value='/mypage/profile'/>" class="mainMenu mainMenu4">마이페이지</a>
+						<div class="open">open_submenu</div>
                         <div class="submenu sub_4">
                             <ul class="submenu_list">
                             	<li><a href="<c:url value='/mypage/profile'/>">프로필</a></li>
@@ -243,27 +269,38 @@
                 isOver1[i - 1] = true
             }
         }).mouseout(function(){
-            // $(".gnb_depth2_1").fadeOut("fast")
-            setTimeout(goHide, 100)  // 0.5초 뒤에 사라지도록
-            isOver1[i - 1] = false
-        }).blur(function(){
-            setTimeout(goHide, 100)    // mouseover는 mouseout으로, focus는 blur로
-            isOver1[i - 1] = false
-    
+            // $(".gnb_depth2_1").fadeOut("fast")       	 
+            if(parseInt($("header").css("width")) > 1065){
+            	setTimeout(goHide, 100)  // 0.5초 뒤에 사라지도록
+                isOver1[i - 1] = false   
+            }
+        }).blur(function(){                   	
+            if(parseInt($("header").css("width")) > 1065){
+            	setTimeout(goHide, 100)    // mouseover는 mouseout으로, focus는 blur로
+                isOver1[i - 1] = false
+            }
         })
     
     
         // 하위메뉴
-        $(".sub_" + i).mouseover(function(){
-            isOver2[i - 1] = true
-        }).focus(function(){
-            isOver2[i - 1] = true
-        }).mouseout(function(){
-            isOver2[i - 1] = false
-            setTimeout(goHide, 200)
-        }).blur(function(){
-            isOver2[i - 1] = false
-            setTimeout(goHide, 200)
+        $(".sub_" + i).mouseover(function(){          
+            if(parseInt($("header").css("width")) > 1065){
+            	isOver2[i - 1] = true
+            }
+        }).focus(function(){            
+            if(parseInt($("header").css("width")) > 1065){
+            	isOver2[i - 1] = true
+            }
+        }).mouseout(function(){            
+            if(parseInt($("header").css("width")) > 1065){
+            	isOver2[i - 1] = false
+                setTimeout(goHide, 200)
+            }
+        }).blur(function(){            
+            if(parseInt($("header").css("width")) > 1065){
+            	isOver2[i - 1] = false
+                setTimeout(goHide, 200)
+            }
         })
     }
     
@@ -281,6 +318,27 @@
         //$('header').removeClass('on');
         // $("body").unbind('touchmove');
 	});
+	
+	
+	
+	//모바일 버전에서 open 아이콘 클릭 이벤트(서브메뉴 띄움)
+	$(".mainMenu1 + .open").click(function(){
+		$(this).toggleClass("on");
+		$(".sub_1").slideToggle();			
+	})
+	$(".mainMenu2 + .open").click(function(){
+		$(this).toggleClass("on");
+		$(".sub_2").slideToggle();			
+	})
+	$(".mainMenu3 + .open").click(function(){
+		$(this).toggleClass("on");
+		$(".sub_3").slideToggle();			
+	})
+	$(".mainMenu4 + .open").click(function(){
+		$(this).toggleClass("on");
+		$(".sub_4").slideToggle();			
+	})
+	
 	
 	
 	$(document).ready(function(){
