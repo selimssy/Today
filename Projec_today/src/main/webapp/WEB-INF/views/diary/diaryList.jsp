@@ -271,7 +271,7 @@
 			//const condition = $("#condition").val();
 			console.log(condition)
 			
-			location.href="/diary/list?keyword=" + keyword + "&condition=" + condition;
+			location.href="/diary/list?keyword=" + encodeURI(keyword) + "&condition=" + condition;
 		})
 		
 		

@@ -71,10 +71,10 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 		    
 	     
 	        <div id="tag_container">
-	            <span id="tagbox">
+	            <div id="tagbox">
 	                <span>#</span>
 	                <input type="text" id="tag_input" placeholder="태그입력">
-	            </span>           
+	            </div>           
 	        </div>
 		
 		    
@@ -100,7 +100,7 @@ $(function(){
   
 
       // 태그 입력란에 글자 치면 placeholder 사라지게
-      if($("#tag_input").val() != ""){
+      if($("#tag_input").val().trim() != ""){
           $("#tag_input").attr("placeholder", "")
       }
 
@@ -110,8 +110,8 @@ $(function(){
       //엔터키 입력 이벤트
       $("#tag_input").keydown(function(key){      
     	  let hashCnt = $('.tagbox').length; // 현재 해시태그 개수
-    	  if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면            	  
-        	  temp_html = "<span class='tagbox'><span>#</span>" + $("#tag_input").val() + "<span><button class='del_tag'>x</button></span><input type='hidden' name='hashList' value='" + $("#tag_input").val() + "'></span>"; 
+    	  if(key.keyCode == 13 || key.keyCode == 32){  // 누른 key가 13(=엔터키)라면   
+        	  temp_html = "<div class='tagbox'><span>#</span>" + $("#tag_input").val() + "<span><button class='del_tag'>x</button></span><input type='hidden' name='hashList' value='" + $("#tag_input").val() + "'></div>"; 
               $('#tagbox').before(temp_html);
               $("#tag_input").val("");  // 입력창 비워져있도록
               $("#tag_input").css("width", "50px");

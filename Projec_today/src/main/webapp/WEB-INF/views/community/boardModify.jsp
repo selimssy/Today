@@ -105,6 +105,9 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 <script type="text/javascript">
 
     $(function(){
+    	if($('.tagbox').length >= 10){
+    		$("#tagbox").css("display", "none"); // 해시태그 최대갯수(10개)면 추가 불가
+    	}
     	
     	// 수정 취소
     	$("#boardMC").click(function(){
@@ -161,7 +164,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
                 $("#tag_input").val("");  // 입력창 비워져있도록
                 $("#tag_input").css("width", "50px");
                 hashCnt++;
-                if(hashCnt == 10){ // 해시태그 최대 10개 제한
+                if(hashCnt >= 10){ // 해시태그 최대 10개 제한
               	  $("#tagbox").css("display", "none");
                 }
             }          
@@ -171,6 +174,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
         // 태그삭제
         $(document).on("click", ".del_tag", function () {
             $(this).parent().parent().remove();
+            $("#tagbox").css("display", "inline-block"); // 해시태그 추가 입력창 활성화
         })
 		
 

@@ -165,7 +165,7 @@
 				<c:if test="${hashtagList.size() > 0}">
 					<div class="hashList">
 						<c:forEach var="hashtag" items="${hashtagList}">						
-								<span>#<a href="<c:url value='/community/list?keyword=${hashtag}&condition=hashtag'/>">${hashtag}</a></span>					
+								<span>#<a href="javascript:;">${hashtag}</a></span>					
 						</c:forEach>
 					</div>
 				</c:if>						
@@ -262,6 +262,14 @@
 		if(msg === "modSuccess"){
 			alert("게시물이 수정되었습니다.")
 		}
+		
+		
+		
+		// 해시태그 클릭 이벤트
+		$(".hashList a").click(function(){
+			let keyword = $(this).text();
+			location.href="/community/list?keyword=" + encodeURI(keyword) + "&condition=hashtag";
+		})
 		
 		
 		

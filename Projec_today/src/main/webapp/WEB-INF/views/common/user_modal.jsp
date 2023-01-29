@@ -202,11 +202,15 @@
 	//이거 그냥 밑으로 넣어도 되지 않나
 	$("#login").click(function(){
 	    $("#login_modal").css("display", "block");
-	    $(".header_cont").css("display", "none");
+	    if(parseInt($("header").css("width")) <= 1065){   // 태블릿, 모바일버전에서 메뉴 사라지도록
+	    	$(".header_cont").css("display", "none");
+        }
 	})
 	$("#join").click(function(){
 	    $("#join_modal").css("display", "block");
-	    $(".header_cont").css("display", "none");
+	    if(parseInt($("header").css("width")) <= 1065){   
+	    	$(".header_cont").css("display", "none");
+        }
 	})
 	$(".Umodal_close").on("click", function(){
 	    $(this).parent().parent().css("display", "none");
