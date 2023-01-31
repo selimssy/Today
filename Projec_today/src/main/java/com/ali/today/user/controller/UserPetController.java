@@ -124,7 +124,7 @@ public class UserPetController {
 		
 		//System.out.println(pet);
 		UserVO dbUser = service.UserPetInfo(pet); // 반려동물 객체 포함된 userVO
-		System.out.println(dbUser);
+		//System.out.println(dbUser);
 		
 		session.setAttribute("login", dbUser); // 위의 새로운 userVO로 세션 재등록 
 				

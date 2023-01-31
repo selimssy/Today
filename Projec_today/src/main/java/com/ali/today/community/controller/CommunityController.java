@@ -148,7 +148,7 @@ public class CommunityController {
 	@ResponseBody
 	public List<GalleryVO> getGalleries(@RequestBody GalleryVO data){
 		
-		System.out.println("petId : " + data.getPetId() + ", page : " + data.getPage());
+		//System.out.println("petId : " + data.getPetId() + ", page : " + data.getPage());
 		GalleryPageVO paging = new GalleryPageVO(); 
 		paging.setPage(data.getPage());
 		List<GalleryVO> list = mypetService.getGalleryList(data.getPetId(), paging);
@@ -206,7 +206,7 @@ public class CommunityController {
 	@PostMapping("/write")
 	public String write(BoardVO article, RedirectAttributes ra) {
 		
-		System.out.println("parameter : " + article); 
+		//System.out.println("parameter : " + article); 
 
 		boardService.insert(article);	
 		ra.addFlashAttribute("msg", "regSuccess");
@@ -267,7 +267,7 @@ public class CommunityController {
 	// 게시물 수정 요청
 	@PostMapping("/modify")
 	public String modify(BoardVO article, RedirectAttributes ra) { 
-		System.out.println("번 게시물 수정 요청 : POST");
+		//System.out.println("번 게시물 수정 요청 : POST");
 		boardService.update(article);
 		ra.addFlashAttribute("msg", "modSuccess");
 		return "redirect:/community/content/" + article.getBoardNo();
@@ -281,7 +281,7 @@ public class CommunityController {
 	@PostMapping("/delete")
 	public String delete(Integer boardNo, PageVO paging, RedirectAttributes ra) {  
 		
-		System.out.println(boardNo + "번 게시물 삭제 요청");
+		//System.out.println(boardNo + "번 게시물 삭제 요청");
 		boardService.delete(boardNo);
 		ra.addFlashAttribute("msg", "delSuccess");		
 		ra.addAttribute("page", paging.getPage());   
@@ -302,7 +302,7 @@ public class CommunityController {
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
 		
-		System.out.println("파일크기?? : " + file.getSize());  // 파일크기 getsize()!! 
+		//System.out.println("파일크기?? : " + file.getSize());  // 파일크기 getsize()!! 
 		
 		if(file != null) {
 			if(file.getSize() >0 &&  StringUtils.isNotBlank(file.getName())) {
@@ -315,7 +315,7 @@ public class CommunityController {
 			    		json.add("error", json2);
 			    		printWriter = resp.getWriter();
 			    		printWriter.print(json);
-			            System.out.println(json);
+			            //System.out.println(json);
 			            if (printWriter != null) {
 		                    printWriter.close();
 		                }
@@ -327,7 +327,7 @@ public class CommunityController {
 				            byte[] bytes = file.getBytes();
 				           
 				            String uploadPath = req.getSession().getServletContext().getRealPath("/resources/images/board"); //저장경로
-				            System.out.println("uploadPath:"+uploadPath);
+				            //System.out.println("uploadPath:"+uploadPath);
 
 				            File uploadFile = new File(uploadPath);
 				            if(!uploadFile.exists()) {
@@ -342,13 +342,13 @@ public class CommunityController {
 				            printWriter = resp.getWriter();
 				            //String fileUrl = req.getContextPath() + "/resources/images/petDiary/" +fileName2 +fileName; // ContextPath 포함 url경로
 				            String fileUrl = req.getContextPath() + "/resources/images/board/" +fileName2 +fileName; //url경로
-				            System.out.println("fileUrl :" + fileUrl);
+				            //System.out.println("fileUrl :" + fileUrl);
 				            //JsonObject json = new JsonObject();
 				            json.addProperty("uploaded", 1);
 				            json.addProperty("fileName", fileName);
 				            json.addProperty("url", fileUrl);
 				            printWriter.print(json);
-				            System.out.println(json);
+				           // System.out.println(json);
 				 
 				        }catch(IOException e){
 				            e.printStackTrace();
@@ -369,7 +369,7 @@ public class CommunityController {
 		    		json.add("error", json2);
 		    		printWriter = resp.getWriter();
 		    		printWriter.print(json);
-		            System.out.println(json);
+		            //System.out.println(json);
 		            if (printWriter != null) {
 	                    printWriter.close();
 	                }

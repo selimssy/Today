@@ -64,7 +64,7 @@ public class BoardService implements IBoardService {
 		// 해시태그 작업
 		BoardVO article = mapper.getArticle(boardNo);
 		if(article != null) {
-			System.out.println(article.getHashtag());
+			//System.out.println(article.getHashtag());
 			String str = article.getHashtag();
 			String str2 = str.replaceAll("[\\[\\]]", ""); // 대괄호 제거
 			String [] list = str2.trim().split("\\s*,\\s*"); // 공백 제거 후 분리

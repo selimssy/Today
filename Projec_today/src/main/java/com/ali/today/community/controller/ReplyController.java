@@ -26,8 +26,8 @@ public class ReplyController {
 	// Ajax 방식으로 댓글 등록
 	@PostMapping("/reply")
 	public String reply(@RequestBody ReplyVO replyVO) {
-		System.out.println(replyVO.toString());
-		System.out.println("댓글등록 요청 : POST");
+		//System.out.println(replyVO.toString());
+		//System.out.println("댓글등록 요청 : POST");
 		
 		service.register(replyVO);  
 		Integer replyCnt = service.countReplies(replyVO.getBoardNo());
