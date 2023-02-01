@@ -232,7 +232,7 @@ body{margin:0; padding:0;}
                     </tr>
                     <tr>
                         <td>
-                            <button type="button" class="m_button">회원가입</button>
+                            <button type="button" class="m_button" id="login_join">회원가입</button>
                         </td>
                     </tr>
                 </table>
@@ -499,13 +499,15 @@ body{margin:0; padding:0;}
     	
     	// 이거 그냥 밑으로 넣어도 되지 않나
         $("#login").click(function(){
-            $("#login_modal").css("display", "block")
+            $("#login_modal").css("display", "block");
         })
-        $("#join").click(function(){
-            $("#join_modal").css("display", "block")
+        $("#join").add("#login_join").click(function(){
+            $("#join_modal").css("display", "block");
+            $("#join_modal input").val(""); //초기화
+            $("#login_modal").css("display", "none");
         })
         $(".modal_close").on("click", function(){
-            $(this).parent().parent().css("display", "none")
+            $(this).parent().parent().css("display", "none");
         })
 
 

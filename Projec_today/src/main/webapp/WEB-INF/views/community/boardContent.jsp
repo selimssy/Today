@@ -254,6 +254,8 @@
 			 $(".mainMenu.mainMenu3").addClass("checked");
 			 
 			 pageNum(); // 페이징 번호 셋팅
+			 
+			 imgMax(); // 이미지 너비 조정
 		})
 		
 		
@@ -274,22 +276,41 @@
 		
 		
 		// 이미지 크기 max 초과할 경우
-		let imgElements = document.getElementsByTagName('img');
-		for(let i=0; i<imgElements.length; i++){
+		function imgMax(){
+			let imgElements = document.getElementsByTagName('img');
+			for(let i=0; i<imgElements.length; i++){
 
-			let img = imgElements[i];
-			let path = img.src;
+				let img = imgElements[i];
+				let path = img.src;
 
-		    if(img.width > 787){
-		    	img.alt = "maxWidth";
-		    	let width = img.width;
-		    	let height = img.height;
-		    	let ratio = height / width;
-		    	let modifyHgt = 787 * ratio;
-		    	img.style="width:787px; height:" + modifyHgt + "px";
-		    }
+				if (parseInt($('header').css('width')) > 1065){ // pc버전
+					if(img.width > 787){
+				    	img.alt = "maxWidth";
+				    	let width = img.width;
+				    	let height = img.height;
+				    	let ratio = height / width;
+				    	let modifyHgt = 787 * ratio;
+				    	img.style="width:787px; height:" + modifyHgt + "px";
+				    }
+				}else{ // 태블릿, 모바일 버전
+					let now_width = parseInt($('.contentBody').css('width'));
+					if(img.width > now_width){
+				    	img.alt = "maxWidth";
+				    	let width = img.width;
+				    	let height = img.height;
+				    	let ratio = height / width;
+				    	let modifyHgt = now_width * ratio;
+				    	img.style="width:" + now_width + "px; height:" + modifyHgt + "px";
+				    }
+				}
+				
+			}
 		}
 		
+		$(window).resize(function() {
+			imgMax();
+	    });
+	
 		
 		
 		
