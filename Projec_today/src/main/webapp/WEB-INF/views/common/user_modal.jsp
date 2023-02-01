@@ -4,6 +4,7 @@
 <style type="text/css">
 #login_modal{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px; z-index:100;}
 #join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px; z-index:100;}    
+#login_modal .Umodal_table span, #join_modal .Umodal_table span{font-family: 'Noto Sans KR', sans-serif; padding-left:10px;}
 .Umodal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
 .Umodal_header h2{line-height: 3.1em; font-size:1.5em;}
 .Umodal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
@@ -76,7 +77,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <button type="button" class="U_button">회원가입</button>
+                        <button type="button" class="U_button" id="login_join">회원가입</button>
                     </td>
                 </tr>
             </table>
@@ -200,17 +201,23 @@
 <script type="text/javascript">
 
 	//이거 그냥 밑으로 넣어도 되지 않나
-	$("#login").click(function(){
-	    $("#login_modal").css("display", "block");
+	$("#login").click(function(){	    
 	    if(parseInt($("header").css("width")) <= 1065){   // 태블릿, 모바일버전에서 메뉴 사라지도록
 	    	$(".header_cont").css("display", "none");
         }
+	    $("#login_modal").css("display", "block");
+	    $("#login_modal input").val("").css("background", "#fff"); //초기화
+        $("#login_modal .Umodal_table span").text("");
+        $('input:checkbox[name="autoLogin"]').prop("checked", false); // 자동로그인 해제
 	})
-	$("#join").click(function(){
-	    $("#join_modal").css("display", "block");
+	$("#join").add("#login_join").click(function(){	    
 	    if(parseInt($("header").css("width")) <= 1065){   
 	    	$(".header_cont").css("display", "none");
         }
+	    $("#join_modal").css("display", "block");
+	    $("#join_modal input").val("").css("background", "#fff"); //초기화
+        $("#join_modal .Umodal_table span").text("");
+        $("#login_modal").css("display", "none");
 	})
 	$(".Umodal_close").on("click", function(){
 	    $(this).parent().parent().css("display", "none");
@@ -226,27 +233,25 @@
 	    const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	    let chk1 = false, chk2 = false, chk3 = false, chk4 = false, chk5 = false, chk6 = false, chk7 = false; 
 	   
-	    //회원가입 검증~~
+	    //회원가입 검증
 	    //ID 입력값 검증.
 	    $('#user_id').on('keyup', function() {
 	        if($("#user_id").val() === ""){
 	            $('#user_id').css("background-color", "pink");
-	            $('#idChk').html('<b style="font-size:14px;color:red;">[아이디를 입력하세요.]</b>');
+	            $('#idChk').html('<b style="font-size:13px;color:#F05650;">아이디를 입력하세요.</b>');
 	            chk1 = false;
 	        }
 	       
 	        //아이디 유효성검사
 	        else if(!getIdCheck.test($("#user_id").val())){
 	            $('#user_id').css("background-color", "pink");
-	            $('#idChk').html('<b style="font-size:14px;color:red;">[영문자, 숫자 6-14자]</b>');      
+	            $('#idChk').html('<b style="font-size:13px;color:#F05650;">영문자/숫자 6-14자로 입력해주세요.</b>');      
 	            chk1 = false;
 	        }
 	        //ID 중복확인 비동기 처리
 	        else {
 	            //ID 중복확인 비동기 통신
-	            const userId = $(this).val();
-	            console.log(userId);
-	           
+	            const userId = $(this).val();	           
 	            $.ajax({
 	                type: "POST",
 	                url: "/user/checkId",  
@@ -258,11 +263,11 @@
 	                success: function(result) {
 	                    if(result === "OK") {
 	                        $("#user_id").css("background", "#e8f0fe");
-	                        $("#idChk").html("<b style='font-size:14px; color:blue;'>[사용 가능한 아이디입니다.]</b>");
+	                        $("#idChk").html("<b style='font-size:13px; color:blue;'>사용 가능한 아이디입니다.</b>");
 	                        chk1 = true;
 	                    } else {
 	                        $("#user_id").css("background-color", "pink");
-	                        $("#idChk").html("<b style='font-size:14px; color:red;'>[중복된 아이디입니다.]</b>");                        
+	                        $("#idChk").html("<b style='font-size:13px;color:#F05650;'>중복된 아이디입니다.</b>");                        
 	                        chk1 = false;
 	                    }
 	                },
@@ -278,13 +283,13 @@
 	        //비밀번호 공백 확인
 	        if($("#password").val() === ""){
 	            $('#password').css("background-color", "pink");
-	            $('#pwChk').html('<b style="font-size:14px;color:red;">[비밀번호를 입력하세요.]</b>');
+	            $('#pwChk').html('<b style="font-size:13px;color:#F05650;">비밀번호를 입력하세요.</b>');
 	            chk2 = false;
 	        }                
 	        //비밀번호 유효성검사
 	        else if(!getPwCheck.test($("#password").val()) || $("#password").val().length < 8){
 	            $('#password').css("background-color", "pink");
-	            $('#pwChk').html('<b style="font-size:14px;color:red;">[특수문자 포함 8자이상]</b>');
+	            $('#pwChk').html('<b style="font-size:13px;color:#F05650;">특수문자 포함 8자 이상 입력해주세요.</b>');
 	            chk2 = false;
 	        } else {
 	            $('#password').css("background-color", "#e8f0fe");
@@ -299,13 +304,13 @@
 	        //비밀번호 확인란 공백 확인
 	        if($("#password_check").val() === ""){
 	            $('#password_check').css("background-color", "pink");
-	            $('#pwChk2').html('<b style="font-size:14px;color:red;">[비밀번호를 입력하세요.]</b>');
+	            $('#pwChk2').html('<b style="font-size:13px;color:#F05650;">비밀번호를 입력하세요.</b>');
 	            chk3 = false;
 	        }                
 	        //비밀번호 확인란 유효성검사
 	        else if($("#password").val() != $("#password_check").val()){
 	            $('#password_check').css("background-color", "pink");
-	            $('#pwChk2').html('<b style="font-size:14px;color:red;">[비밀번호가 일치하지 않습니다.]</b>');
+	            $('#pwChk2').html('<b style="font-size:13px;color:#F05650;">비밀번호가 일치하지 않습니다.</b>');
 	            chk3 = false;
 	        } else {
 	            $('#password_check').css("background-color", "#e8f0fe");
@@ -320,13 +325,13 @@
 	        //이름값 공백 확인
 	        if($("#user_name").val() === ""){
 	            $('#user_name').css("background-color", "pink");
-	            $('#nameChk').html('<b style="font-size:14px;color:red;">[이름을 입력하세요.]</b>');
+	            $('#nameChk').html('<b style="font-size:13px;color:#F05650;">이름을 입력하세요.</b>');
 	            chk4 = false;
 	        }                
 	        //이름값 유효성검사
 	        else if(!getName.test($("#user_name").val())){
 	            $('#user_name').css("background-color", "pink");
-	            $('#nameChk').html('<b style="font-size:14px;color:red;">[한글로 최대 6자]</b>');
+	            $('#nameChk').html('<b style="font-size:13px;color:#F05650;">한글 1-6자로 입력해주세요.</b>');
 	            chk4 = false;
 	        } else {
 	            $('#user_name').css("background-color", "#e8f0fe");
@@ -341,13 +346,13 @@
 	        //닉네임 공백 확인
 	        if($("#user_nick").val() === ""){
 	            $('#user_nick').css("background-color", "pink");
-	            $('#nickNameChk').html('<b style="font-size:14px;color:red;">[닉네임을 입력하세요.]</b>');
+	            $('#nickNameChk').html('<b style="font-size:13px;color:#F05650;">닉네임을 입력하세요.</b>');
 	            chk5 = false;
 	        }                
 	        //닉네임 유효성검사
 	        else if(!getNick.test($("#user_nick").val())){
 	            $('#user_nick').css("background-color", "pink");
-	            $('#nickNameChk').html('<b style="font-size:14px;color:red;">[한글로 최대 10자]</b>');
+	            $('#nickNameChk').html('<b style="font-size:13px;color:#F05650;">한글 1-10자로 입력해주세요.</b>');
 	            chk5 = false;
 	        } else {
 	            $('#user_nick').css("background-color", "#e8f0fe");
@@ -362,13 +367,13 @@
 	        //이메일 공백 확인
 	        if($("#user_email").val() === ""){
 	            $('#user_email').css("background-color", "pink");
-	            $('#emailChk').html('<b style="font-size:14px;color:red;">[이메일을 입력하세요.]</b>');
+	            $('#emailChk').html('<b style="font-size:13px;color:#F05650;">이메일을 입력하세요.</b>');
 	            chk6 = false;
 	        }                
 	        //이메일 유효성검사
 	        else if(!getMail.test($("#user_email").val())){
 	            $('#user_email').css("background-color", "pink");  
-	            $('#emailChk').html('<b style="font-size:14px;color:red;">[이메일 입력값을 확인해주세요.]</b>');
+	            $('#emailChk').html('<b style="font-size:13px;color:#F05650;">이메일 입력값을 확인해주세요.</b>');
 	            chk6 = false;
 	        } else {
 	            $('#user_email').css("background-color", "#e8f0fe");
@@ -410,7 +415,7 @@
 					 $('#authChk').html('<b style="font-size:14px;color:blue;">인증되었습니다.</b>');
 					 chk7 = true;
 				 }else{
-					 $('#authChk').html('<b style="font-size:14px;color:red;">인증번호가 일치하지 않습니다.</b>');
+					 $('#authChk').html('<b style="font-size:13px;color:#F05650;">인증번호가 일치하지 않습니다.</b>');
 					 chk7 = false;
 				 }
 			 })
@@ -475,19 +480,19 @@
 	    ///////////////////////////////////////////////////////////////////////////////////////////
 	   
 	
-	    //로그인 검증~~
+	    //로그인 검증
 	    //ID 입력값 검증.
 	    $('#signInId').on('keyup', function() {
 	        if($("#signInId").val() == ""){
 	            //$('#signInId').css("background-color", "pink");
-	            $('#idCheck').html('<b style="font-size:14px;color:red;">[아이디를 입력하세요.]</b>');
+	            $('#idCheck').html('<b style="font-size:13px;color:#F05650;">아이디를 입력하세요.</b>');
 	            chk1 = false;
 	        }      
 	       
 	        //아이디 유효성검사
 	        else if(!getIdCheck.test($("#signInId").val())){
 	            //$('#signInId').css("background-color", "pink");
-	            $('#idCheck').html('<b style="font-size:14px;color:red;">[영문자,숫자 4-14자~]</b>');  
+	            $('#idCheck').html('<b style="font-size:13px;color:#F05650;">영문자/숫자 4-14자로 입력해주세요.</b>');  
 	            chk1 = false;
 	        } else {
 	            $('#signInId').css("background-color", "#e8f0fe");
@@ -502,13 +507,13 @@
 	        //비밀번호 공백 확인
 	        if($("#signInPw").val() === ""){
 	            //$('#signInPw').css("background-color", "pink");
-	            $('#pwCheck').html('<b style="font-size:14px;color:red;">[비밀번호를 입력하세요.]</b>');
+	            $('#pwCheck').html('<b style="font-size:13px;color:#F05650;">비밀번호를 입력하세요.</b>');
 	            chk2 = false;
 	        }                
 	        //비밀번호 유효성검사
 	        else if(!getPwCheck.test($("#signInPw").val()) || $("#signInPw").val().length < 8){
 	            //$('#signInPw').css("background-color", "pink");
-	            $('#pwCheck').html('<b style="font-size:14px;color:red;">[특수문자 포함 8자이상]</b>');
+	            $('#pwCheck').html('<b style="font-size:13px;color:#F05650;">특수문자 포함 8자 이상 입력해주세요.</b>');
 	            chk2 = false;
 	        } else {
 	            $('#signInPw').css("background-color", "#e8f0fe");

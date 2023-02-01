@@ -678,7 +678,7 @@
 			
 		$.ajax({
 			type: "POST", 
-			url: "/diary//calendarChg", 
+			url: "/diary/calendarChg", 
 			headers: {
 				"Content-Type": "application/json"
 			}, 
