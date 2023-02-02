@@ -69,7 +69,7 @@ public class DiaryController {
 	@PostMapping("/calendarChg")
 	@ResponseBody
 	public Map<String, Object> calendarChg(Model model, HttpServletRequest request, @RequestBody DateData dateData){
-		System.out.println(dateData);
+		//System.out.println(dateData);
 		Calendar cal = Calendar.getInstance();
 		DateData calendarData;
 		//검색 날짜
@@ -188,7 +188,7 @@ public class DiaryController {
 	@ResponseBody
 	public ScheduleVO onePlan(@RequestBody ScheduleVO scheduleVO) {
 		ScheduleVO plan = service.getOnePlan(scheduleVO.getScheduleId());
-		System.out.println(plan.getScheduleDate());
+		//System.out.println(plan.getScheduleDate());
 		return plan;
 	}
 	
@@ -252,7 +252,7 @@ public class DiaryController {
 	// 일기 수정페이지 요청
 	@GetMapping("/modify")
 	public String modify(Integer diaryNo, PageVO paging, Model model) {
-		System.out.println(diaryNo + "번 게시물 수정 요청 : GET");
+		//System.out.println(diaryNo + "번 게시물 수정 요청 : GET");
 		model.addAttribute("diary", service.getDiary(diaryNo));
 		model.addAttribute("p", paging); 
 		return "diary/diary_modify";
@@ -261,7 +261,7 @@ public class DiaryController {
 	// 일기 수정 요청
 	@PostMapping("/modify")
 	public String modify(Integer diaryNo, DiaryVO diary, RedirectAttributes ra) { 
-		System.out.println(diaryNo + "번 게시물 수정 요청 : POST");
+		//System.out.println(diaryNo + "번 게시물 수정 요청 : POST");
 		service.update(diary);
 		ra.addFlashAttribute("msg", "modSuccess");
 		return "redirect:/diary/content/" + diary.getDiaryNo();
@@ -275,7 +275,7 @@ public class DiaryController {
 	@PostMapping("/delete")
 	public String delete(Integer diaryNo, PageVO paging, RedirectAttributes ra) {  
 		
-		System.out.println(diaryNo + "번 게시물 삭제 요청");
+		//System.out.println(diaryNo + "번 게시물 삭제 요청");
 		service.delete(diaryNo);
 		ra.addFlashAttribute("msg", "delSuccess");
 		
@@ -326,7 +326,7 @@ public class DiaryController {
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
 		
-		System.out.println("파일크기?? : " + file.getSize());  // 파일크기 getsize()!! 
+		//System.out.println("파일크기?? : " + file.getSize());  // 파일크기 getsize()!! 
 		
 		if(file != null) {
 			if(file.getSize() >0 &&  StringUtils.isNotBlank(file.getName())) {
@@ -339,7 +339,7 @@ public class DiaryController {
 			    		json.add("error", json2);
 			    		printWriter = resp.getWriter();
 			    		printWriter.print(json);
-			            System.out.println(json);
+			            //System.out.println(json);
 			            if (printWriter != null) {
 		                    printWriter.close();
 		                }
@@ -351,7 +351,7 @@ public class DiaryController {
 				            byte[] bytes = file.getBytes();
 				           
 				            String uploadPath = req.getSession().getServletContext().getRealPath("/resources/images/petDiary"); //저장경로
-				            System.out.println("uploadPath:"+uploadPath);
+				            //System.out.println("uploadPath:"+uploadPath);
 
 				            File uploadFile = new File(uploadPath);
 				            if(!uploadFile.exists()) {
@@ -366,13 +366,13 @@ public class DiaryController {
 				            printWriter = resp.getWriter();
 				            //String fileUrl = req.getContextPath() + "/resources/images/petDiary/" +fileName2 +fileName; // ContextPath 포함 url경로
 				            String fileUrl = req.getContextPath() + "/resources/images/petDiary/" +fileName2 +fileName; //url경로
-				            System.out.println("fileUrl :" + fileUrl);
+				            //System.out.println("fileUrl :" + fileUrl);
 				            //JsonObject json = new JsonObject();
 				            json.addProperty("uploaded", 1);
 				            json.addProperty("fileName", fileName);
 				            json.addProperty("url", fileUrl);				            			            				            
 				            printWriter.print(json);
-				            System.out.println(json);
+				            //System.out.println(json);
 				 
 				        }catch(IOException e){
 				            e.printStackTrace();
@@ -393,7 +393,7 @@ public class DiaryController {
 		    		json.add("error", json2);
 		    		printWriter = resp.getWriter();
 		    		printWriter.print(json);
-		            System.out.println(json);
+		            //System.out.println(json);
 		            if (printWriter != null) {
 	                    printWriter.close();
 	                }

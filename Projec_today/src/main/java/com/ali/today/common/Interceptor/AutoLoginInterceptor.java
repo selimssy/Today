@@ -35,7 +35,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 			UserVO user = service.getUserWithSessionId(loginCookie.getValue());
 			if(user != null) {
 				PetVO pet = service.firstPet(user.getUserId());
-				System.out.println(pet);
+				//System.out.println(pet);
 				user.setPet(pet);
 				session.setAttribute("login", user);
 			}

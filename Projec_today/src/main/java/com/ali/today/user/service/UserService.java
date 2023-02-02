@@ -35,12 +35,12 @@ public class UserService implements IUserService{
 		
 		// 회원 비밀번호 암호화 인코딩
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("암호화 전 PW : " + user.getPassword());
+		//System.out.println("암호화 전 PW : " + user.getPassword());
 		
 		// 비밀번호를 암호화하여 다시 user 객체에 저장
 		String securePw = encoder.encode(user.getPassword());
 		user.setPassword(securePw);
-		System.out.println("암호화 후 PW : " + securePw);
+		//System.out.println("암호화 후 PW : " + securePw);
 		
 		mapper.register(user);		
 		

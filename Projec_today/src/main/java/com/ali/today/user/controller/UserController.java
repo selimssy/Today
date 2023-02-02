@@ -57,10 +57,10 @@ public class UserController {
 		
 		Integer checkNum = service.checkId(userId);
 		if(checkNum == 1) {
-			System.out.println("아이디가 중복됨!");
+			//System.out.println("아이디가 중복됨!");
 			result = "NO";
 		}else {
-			System.out.println("아이디 사용가능!");
+			//System.out.println("아이디 사용가능!");
 			result = "OK";
 		}
 		
@@ -127,8 +127,8 @@ public class UserController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		UserVO dbUser = service.selectOne(user.getUserId());
 		
-		System.out.println(user);
-		System.out.println(dbUser);
+		//System.out.println(user);
+		//System.out.println(dbUser);
 		
 		if(dbUser == null) {
 			result = "idFail";
@@ -143,7 +143,7 @@ public class UserController {
 				// 자동로그인 체크시 처리
 				if(user.isAutoLogin()) {
 					
-					System.out.println("자동로그인 쿠키 생성중...");
+					//System.out.println("자동로그인 쿠키 생성중...");
 					
 					Cookie loginCookie = new Cookie("loginCookie", session.getId());
 					loginCookie.setPath("/"); // 쿠키경로
