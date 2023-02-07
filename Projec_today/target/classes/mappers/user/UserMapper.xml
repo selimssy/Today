@@ -14,6 +14,7 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="sessionId" column="session_id"/>
 		<result property="limitTime" column="limit_time"/>
+		<result property="contentsCnt" column="contents_cnt"/>
 		<collection property="pet" resultMap="PetMap"/>	
 	</resultMap>
 	

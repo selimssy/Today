@@ -13,6 +13,7 @@ public class UserVO {
 	private String sessionId;
 	private Date limitTime;
 	private PetVO pet;
+	private Integer contentsCnt;
 	
 	public PetVO getPet() {
 		return pet;
@@ -97,13 +98,19 @@ public class UserVO {
 		this.autoLogin = autoLogin;
 	}
 
+	public Integer getContentsCnt() {
+		return contentsCnt;
+	}
+	public void setContentsCnt(Integer contentsCnt) {
+		this.contentsCnt = contentsCnt;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", password=" + password + ", name=" + name + ", nickname=" + nickname
 				+ ", email=" + email + ", regDate=" + regDate + ", sessionId=" + sessionId + ", limitTime=" + limitTime
-				+ ", pet=" + pet + ", autoLogin=" + autoLogin + "]";
+				+ ", pet=" + pet + ", contentsCnt=" + contentsCnt + ", autoLogin=" + autoLogin + "]";
 	}
-
 	
 
 	
