@@ -5,18 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ali.today.mypet.model.GalleryPageVO;
 import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
 import com.ali.today.mypet.repository.IGalleryMapper;
 import com.ali.today.mypet.repository.IMypetMapper;
-import com.ali.today.user.model.UserVO;
 import com.ali.today.user.repository.IUserMapper;
 
 
@@ -33,7 +29,6 @@ public class MypetService implements IMypetService {
 	
 	
 	// 생애기록 추가
-	@Transactional
 	@Override
 	public void insertCard(LifetimeVO LifetimeVO) {						
 		mapper.insertCard(LifetimeVO);	
@@ -63,7 +58,6 @@ public class MypetService implements IMypetService {
 
 	
 	// 생애기록 삭제
-	@Transactional
 	@Override
 	public void deleteCard(LifetimeVO lifetimeVO) {
 		mapper.deleteCard(lifetimeVO.getCardId());
@@ -78,7 +72,6 @@ public class MypetService implements IMypetService {
 	
 	
 	// 갤러리 추가
-	@Transactional
 	@Override
 	public void register(GalleryVO galleryVO) {
 		gmapper.register(galleryVO);
@@ -114,7 +107,6 @@ public class MypetService implements IMypetService {
 
 	
 	// 갤러리 삭제
-	@Transactional
 	@Override
 	public void deleteGallery(GalleryVO gallery) {
 		gmapper.deleteGallery(gallery.getImgId());

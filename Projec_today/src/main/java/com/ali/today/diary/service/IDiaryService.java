@@ -25,7 +25,7 @@ public interface IDiaryService {
 	void modifySchedule(ScheduleVO scheduleVO);
 	
 	// 스케줄 삭제
-	void deleteSchedule(Integer scheduleId);
+	void deleteSchedule(ScheduleVO scheduleVO);
 	
 	/////////////////////////////////////////////////
 	
@@ -40,7 +40,7 @@ public interface IDiaryService {
 	List<DiaryVO> getDiaryList(String userId, SearchVO search);	
 	
 	// 일기 삭제
-	void delete(Integer diaryNo);
+	void delete(DiaryVO diary);
 	
 	// 일기 수정
 	void update(DiaryVO diary);

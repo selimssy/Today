@@ -279,10 +279,10 @@ public class CommunityController {
 	
 	// 게시글 삭제 요청
 	@PostMapping("/delete")
-	public String delete(Integer boardNo, PageVO paging, RedirectAttributes ra) {  
+	public String delete(BoardVO article, PageVO paging, RedirectAttributes ra) {  
 		
 		//System.out.println(boardNo + "번 게시물 삭제 요청");
-		boardService.delete(boardNo);
+		boardService.delete(article);
 		ra.addFlashAttribute("msg", "delSuccess");		
 		ra.addAttribute("page", paging.getPage());   
 		ra.addAttribute("countPerPage", paging.getCountPerPage());

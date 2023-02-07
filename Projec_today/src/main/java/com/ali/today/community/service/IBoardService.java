@@ -16,7 +16,7 @@ public interface IBoardService {
 	void update(BoardVO article);
 	
 	// 게시글 삭제 
-	void delete(Integer boardNo);
+	void delete(BoardVO article);
 	
 	// 게시글 상세 조회
 	BoardVO getArticle(Integer boardNo);

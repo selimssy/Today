@@ -248,10 +248,12 @@
 		}
 		
 				
-		// 존재하지 않는 게시물 접근 알림창
+		// 게시물 접근 불가 알림창
 		let noAccess = "${noAccess}"
-		if(noAccess === "null"){
-			alert("삭제되었거나 존재하지 않는 게시물입니다.");
+		if(noAccess === "noAccess"){
+			alert("권한이 없거나 삭제된 게시물입니다.");
+		}else if(noAccess === "notLogin"){
+			alert("로그인 후 사용 가능합니다.");
 		}
 		
 				

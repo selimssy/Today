@@ -920,7 +920,8 @@
 		    if(confirm("일정을 삭제하시겠습니까?")){
 		    	let scheduleId = $(this).attr("href");          
 		   		let ScheduleVO = {
-		   			scheduleId: scheduleId
+		   			scheduleId: scheduleId,
+		   			userId: "${login.userId}"
 		        };
 		   		
 		   		$.ajax({

@@ -141,6 +141,7 @@
 					<form id="formObj"  role="form" action="<c:url value='/community/delete'/>" method="post">  
 					
 						<input type="hidden" name="boardNo" value="${article.boardNo}">
+						<input type="hidden" name="writer" value="${article.writer}">
 						<input type="hidden" name="page" value="${p.page}">
 						<input type="hidden" name="countPerPage" value="${p.countPerPage}">
 						        										
@@ -260,11 +261,11 @@
 		
 		
 		// 알림창
-		let msg = "${msg}"
+		let msg = "${msg}";
 		if(msg === "modSuccess"){
-			alert("게시물이 수정되었습니다.")
+			alert("게시물이 수정되었습니다.");
 		}
-		
+				
 		
 		
 		// 해시태그 클릭 이벤트

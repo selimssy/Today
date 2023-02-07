@@ -13,13 +13,16 @@ import com.ali.today.common.SearchVO;
 import com.ali.today.community.model.BoardVO;
 import com.ali.today.community.model.ReplyVO;
 import com.ali.today.community.repository.IBoardMapper;
+import com.ali.today.user.repository.IUserMapper;
 
 
 @Service
 public class BoardService implements IBoardService {
 
 	@Autowired
-	IBoardMapper mapper;
+	private IBoardMapper mapper;
+	@Autowired
+	private IUserMapper umapper;
 	
 	
 	// 게시글 등록 
@@ -31,6 +34,7 @@ public class BoardService implements IBoardService {
 		article.setHashtag(hashtag);
 		
 		mapper.insert(article);
+		umapper.upContentsCnt(article.getWriter()); // 컨텐츠 수 증가
 	}
 	
 	
@@ -49,9 +53,10 @@ public class BoardService implements IBoardService {
 	// 게시글 삭제 
 	@Transactional
 	@Override
-	public void delete(Integer boardNo) {
-		mapper.deleteAllReply(boardNo); // 해당 게시물 댓글 전체 삭제
-		mapper.delete(boardNo);		
+	public void delete(BoardVO article) {
+		mapper.deleteAllReply(article.getBoardNo()); // 해당 게시물 댓글 전체 삭제
+		mapper.delete(article.getBoardNo());	
+		umapper.downContentsCnt(article.getWriter()); // 컨텐츠 수 감소
 	}
 
 	

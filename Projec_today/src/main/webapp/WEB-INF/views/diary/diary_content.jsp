@@ -84,9 +84,9 @@
 					<form id="formObj"  role="form" action="<c:url value='/diary/delete'/>" method="post">  
 					
 						<input type="hidden" name="diaryNo" value="${diary.diaryNo}">
+						<input type="hidden" name="writer" value="${diary.writer}">
 						<input type="hidden" name="page" value="${p.page}">
-					
-						        										
+										        										
 						<c:if test="${login.userId == diary.writer}">
 					         <input id="modBtn" type="button" value="수정" >&nbsp;&nbsp;	         
 					         <input type="submit" value="삭제" onclick="return confirm('다이어리를 삭제하시겠습니까?')">&nbsp;&nbsp;

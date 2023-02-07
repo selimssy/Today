@@ -206,7 +206,7 @@ public class DiaryController {
 	@PostMapping("/deleteSchedule")
 	@ResponseBody
 	public String deleteSchedule(@RequestBody ScheduleVO scheduleVO) {
-		service.deleteSchedule(scheduleVO.getScheduleId());
+		service.deleteSchedule(scheduleVO);
 		return "success";
 	}
 	
@@ -233,10 +233,31 @@ public class DiaryController {
 	
 	// 일기 상세보기 요청
 	@GetMapping("/content/{diaryNo}")
-	public String content(@PathVariable Integer diaryNo, SearchVO search, Model model, RedirectAttributes ra) {
+	public String content(@PathVariable Integer diaryNo, SearchVO search, Model model, RedirectAttributes ra, HttpSession session) {
 		
 		//System.out.println(diaryNo + "번 게시물 조회 요청");
 		DiaryVO diary = service.getDiary(diaryNo);
+		UserVO user = (UserVO)session.getAttribute("login");
+		if(user == null) { // 로그인 안 한 경우
+			ra.addFlashAttribute("noAccess", "notLogin");
+			return "redirect:/diary/list";
+		}else if(diary == null) { // 존재하지 않는 diaryNo 요청한 경우
+			ra.addFlashAttribute("noAccess", "noAccess");
+			return "redirect:/diary/list";
+		}else {						
+			if(diary.getWriter().equals(user.getUserId())) { // 본인 일기인지 체크
+				model.addAttribute("diary", diary);
+				model.addAttribute("p", search);  				
+				return "diary/diary_content";
+			}else { // 본인 일기 아닌 경우
+				ra.addFlashAttribute("noAccess", "noAccess");
+				return "redirect:/diary/list";
+			}
+		}
+		
+			
+			
+		/*
 		if(diary == null) { // 존재하지 않는 diaryNo 요청한 경우
 			ra.addFlashAttribute("noAccess", "null");
 			return "redirect:/diary/list";			
@@ -244,7 +265,7 @@ public class DiaryController {
 			model.addAttribute("diary", diary);
 			model.addAttribute("p", search);  				
 			return "diary/diary_content";
-		}		
+		}		*/
 	}
 	
 	
@@ -273,10 +294,10 @@ public class DiaryController {
 	
 	// 일기 삭제 요청
 	@PostMapping("/delete")
-	public String delete(Integer diaryNo, PageVO paging, RedirectAttributes ra) {  
+	public String delete(DiaryVO diary, PageVO paging, RedirectAttributes ra) {  
 		
 		//System.out.println(diaryNo + "번 게시물 삭제 요청");
-		service.delete(diaryNo);
+		service.delete(diary);
 		ra.addFlashAttribute("msg", "delSuccess");
 		
 		ra.addAttribute("page", paging.getPage());   

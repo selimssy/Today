@@ -8,12 +8,14 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ali.today.common.SearchVO;
 import com.ali.today.diary.model.DateData;
 import com.ali.today.diary.model.DiaryVO;
 import com.ali.today.diary.model.ScheduleVO;
 import com.ali.today.diary.repository.IDiaryMapper;
+import com.ali.today.user.repository.IUserMapper;
 
 
 
@@ -21,13 +23,16 @@ import com.ali.today.diary.repository.IDiaryMapper;
 public class DiaryService implements IDiaryService{
 	
 	@Autowired
-	IDiaryMapper mapper;
+	private IDiaryMapper mapper;
+	@Autowired
+	private IUserMapper umapper;
 	
 		
 	// 스케줄 추가
 	@Override
 	public void insertSchedule(ScheduleVO scheduleVO) {
 		mapper.insertSchedule(scheduleVO);
+		umapper.upContentsCnt(scheduleVO.getUserId()); // 컨텐츠 수 증가
 	}
 		
 	// 해당 날짜 스케줄 수
@@ -62,8 +67,9 @@ public class DiaryService implements IDiaryService{
 	
 	// 스케줄 삭제
 	@Override
-	public void deleteSchedule(Integer scheduleId) {
-		mapper.deleteSchedule(scheduleId);
+	public void deleteSchedule(ScheduleVO scheduleVO) {
+		mapper.deleteSchedule(scheduleVO.getScheduleId());
+		umapper.downContentsCnt(scheduleVO.getUserId()); // 컨텐츠 수 감소
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -85,6 +91,7 @@ public class DiaryService implements IDiaryService{
 		}		
 		
 		mapper.insert(diary);
+		umapper.upContentsCnt(diary.getWriter()); // 컨텐츠 수 증가
 	}
 
 	
@@ -98,8 +105,9 @@ public class DiaryService implements IDiaryService{
 
 	// 일기 삭제
 	@Override
-	public void delete(Integer diaryNo) {
-		mapper.delete(diaryNo);
+	public void delete(DiaryVO diary) {
+		mapper.delete(diary.getDiaryNo());
+		umapper.downContentsCnt(diary.getWriter()); // 컨텐츠 수 감소
 	}
 
 
