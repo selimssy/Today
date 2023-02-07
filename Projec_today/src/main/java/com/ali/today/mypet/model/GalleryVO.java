@@ -6,6 +6,7 @@ public class GalleryVO {
 	
 	private Integer imgId;
 	private Integer petId;
+	private String userId;
 	private String title;
 	private String content;
 	private Date date;
@@ -24,6 +25,12 @@ public class GalleryVO {
 	}
 	public void setPetId(Integer petId) {
 		this.petId = petId;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getTitle() {
 		return title;
@@ -55,11 +62,11 @@ public class GalleryVO {
 	public void setPage(Integer page) {
 		this.page = page;
 	}
+	
 	@Override
 	public String toString() {
-		return "GalleryVO [imgId=" + imgId + ", petId=" + petId + ", title=" + title + ", content=" + content
-				+ ", date=" + date + ", imagePath=" + imagePath + "]";
+		return "GalleryVO [imgId=" + imgId + ", petId=" + petId + ", userId=" + userId + ", title=" + title
+				+ ", content=" + content + ", date=" + date + ", imagePath=" + imagePath + ", page=" + page + "]";
 	}
-
 	
 }

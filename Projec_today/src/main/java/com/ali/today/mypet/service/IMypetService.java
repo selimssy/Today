@@ -21,7 +21,7 @@ public interface IMypetService {
 	void updateCard(LifetimeVO lifetime);
 	
 	// 생애기록 카드 삭제
-	void deleteCard(Integer cardId);
+	void deleteCard(LifetimeVO lifetimeVO);
 	
 	
 	
@@ -43,7 +43,7 @@ public interface IMypetService {
 	void modifyGallery(GalleryVO gallery);
 	
 	//갤러리 삭제
-	void deleteGallery(Integer imgId);
+	void deleteGallery(GalleryVO gallery);
 	
 	// 특정 반려동물 갤러리 수 조회
 	Integer countGalleries(Integer petId);

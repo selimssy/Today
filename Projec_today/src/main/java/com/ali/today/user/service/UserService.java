@@ -86,19 +86,21 @@ public class UserService implements IUserService{
 	}
 	
 	
-	
+	// 회원정보 조회기능
 	@Override
 	public UserVO selectOne(String userId) {
 		return mapper.selectOne(userId);
 	}
 	
 	
-	
+	// 전체회원 조회기능
 	@Override
 	public List<UserVO> selectAll() {
 		return mapper.selectAll();
 	}
 	
+	
+	// 자동로그인 쿠키값 DB저장 처리
 	@Override
 	public void keepLogin(String sessionId, Date limitDate, String userId) {
 		
@@ -111,7 +113,8 @@ public class UserService implements IUserService{
 		mapper.keepLogin(datas);  // 이 경우는 service와 IMapper의 매개변수가 다른 경우이다
 	}
 
-
+	
+	// 세션아이디를 통한 회원정보 조회기능
 	@Override
 	public UserVO getUserWithSessionId(String sessionId) {
 		return mapper.getUserWithSessionId(sessionId);

@@ -8,6 +8,7 @@ public class LifetimeVO {
 	
 	private Integer cardId;
 	private Integer petId;
+	private String userId;
 	private String content;
 	private String imagePath;
 	
@@ -28,6 +29,12 @@ public class LifetimeVO {
 	}
 	public void setPetId(Integer petId) {
 		this.petId = petId;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public Date getDate() {
 		return date;
@@ -50,10 +57,9 @@ public class LifetimeVO {
 	
 	@Override
 	public String toString() {
-		return "LifetimeVO [cardId=" + cardId + ", petId=" + petId + ", date=" + date + ", content=" + content
-				+ ", imagePath=" + imagePath + "]";
-	}	
-	
+		return "LifetimeVO [cardId=" + cardId + ", petId=" + petId + ", userId=" + userId + ", content=" + content
+				+ ", imagePath=" + imagePath + ", date=" + date + "]";
+	}
 	
 	
 }

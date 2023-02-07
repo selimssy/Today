@@ -5,31 +5,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ali.today.mypet.model.GalleryPageVO;
 import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
 import com.ali.today.mypet.repository.IGalleryMapper;
 import com.ali.today.mypet.repository.IMypetMapper;
+import com.ali.today.user.model.UserVO;
+import com.ali.today.user.repository.IUserMapper;
 
 
 @Service
 public class MypetService implements IMypetService {
 	
 	@Autowired
-	private IMypetMapper mapper;
-	
+	private IMypetMapper mapper;	
 	@Autowired
 	private IGalleryMapper gmapper;
+	@Autowired
+	private IUserMapper umapper;
+
 	
 	
 	// 생애기록 추가
+	@Transactional
 	@Override
-	public void insertCard(LifetimeVO LifetimeVO) {
-		
-		mapper.insertCard(LifetimeVO);
+	public void insertCard(LifetimeVO LifetimeVO) {						
+		mapper.insertCard(LifetimeVO);	
+		umapper.upContentsCnt(LifetimeVO.getUserId()); // 컨텐츠 수 증가
 	}
 	
 	
@@ -55,9 +63,11 @@ public class MypetService implements IMypetService {
 
 	
 	// 생애기록 삭제
+	@Transactional
 	@Override
-	public void deleteCard(Integer cardId) {
-		mapper.deleteCard(cardId);
+	public void deleteCard(LifetimeVO lifetimeVO) {
+		mapper.deleteCard(lifetimeVO.getCardId());
+		umapper.downContentsCnt(lifetimeVO.getUserId()); // 컨텐츠 수 감소
 	}
 
 	
@@ -68,10 +78,11 @@ public class MypetService implements IMypetService {
 	
 	
 	// 갤러리 추가
+	@Transactional
 	@Override
 	public void register(GalleryVO galleryVO) {
 		gmapper.register(galleryVO);
-
+		umapper.upContentsCnt(galleryVO.getUserId()); // 컨텐츠 수 증가
 	}
 	
 	
@@ -103,9 +114,11 @@ public class MypetService implements IMypetService {
 
 	
 	// 갤러리 삭제
+	@Transactional
 	@Override
-	public void deleteGallery(Integer imgId) {
-		gmapper.deleteGallery(imgId);
+	public void deleteGallery(GalleryVO gallery) {
+		gmapper.deleteGallery(gallery.getImgId());
+		umapper.downContentsCnt(gallery.getUserId());
 	}
 
 	

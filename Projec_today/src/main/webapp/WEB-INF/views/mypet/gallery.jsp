@@ -511,6 +511,7 @@
 			content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');			
 			
         	let petData = {
+        			"userId": "${login.userId}",
         			"petId": "${login.pet.petId}",
         			"title": title,
         			"content": content
@@ -701,7 +702,10 @@
 			if(confirm("사진을 삭제하시겠습니까?")){
 				
 				let imgId = $(this).attr("href");	            
-	    		let gallery = {imgId: imgId};
+	    		let gallery = {
+	    				"imgId": imgId,
+	    				"userId": "${login.userId}"
+	    				};
 	    		
 	    		$.ajax({
 	                type: 'post',

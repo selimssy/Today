@@ -9,6 +9,7 @@
 		
 		<id property="cardId" column="card_id" />
 		<result property="petId" column="pet_id"/>
+		<result property="userId" column="user_id"/>
 		<result property="date" column="date"/>
 		<result property="content" column="content"/>
 		<result property="imagePath" column="image_path"/>
@@ -18,8 +19,8 @@
 	
 	<!-- 생애기록 추가 -->
 	<insert id="insertCard">
-		INSERT INTO lifetime_card (pet_id, date, content, image_path)
-		VALUES (#{petId}, #{date}, #{content}, #{imagePath})
+		INSERT INTO lifetime_card (pet_id, user_id, date, content, image_path)
+		VALUES (#{petId}, #{userId}, #{date}, #{content}, #{imagePath})
 	</insert>
 	
 	

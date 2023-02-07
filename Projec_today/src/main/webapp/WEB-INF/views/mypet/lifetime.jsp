@@ -442,6 +442,7 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 			text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
         				
         	let petData = {
+        			"userId": "${login.userId}",
         			"petId": "${login.pet.petId}",
         			"content": text,
         			"date": date
@@ -654,7 +655,10 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
 			if(confirm("생애기록을 삭제하시겠습니까?")){
 				
 				let cardId = $(this).attr("href");	            
-	    		let lifetimeCard = {cardId: cardId};
+	    		let lifetimeCard = {
+	    				"cardId": cardId,
+	    				"userId": "${login.userId}"
+	    				};
 	    		
 	    		$.ajax({
 	                type: 'post',

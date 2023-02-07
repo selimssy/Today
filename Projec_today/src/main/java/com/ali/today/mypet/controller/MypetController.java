@@ -74,7 +74,8 @@ public class MypetController {
 				String fileName = ImgUpload.ImgFileUpload("lifetimeCard", file, request);
 		        lifetime.setImagePath("/resources/images/lifetimeCard/" + fileName);  
 			}		
-	        service.insertCard(lifetime);        
+	        
+	        service.insertCard(lifetime);
 	        return "success";
 	}
 
@@ -118,7 +119,7 @@ public class MypetController {
 	@PostMapping("/deleteCard")
 	@ResponseBody
 	public String deleteCard(@RequestBody LifetimeVO lifetimeVO) {
-		service.deleteCard(lifetimeVO.getCardId());
+		service.deleteCard(lifetimeVO);
 		return "success";
 	}	
 	
@@ -211,7 +212,7 @@ public class MypetController {
 	@PostMapping("/deleteGallery")
 	@ResponseBody
 	public String deleteGallery(@RequestBody GalleryVO gallery) {
-		service.deleteGallery(gallery.getImgId());
+		service.deleteGallery(gallery);
 		return "success";
 	}	
 	

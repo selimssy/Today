@@ -9,6 +9,7 @@
 		
 		<id property="imgId" column="img_id" />
 		<result property="petId" column="pet_id"/>
+		<result property="userId" column="user_id"/>
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
 		<result property="date" column="date"/>
@@ -22,8 +23,8 @@
 	
 	
 	<insert id="register">
-		INSERT INTO gallery (pet_id, title, content, image_path)
-		VALUES (#{petId}, #{title}, #{content}, #{imagePath})
+		INSERT INTO gallery (pet_id, user_id, title, content, image_path)
+		VALUES (#{petId}, #{userId}, #{title}, #{content}, #{imagePath})
 	</insert>
 	
 	

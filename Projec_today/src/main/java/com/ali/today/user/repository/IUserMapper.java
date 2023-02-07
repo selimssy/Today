@@ -23,12 +23,18 @@ public interface IUserMapper {
 	// 회원탈퇴 기능
 	void delete(String userId);
 	
-	// 회원정보 조회기능
+	// 회원정보 조회 기능
 	UserVO selectOne(String userId);
 	
-	// 전체회원 조회기능
+	// 전체회원 조회 기능
 	List<UserVO> selectAll();
 	
+	// 컨텐츠 수 증가 기능
+	void upContentsCnt(String userId);
+	
+	// 컨텐츠 수 감소 기능
+	void downContentsCnt(String userId);
+
 	// 자동로그인 쿠키값 DB저장 처리
 	void keepLogin(Map<String, Object> datas);
 	

@@ -101,6 +101,21 @@
 	</select>
 	
 	
+	<!-- 컨텐츠 수 증가 SQL -->
+	<update id="upContentsCnt">
+		UPDATE user 
+		SET contents_cnt = contents_cnt + 1
+		WHERE user_id = #{userId}
+	</update>
+	
+	<!-- 컨텐츠 수 감소 SQL -->
+	<update id="downContentsCnt">
+		UPDATE user 
+		SET contents_cnt = contents_cnt - 1
+		WHERE user_id = #{userId}
+	</update>
+	
+	
 	<!-- 자동로그인을 체크할 경우 쿠키값(세션아이디)과 유지시간을 갱신 -->
 	<!-- Mapper에게 데이터 여러개를 보내줄 때는 1.객체 2.Map 둘 중 하나로 보내야!!★ (이 경우엔 Map)-->
 	<update id="keepLogin">
