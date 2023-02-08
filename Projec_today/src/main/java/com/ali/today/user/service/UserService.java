@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.diary.repository.IDiaryMapper;
 import com.ali.today.mypet.repository.IGalleryMapper;
 import com.ali.today.mypet.repository.IMypetMapper;
@@ -95,8 +96,14 @@ public class UserService implements IUserService{
 	
 	// 전체회원 조회기능
 	@Override
-	public List<UserVO> selectAll() {
-		return mapper.selectAll();
+	public List<UserVO> selectAll(SearchVO search) {
+		return mapper.selectAll(search);
+	}
+	
+	// 전체회원 수
+	@Override
+	public Integer countUsers(SearchVO search) {		
+		return mapper.countUsers(search);
 	}
 	
 	

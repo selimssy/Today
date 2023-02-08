@@ -3,6 +3,7 @@ package com.ali.today.user.service;
 import java.util.Date;
 import java.util.List;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 
@@ -27,7 +28,10 @@ public interface IUserService {
 	UserVO selectOne(String userId);
 	
 	// 전체회원 조회기능
-	List<UserVO> selectAll();
+	List<UserVO> selectAll(SearchVO search); // 관리자 페이지
+	
+	// 전체 회원 수
+	Integer countUsers(SearchVO search); // 관리자 페이지
 	
 	// 자동로그인 쿠키값 DB저장 처리
 	void keepLogin(String sessionId, Date limitDate, String userId);

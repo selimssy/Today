@@ -1,5 +1,7 @@
 package com.ali.today.user.test;
 
+import java.text.SimpleDateFormat;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,29 @@ public class UserTest {
 	}
 	
 	
+	
+	@Test
+	public void registerUser() {
+
+		
+		
+		for(int i=101; i<=200; i++) {
+			
+			UserVO user = new UserVO();
+			user.setUserId("test_id" + i);
+			user.setPassword("test123!!");
+			user.setName("테스트" + i);
+			user.setNickname("테스트 계정");
+			user.setEmail("test123@test.com");
+			user.setContentsCnt(0);
+			
+			mapper.register(user);
+			
+			
+		}
+		
+		System.out.println("회원가입 성공!");
+	}
 	
 	
 //	@Test

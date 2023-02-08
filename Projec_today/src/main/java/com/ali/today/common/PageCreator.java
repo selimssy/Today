@@ -26,6 +26,7 @@ public class PageCreator {
 				            .queryParam("page", page)
 				            .queryParam("keyword", ((SearchVO)paging).getKeyword())
 				            .queryParam("condition", ((SearchVO)paging).getCondition())
+				            .queryParam("order", ((SearchVO)paging).getOrder())
 				            .build().encode();
 		
 		return ucp.toUriString();

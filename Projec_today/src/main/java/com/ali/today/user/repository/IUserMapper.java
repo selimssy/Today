@@ -3,6 +3,7 @@ package com.ali.today.user.repository;
 import java.util.List;
 import java.util.Map;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 
@@ -27,7 +28,10 @@ public interface IUserMapper {
 	UserVO selectOne(String userId);
 	
 	// 전체회원 조회 기능
-	List<UserVO> selectAll();
+	List<UserVO> selectAll(SearchVO search); // 관리자 페이지
+	
+	// 전체 회원 수
+	Integer countUsers(SearchVO search); // 관리자 페이지
 	
 	// 컨텐츠 수 증가 기능
 	void upContentsCnt(String userId);

@@ -15,6 +15,7 @@
 		<result property="sessionId" column="session_id"/>
 		<result property="limitTime" column="limit_time"/>
 		<result property="contentsCnt" column="contents_cnt"/>
+		<result property="petCnt" column="pet_count"/>
 		<collection property="pet" resultMap="PetMap"/>	
 	</resultMap>
 	
@@ -34,7 +35,7 @@
 	</resultMap>
 	
 
-	<!-- 중복되는 동적 SQL문에 대한 처리 -->
+	<!-- 중복되는 동적 SQL문에 대한 처리(반려견 검색) -->
 	<sql id="searchPet">  
 		<!-- 동적 SQL구문 -->
 		<if test="condition == 'petName'">  
@@ -46,6 +47,36 @@
 		<if test="condition == 'feature'">
 		AND feature LIKE CONCAT('%',#{keyword},'%')
 		</if>
+	</sql>
+	
+	
+	<!-- 중복되는 동적 SQL문에 대한 처리(회원 검색) -->
+	<sql id="searchUser">  
+		<!-- 동적 SQL구문 -->
+		<if test="condition == 'userId'">  
+		WHERE user_id LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'name'">
+		WHERE name LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'nickname'">
+		WHERE nickname LIKE CONCAT('%',#{keyword},'%')
+		</if>		
+		<if test="condition == 'email'">
+		WHERE email LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</sql>
+	
+	
+	<!-- 중복되는 동적 SQL문에 대한 처리(관리자 페이지 회원 정렬방법) -->
+	<sql id="orderUser">  
+		<!-- 동적 SQL구문 -->
+		<if test="order == 'regDate' or order.equals('')">  
+		ORDER BY reg_date DESC
+		</if>
+		<if test="order == 'contents'">
+		ORDER BY contents_cnt DESC
+		</if>		
 	</sql>
 	
 	
@@ -88,19 +119,13 @@
 	</delete>
 	
 	
-	<!-- 회원조회 SQL -->
+	<!-- 특정회원 조회 SQL -->
 	<select id="selectOne" resultMap="UserMap">
 		SELECT * FROM user
 		WHERE user_id = #{userId}
 	</select>
 	
-	
-	<!-- 전체회원 조회 SQL -->
-	<select id="selectAll" resultMap="UserMap">
-		SELECT * FROM user
-	</select>
-	
-	
+		
 	<!-- 컨텐츠 수 증가 SQL -->
 	<update id="upContentsCnt">
 		UPDATE user 
@@ -135,6 +160,24 @@
 	
 	
 	
+	
+	
+	<!-- ******관리자 페이지******* -->
+	<!-- 전체회원 조회 (검색, 페이징, 정렬) -->
+	<select id="selectAll" resultMap="UserMap">
+		SELECT u.user_id, u.reg_date, u.name, u.nickname, u.email, u.contents_cnt, (select count(*) from pet where u.user_id=user_id) pet_count
+		FROM user u
+		<include refid="searchUser"/>
+		<include refid="orderUser"/>	
+		LIMIT #{pageStart}, 20	
+	</select>
+	
+	<!-- 검색, 페이징 처리한 회원 수 -->
+	<select id="countUsers" resultType="int">
+		SELECT COUNT(*)
+		FROM user
+		<include refid="searchUser"/>
+	</select>
 	
 	<!-- //////////////////////////////////////////////////////////////////////////// -->
 	
