@@ -32,4 +32,7 @@ public interface IGalleryMapper {
 	
     // 회원 탈퇴시 갤러리 전체 삭제
 	void deleteAllGallery(String userId);
+	
+	// 반려견 삭제시 해당 반려견 갤러리 전부 삭제
+	void deleteAllPetGallery(Integer petId);
 }

@@ -74,4 +74,13 @@ public interface IUserService {
 	// 특정 계정 가장 최근 등록한 반려견 petId 조회
 	Integer recentPet(String userId);
 	
+	
+	// 전체 반려견 조회
+	List<PetVO> AllPet(SearchVO search); // 관리자 페이지
+			
+	// 공개 상태인 반려견 수 조회
+	Integer countAllPet(SearchVO search);  // 관리자 페이지
+	
+	// 특정 반려견 비공개 전환
+	void offPet(Integer petId); // 관리자 페이지 
 }

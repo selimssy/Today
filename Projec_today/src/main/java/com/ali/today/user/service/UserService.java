@@ -97,13 +97,13 @@ public class UserService implements IUserService{
 	// 전체회원 조회기능
 	@Override
 	public List<UserVO> selectAll(SearchVO search) {
-		return mapper.selectAll(search);
+		return mapper.selectAll(search);  // 관리자 페이지
 	}
 	
 	// 전체회원 수
 	@Override
 	public Integer countUsers(SearchVO search) {		
-		return mapper.countUsers(search);
+		return mapper.countUsers(search);  // 관리자 페이지
 	}
 	
 	
@@ -126,35 +126,44 @@ public class UserService implements IUserService{
 	public UserVO getUserWithSessionId(String sessionId) {
 		return mapper.getUserWithSessionId(sessionId);
 	}
-
+	
+	// 새로운 반려동물 등록
 	@Override
 	public void registerPet(PetVO pet) {
 		mapper.registerPet(pet);
 	}
-
+	
+	// 내 계정에 등록된 반려동물 조회
 	@Override
 	public List<PetVO> selectAllPet(String userId) {
 		return mapper.selectAllPet(userId);
 	}	
 	
+	// 유저, 반려동물 세션정보
 	@Override
 	public UserVO UserPetInfo(PetVO pet) {
 		return mapper.UserPetInfo(pet);
 	}
-
+	
+	// 반려동물 정보 수정
 	@Override
 	public void modifyPet(PetVO pet) {
 		mapper.modifyPet(pet);
 	}
-
+	
+	// 특정 반려동물 조회
 	@Override
 	public PetVO selectOnePet(Integer petId) {
 		return mapper.selectOnePet(petId);
 	}
-
+	
+	// 특정 반려동물 삭제
+	@Transactional
 	@Override
 	public void deletePet(Integer petId) {
-		mapper.deletePet(petId);
+		pmapper.deleteAllPetCard(petId); // 생애기록 전체 삭제
+		gmapper.deleteAllPetGallery(petId); // 갤러리 전체 삭제
+		mapper.deletePet(petId); // 반려견 삭제
 	}
 	
 	// 공개 상태 반려견 조회
@@ -188,6 +197,25 @@ public class UserService implements IUserService{
 	@Override
 	public Integer recentPet(String userId) {
 		return mapper.recentPet(userId);
+	}
+	
+	
+	// 전체 반려견 조회
+	@Override
+	public List<PetVO> AllPet(SearchVO search) {
+		return mapper.AllPet(search); // 관리자 페이지
+	} 
+			
+	// 공개 상태인 반려견 수 조회
+	@Override
+	public Integer countAllPet(SearchVO search) {
+		return mapper.countAllPet(search);  // 관리자 페이지
+	}
+	
+	// 특정 반려견 비공개 전환
+	@Override
+	public void offPet(Integer petId) {
+		mapper.offPet(petId);
 	}
 	
 }

@@ -36,7 +36,7 @@
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
-	.deleteUser{cursor:pointer;}
+	.deletePetBtn, .offPet{cursor:pointer;}
 	
 	.paging{padding: 10px 0 0; text-align: center;}
 	.paging ul li{list-style: none; display: inline-block;}
@@ -59,8 +59,8 @@
         <div class="main_inner">
             <nav class="main_nav">
                 <ul>
-                    <li><a href="<c:url value='/admin/member'/>" class="checked">회원 관리</a></li>
-                    <li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>
+                    <li><a href="<c:url value='/admin/member'/>">회원 관리</a></li>
+                    <li><a href="<c:url value='/admin/pet'/>"  class="checked">반려견 관리</a></li>
                     <li><a href="#">컨텐츠 관리</a>
                         <ul class="sub_menu">
                             <li><a href="#">반려견 생애기록</a></li>
@@ -75,13 +75,13 @@
             </nav>
 
             <div class="content">
-                <h3>회원 관리</h3>
+                <h3>반려견 관리</h3>
                 <div class="search">	           
-                    <select class="select" id="condition" name="condition">                            	                           	
-                         <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>아이디</option>
-                         <option value="name" ${param.condition == 'name' ? 'selected' : ''}>이름</option>
-                         <option value="nickname" ${param.condition == 'nickname' ? 'selected' : ''}>닉네임</option>
-                         <option value="email" ${param.condition == 'email' ? 'selected' : ''}>이메일</option>        
+                    <select class="select" id="condition" name="condition">                            	                           	                        
+                         <option value="petName" ${param.condition == 'petName' ? 'selected' : ''}>반려견 이름</option>
+                         <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>계정</option>
+                         <option value="open" ${param.condition == 'open' ? 'selected' : ''}>공개 여부</option>
+                         <option value="petSpecies" ${param.condition == 'petSpecies' ? 'selected' : ''}>견종</option>                                                                                 
                     </select>	            	            
                     <div class="keyword">
                         <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
@@ -91,48 +91,47 @@
                     </div>	    
                     <select class="select" id="order" name="order">    
                     	<!--  <option value="regDate">--- 정렬 ---</option>   -->                      	                           	
-                        <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>가입일순</option>
-                        <option value="contents" ${param.order == 'contents' ? 'selected' : ''}>활동순</option>       
+                        <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>등록일순</option>
+                        <option value="contents" ${param.order == 'contents' ? 'selected' : ''}>컨텐츠순</option> 
+                        <option value="updateDate" ${param.order == 'updateDate' ? 'selected' : ''}>업데이트순</option>      
                    </select>	          	            
                 </div>
                 <table>
                     <thead>
                         <tr>
-                            <th>아이디</th>
-                            <th>가입일</th>
-                            <th>이름</th>
-                            <th>닉네임</th>
-                            <th>이메일</th>
-                            <th>반려견 수</th>
+                            <th>petID</th>
+                            <th>반려견 이름</th>
+                            <th>계정</th>
+                            <th>견종</th>
+                            <th>나이</th>
+                            <th>성별</th>
+                            <th>인스타그램</th>
+                            <th>유튜브</th>
                             <th>컨텐츠 수</th>
-                            <th>관리</th>
-                            <!--이거 다 하고싶은데 일단 보류ㅠ 뭐 하나 할때마다 커뮤니티 업데이트도 해야하니까 업데이트날짜 하면서 같이 회원테이블의
-                                컨텐츠 수 +1할까?? 그리고 정렬도 가입일 순 활동순(비용 문제상 5개 컬럼 다 만들지는 말고 그냥 컨텐츠 수로?
-                                해결: 컨텐츠필드만 만들어서 컨텐츠수+1을 하고 상세버튼 누르면 각 테이블에서 갯수 각각 구해와서 출력하는걸로)?
-                            <th>생애 기록</th>
-                            <th>갤러리</th>
-                            <th>캘린더</th>
-                            <th>견주 일기</th>
-                            <th>게시판</th>-->
+                            <th>공개 여부</th>                          
+                            <th>관리</th>                            
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:if test="${userList.size() > 0}">
-                    		<c:forEach var="member" items="${userList}">
+                    	<c:if test="${petList.size() > 0}">
+                    		<c:forEach var="pet" items="${petList}">
                     			<tr>
-		                            <td>${member.userId}</td>
-		                            <td><fmt:formatDate value="${member.regDate}" pattern="yyyy.MM.dd" /></td>
-		                            <td>${member.name}</td>
-		                            <td>${member.nickname}</td>
-		                            <td>${member.email}</td>
-		                            <td>${member.petCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/pet?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
-		                            <td>${member.contentsCnt}&nbsp;&nbsp;(<a href="#">상세</a>)</td>
-		                            <td><span href="${member.userId}" class="deleteUser">삭제</span></td>
-		                            <!--<td>3</td>
-		                            <td>3</td>
-		                            <td>3</td>
-		                            <td>3</td>
-		                            <td>3</td>-->
+		                            <td>${pet.petId}</td>
+		                            <td>${pet.petName}</td>
+		                            <td>${pet.userId}</td>
+		                            <td>${pet.petSpecies}</td>
+		                            <td>${pet.age}</td>
+		                            <td>${pet.gender}</td>
+		                            <td>${pet.instagram}</td>
+		                            <td>${pet.youtube}</td>
+		                            <td>${pet.contents}</td>
+		                            <td>
+		                            	<c:if test="${pet.open == 0}">비공개</c:if>
+		                            	<c:if test="${pet.open == 1}">공개</c:if>
+		                            </td>
+		                            <td><span href="${pet.petId}" class="offPet">비공개 전환</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                <span href="${pet.petId}" class="deletePetBtn">삭제</span>
+		                            </td>
 		                        </tr>
                     		</c:forEach>
                     	</c:if>
@@ -148,21 +147,21 @@
 						<!-- 이전 버튼 -->
 						<c:if test="${pc.prev}">
 					        <li>
-								<a href="<c:url value='/admin/member${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
+								<a href="<c:url value='/admin/pet${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
 							</li>
 						</c:if>
 						
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 							<li>                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-							   <a href="<c:url value='/admin/member${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
+							   <a href="<c:url value='/admin/pet${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
 							</li>
 						</c:forEach>
 						  
 					   <!-- 다음 버튼 -->
 					   <c:if test="${pc.next}">
 						   <li>
-						       <a href="<c:url value='/admin/member${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
+						       <a href="<c:url value='/admin/pet${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
 						   </li>
 					   </c:if>
 					</ul>
@@ -188,7 +187,7 @@
 			let order = $("#order option:selected").val();
 			//const condition = $("#condition").val();
 			
-			location.href="/admin/member?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;
+			location.href="/admin/pet?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;
 		})
 				
 		// 엔터키 입력 이벤트
@@ -205,43 +204,81 @@
 			let keyword = $("#keywordInput").val();
 			let condition = $("#condition option:selected").val(); 
 			let order = $("#order option:selected").val();   
-			location.href="/admin/member?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;          
+			location.href="/admin/pet?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;          
         });
 		
 		
 		
-		
-		// 회원 삭제
-		$(".deleteUser").click(function(){			
-			if(confirm("회원 삭제시 모든 반려견 정보와 기록이 삭제됩니다. 그래도 삭제하시겠습니까?")){
+		// 반려견 삭제
+        $(document).on("click", ".deletePetBtn", function () {       	
+			if(confirm("반려견(petId=" + $(this).attr("href") + ")을 삭제하시겠습니까?")){	
 				
-				let userId = $(this).attr("href");           
-	    		let user = {userId: userId};
+				let userId = "${login.userId}";	
+				let petId = $(this).attr("href");
+	    		let petVO = {
+	    				petId: petId,
+	    				userId: userId
+	    				};
 	    		
 	    		$.ajax({
 	                type: 'post',
 	                dataType : "text",
 	                contentType: 'application/json',
-	                url: '/user/deleteUser',
-	                data: JSON.stringify(user),
+	                url: '/user/deletePet',
+	                data: JSON.stringify(petVO),
 	                success: function (response) {
 	         			if(response === 'success'){
-	         				alert("회원 삭제가 완료되었습니다.");
+	         				alert("반려견이 삭제되었습니다.");
 	         				window.location.reload();
+	         				//$("#petList-open").click();
 	         			}else{
-	         				alert("회원 삭제에 실패했습니다.");
+	         				alert("반려견 삭제에 실패했습니다.");
 	         			}
 	                }, 
 	                error: function() {
 	                    console.log("통신 실패"); 
 	                } 
 	            });
+	    		
 			}
-		})
+        })
+        
+        
+        // 반려견 비공개 전환
+        $(document).on("click", ".offPet", function () {       	
+			if(confirm("반려견(petId=" + $(this).attr("href") + ")을 비공개로 전환하시겠습니까?")){	
+				
+				let petId = $(this).attr("href");
+	    		let petVO = {petId: petId};
+	    		
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/admin/offPet',
+	                data: JSON.stringify(petVO),
+	                success: function (response) {
+	         			if(response === 'success'){
+	         				alert("비공개로 전환되었습니다.");
+	         				window.location.reload();
+	         			}else{
+	         				alert("비공개 전환에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+	    		
+			}
+        })
 		
 		
 		
 	})
+	
+	
+	
 	
 	
 </script>

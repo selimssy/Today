@@ -13,6 +13,7 @@ public class PetVO {
 	private String instagram;
 	private String youtube;
 	private Integer open;
+	private Integer contents; // 생애기록 + 갤러리 게시물 수
 	
 	
 	public String getImagePath() {
@@ -83,15 +84,21 @@ public class PetVO {
 	public void setOpen(Integer open) {
 		this.open = open;
 	}
+	public Integer getContents() {
+		return contents;
+	}
+	public void setContents(Integer contents) {
+		this.contents = contents;
+	}
 	
 	
 	@Override
 	public String toString() {
 		return "PetVO [petId=" + petId + ", userId=" + userId + ", petSpecies=" + petSpecies + ", petName=" + petName
 				+ ", age=" + age + ", gender=" + gender + ", feature=" + feature + ", imagePath=" + imagePath
-				+ ", instagram=" + instagram + ", youtube=" + youtube + ", open=" + open + "]";
+				+ ", instagram=" + instagram + ", youtube=" + youtube + ", open=" + open + ", contents=" + contents
+				+ "]";
 	}
-	
-	
+
 	
 }

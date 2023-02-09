@@ -79,5 +79,12 @@
 		DELETE FROM gallery 
 		WHERE pet_id IN(SELECT pet_id FROM pet WHERE user_id = #{userId});
 	</delete>
-
+	
+	
+	<!-- 반려견 삭제시 해당 반려견 갤러리 전부 삭제 -->
+	<delete id="deleteAllPetGallery">
+		DELETE FROM gallery 
+		WHERE pet_id = #{petId}
+	</delete>
+	
 </mapper>

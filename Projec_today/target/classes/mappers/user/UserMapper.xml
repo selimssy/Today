@@ -32,12 +32,12 @@
 		<result property="instagram" column="instagram"/>
 		<result property="youtube" column="youtube"/>
 		<result property="open" column="open"/>	
+		<result property="contents" column="contents"/>
 	</resultMap>
 	
 
 	<!-- 중복되는 동적 SQL문에 대한 처리(반려견 검색) -->
 	<sql id="searchPet">  
-		<!-- 동적 SQL구문 -->
 		<if test="condition == 'petName'">  
 		AND pet_name LIKE CONCAT('%',#{keyword},'%')
 		</if>
@@ -47,12 +47,17 @@
 		<if test="condition == 'feature'">
 		AND feature LIKE CONCAT('%',#{keyword},'%')
 		</if>
+		<if test="condition == 'userId'">
+		AND user_id LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'open'">
+		AND open LIKE CONCAT('%',#{keyword},'%')
+		</if>
 	</sql>
 	
 	
 	<!-- 중복되는 동적 SQL문에 대한 처리(회원 검색) -->
 	<sql id="searchUser">  
-		<!-- 동적 SQL구문 -->
 		<if test="condition == 'userId'">  
 		WHERE user_id LIKE CONCAT('%',#{keyword},'%')
 		</if>
@@ -68,9 +73,21 @@
 	</sql>
 	
 	
+	<!-- 중복되는 동적 SQL문에 대한 처리(관리자 페이지 반려견 정렬방법) -->
+	<sql id="orderPet">  
+		<if test="order == 'regDate' or order.equals('')">  
+		ORDER BY pet_id DESC
+		</if>
+		<if test="order == 'contents'">
+		ORDER BY contents DESC
+		</if>	
+		<if test="order == 'updateDate'">
+		ORDER BY update_date DESC
+		</if>	
+	</sql>
+	
 	<!-- 중복되는 동적 SQL문에 대한 처리(관리자 페이지 회원 정렬방법) -->
 	<sql id="orderUser">  
-		<!-- 동적 SQL구문 -->
 		<if test="order == 'regDate' or order.equals('')">  
 		ORDER BY reg_date DESC
 		</if>
@@ -271,5 +288,32 @@
 		WHERE open = 1
 		<include refid="searchPet"/>
 	</select>
+	
+	
+	
+	<!-- ******관리자 페이지******* -->
+	<!-- 전체 반려견 조회 -->
+	<select id="AllPet" resultMap="PetMap">
+		SELECT *, ((SELECT count(*) FROM lifetime_card WHERE pet_id=p.pet_id) + (SELECT count(*) FROM gallery WHERE pet_id=p.pet_id)) contents
+		FROM pet p
+		WHERE pet_id=p.pet_id   
+		<include refid="searchPet"/>
+		<include refid="orderPet"/>	
+		LIMIT #{pageStart}, 20
+	</select>
+	
+	<!-- 검색, 페이징 처리한 반려견 수 -->
+	<select id="countAllPet" resultType="int">
+		SELECT COUNT(*)
+		FROM pet
+		WHERE pet_id &gt; 0
+		<include refid="searchPet"/>
+	</select>
+	
+	<update id="offPet">
+		UPDATE pet
+		SET open = 0
+		WHERE pet_id = #{petId}
+	</update>
 	
 </mapper>

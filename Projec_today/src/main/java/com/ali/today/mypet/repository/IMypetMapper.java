@@ -26,4 +26,6 @@ public interface IMypetMapper {
 	// 회원탈퇴시 생애기록 전체 삭제
 	void deleteAllCard(String userId);
 	
+	// 반려견 삭제시 해당 반려견 생애기록 전부 삭제
+	void deleteAllPetCard(Integer petId);
 }
