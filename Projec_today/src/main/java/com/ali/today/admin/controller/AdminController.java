@@ -1,6 +1,7 @@
 package com.ali.today.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ali.today.admin.service.IAdminService;
 import com.ali.today.common.PageCreator;
 import com.ali.today.common.SearchVO;
 import com.ali.today.user.model.PetVO;
@@ -23,8 +25,8 @@ public class AdminController {
 	
 	@Autowired
 	IUserService uservice;
-	
-
+	@Autowired
+	IAdminService adService;
 	
 	
 	// 회원관리 페이지 열기
@@ -66,7 +68,13 @@ public class AdminController {
 	} 
 	
 	
-	
+	// 컨텐츠 관리(컨텐츠 현황) 페이지 열기
+	@GetMapping("/content")
+	public void content(String userId, Model model) {
+		System.out.println("계정 : " + userId);
+		Map<String, Integer> contentStats = adService.contentStats(userId);		
+		model.addAttribute("contentStats", contentStats);
+	}
 	
 	
 }

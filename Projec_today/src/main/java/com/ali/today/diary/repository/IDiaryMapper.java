@@ -32,6 +32,9 @@ public interface IDiaryMapper {
 	// 회원 탈퇴시 모든 스케줄 삭제
 	void deleteAllSchedule(String userId);
 	
+	// 전체(특정 계정) 스케줄 갯수
+	Integer scheduleCnt(String userId); // 관리자 페이지
+	
 	
 	/////////////////////////////////////////////////
 	
@@ -56,5 +59,8 @@ public interface IDiaryMapper {
 	
 	// 회원탈퇴시 모든 일기 삭제
 	void deleteAllDiary(String userId);
+	
+	// 전체(특정 계정) 일기 갯수
+	Integer diaryCnt(String userId); // 관리자 페이지
 	
 }

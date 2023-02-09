@@ -35,4 +35,7 @@ public interface IGalleryMapper {
 	
 	// 반려견 삭제시 해당 반려견 갤러리 전부 삭제
 	void deleteAllPetGallery(Integer petId);
+	
+	// 전체(특정 계정) 갤러리 갯수
+	Integer galleryCnt(String userId); // 관리자 페이지
 }

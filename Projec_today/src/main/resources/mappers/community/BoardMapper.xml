@@ -122,7 +122,22 @@
 		WHERE b.board_no = #{boardNO}
 	</update>
 	
-
+	
+	
+	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 게시글 갯수 -->
+	<select id="boardCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM board		
+		<choose>
+			<when test = "userId == null or userId.equals('')">				
+			</when>
+			<otherwise>
+				WHERE writer = #{userId}
+			</otherwise>
+		</choose>
+	</select>
+	
 
 	
 	<!-- ////////////////////// 댓글 SQL //////////////////// -->
@@ -189,6 +204,23 @@
 		SELECT COUNT(*)
 		FROM reply
 		WHERE board_no = #{boardNo}
+	</select>
+	
+	
+	
+	
+	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 댓글 갯수 -->
+	<select id="replyCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM reply		
+		<choose>
+			<when test = "userId == null or userId.equals('')">				
+			</when>
+			<otherwise>
+				WHERE replyer = #{userId}
+			</otherwise>
+		</choose>
 	</select>
 	
 </mapper>

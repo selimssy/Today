@@ -97,6 +97,21 @@
 	</delete>
 	
 	
+	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 스케줄 갯수 -->
+	<select id="scheduleCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM calendar	
+		<choose>
+			<when test = "userId == null or userId.equals('')">				
+			</when>
+			<otherwise>
+				WHERE user_id = #{userId}
+			</otherwise>
+		</choose>	
+	</select>
+	
+	
 	<!-- ////////////////////////////////////////////////////////////////// -->
 	
 	
@@ -157,6 +172,22 @@
 		DELETE FROM pet_diary
 		WHERE writer = #{userId}
 	</delete>
+	
+	
+	
+	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 일기 갯수 -->
+	<select id="diaryCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM pet_diary		
+		<choose>
+			<when test = "userId == null or userId.equals('')">				
+			</when>
+			<otherwise>
+				WHERE writer = #{userId}
+			</otherwise>
+		</choose>
+	</select>
 	
 
 </mapper>

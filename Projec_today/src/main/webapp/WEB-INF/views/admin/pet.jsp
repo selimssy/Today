@@ -61,8 +61,9 @@
                 <ul>
                     <li><a href="<c:url value='/admin/member'/>">회원 관리</a></li>
                     <li><a href="<c:url value='/admin/pet'/>"  class="checked">반려견 관리</a></li>
-                    <li><a href="#">컨텐츠 관리</a>
+                    <li><a href="<c:url value='/admin/content'/>">컨텐츠 관리</a>
                         <ul class="sub_menu">
+                        	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
                             <li><a href="#">반려견 생애기록</a></li>
                             <li><a href="#">갤러리</a></li>
                             <li><a href="#">캘린더</a></li>

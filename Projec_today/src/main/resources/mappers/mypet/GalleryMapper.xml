@@ -87,4 +87,20 @@
 		WHERE pet_id = #{petId}
 	</delete>
 	
+	
+	
+	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 갤러리 갯수 -->
+	<select id="galleryCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM gallery				
+		<choose>
+			<when test = "userId == null or userId.equals('')">				
+			</when>
+			<otherwise>
+				WHERE user_id = #{userId}
+			</otherwise>
+		</choose>
+	</select>
+	
 </mapper>

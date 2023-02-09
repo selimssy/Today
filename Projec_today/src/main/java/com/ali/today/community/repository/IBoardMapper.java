@@ -38,7 +38,8 @@ public interface IBoardMapper {
 	void updateReplyCnt(Integer boardNo);	
 	
 	
-	
+	// 전체(특정 계정) 게시물 갯수
+	Integer boardCnt(String userId); // 관리자 페이지
 	
 	
 	
@@ -65,4 +66,6 @@ public interface IBoardMapper {
 	// 특정 게시물 댓글 수
 	Integer countReplies(Integer boardNo);
 	
+	// 전체(특정 계정) 댓글 갯수
+	Integer replyCnt(String userId); // 관리자 페이지
 }

@@ -74,4 +74,19 @@
 		WHERE pet_id = #{petId}
 	</delete>
 	
+	
+	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 생애기록 갯수 -->
+	<select id="lifetimeCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM lifetime_card		
+		<choose>
+			<when test = "userId == null or userId.equals('')">				
+			</when>
+			<otherwise>
+				WHERE user_id = #{userId}
+			</otherwise>
+		</choose>
+	</select>
+	
 </mapper>
