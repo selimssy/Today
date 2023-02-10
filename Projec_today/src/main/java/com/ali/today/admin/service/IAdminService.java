@@ -9,10 +9,10 @@ import com.ali.today.diary.model.ScheduleVO;
 public interface IAdminService {
 	
 	// 컨텐츠 현황(계정별) 조회
-	Map<String, Integer> contentStats(String userId);
+	Map<String, Integer> contentStats(SearchVO search);
 	
 	// 컨텐츠 현황(반려견별) 조회
-	Map<String, Object> petContent(Integer petId);
+	Map<String, Object> petContent(SearchVO search);
 	
 	
 	

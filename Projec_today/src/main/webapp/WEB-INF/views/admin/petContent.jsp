@@ -76,13 +76,13 @@
             <div class="content">
                 <h3>반려견 컨텐츠 현황&nbsp;&nbsp; | &nbsp;&nbsp;
                 	<c:choose>
-                		<c:when test="${param.petId == null || param.petId ==''}">전체 반려견 컨텐츠 현황</c:when>
-                		<c:otherwise> petID : ${param.petId}(${petContent.petName})의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
+                		<c:when test="${param.keyword == null || param.keyword ==''}">전체 반려견 컨텐츠 현황</c:when>
+                		<c:otherwise> petID : ${param.keyword}(${petContent.petName})의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
                 	</c:choose>              	
                 </h3>           
                 <div class="search">	                                        	            
                     <div class="keyword">
-                        <input type="text" name="petId" id="petIdInput" value="${param.petId}" placeholder="반려견 번호(petId) 검색">
+                        <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="반려견 번호(petId) 검색">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
@@ -128,7 +128,7 @@
 	
 		// 검색 버튼 이벤트 처리
 		$("#searchBtn").click(function(){
-			let petId = $("#petIdInput").val().trim();	
+			let petId = $("#keywordInput").val().trim();	
 			let check = /^[0-9]+$/;  // 숫자 체크 정규식
 			
 			if (!check.test(petId)) { // 숫자 외 입력값 있는 경우
@@ -136,11 +136,11 @@
 			    return false;
 			}
 			
-			location.href="/admin/petContent?petId=" + petId;
+			location.href="/admin/petContent?keyword=" + petId + "&condition=petId";
 		})
 				
 		// 엔터키 입력 이벤트
-		$("#petIdInput").keydown(function(key){ 
+		$("#keywordInput").keydown(function(key){ 
 			
 			if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
 				$("#searchBtn").click();

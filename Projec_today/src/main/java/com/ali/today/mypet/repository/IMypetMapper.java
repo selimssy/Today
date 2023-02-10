@@ -2,6 +2,7 @@ package com.ali.today.mypet.repository;
 
 import java.util.List;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.mypet.model.LifetimeVO;
 
 
@@ -30,8 +31,8 @@ public interface IMypetMapper {
 	void deleteAllPetCard(Integer petId);
 	
 	// 전체(특정 계정) 생애기록 갯수
-	Integer lifetimeCnt(String userId); // 관리자 페이지
+	Integer lifetimeCnt(SearchVO search); // 관리자 페이지
 	
 	// 전체(반려견별) 생애기록 갯수
-	Integer lifePetCnt(Integer petId); // 관리자 페이지
+	//Integer lifePetCnt(SearchVO search); // 관리자 페이지
 }

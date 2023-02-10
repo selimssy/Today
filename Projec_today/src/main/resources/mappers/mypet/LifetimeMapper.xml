@@ -79,31 +79,51 @@
 	
 	
 	<!-- *** 관리자 페이지 ***-->
-	<!-- 전체 생애기록 갯수 --> <!-- 합치는 고민... -->
+	<!-- 전체 생애기록(계정별) 갯수 --> <!-- 합치는 고민... -->
 	<select id="lifetimeCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM lifetime_card		
 		<choose>
-			<when test = "userId == null or userId.equals('')">				
+			<when test = "keyword.equals('')">				
 			</when>
-			<otherwise>
-				WHERE user_id = #{userId}
+			<otherwise>				
+				<if test="condition == 'userId'">  
+					WHERE user_id = #{keyword}
+				</if>
+				<if test="condition == 'petId'">  
+					WHERE pet_id = #{keyword}
+				</if>
 			</otherwise>
 		</choose>
 	</select>
 	
+	
+	<!--  
+	<select id="lifetimeCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM lifetime_card		
+		<choose>
+			<when test = "keyword.equals('')">				
+			</when>
+			<otherwise>
+				WHERE user_id = #{keyword}
+			</otherwise>
+		</choose>
+	</select>  -->
+	
 	<!-- 전체 생애기록(반려견별) 갯수 -->
+	<!--
 	<select id="lifePetCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM lifetime_card		
 		<choose>
-			<when test = "petId == null or petId.equals('')">				
+			<when test = "keyword.equals('')">				
 			</when>
 			<otherwise>
-				WHERE pet_id = #{petId}
+				WHERE pet_id = #{keyword}
 			</otherwise>
 		</choose>
-	</select>
+	</select>  -->
 	
 	
 </mapper>

@@ -39,7 +39,7 @@ public interface IBoardMapper {
 	
 	
 	// 전체(특정 계정) 게시물 갯수
-	Integer boardCnt(String userId); // 관리자 페이지
+	Integer boardCnt(SearchVO search); // 관리자 페이지
 	
 	
 	
@@ -67,5 +67,5 @@ public interface IBoardMapper {
 	Integer countReplies(Integer boardNo);
 	
 	// 전체(특정 계정) 댓글 갯수
-	Integer replyCnt(String userId); // 관리자 페이지
+	Integer replyCnt(SearchVO search); // 관리자 페이지
 }

@@ -3,6 +3,7 @@ package com.ali.today.mypet.repository;
 import java.util.List;
 import java.util.Map;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.mypet.model.GalleryVO;
 
 
@@ -37,8 +38,8 @@ public interface IGalleryMapper {
 	void deleteAllPetGallery(Integer petId);
 	
 	// 전체(특정 계정) 갤러리 갯수
-	Integer galleryCnt(String userId); // 관리자 페이지
+	Integer galleryCnt(SearchVO search); // 관리자 페이지
 	
 	// 전체(반려견별) 생애기록 갯수
-	Integer galleryPetCnt(Integer petId); // 관리자 페이지
+	//Integer galleryPetCnt(SearchVO search); // 관리자 페이지
 }

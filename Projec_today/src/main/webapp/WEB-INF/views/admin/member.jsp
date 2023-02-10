@@ -132,7 +132,7 @@
 		                            <td>${member.nickname}</td>
 		                            <td>${member.email}</td>
 		                            <td>${member.petCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/pet?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
-		                            <td>${member.contentsCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/content?userId=${member.userId}'/>">상세</a>)</td>
+		                            <td>${member.contentsCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/content?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
 		                            <td><span href="${member.userId}" class="deleteUser">삭제</span></td>
 		                            <!--<td>3</td>
 		                            <td>3</td>

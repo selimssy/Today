@@ -76,13 +76,13 @@
             <div class="content">
                 <h3>컨텐츠 현황&nbsp;&nbsp; | &nbsp;&nbsp;
                 	<c:choose>
-                		<c:when test="${param.userId == null || param.userId ==''}">전체 컨텐츠 현황</c:when>
-                		<c:otherwise> ID : ${param.userId}의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
+                		<c:when test="${param.keyword == null || param.keyword ==''}">전체 컨텐츠 현황</c:when>
+                		<c:otherwise> ID : ${param.keyword}의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
                 	</c:choose>              	
                 </h3>           
                 <div class="search">	                                        	            
                     <div class="keyword">
-                        <input type="text" name="userId" id="userIdInput" value="${param.userId}" placeholder="계정(userId) 검색">
+                        <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="계정(userId) 검색">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
@@ -129,12 +129,12 @@
 	
 		// 검색 버튼 이벤트 처리
 		$("#searchBtn").click(function(){
-			let userId = $("#userIdInput").val();	
-			location.href="/admin/content?userId=" + encodeURI(userId);
+			let userId = $("#keywordInput").val();	
+			location.href="/admin/content?keyword=" + encodeURI(userId) + "&condition=userId";
 		})
 				
 		// 엔터키 입력 이벤트
-		$("#userIdInput").keydown(function(key){ 
+		$("#keywordInput").keydown(function(key){ 
 			
 			if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
 				$("#searchBtn").click();

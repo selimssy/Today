@@ -82,8 +82,8 @@ public class DiaryService implements IDiaryService{
 		
 	// 캘린더(계정별) 갯수 조회
 	@Override
-	public Integer scheduleCnt(String userId) {
-		return mapper.scheduleCnt(userId);
+	public Integer scheduleCnt(SearchVO search) {
+		return mapper.scheduleCnt(search);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////

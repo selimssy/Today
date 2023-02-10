@@ -29,12 +29,12 @@ public class AdminService implements IAdminService {
 	
 	// 컨텐츠 현황(계정별) 조회
 	@Override
-	public Map<String, Integer> contentStats(String userId) {
-		Integer lifetimeCnt = lMapper.lifetimeCnt(userId);  // 전체 생애기록 카드 수
-		Integer galleryCnt = gMapper.galleryCnt(userId); // 갤러리
-		Integer scheduleCnt = dMapper.scheduleCnt(userId); // 캘린더
-		Integer diaryCnt = dMapper.diaryCnt(userId); // 견주일기
-		Integer boardCnt = bMapper.boardCnt(userId); // 게시판
+	public Map<String, Integer> contentStats(SearchVO search) {
+		Integer lifetimeCnt = lMapper.lifetimeCnt(search);  // 전체 생애기록 카드 수
+		Integer galleryCnt = gMapper.galleryCnt(search); // 갤러리
+		Integer scheduleCnt = dMapper.scheduleCnt(search); // 캘린더
+		Integer diaryCnt = dMapper.diaryCnt(search); // 견주일기
+		Integer boardCnt = bMapper.boardCnt(search); // 게시판
 		//Integer replyCnt = bMapper.replyCnt(userId); // 댓글
 		
 		Map<String, Integer> contentStats = new HashMap<>();
@@ -51,9 +51,9 @@ public class AdminService implements IAdminService {
 	
 	// 컨텐츠 현황(반려견별) 조회
 	@Override
-	public Map<String, Object> petContent(Integer petId) {
-		Integer lifePetCnt = lMapper.lifePetCnt(petId);
-		Integer galleryPetCnt = gMapper.galleryPetCnt(petId);
+	public Map<String, Object> petContent(SearchVO search) {
+		Integer lifePetCnt = lMapper.lifetimeCnt(search);
+		Integer galleryPetCnt = gMapper.galleryCnt(search);
 		
 		Map<String, Object> petContent = new HashMap<>();
 		petContent.put("lifePetCnt", lifePetCnt);

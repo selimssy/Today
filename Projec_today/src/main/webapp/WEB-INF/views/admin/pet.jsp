@@ -130,7 +130,7 @@
 		                            <td>${pet.gender}</td>
 		                            <td>${pet.instagram}</td>
 		                            <td>${pet.youtube}</td>
-		                            <td>${pet.contents}&nbsp;&nbsp;(<a href="<c:url value='/admin/petContent?petId=${pet.petId}'/>">상세</a>)</td>
+		                            <td>${pet.contents}&nbsp;&nbsp;(<a href="<c:url value='/admin/petContent?keyword=${pet.petId}&condition=petId'/>">상세</a>)</td>
 		                            <td>
 		                            	<c:if test="${pet.open == 0}">비공개</c:if>
 		                            	<c:if test="${pet.open == 1}">공개</c:if>

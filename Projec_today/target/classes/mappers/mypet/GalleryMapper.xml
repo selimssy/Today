@@ -95,25 +95,33 @@
 		SELECT COUNT(*)
 		FROM gallery				
 		<choose>
-			<when test = "userId == null or userId.equals('')">				
+			<when test = "keyword.equals('')">				
 			</when>
 			<otherwise>
-				WHERE user_id = #{userId}
+				<if test="condition == 'userId'">  
+					WHERE user_id = #{keyword}
+				</if>
+				<if test="condition == 'petId'">  
+					WHERE pet_id = #{keyword}
+				</if>
 			</otherwise>
 		</choose>
 	</select>
 	
+	
+	
 	<!-- 전체 생애기록(반려견별) 갯수 -->
+	<!-- 
 	<select id="galleryPetCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM gallery		
 		<choose>
-			<when test = "petId == null or petId.equals('')">				
+			<when test = "keyword.equals('')">				
 			</when>
 			<otherwise>
-				WHERE pet_id = #{petId}
+				WHERE pet_id = #{keyword}
 			</otherwise>
 		</choose>
-	</select>
+	</select>  -->
 	
 </mapper>

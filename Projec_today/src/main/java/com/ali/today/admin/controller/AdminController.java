@@ -75,10 +75,13 @@ public class AdminController {
 	
 	// 특정 반려견 컨텐츠 현황 페이지 열기
 	@GetMapping("/petContent")
-	public void petContent(Integer petId, Model model) {
-		System.out.println("petId : " + petId);
-		Map<String, Object> petContent = adService.petContent(petId);	
-		if(petId != null) { // petId 검색한 경우 반려견 이름 같이 전달
+	public void petContent(SearchVO search, Model model) {
+		
+		
+		System.out.println("petId : " + search.getKeyword());
+		Map<String, Object> petContent = adService.petContent(search);	
+		if(!search.getKeyword().equals("")) { // petId 검색한 경우 반려견 이름 같이 전달
+			Integer petId = Integer.valueOf(search.getKeyword()); 
 			if(uservice.selectOnePet(petId) == null) { // 없는 반려견 검색한 경우
 				model.addAttribute("msg", "noPet");
 			}else {
@@ -94,8 +97,8 @@ public class AdminController {
 	
 	// 컨텐츠 관리(컨텐츠 현황) 페이지 열기
 	@GetMapping("/content")
-	public void content(String userId, Model model) {
-		Map<String, Integer> contentStats = adService.contentStats(userId);		
+	public void content(SearchVO search, Model model) {
+		Map<String, Integer> contentStats = adService.contentStats(search);		
 		model.addAttribute("contentStats", contentStats);
 	}
 	
@@ -118,14 +121,13 @@ public class AdminController {
 	
 	// 캘린더 관리 페이지 열기
 	@GetMapping("/calendar")
-	public void calendar(SearchVO search, Model model) {
-		System.out.println(search.getKeyword());
+	public void calendar(SearchVO search, Model model) {		
 		search.setCountPerPage(20);
 		PageCreator pc = new PageCreator();
 		pc.setPaging(search); 
 		List<ScheduleVO> calendarList = dService.adAllSchedule(search);
-		pc.setArticleTotalCount(dService.scheduleCnt(search.getKeyword()));
-		System.out.println(calendarList.toString());
+		pc.setArticleTotalCount(dService.scheduleCnt(search));
+
 		model.addAttribute("calendarList", calendarList);
 		model.addAttribute("pc", pc);
 	}

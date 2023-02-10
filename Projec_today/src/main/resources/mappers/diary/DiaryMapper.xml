@@ -118,10 +118,10 @@
 		SELECT COUNT(*)
 		FROM calendar	
 		<choose>
-			<when test = "userId == null">				
+			<when test = "keyword.equals('')">				
 			</when>
 			<otherwise>
-				WHERE user_id = #{userId}
+				WHERE user_id = #{keyword}
 			</otherwise>
 		</choose>	
 	</select>
@@ -196,10 +196,10 @@
 		SELECT COUNT(*)
 		FROM pet_diary		
 		<choose>
-			<when test = "userId == null or userId.equals('')">				
+			<when test = "keyword.equals('')">				
 			</when>
 			<otherwise>
-				WHERE writer = #{userId}
+				WHERE writer = #{keyword}
 			</otherwise>
 		</choose>
 	</select>
