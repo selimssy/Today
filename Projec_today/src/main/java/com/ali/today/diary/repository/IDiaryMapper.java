@@ -35,6 +35,9 @@ public interface IDiaryMapper {
 	// 전체(특정 계정) 스케줄 갯수
 	Integer scheduleCnt(String userId); // 관리자 페이지
 	
+	// 전체 스케줄(특정 계정) 조회
+	List<ScheduleVO> adAllSchedule(SearchVO search); // 관리자 페이지
+	
 	
 	/////////////////////////////////////////////////
 	

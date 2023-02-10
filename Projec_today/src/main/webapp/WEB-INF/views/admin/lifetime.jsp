@@ -53,7 +53,7 @@
             <nav class="main_nav">
                 <ul>
                     <li><a href="<c:url value='/admin/member'/>">회원 관리</a></li>
-                    <li><a href="<c:url value='/admin/pet'/>"  class="checked">반려견 관리</a>
+                    <li><a href="<c:url value='/admin/pet'/>">반려견 관리</a>
                     	<ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>
                             <li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠</a></li>                            
@@ -62,7 +62,7 @@
                     <li><a href="<c:url value='/admin/content'/>"  class="checked">컨텐츠 관리</a>
                         <ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
-                            <li><a href="#">반려견 생애기록</a></li>
+                            <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
                             <li><a href="#">갤러리</a></li>
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="#">견주 일기</a></li>
@@ -74,15 +74,19 @@
             </nav>
 
             <div class="content">
-                <h3>컨텐츠 현황&nbsp;&nbsp; | &nbsp;&nbsp;
+                <h3>반려견 현황&nbsp;&nbsp; | 반려견 생애기록&nbsp;&nbsp;
                 	<c:choose>
-                		<c:when test="${param.userId == null || param.userId ==''}">전체 컨텐츠 현황</c:when>
-                		<c:otherwise> ID : ${param.userId}의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
+                		<c:when test="${param.petId == null || param.petId ==''}">전체 조회</c:when>
+                		<c:otherwise> petID : ${param.petId}(${petContent.petName})의 반려견 생애기록 조회 <button type="button" class="reset">초기화</button> </c:otherwise>
                 	</c:choose>              	
                 </h3>           
-                <div class="search">	                                        	            
+                <div class="search">	            
+                	<select class="select" id="condition" name="condition">                            	                           	
+                     <option value="petId" ${param.condition == 'petId' ? 'selected' : ''}>반려견번호(petId)</option>
+                     <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>계정(userId)</option>                           
+                </select>                            	            
                     <div class="keyword">
-                        <input type="text" name="userId" id="userIdInput" value="${param.userId}" placeholder="계정(userId) 검색">
+                        <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
@@ -91,24 +95,22 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>생애기록</th>
-                            <th>갤러리</th>
-                            <th>캘린더</th>
-                            <th>견주 일기</th>
-                            <th>게시판</th>
-                            <th>합계</th>
-                            <!--<th>댓글</th> -->                          
+                            <th>생애기록 ID</th>
+                            <th>petId</th>                            
+                            <th>userId</th>
+                            <th>이미지</th>    
+                            <th>날짜</th>
+                            <th>내용</th>      
                         </tr>
                     </thead>
                     <tbody>                   	
               			<tr>
-	                        <td>${contentStats.lifetimeCnt}</td>
-	                        <td>${contentStats.galleryCnt}</td>
-	                        <td>${contentStats.scheduleCnt}</td>
-	                        <td>${contentStats.diaryCnt}</td>
-	                        <td>${contentStats.boardCnt}</td>
-	                        <td>${contentStats.lifetimeCnt + contentStats.galleryCnt + contentStats.scheduleCnt + contentStats.diaryCnt + contentStats.boardCnt}</td>
-	                        <!-- <td>${contentStats.replyCnt}</td> -->
+	                        <td>${petContent.lifePetCnt}</td>
+	                        <td>${petContent.galleryPetCnt}</td>	                        
+	                        <td>${petContent.lifePetCnt}</td>
+	                        <td>${petContent.lifePetCnt}</td>
+	                        <td>${petContent.lifePetCnt}</td>
+	                        <td>${petContent.lifePetCnt}</td>
              		   </tr>   
                     </tbody>
                 </table>
@@ -126,15 +128,34 @@
 <script type="text/javascript">
 
 	$(function(){
+		
+		// 존재하지 않는 반려견번호 조회한 경우
+		if("${msg}" === "noPet"){
+			alert("존재하지 않는 반려견입니다.");
+		}else if("${msg}" === "noUserId"){
+			alert("존재하지 않는 사용자입니다.");
+		}
+		
 	
 		// 검색 버튼 이벤트 처리
 		$("#searchBtn").click(function(){
-			let userId = $("#userIdInput").val();	
-			location.href="/admin/content?userId=" + encodeURI(userId);
+			const keyword = $("#keywordInput").val();
+			const condition = $("#condition option:selected").val(); 
+			
+			if(condition == "petId"){ // petId로 검색하는 경우 숫자만 입력하도록 정규식 체크
+				let check = /^[0-9]+$/;  // 숫자 체크 정규식
+				
+				if (!check.test(keyword)) { // 숫자 외 입력값 있는 경우
+					alert("숫자만 입력 가능합니다.");
+				    return false;
+				}
+			}
+					
+			location.href="/admin/lifetime?keyword=" + encodeURI(keyword) + "&condition=" + condition;
 		})
 				
 		// 엔터키 입력 이벤트
-		$("#userIdInput").keydown(function(key){ 
+		$("#keywordInput").keydown(function(key){ 
 			
 			if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
 				$("#searchBtn").click();
@@ -146,7 +167,7 @@
 		
 		// 검색 초기화(전체 콘텐츠 조회)
 		$(".reset").click(function(){
-			location.href="/admin/content";
+			location.href="/admin/lifetime";
 		})		
 		
 		

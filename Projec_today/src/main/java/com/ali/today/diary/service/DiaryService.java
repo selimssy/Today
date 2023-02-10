@@ -72,6 +72,20 @@ public class DiaryService implements IDiaryService{
 		umapper.downContentsCnt(scheduleVO.getUserId()); // 컨텐츠 수 감소
 	}
 	
+	
+	
+	// 캘린더(계정별) 조회
+	@Override
+	public List<ScheduleVO> adAllSchedule(SearchVO search) {
+		return mapper.adAllSchedule(search);
+	}
+		
+	// 캘린더(계정별) 갯수 조회
+	@Override
+	public Integer scheduleCnt(String userId) {
+		return mapper.scheduleCnt(userId);
+	}
+	
 	///////////////////////////////////////////////////////////////////////////
 	
 	

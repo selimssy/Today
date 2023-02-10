@@ -98,12 +98,27 @@
 	
 	
 	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 스케줄(특정 계정) 조회 -->	
+	<select id="adAllSchedule" resultMap="CalendarMap">
+		SELECT *
+		FROM calendar			
+		<choose>
+			<when test = "keyword.equals('')">				
+			</when>
+			<otherwise>
+				WHERE user_id = #{keyword}
+			</otherwise>
+		</choose>
+		LIMIT #{pageStart}, 20
+	</select>
+	
+	
 	<!-- 전체 스케줄 갯수 -->
 	<select id="scheduleCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM calendar	
 		<choose>
-			<when test = "userId == null or userId.equals('')">				
+			<when test = "userId == null">				
 			</when>
 			<otherwise>
 				WHERE user_id = #{userId}

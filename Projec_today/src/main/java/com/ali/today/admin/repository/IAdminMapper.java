@@ -6,6 +6,9 @@ import com.ali.today.user.model.UserVO;
 
 public interface IAdminMapper {
 	
-	// 컨텐츠 현황 조회
+	// 전체 컨텐츠 현황 조회
 	List<UserVO> getUserList(String userId);
+	
+	
+	
 }

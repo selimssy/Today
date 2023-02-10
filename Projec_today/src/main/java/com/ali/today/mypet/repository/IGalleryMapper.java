@@ -38,4 +38,7 @@ public interface IGalleryMapper {
 	
 	// 전체(특정 계정) 갤러리 갯수
 	Integer galleryCnt(String userId); // 관리자 페이지
+	
+	// 전체(반려견별) 생애기록 갯수
+	Integer galleryPetCnt(Integer petId); // 관리자 페이지
 }

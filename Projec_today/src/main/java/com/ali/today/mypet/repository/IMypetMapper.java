@@ -31,4 +31,7 @@ public interface IMypetMapper {
 	
 	// 전체(특정 계정) 생애기록 갯수
 	Integer lifetimeCnt(String userId); // 관리자 페이지
+	
+	// 전체(반려견별) 생애기록 갯수
+	Integer lifePetCnt(Integer petId); // 관리자 페이지
 }

@@ -36,7 +36,7 @@
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
-	.deleteUser{cursor:pointer;}
+	.deletePlan, .reset{cursor:pointer;}
 	
 	.paging{padding: 10px 0 0; text-align: center;}
 	.paging ul li{list-style: none; display: inline-block;}
@@ -81,64 +81,43 @@
             </nav>
 
             <div class="content">
-                <h3>회원 관리</h3>
-                <div class="search">	           
-                    <select class="select" id="condition" name="condition">                            	                           	
-                         <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>아이디</option>
-                         <option value="name" ${param.condition == 'name' ? 'selected' : ''}>이름</option>
-                         <option value="nickname" ${param.condition == 'nickname' ? 'selected' : ''}>닉네임</option>
-                         <option value="email" ${param.condition == 'email' ? 'selected' : ''}>이메일</option>        
-                    </select>	            	            
+                <h3>캘린더 현황&nbsp;&nbsp; | &nbsp;&nbsp;
+                	<c:choose>
+                		<c:when test="${param.keyword == null || param.keyword ==''}">전체 캘린더 현황</c:when>
+                		<c:otherwise> ID : ${param.keyword}의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
+                	</c:choose>              	
+                </h3> 
+                <div class="search">	                                        	            
                     <div class="keyword">
-                        <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
+                        <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="계정(userId) 검색">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
-                    </div>	    
-                    <select class="select" id="order" name="order">    
-                    	<!--  <option value="regDate">--- 정렬 ---</option>   -->                      	                           	
-                        <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>가입일순</option>
-                        <option value="contents" ${param.order == 'contents' ? 'selected' : ''}>활동순</option>       
-                   </select>	          	            
-                </div>
+                    </div>	                                  	            
+                </div>    
                 <table>
                     <thead>
                         <tr>
-                            <th>아이디</th>
-                            <th>가입일</th>
-                            <th>이름</th>
-                            <th>닉네임</th>
-                            <th>이메일</th>
-                            <th>반려견 수</th>
-                            <th>컨텐츠 수</th>
-                            <th>관리</th>
-                            <!--이거 다 하고싶은데 일단 보류ㅠ 뭐 하나 할때마다 커뮤니티 업데이트도 해야하니까 업데이트날짜 하면서 같이 회원테이블의
-                                컨텐츠 수 +1할까?? 그리고 정렬도 가입일 순 활동순(비용 문제상 5개 컬럼 다 만들지는 말고 그냥 컨텐츠 수로?
-                                해결: 컨텐츠필드만 만들어서 컨텐츠수+1을 하고 상세버튼 누르면 각 테이블에서 갯수 각각 구해와서 출력하는걸로)?
-                            <th>생애 기록</th>
-                            <th>갤러리</th>
-                            <th>캘린더</th>
-                            <th>견주 일기</th>
-                            <th>게시판</th>-->
+                            <th>NUM</th>
+                            <th>userId</th>
+                            <th>일정명</th>
+                            <th>일정 날짜</th>
+                            <th>순번</th>
+                            <th>메모</th>                            
+                            <th>관리</th>                           
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:if test="${userList.size() > 0}">
-                    		<c:forEach var="member" items="${userList}">
+                    	<c:if test="${calendarList.size() > 0}">
+                    		<c:forEach var="plan" items="${calendarList}">
                     			<tr>
-		                            <td>${member.userId}</td>
-		                            <td><fmt:formatDate value="${member.regDate}" pattern="yyyy.MM.dd" /></td>
-		                            <td>${member.name}</td>
-		                            <td>${member.nickname}</td>
-		                            <td>${member.email}</td>
-		                            <td>${member.petCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/pet?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
-		                            <td>${member.contentsCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/content?userId=${member.userId}'/>">상세</a>)</td>
-		                            <td><span href="${member.userId}" class="deleteUser">삭제</span></td>
-		                            <!--<td>3</td>
-		                            <td>3</td>
-		                            <td>3</td>
-		                            <td>3</td>
-		                            <td>3</td>-->
+		                            <td>${plan.scheduleId}</td>
+		                            <td>${plan.userId}</td>
+		                            <td>${plan.scheduleTitle}</td>
+		                            <td><fmt:formatDate value="${plan.scheduleDate}" pattern="yyyy.MM.dd" /></td>
+		                            <td>${plan.scheduleNum}</td>
+		                            <td>${plan.scheduleDesc}</td>
+		                            <td><span href="${plan.scheduleId}" class=deletePlan>삭제</span></td>		                            
 		                        </tr>
                     		</c:forEach>
                     	</c:if>
@@ -154,21 +133,21 @@
 						<!-- 이전 버튼 -->
 						<c:if test="${pc.prev}">
 					        <li>
-								<a href="<c:url value='/admin/member${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
+								<a href="<c:url value='/admin/calendar${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
 							</li>
 						</c:if>
 						
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 							<li>                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-							   <a href="<c:url value='/admin/member${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
+							   <a href="<c:url value='/admin/calendar${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
 							</li>
 						</c:forEach>
 						  
 					   <!-- 다음 버튼 -->
 					   <c:if test="${pc.next}">
 						   <li>
-						       <a href="<c:url value='/admin/member${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
+						       <a href="<c:url value='/admin/calendar${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
 						   </li>
 					   </c:if>
 					</ul>
@@ -189,12 +168,8 @@
 		
 		// 검색 버튼 이벤트 처리
 		$("#searchBtn").click(function(){
-			let keyword = $("#keywordInput").val();
-			let condition = $("#condition option:selected").val(); 
-			let order = $("#order option:selected").val();
-			//const condition = $("#condition").val();
-			
-			location.href="/admin/member?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;
+			let keyword = $("#keywordInput").val().trim();	
+			location.href="/admin/calendar?keyword=" + encodeURI(keyword);
 		})
 				
 		// 엔터키 입력 이벤트
@@ -206,43 +181,43 @@
 			
 		})
 		
-		// 정렬 기준 변경 이벤트
-		$("#order").change(function(){
-			let keyword = $("#keywordInput").val();
-			let condition = $("#condition option:selected").val(); 
-			let order = $("#order option:selected").val();   
-			location.href="/admin/member?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;          
-        });
+		
+		// 일정 삭제
+		$(".deletePlan").click(function(){
+		    if(confirm("해당 일정(일정 번호: " + $(this).attr('href') + ")을 삭제하시겠습니까?")){
+		    	
+		    	let scheduleId = $(this).attr("href");          
+		   		let ScheduleVO = {
+		   			scheduleId: scheduleId,
+		   			userId: "${login.userId}"
+		        };
+		   		
+		   		$.ajax({
+		               type: 'post',
+		               dataType : "text",
+		               contentType: 'application/json',
+		               url: '/diary/deleteSchedule',
+		               data: JSON.stringify(ScheduleVO),
+		               success: function (response) {
+		            	   if(response === "success"){
+		         				alert("일정이 삭제되었습니다.");
+		         				window.location.reload();
+		         			}else{
+		         				alert("일정 삭제에 실패했습니다.");
+		         			}                           
+		               }, 
+		               error: function() {
+		                   console.log("통신 실패!"); 
+		               } 
+		           });					   	   
+		    }    
+	   });
 		
 		
 		
-		
-		// 회원 삭제
-		$(".deleteUser").click(function(){			
-			if(confirm("회원 삭제시 모든 반려견 정보와 기록이 삭제됩니다. 그래도 삭제하시겠습니까?")){
-				
-				let userId = $(this).attr("href");           
-	    		let user = {userId: userId};
-	    		
-	    		$.ajax({
-	                type: 'post',
-	                dataType : "text",
-	                contentType: 'application/json',
-	                url: '/user/deleteUser',
-	                data: JSON.stringify(user),
-	                success: function (response) {
-	         			if(response === 'success'){
-	         				alert("회원 삭제가 완료되었습니다.");
-	         				window.location.reload();
-	         			}else{
-	         				alert("회원 삭제에 실패했습니다.");
-	         			}
-	                }, 
-	                error: function() {
-	                    console.log("통신 실패"); 
-	                } 
-	            });
-			}
+		// 검색 초기화(전체 콘텐츠 조회)
+		$(".reset").click(function(){
+			location.href="/admin/calendar";
 		})
 		
 		

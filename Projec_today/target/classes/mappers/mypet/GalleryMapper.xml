@@ -103,4 +103,17 @@
 		</choose>
 	</select>
 	
+	<!-- 전체 생애기록(반려견별) 갯수 -->
+	<select id="galleryPetCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM gallery		
+		<choose>
+			<when test = "petId == null or petId.equals('')">				
+			</when>
+			<otherwise>
+				WHERE pet_id = #{petId}
+			</otherwise>
+		</choose>
+	</select>
+	
 </mapper>

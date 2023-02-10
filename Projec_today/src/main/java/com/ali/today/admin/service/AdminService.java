@@ -1,12 +1,15 @@
 package com.ali.today.admin.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.community.repository.IBoardMapper;
+import com.ali.today.diary.model.ScheduleVO;
 import com.ali.today.diary.repository.IDiaryMapper;
 import com.ali.today.mypet.repository.IGalleryMapper;
 import com.ali.today.mypet.repository.IMypetMapper;
@@ -24,6 +27,7 @@ public class AdminService implements IAdminService {
 	private IDiaryMapper dMapper;
 	
 	
+	// 컨텐츠 현황(계정별) 조회
 	@Override
 	public Map<String, Integer> contentStats(String userId) {
 		Integer lifetimeCnt = lMapper.lifetimeCnt(userId);  // 전체 생애기록 카드 수
@@ -43,4 +47,25 @@ public class AdminService implements IAdminService {
 		
 		return contentStats;
 	}
+	
+	
+	// 컨텐츠 현황(반려견별) 조회
+	@Override
+	public Map<String, Object> petContent(Integer petId) {
+		Integer lifePetCnt = lMapper.lifePetCnt(petId);
+		Integer galleryPetCnt = gMapper.galleryPetCnt(petId);
+		
+		Map<String, Object> petContent = new HashMap<>();
+		petContent.put("lifePetCnt", lifePetCnt);
+		petContent.put("galleryPetCnt", galleryPetCnt);
+		return petContent;
+	}
+	
+	
+	
+	
+
+	
+	
+	
 }

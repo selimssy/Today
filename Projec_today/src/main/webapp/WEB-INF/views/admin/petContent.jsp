@@ -59,7 +59,7 @@
                             <li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠</a></li>                            
                         </ul>
                     </li>
-                    <li><a href="<c:url value='/admin/content'/>"  class="checked">컨텐츠 관리</a>
+                    <li><a href="<c:url value='/admin/content'/>">컨텐츠 관리</a>
                         <ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
                             <li><a href="#">반려견 생애기록</a></li>
@@ -74,15 +74,15 @@
             </nav>
 
             <div class="content">
-                <h3>컨텐츠 현황&nbsp;&nbsp; | &nbsp;&nbsp;
+                <h3>반려견 컨텐츠 현황&nbsp;&nbsp; | &nbsp;&nbsp;
                 	<c:choose>
-                		<c:when test="${param.userId == null || param.userId ==''}">전체 컨텐츠 현황</c:when>
-                		<c:otherwise> ID : ${param.userId}의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
+                		<c:when test="${param.petId == null || param.petId ==''}">전체 반려견 컨텐츠 현황</c:when>
+                		<c:otherwise> petID : ${param.petId}(${petContent.petName})의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
                 	</c:choose>              	
                 </h3>           
                 <div class="search">	                                        	            
                     <div class="keyword">
-                        <input type="text" name="userId" id="userIdInput" value="${param.userId}" placeholder="계정(userId) 검색">
+                        <input type="text" name="petId" id="petIdInput" value="${param.petId}" placeholder="반려견 번호(petId) 검색">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
@@ -92,23 +92,16 @@
                     <thead>
                         <tr>
                             <th>생애기록</th>
-                            <th>갤러리</th>
-                            <th>캘린더</th>
-                            <th>견주 일기</th>
-                            <th>게시판</th>
+                            <th>갤러리</th>                            
                             <th>합계</th>
                             <!--<th>댓글</th> -->                          
                         </tr>
                     </thead>
                     <tbody>                   	
               			<tr>
-	                        <td>${contentStats.lifetimeCnt}</td>
-	                        <td>${contentStats.galleryCnt}</td>
-	                        <td>${contentStats.scheduleCnt}</td>
-	                        <td>${contentStats.diaryCnt}</td>
-	                        <td>${contentStats.boardCnt}</td>
-	                        <td>${contentStats.lifetimeCnt + contentStats.galleryCnt + contentStats.scheduleCnt + contentStats.diaryCnt + contentStats.boardCnt}</td>
-	                        <!-- <td>${contentStats.replyCnt}</td> -->
+	                        <td>${petContent.lifePetCnt}</td>
+	                        <td>${petContent.galleryPetCnt}</td>	                        
+	                        <td>${petContent.lifePetCnt + petContent.galleryPetCnt}</td>
              		   </tr>   
                     </tbody>
                 </table>
@@ -126,15 +119,28 @@
 <script type="text/javascript">
 
 	$(function(){
+		
+		// 존재하지 않는 반려견번호 조회한 경우
+		if("${msg}" === "noPet"){
+			alert("존재하지 않는 반려견입니다.");
+		}
+		
 	
 		// 검색 버튼 이벤트 처리
 		$("#searchBtn").click(function(){
-			let userId = $("#userIdInput").val();	
-			location.href="/admin/content?userId=" + encodeURI(userId);
+			let petId = $("#petIdInput").val().trim();	
+			let check = /^[0-9]+$/;  // 숫자 체크 정규식
+			
+			if (!check.test(petId)) { // 숫자 외 입력값 있는 경우
+				alert("숫자만 입력 가능합니다.");
+			    return false;
+			}
+			
+			location.href="/admin/petContent?petId=" + petId;
 		})
 				
 		// 엔터키 입력 이벤트
-		$("#userIdInput").keydown(function(key){ 
+		$("#petIdInput").keydown(function(key){ 
 			
 			if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
 				$("#searchBtn").click();
@@ -146,7 +152,7 @@
 		
 		// 검색 초기화(전체 콘텐츠 조회)
 		$(".reset").click(function(){
-			location.href="/admin/content";
+			location.href="/admin/petContent?";
 		})		
 		
 		

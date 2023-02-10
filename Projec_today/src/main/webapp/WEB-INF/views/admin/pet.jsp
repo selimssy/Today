@@ -60,13 +60,18 @@
             <nav class="main_nav">
                 <ul>
                     <li><a href="<c:url value='/admin/member'/>">회원 관리</a></li>
-                    <li><a href="<c:url value='/admin/pet'/>"  class="checked">반려견 관리</a></li>
+                    <li><a href="<c:url value='/admin/pet'/>"  class="checked">반려견 관리</a>
+                    	<ul class="sub_menu">
+                        	<li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>
+                            <li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠</a></li>                            
+                        </ul>
+                    </li>
                     <li><a href="<c:url value='/admin/content'/>">컨텐츠 관리</a>
                         <ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
                             <li><a href="#">반려견 생애기록</a></li>
                             <li><a href="#">갤러리</a></li>
-                            <li><a href="#">캘린더</a></li>
+                            <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="#">견주 일기</a></li>
                             <li><a href="#">커뮤니티 게시판</a></li>
                         </ul>
@@ -125,7 +130,7 @@
 		                            <td>${pet.gender}</td>
 		                            <td>${pet.instagram}</td>
 		                            <td>${pet.youtube}</td>
-		                            <td>${pet.contents}</td>
+		                            <td>${pet.contents}&nbsp;&nbsp;(<a href="<c:url value='/admin/petContent?petId=${pet.petId}'/>">상세</a>)</td>
 		                            <td>
 		                            	<c:if test="${pet.open == 0}">비공개</c:if>
 		                            	<c:if test="${pet.open == 1}">공개</c:if>
