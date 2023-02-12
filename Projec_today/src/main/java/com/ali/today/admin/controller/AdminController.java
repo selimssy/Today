@@ -18,6 +18,8 @@ import com.ali.today.common.PageCreator;
 import com.ali.today.common.SearchVO;
 import com.ali.today.diary.model.ScheduleVO;
 import com.ali.today.diary.service.IDiaryService;
+import com.ali.today.mypet.model.LifetimeVO;
+import com.ali.today.mypet.service.IMypetService;
 import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.service.IUserService;
@@ -32,6 +34,8 @@ public class AdminController {
 	IAdminService adService;
 	@Autowired
 	IDiaryService dService;
+	@Autowired
+	IMypetService lService;
 	
 	
 	// 회원관리 페이지 열기
@@ -103,20 +107,20 @@ public class AdminController {
 	}
 	
 	
-	/*
+	
 	// 생애기록 관리 페이지 열기
 	@GetMapping("/lifetime")
 	public void lifetime(SearchVO search, Model model) {
 		
-		search.setCountPerPage(20);
 		PageCreator pc = new PageCreator();
 		pc.setPaging(search); 
-		//List<UserVO> userList = uservice.selectAll(search);
-		//pc.setArticleTotalCount(uservice.countUsers(search));
 		
-		model.addAttribute("userList", userList);
+		List<LifetimeVO> lifetimeList = lService.adLifeSelect(search);
+		pc.setArticleTotalCount(lService.lifetimeCnt(search));
+
+		model.addAttribute("lifetimeList", lifetimeList);
 		model.addAttribute("pc", pc);
-	}*/
+	}
 	
 	
 	// 캘린더 관리 페이지 열기

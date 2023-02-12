@@ -27,14 +27,22 @@
 	.sub_menu li a{font-size: 14px;}
 	.content{width: calc(100% - 220px); margin-top: 20px; position: relative;/*float: left;*/}
 	.content h3{padding-left: 10%;}
-	.content .search{position: absolute; top: 15px; right: 10%;} 	
+	.content .search{position: absolute; top: 15px; right: 10%;} 
+	.content .search .select{height: 25px; display: inline-block;}
+	.content .search .select[name='order']{margin-left: 20px;}
 	.content .search .keyword{height: 25px; display: inline-block;}
 	.content .search input[type='text']{height: 20px;}
 	.content table{width: 80%; text-align: center; margin: 20px auto; }
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
+	.content img{width:100px; object-fit: cover;}
 	.reset, #searchBtn{cursor:pointer;}
+	
+	.paging{padding: 10px 0 0; text-align: center;}
+	.paging ul li{list-style: none; display: inline-block;}
+	.paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
+	.paging ul li a.page-active{color: #fff; background: #384d75; border-radius: 15px}
 
 	@media all and (max-width:1065px){	
 	    /*.header_inner, .main_inner{width: 100%;}*/
@@ -76,8 +84,8 @@
             <div class="content">
                 <h3>반려견 현황&nbsp;&nbsp; | 반려견 생애기록&nbsp;&nbsp;
                 	<c:choose>
-                		<c:when test="${param.petId == null || param.petId ==''}">전체 조회</c:when>
-                		<c:otherwise> petID : ${param.petId}(${petContent.petName})의 반려견 생애기록 조회 <button type="button" class="reset">초기화</button> </c:otherwise>
+                		<c:when test="${param.keyword == null || param.keyword ==''}">전체 조회</c:when>
+                		<c:otherwise> petID : ${param.keyword}(${petContent.petName})의 반려견 생애기록 조회 <button type="button" class="reset">초기화</button> </c:otherwise>
                 	</c:choose>              	
                 </h3>           
                 <div class="search">	            
@@ -101,20 +109,52 @@
                             <th>이미지</th>    
                             <th>날짜</th>
                             <th>내용</th>      
+                            <th>관리</th>  
                         </tr>
                     </thead>
-                    <tbody>                   	
-              			<tr>
-	                        <td>${petContent.lifePetCnt}</td>
-	                        <td>${petContent.galleryPetCnt}</td>	                        
-	                        <td>${petContent.lifePetCnt}</td>
-	                        <td>${petContent.lifePetCnt}</td>
-	                        <td>${petContent.lifePetCnt}</td>
-	                        <td>${petContent.lifePetCnt}</td>
-             		   </tr>   
+                    <tbody>
+                    	<c:if test="${lifetimeList.size() > 0}">
+                    		<c:forEach var="lifetime" items="${lifetimeList}">
+                    			<tr>
+		                            <td>${lifetime.cardId}</td>
+		                            <td>${lifetime.petId}</td>
+		                            <td>${lifetime.userId}</td>
+		                            <td> <img alt="lifetime_img" src="<c:url value='${lifetime.imagePath}'/>"> </td>
+		                            <td><fmt:formatDate value="${lifetime.date}" pattern="yyyy.MM.dd" /></td>
+		                            <td>${lifetime.content}</td>
+		                            <td>관리</td>
+		                        </tr>
+                    		</c:forEach>
+                    	</c:if>   
                     </tbody>
                 </table>
                 
+                <!-- 페이징 처리 부분  -->
+			    <div class="paging">
+					<ul>
+						<!-- 이전 버튼 -->
+						<c:if test="${pc.prev}">
+					        <li>
+								<a href="<c:url value='/admin/lifetime${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
+							</li>
+						</c:if>
+						
+						<!-- 페이지 버튼 -->
+						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
+							<li>                                                       
+							   <a href="<c:url value='/admin/lifetime${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
+							</li>
+						</c:forEach>
+						  
+					   <!-- 다음 버튼 -->
+					   <c:if test="${pc.next}">
+						   <li>
+						       <a href="<c:url value='/admin/lifetime${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
+						   </li>
+					   </c:if>
+					</ul>
+				</div>
+				<!-- 페이징 처리 끝 -->
                 
               
                 

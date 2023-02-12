@@ -2,6 +2,7 @@ package com.ali.today.mypet.service;
 
 import java.util.List;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.mypet.model.GalleryPageVO;
 import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
@@ -24,8 +25,11 @@ public interface IMypetService {
 	void deleteCard(LifetimeVO lifetimeVO);
 	
 	
+	//전체(특정 계정, 반려견) 생애기록 조회
+	List<LifetimeVO> adLifeSelect(SearchVO search); // 관리자 페이지
 	
-	
+	// 전체(특정 계정, 반려견) 생애기록 갯수
+	Integer lifetimeCnt(SearchVO search); // 관리자 페이지
 	
 	//////////////////////////////////////////////////////////////////////////
 	

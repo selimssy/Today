@@ -15,6 +15,25 @@
 		<result property="imagePath" column="image_path"/>
 		
 	</resultMap>
+	
+	
+	<!-- 관리자 페이지 반려견 생애기록 검색 -->
+	<sql id="searchLifetime">  
+		<choose>
+			<when test = "keyword.equals('')">				
+			</when>
+			<otherwise>				
+				<if test="condition == 'userId'">  
+					WHERE user_id = #{keyword}
+				</if>
+				<if test="condition == 'petId'">  
+					WHERE pet_id = #{keyword}
+				</if>
+			</otherwise>
+		</choose>
+	</sql>
+	
+	
 
 	
 	<!-- 생애기록 추가 -->
@@ -79,51 +98,25 @@
 	
 	
 	<!-- *** 관리자 페이지 ***-->
-	<!-- 전체 생애기록(계정별) 갯수 --> <!-- 합치는 고민... -->
+	<!-- 전체 생애기록(계정별, 반려견별) 조회 -->
+	<select id="adLifeSelect"  resultMap="MypetMap">
+		SELECT *
+		FROM lifetime_card	
+		<include refid="searchLifetime"/>
+		ORDER BY card_id DESC
+		LIMIT #{pageStart}, 10 
+	</select>
+	
+	<!-- 전체 생애기록(계정별, 반려견별) 갯수 --> 
 	<select id="lifetimeCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM lifetime_card		
-		<choose>
-			<when test = "keyword.equals('')">				
-			</when>
-			<otherwise>				
-				<if test="condition == 'userId'">  
-					WHERE user_id = #{keyword}
-				</if>
-				<if test="condition == 'petId'">  
-					WHERE pet_id = #{keyword}
-				</if>
-			</otherwise>
-		</choose>
+		<include refid="searchLifetime"/>
 	</select>
 	
 	
-	<!--  
-	<select id="lifetimeCnt" resultType="int">
-		SELECT COUNT(*)
-		FROM lifetime_card		
-		<choose>
-			<when test = "keyword.equals('')">				
-			</when>
-			<otherwise>
-				WHERE user_id = #{keyword}
-			</otherwise>
-		</choose>
-	</select>  -->
 	
-	<!-- 전체 생애기록(반려견별) 갯수 -->
-	<!--
-	<select id="lifePetCnt" resultType="int">
-		SELECT COUNT(*)
-		FROM lifetime_card		
-		<choose>
-			<when test = "keyword.equals('')">				
-			</when>
-			<otherwise>
-				WHERE pet_id = #{keyword}
-			</otherwise>
-		</choose>
-	</select>  -->
+  
 	
 	
 </mapper>

@@ -30,9 +30,10 @@ public interface IMypetMapper {
 	// 반려견 삭제시 해당 반려견 생애기록 전부 삭제
 	void deleteAllPetCard(Integer petId);
 	
-	// 전체(특정 계정) 생애기록 갯수
-	Integer lifetimeCnt(SearchVO search); // 관리자 페이지
+	//전체(특정 계정, 반려견) 생애기록 조회
+	List<LifetimeVO> adLifeSelect(SearchVO search); // 관리자 페이지
 	
-	// 전체(반려견별) 생애기록 갯수
-	//Integer lifePetCnt(SearchVO search); // 관리자 페이지
+	// 전체(특정 계정, 반려견) 생애기록 갯수
+	Integer lifetimeCnt(SearchVO search); // 관리자 페이지
+
 }

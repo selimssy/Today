@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ali.today.common.SearchVO;
 import com.ali.today.mypet.model.GalleryPageVO;
 import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
@@ -65,6 +66,19 @@ public class MypetService implements IMypetService {
 	}
 
 	
+	
+	//전체(특정 계정, 반려견) 생애기록 조회
+	@Override
+	public List<LifetimeVO> adLifeSelect(SearchVO search) {
+		return mapper.adLifeSelect(search);  // 관리자 페이지
+	}
+	
+	
+	// 전체(특정 계정, 반려견) 생애기록 갯수
+	@Override
+	public Integer lifetimeCnt(SearchVO search) {
+		return mapper.lifetimeCnt(search);  // 관리자 페이지
+	}
 	
 	
 	//////////////////////////////////////////////////////////

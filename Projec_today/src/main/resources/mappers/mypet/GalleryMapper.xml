@@ -19,6 +19,21 @@
 	
 	
 	
+	<!-- 관리자 페이지 반려견 생애기록 검색 -->
+	<sql id="searchGallery">  
+		<choose>
+			<when test = "keyword.equals('')">				
+			</when>
+			<otherwise>				
+				<if test="condition == 'userId'">  
+					WHERE user_id = #{keyword}
+				</if>
+				<if test="condition == 'petId'">  
+					WHERE pet_id = #{keyword}
+				</if>
+			</otherwise>
+		</choose>
+	</sql>
 	
 	
 	
@@ -89,39 +104,26 @@
 	
 	
 	
+	
 	<!-- *** 관리자 페이지 ***-->
-	<!-- 전체 갤러리 갯수 -->
+	<!-- 전체 갤러리(계정별, 반려견별) 조회 -->
+	<select id="adGalSelect" resultMap="GalleryMap">
+		SELECT *
+		FROM gallery 
+		<include refid="searchGallery"/>
+		ORDER BY img_id DESC
+	</select>
+	
+	
+	<!-- 전체 갤러리(계정별, 반려견별) 갯수 -->
 	<select id="galleryCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM gallery				
-		<choose>
-			<when test = "keyword.equals('')">				
-			</when>
-			<otherwise>
-				<if test="condition == 'userId'">  
-					WHERE user_id = #{keyword}
-				</if>
-				<if test="condition == 'petId'">  
-					WHERE pet_id = #{keyword}
-				</if>
-			</otherwise>
-		</choose>
+		<include refid="searchGallery"/>
 	</select>
 	
 	
 	
-	<!-- 전체 생애기록(반려견별) 갯수 -->
-	<!-- 
-	<select id="galleryPetCnt" resultType="int">
-		SELECT COUNT(*)
-		FROM gallery		
-		<choose>
-			<when test = "keyword.equals('')">				
-			</when>
-			<otherwise>
-				WHERE pet_id = #{keyword}
-			</otherwise>
-		</choose>
-	</select>  -->
+	
 	
 </mapper>
