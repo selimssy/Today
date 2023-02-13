@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ali.today.admin.service.IAdminService;
 import com.ali.today.common.PageCreator;
 import com.ali.today.common.SearchVO;
 import com.ali.today.diary.model.ScheduleVO;
 import com.ali.today.diary.service.IDiaryService;
+import com.ali.today.mypet.model.GalleryVO;
 import com.ali.today.mypet.model.LifetimeVO;
 import com.ali.today.mypet.service.IMypetService;
 import com.ali.today.user.model.PetVO;
@@ -82,7 +82,7 @@ public class AdminController {
 	public void petContent(SearchVO search, Model model) {
 		
 		
-		System.out.println("petId : " + search.getKeyword());
+		//System.out.println("petId : " + search.getKeyword());
 		Map<String, Object> petContent = adService.petContent(search);	
 		if(!search.getKeyword().equals("")) { // petId 검색한 경우 반려견 이름 같이 전달
 			Integer petId = Integer.valueOf(search.getKeyword()); 
@@ -118,9 +118,69 @@ public class AdminController {
 		List<LifetimeVO> lifetimeList = lService.adLifeSelect(search);
 		pc.setArticleTotalCount(lService.lifetimeCnt(search));
 
-		model.addAttribute("lifetimeList", lifetimeList);
-		model.addAttribute("pc", pc);
+		if(search.getCondition().equals("petId") && !search.getKeyword().equals("")) { // petId 검색한 경우: 반려견 이름 같이 전달
+			Integer petId = Integer.valueOf(search.getKeyword()); 
+			if(uservice.selectOnePet(petId) == null) { // 없는 반려견 검색한 경우
+				model.addAttribute("msg", "noPet");
+			}else { // 존재하는 petId로 검색
+				model.addAttribute("petName", uservice.selectOnePet(petId).getPetName());
+				model.addAttribute("lifetimeList", lifetimeList);
+				model.addAttribute("pc", pc);
+			}
+		}else if(search.getCondition().equals("userId") && !search.getKeyword().equals("")){  //userId 검색
+			if(uservice.selectOne(search.getKeyword()) == null) { // 없는 userId 검색한 경우
+				model.addAttribute("msg", "noUserId");
+			}else { // 존재하는 userId로 검색
+				model.addAttribute("lifetimeList", lifetimeList);
+				model.addAttribute("pc", pc);
+			}
+		}else { // 전체조회
+			model.addAttribute("lifetimeList", lifetimeList);
+			model.addAttribute("pc", pc);
+		}					
 	}
+	
+	
+	
+	
+	// 갤러리 관리 페이지 열기
+	@GetMapping("/gallery")
+	public void gallery(SearchVO search, Model model) {
+		
+		PageCreator pc = new PageCreator();
+		pc.setPaging(search); 
+		
+		List<GalleryVO> galleryList = lService.adGalSelect(search);
+		pc.setArticleTotalCount(lService.galleryCnt(search));
+
+		if(search.getCondition().equals("petId") && !search.getKeyword().equals("")) { // petId 검색한 경우: 반려견 이름 같이 전달
+			Integer petId = Integer.valueOf(search.getKeyword()); 
+			if(uservice.selectOnePet(petId) == null) { // 없는 반려견 검색한 경우
+				model.addAttribute("msg", "noPet");
+			}else { // 존재하는 petId로 검색
+				model.addAttribute("petName", uservice.selectOnePet(petId).getPetName());
+				model.addAttribute("galleryList", galleryList);
+				model.addAttribute("pc", pc);
+			}
+		}else if(search.getCondition().equals("userId") && !search.getKeyword().equals("")){  //userId 검색
+			if(uservice.selectOne(search.getKeyword()) == null) { // 없는 userId 검색한 경우
+				model.addAttribute("msg", "noUserId");
+			}else { // 존재하는 userId로 검색
+				model.addAttribute("galleryList", galleryList);
+				model.addAttribute("pc", pc);
+			}
+		}else { // 전체조회
+			model.addAttribute("galleryList", galleryList);
+			model.addAttribute("pc", pc);
+		}			
+		
+		System.out.println(search.getCountPerPage());
+		System.out.println(pc.getBeginPage());
+		System.out.println(pc.getEndPage());
+		System.out.println(pc.getArticleTotalCount());
+	}
+
+	
 	
 	
 	// 캘린더 관리 페이지 열기

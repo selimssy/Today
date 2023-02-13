@@ -37,7 +37,7 @@
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
 	.content img{width:100px; object-fit: cover;}
-	.reset, #searchBtn, .deleteCardBtn{cursor:pointer;}
+	.reset, #searchBtn, .deleteCardBtn, .delGallery{cursor:pointer;}
 	
 	.paging{padding: 10px 0 0; text-align: center;}
 	.paging ul li{list-style: none; display: inline-block;}
@@ -71,7 +71,7 @@
                         <ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
                             <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
-                            <li><a href="#">갤러리</a></li>
+                            <li><a href="<c:url value='/admin/gallery'/>">갤러리</a></li>
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="#">견주 일기</a></li>
                             <li><a href="#">커뮤니티 게시판</a></li>
@@ -82,7 +82,7 @@
             </nav>
 
             <div class="content">
-                <h3>컨텐츠 현황&nbsp;&nbsp; | 반려견 생애기록&nbsp;&nbsp;
+                <h3>컨텐츠 현황&nbsp;&nbsp; | 갤러리&nbsp;&nbsp;
                 	<c:choose>
                 		<c:when test="${param.keyword == null || param.keyword ==''}">전체 조회</c:when>
                 		<c:when test="${param.condition == 'userId' && param.keyword !=''}">(계정 : ${param.keyword}) <button type="button" class="reset">초기화</button></c:when>
@@ -106,26 +106,26 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>생애기록 ID</th>
+                            <th>갤러리 ID</th>
                             <th>userId</th>
                             <th>petId</th>                           
                             <th>이미지</th>    
-                            <th>날짜</th>
+                            <th>제목</th>
                             <th>내용</th>      
                             <th>관리</th>  
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:if test="${lifetimeList.size() > 0}">
-                    		<c:forEach var="lifetime" items="${lifetimeList}">
+                    	<c:if test="${galleryList.size() > 0}">
+                    		<c:forEach var="gallery" items="${galleryList}">
                     			<tr>
-		                            <td>${lifetime.cardId}</td>
-		                            <td>${lifetime.userId}</td>
-		                            <td>${lifetime.petId}</td>
-		                            <td> <img alt="lifetime_img" src="<c:url value='${lifetime.imagePath}'/>"> </td>
-		                            <td><fmt:formatDate value="${lifetime.date}" pattern="yyyy.MM.dd" /></td>
-		                            <td>${lifetime.content}</td>
-		                            <td><span href="${lifetime.cardId}" class="deleteCardBtn">삭제</span></td>
+		                            <td>${gallery.imgId}</td>
+		                            <td>${gallery.userId}</td>
+		                            <td>${gallery.petId}</td>
+		                            <td> <img alt="lifetime_img" src="<c:url value='${gallery.imagePath}'/>"> </td>
+		                            <td>${gallery.title}</td>
+		                            <td>${gallery.content}</td>
+		                            <td><span href="${gallery.imgId}" class="delGallery">삭제</span></td>
 		                        </tr>
                     		</c:forEach>
                     	</c:if>   
@@ -138,21 +138,21 @@
 						<!-- 이전 버튼 -->
 						<c:if test="${pc.prev}">
 					        <li>
-								<a href="<c:url value='/admin/lifetime${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
+								<a href="<c:url value='/admin/gallery${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
 							</li>
 						</c:if>
 						
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 							<li>                                                       
-							   <a href="<c:url value='/admin/lifetime${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
+							   <a href="<c:url value='/admin/gallery${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
 							</li>
 						</c:forEach>
 						  
 					   <!-- 다음 버튼 -->
 					   <c:if test="${pc.next}">
 						   <li>
-						       <a href="<c:url value='/admin/lifetime${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
+						       <a href="<c:url value='/admin/gallery${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
 						   </li>
 					   </c:if>
 					</ul>
@@ -194,7 +194,7 @@
 				}
 			}
 					
-			location.href="/admin/lifetime?keyword=" + encodeURI(keyword) + "&condition=" + condition;
+			location.href="/admin/gallery?keyword=" + encodeURI(keyword) + "&condition=" + condition;
 		})
 				
 		// 엔터키 입력 이벤트
@@ -210,20 +210,21 @@
 		
 		// 검색 초기화(전체 콘텐츠 조회)
 		$(".reset").click(function(){
-			location.href="/admin/lifetime";
+			location.href="/admin/gallery";
 		})		
 		
 		
 		
 		
-		// 생애기록 삭제
-		$(document).on("click", ".deleteCardBtn", function () {
-			if(confirm("생애기록을 삭제하시겠습니까?")){
+		// 갤러리 삭제	
+		$(document).on("click", ".delGallery", function () {
+			
+			if(confirm("갤러리(imgId: " + $(this).attr('href') + ")를 삭제하시겠습니까?")){
 				
-				let cardId = $(this).attr("href");	 
+				let imgId = $(this).attr("href");	 
 				let userId = $(this).parent().prev().prev().prev().prev().prev().text();
-	    		let lifetimeCard = {
-	    				"cardId": cardId,
+	    		let gallery = {
+	    				"imgId": imgId,
 	    				"userId": userId
 	    				};
 	    		
@@ -231,14 +232,14 @@
 	                type: 'post',
 	                dataType : "text",
 	                contentType: 'application/json',
-	                url: '/mypet/deleteCard',
-	                data: JSON.stringify(lifetimeCard),
+	                url: '/mypet/deleteGallery',
+	                data: JSON.stringify(gallery),
 	                success: function (response) {
 	         			if(response === 'success'){
-	         				alert("생애기록이 삭제되었습니다.");
+	         				alert("갤러리가 삭제되었습니다.");
 	         				window.location.reload();
 	         			}else{
-	         				alert("생애기록 삭제에 실패했습니다.");
+	         				alert("갤러리 삭제에 실패했습니다.");
 	         			}
 	                }, 
 	                error: function() {
@@ -248,6 +249,9 @@
 			}
 		    
         })
+		
+		
+		
 		
 		
 		

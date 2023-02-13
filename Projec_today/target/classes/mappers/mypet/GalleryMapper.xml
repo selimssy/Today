@@ -19,7 +19,7 @@
 	
 	
 	
-	<!-- 관리자 페이지 반려견 생애기록 검색 -->
+	<!-- 관리자 페이지 반려견 갤러리 검색 -->
 	<sql id="searchGallery">  
 		<choose>
 			<when test = "keyword.equals('')">				
@@ -112,6 +112,7 @@
 		FROM gallery 
 		<include refid="searchGallery"/>
 		ORDER BY img_id DESC
+		LIMIT #{pageStart}, 10 
 	</select>
 	
 	

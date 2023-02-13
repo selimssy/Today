@@ -140,5 +140,19 @@ public class MypetService implements IMypetService {
 	public List<GalleryVO> posterGallery(Integer petId) {
 		return gmapper.posterGallery(petId);
 	}
+	
+	
+	//전체(특정 계정, 반려견) 갤러리 조회
+	@Override
+	public List<GalleryVO> adGalSelect(SearchVO search) {
+		return gmapper.adGalSelect(search);
+	}
+	
+	// 전체(특정 계정) 갤러리 갯수
+	@Override
+	public Integer galleryCnt(SearchVO search) {
+		return gmapper.galleryCnt(search);
+	}
+	
 
 }

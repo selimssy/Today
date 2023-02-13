@@ -31,7 +31,10 @@ public interface IMypetService {
 	// 전체(특정 계정, 반려견) 생애기록 갯수
 	Integer lifetimeCnt(SearchVO search); // 관리자 페이지
 	
+	
+	
 	//////////////////////////////////////////////////////////////////////////
+	
 	
 	
 	// 갤러리 사진 추가
@@ -49,9 +52,16 @@ public interface IMypetService {
 	//갤러리 삭제
 	void deleteGallery(GalleryVO gallery);
 	
-	// 특정 반려동물 갤러리 수 조회
-	Integer countGalleries(Integer petId);
-	
 	// 갤러리 포스터용 전체 조회
 	List<GalleryVO> posterGallery(Integer petId);
+	
+	// 특정 반려동물 갤러리 수 조회
+	Integer countGalleries(Integer petId);	
+		
+	//전체(특정 계정, 반려견) 갤러리 조회
+	List<GalleryVO> adGalSelect(SearchVO search); // 관리자 페이지
+		
+	// 전체(특정 계정) 갤러리 갯수
+	Integer galleryCnt(SearchVO search); // 관리자 페이지
+	
 }

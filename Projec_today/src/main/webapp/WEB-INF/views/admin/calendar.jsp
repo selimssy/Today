@@ -69,7 +69,7 @@
                     <li><a href="<c:url value='/admin/content'/>">컨텐츠 관리</a>
                         <ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
-                            <li><a href="#">반려견 생애기록</a></li>
+                            <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
                             <li><a href="#">갤러리</a></li>
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="#">견주 일기</a></li>
@@ -186,10 +186,11 @@
 		$(".deletePlan").click(function(){
 		    if(confirm("해당 일정(일정 번호: " + $(this).attr('href') + ")을 삭제하시겠습니까?")){
 		    	
-		    	let scheduleId = $(this).attr("href");          
+		    	let scheduleId = $(this).attr("href");   
+		    	let userId = $(this).parent().prev().prev().prev().prev().prev().text();
 		   		let ScheduleVO = {
 		   			scheduleId: scheduleId,
-		   			userId: "${login.userId}"
+		   			userId: userId
 		        };
 		   		
 		   		$.ajax({
