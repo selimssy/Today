@@ -247,7 +247,7 @@ public class DiaryController {
 		}else {						
 			if(diary.getWriter().equals(user.getUserId())) { // 본인 일기인지 체크
 				model.addAttribute("diary", diary);
-				model.addAttribute("p", search);  				
+				model.addAttribute("p", search); 
 				return "diary/diary_content";
 			}else { // 본인 일기 아닌 경우
 				ra.addFlashAttribute("noAccess", "noAccess");
@@ -298,15 +298,11 @@ public class DiaryController {
 		
 		//System.out.println(diaryNo + "번 게시물 삭제 요청");
 		service.delete(diary);
-		ra.addFlashAttribute("msg", "delSuccess");
-		
+		ra.addFlashAttribute("msg", "delSuccess");		
 		ra.addAttribute("page", paging.getPage());   
-		ra.addAttribute("countPerPage", paging.getCountPerPage());
 		
 		return "redirect:/diary/list";
 	}
-	
-	
 	
 	
 	

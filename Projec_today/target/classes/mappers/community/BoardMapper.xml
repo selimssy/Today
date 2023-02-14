@@ -12,7 +12,8 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="viewCnt" column="view_cnt"/>
 		<result property="hashtag" column="hashtag"/>
-		<result property="replyCnt" column="reply_cnt"/>		
+		<result property="replyCnt" column="reply_cnt"/>	
+		<result property="open" column="open"/>	
 	</resultMap>	
 
 
@@ -30,26 +31,56 @@
 
 
 
-	<!-- 중복되는 동적 SQL문에 대한 처리 -->
+	<!-- 중복되는 동적 SQL문에 대한 처리(게시판 검색처리) -->
 	<sql id="searchBoard">  
 		<!-- 동적 SQL구문 -->
 		<if test="condition == 'title'">  
-		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		AND title LIKE CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="condition == 'writer'">
-		WHERE writer LIKE CONCAT('%',#{keyword},'%')
+		AND writer LIKE CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="condition == 'content'">
-		WHERE content LIKE CONCAT('%',#{keyword},'%')
+		AND content LIKE CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="condition == 'titleContent'">
-		WHERE title LIKE CONCAT('%',#{keyword},'%')
-		OR content LIKE CONCAT('%',#{keyword},'%')
+		AND (title LIKE CONCAT('%',#{keyword},'%') OR content LIKE CONCAT('%',#{keyword},'%'))
 		</if>
 		<if test="condition == 'hashtag'">
-		WHERE hashtag LIKE CONCAT('%',#{keyword},'%')
+		AND hashtag LIKE CONCAT('%',#{keyword},'%')
 		</if>
 	</sql>
+	
+	
+	
+	<!-- 중복되는 동적 SQL문에 대한 처리(관리자 페이지 커뮤니티 게시판 검색) -->
+	<sql id="adSearchBoard">  
+		<choose>
+			<when test = "keyword.equals('')">				
+			</when>
+			<otherwise>				
+				<if test="condition == 'userId'">  
+					WHERE writer = #{keyword}
+				</if>
+				<if test="condition == 'open'">  
+					WHERE open = #{keyword}
+				</if>
+			</otherwise>
+		</choose>
+	</sql>
+	
+	
+	<!-- 중복되는 동적 SQL문에 대한 처리(관리자 페이지 게시글 정렬방법) -->
+	<sql id="orderAdBoard">  
+		<if test="order == 'regDate' or order.equals('')">  
+		ORDER BY board_no DESC
+		</if>
+		<if test="order == 'viewCnt'">
+		ORDER BY view_cnt DESC
+		</if>		
+	</sql>
+	
+	
 	
 
 	<!-- 게시글 등록 -->
@@ -98,6 +129,7 @@
 		SELECT b.board_no, b.title, b.content, b.reg_date, b.writer, b.view_cnt, b.reply_cnt, b.hashtag, u.nickname
 		FROM board b LEFT JOIN user u
 		ON b.writer = u.user_id
+		WHERE open = 1
 		<include refid="searchBoard"/>
 		ORDER BY board_no DESC
 		LIMIT #{pageStart}, 10 
@@ -108,6 +140,7 @@
 	<select id="countArticles" resultType="int">
 		SELECT COUNT(*)
 		FROM board
+		WHERE open = 1
 		<include refid="searchBoard"/>
 	</select>
 	
@@ -124,20 +157,30 @@
 	
 	
 	
+	
 	<!-- *** 관리자 페이지 ***-->
-	<!-- 전체 게시글 갯수 -->
+	<!-- 전체 게시글(특정 계정, 공개여부별) 조회 -->	
+	<select id="adAllBoard" resultMap="BoardMap">
+		SELECT *
+		FROM board			
+		<include refid="adSearchBoard"/>
+		<include refid="orderAdBoard"/>	
+		LIMIT #{pageStart}, 10
+	</select>
+	
+	<!-- 전체 게시글(특정 계정, 공개여부별)  갯수 -->
 	<select id="boardCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM board		
-		<choose>
-			<when test = "keyword.equals('')">				
-			</when>
-			<otherwise>
-				WHERE writer = #{keyword}
-			</otherwise>
-		</choose>
+		<include refid="adSearchBoard"/>
 	</select>
 	
+	<!-- 게시글 비공개 전환 -->
+	<update id="offBoard">
+		UPDATE board
+		SET open = 0
+		WHERE board_no = #{boardNO}
+	</update>
 
 	
 	<!-- ////////////////////// 댓글 SQL //////////////////// -->

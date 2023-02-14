@@ -116,6 +116,25 @@ public class BoardService implements IBoardService {
 
 
 	
+	// 관리자 페이지 전체 게시글(특정 계정, 공개여부별) 조회
+	@Override
+	public List<BoardVO> adAllBoard(SearchVO search) {
+		return mapper.adAllBoard(search);  //관리자 페이지
+	}	
+	
+	// 관리자 페이지 전체(특정 계정) 게시물 갯수
+	@Override
+	public Integer boardCnt(SearchVO search) {
+		return mapper.boardCnt(search);  //관리자 페이지
+	}
+	
+	// 게시글 비공개 전환
+	@Override
+	public void offBoard(Integer boardNo) {
+		mapper.offBoard(boardNo);  //관리자 페이지
+	}
+	
+	
 	//--------------------------------- reply 게시판 메서드----------------------------------------
 	
 	

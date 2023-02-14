@@ -15,6 +15,7 @@ public class UserVO {
 	private PetVO pet;
 	private Integer contentsCnt;
 	private Integer petCnt;
+	private Integer replyCnt;
 	
 	public PetVO getPet() {
 		return pet;
@@ -111,13 +112,20 @@ public class UserVO {
 	public void setPetCnt(Integer petCnt) {
 		this.petCnt = petCnt;
 	}
+	public Integer getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(Integer replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", password=" + password + ", name=" + name + ", nickname=" + nickname
 				+ ", email=" + email + ", regDate=" + regDate + ", sessionId=" + sessionId + ", limitTime=" + limitTime
-				+ ", pet=" + pet + ", contentsCnt=" + contentsCnt + ", petCnt=" + petCnt + ", autoLogin=" + autoLogin
-				+ "]";
+				+ ", pet=" + pet + ", contentsCnt=" + contentsCnt + ", petCnt=" + petCnt + ", replyCnt=" + replyCnt
+				+ ", autoLogin=" + autoLogin + "]";
 	}
+
 
 }

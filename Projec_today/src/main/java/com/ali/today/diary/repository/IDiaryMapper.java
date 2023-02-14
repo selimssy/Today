@@ -63,6 +63,9 @@ public interface IDiaryMapper {
 	// 회원탈퇴시 모든 일기 삭제
 	void deleteAllDiary(String userId);
 	
+	// 전체 일기(특정 계정) 조회
+	List<DiaryVO> adAllDiary(SearchVO search); // 관리자 페이지
+	
 	// 전체(특정 계정) 일기 갯수
 	Integer diaryCnt(SearchVO search); // 관리자 페이지
 	

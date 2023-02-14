@@ -16,6 +16,7 @@
 		<result property="limitTime" column="limit_time"/>
 		<result property="contentsCnt" column="contents_cnt"/>
 		<result property="petCnt" column="pet_count"/>
+		<result property="replyCnt" column="reply_count"/>
 		<collection property="pet" resultMap="PetMap"/>	
 	</resultMap>
 	
@@ -182,7 +183,9 @@
 	<!-- ******관리자 페이지******* -->
 	<!-- 전체회원 조회 (검색, 페이징, 정렬) -->
 	<select id="selectAll" resultMap="UserMap">
-		SELECT u.user_id, u.reg_date, u.name, u.nickname, u.email, u.contents_cnt, (select count(*) from pet where u.user_id=user_id) pet_count
+		SELECT u.user_id, u.reg_date, u.name, u.nickname, u.email, u.contents_cnt, 
+		(select count(*) from pet where u.user_id=user_id) pet_count,
+		(select count(*) from reply where u.user_id=replyer) reply_count
 		FROM user u
 		<include refid="searchUser"/>
 		<include refid="orderUser"/>	
@@ -310,6 +313,7 @@
 		<include refid="searchPet"/>
 	</select>
 	
+	<!-- 반려견 비공개 전환 -->
 	<update id="offPet">
 		UPDATE pet
 		SET open = 0

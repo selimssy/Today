@@ -36,6 +36,13 @@
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
+	.content table th:nth-of-type(1){width:8%;}
+	.content table th:nth-of-type(2){width:15%;}
+	.content table th:nth-of-type(3){width:8%;}
+	.content table th:nth-of-type(4){width:17%;}
+	.content table th:nth-of-type(5){width:20%;}
+	.content table th:nth-of-type(6){width:25%;}
+	.content table button{margin: 3px 2px; font-size:12px;}
 	.content img{width:100px; object-fit: cover;}
 	.reset, #searchBtn, .deleteCardBtn, .delGallery{cursor:pointer;}
 	
@@ -73,8 +80,8 @@
                             <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
                             <li><a href="<c:url value='/admin/gallery'/>">갤러리</a></li>
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
-                            <li><a href="#">견주 일기</a></li>
-                            <li><a href="#">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
+                            <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
                         </ul>
                     </li>               
                     <li><a href="#">통계</a></li>    
@@ -125,7 +132,7 @@
 		                            <td> <img alt="lifetime_img" src="<c:url value='${gallery.imagePath}'/>"> </td>
 		                            <td>${gallery.title}</td>
 		                            <td>${gallery.content}</td>
-		                            <td><span href="${gallery.imgId}" class="delGallery">삭제</span></td>
+		                            <td><button type="button" href="${gallery.imgId}" class="delGallery">삭제</button></td>		                            
 		                        </tr>
                     		</c:forEach>
                     	</c:if>   

@@ -63,10 +63,10 @@
                         <ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
                             <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
-                            <li><a href="#">갤러리</a></li>
+                            <li><a href="<c:url value='/admin/gallery'/>">갤러리</a></li>
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
-                            <li><a href="#">견주 일기</a></li>
-                            <li><a href="#">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
+                            <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
                         </ul>
                     </li>               
                     <li><a href="#">통계</a></li>    

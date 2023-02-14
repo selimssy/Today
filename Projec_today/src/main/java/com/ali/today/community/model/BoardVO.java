@@ -15,6 +15,7 @@ public class BoardVO {
 	private Date regDate;
 	private Integer viewCnt;
 	private int replyCnt;
+	private Integer open; 
 	private String hashtag;
 	
 	private String[] hashList;
@@ -77,36 +78,34 @@ public class BoardVO {
 	}
 	public void setViewCnt(Integer viewCnt) {
 		this.viewCnt = viewCnt;
-	}	
-	
+	}		
+	public Integer getOpen() {
+		return open;
+	}
+	public void setOpen(Integer open) {
+		this.open = open;
+	}
 	public String getHashtag() {
 		return hashtag;
 	}
-
 	public void setHashtag(String hashtag) {
 		this.hashtag = hashtag;
 	}
-
 	public List<String> getHashtagList() {
 		return hashtagList;
 	}
-
 	public void setHashtagList(List<String> hashtagList) {
 		this.hashtagList = hashtagList;
 	}
-
 	public int getReplyCnt() {
 		return replyCnt;
 	}
-
 	public void setReplyCnt(int replyCnt) {
 		this.replyCnt = replyCnt;
 	}
-
 	public String[] getHashList() {
 		return hashList;
 	}
-
 	public void setHashList(String[] hashList) {
 		this.hashList = hashList;
 	}
@@ -115,8 +114,8 @@ public class BoardVO {
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", writer=" + writer
 				+ ", nickname=" + nickname + ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt
-				+ ", hashtag=" + hashtag + ", hashList=" + Arrays.toString(hashList) + ", hashtagList=" + hashtagList
-				+ ", newMark=" + newMark + "]";
+				+ ", open=" + open + ", hashtag=" + hashtag + ", hashList=" + Arrays.toString(hashList)
+				+ ", hashtagList=" + hashtagList + ", newMark=" + newMark + "]";
 	}
 
 	

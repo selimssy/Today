@@ -54,6 +54,10 @@ public interface IDiaryService {
 	// 일기 수 조회(검색, 페이징 기능 포함)
 	Integer countDiaries(String userId, SearchVO search);
 	
-	
+	// 전체 일기(특정 계정) 조회
+	List<DiaryVO> adAllDiary(SearchVO search); // 관리자 페이지
+		
+	// 전체(특정 계정) 일기 갯수
+	Integer diaryCnt(SearchVO search); // 관리자 페이지
 	
 }

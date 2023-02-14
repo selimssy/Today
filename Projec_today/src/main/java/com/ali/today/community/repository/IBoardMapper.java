@@ -38,8 +38,14 @@ public interface IBoardMapper {
 	void updateReplyCnt(Integer boardNo);	
 	
 	
-	// 전체(특정 계정) 게시물 갯수
+	// 관리자 페이지 전체 게시글(특정 계정, 공개여부별) 조회
+	List<BoardVO> adAllBoard(SearchVO search); // 관리자 페이지
+	
+	// 관리자 페이지 전체(특정 계정) 게시물 갯수
 	Integer boardCnt(SearchVO search); // 관리자 페이지
+	
+	// 게시글 비공개 전환
+	void offBoard(Integer boardNo); // 관리자 페이지
 	
 	
 	

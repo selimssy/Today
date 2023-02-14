@@ -35,9 +35,20 @@
 	.content table{width: 80%; text-align: center; margin: 20px auto; }
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
-	.content table, td{font-size: 12px; padding: 5px 0;}
-	.content table button{margin: 3px 2px; font-size:12px;}
-	.deleteUser{cursor:pointer;}
+	.content table, td{font-size: 12px; padding: 5px 2px;}
+	.content table th:nth-of-type(1){width:6%;}
+	.content table th:nth-of-type(2){width:12%;}
+	.content table th:nth-of-type(3){width:15%;}
+	.content table th:nth-of-type(4){width:20%;}
+	.content table th:nth-of-type(5){width:8%;}
+	.content table th:nth-of-type(6){width:5%;}
+	.content table th:nth-of-type(7){width:5%;}
+	.content table th:nth-of-type(8){width:10%;}
+	.content table th:nth-of-type(9){width:5%;}
+	.content table th:nth-of-type(10){width:14%;}
+	.content table button{margin: 5px 2px; font-size:12px;}
+	.content img{width:300px; object-fit: cover;}
+	.deletePlan, .reset, .delDiary, .offBoard, .delBoard{cursor:pointer;}
 	
 	.paging{padding: 10px 0 0; text-align: center;}
 	.paging ul li{list-style: none; display: inline-block;}
@@ -82,61 +93,63 @@
             </nav>
 
             <div class="content">
-                <h3>회원 관리</h3>
-                <div class="search">	           
-                    <select class="select" id="condition" name="condition">                            	                           	
-                         <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>아이디</option>
-                         <option value="name" ${param.condition == 'name' ? 'selected' : ''}>이름</option>
-                         <option value="nickname" ${param.condition == 'nickname' ? 'selected' : ''}>닉네임</option>
-                         <option value="email" ${param.condition == 'email' ? 'selected' : ''}>이메일</option>        
-                    </select>	            	            
+                <h3>커뮤니티 게시판 현황&nbsp;&nbsp; | &nbsp;&nbsp;
+                	<c:choose>
+                		<c:when test="${param.keyword == null || param.keyword ==''}">전체 게시글 현황</c:when>
+                		<c:otherwise> <button type="button" class="reset">초기화</button> </c:otherwise>
+                	</c:choose>               	
+                </h3> 
+                <div class="search">	       
+                	<select class="select" id="condition" name="condition">                            	                           	                        
+                         <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>계정(userId)</option>
+                         <option value="open" ${param.condition == 'open' ? 'selected' : ''}>공개 여부</option>                                                                                
+                    </select>	                                      	            
                     <div class="keyword">
                         <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
-                    </div>	    
-                    <select class="select" id="order" name="order">    
-                    	<!--  <option value="regDate">--- 정렬 ---</option>   -->                      	                           	
-                        <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>가입일순</option>
-                        <option value="contents" ${param.order == 'contents' ? 'selected' : ''}>활동순</option>       
-                   </select>	          	            
-                </div>
+                    </div>	 
+                    <select class="select" id="order" name="order">                         	                           	
+                        <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>등록일순</option>
+                        <option value="viewCnt" ${param.order == 'viewCnt' ? 'selected' : ''}>조회순</option>      
+                   </select>	                                 	            
+                </div>    
                 <table>
                     <thead>
                         <tr>
-                            <th>아이디</th>
-                            <th>가입일</th>
-                            <th>이름</th>
-                            <th>닉네임</th>
-                            <th>이메일</th>
-                            <th>반려견 수</th>
-                            <th>컨텐츠 수</th>
+                            <th>No</th>
+                            <th>작성자</th>
+                            <th>제목</th>
+                            <th>내용</th>
+                            <th>작성일</th>    
+                            <th>조회</th>
                             <th>댓글</th>
-                            <th>관리</th>
-                            <!--이거 다 하고싶은데 일단 보류ㅠ 뭐 하나 할때마다 커뮤니티 업데이트도 해야하니까 업데이트날짜 하면서 같이 회원테이블의
-                                컨텐츠 수 +1할까?? 그리고 정렬도 가입일 순 활동순(비용 문제상 5개 컬럼 다 만들지는 말고 그냥 컨텐츠 수로?
-                                해결: 컨텐츠필드만 만들어서 컨텐츠수+1을 하고 상세버튼 누르면 각 테이블에서 갯수 각각 구해와서 출력하는걸로)?
-                            <th>생애 기록</th>
-                            <th>갤러리</th>
-                            <th>캘린더</th>
-                            <th>견주 일기</th>
-                            <th>게시판</th>-->
+                            <th>해시태그</th>  
+                            <th>공개여부</th>                        
+                            <th>관리</th>                           
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:if test="${userList.size() > 0}">
-                    		<c:forEach var="member" items="${userList}">
+                    	<c:if test="${boardList.size() > 0}">
+                    		<c:forEach var="board" items="${boardList}">
                     			<tr>
-		                            <td>${member.userId}</td>
-		                            <td><fmt:formatDate value="${member.regDate}" pattern="yyyy.MM.dd" /></td>
-		                            <td>${member.name}</td>
-		                            <td>${member.nickname}</td>
-		                            <td>${member.email}</td>
-		                            <td>${member.petCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/pet?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
-		                            <td>${member.contentsCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/content?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
-		                            <td>${member.replyCnt}</td>
-		                            <td><button type="button" href="${member.userId}" class="deleteUser">삭제</button></td>		                            
+		                            <td>${board.boardNo}</td>
+		                            <td>${board.writer}</td>
+		                            <td>${board.title}</td>		 
+		                            <td>${board.content}</td>
+		                            <td><fmt:formatDate value="${board.regDate}" pattern="yyyy.MM.dd" /></td>
+		                            <td>${board.viewCnt}</td>
+		                            <td>${board.replyCnt}</td>		                           
+		                            <td>${board.hashtag}</td>		 
+		                            <td>
+		                            	<c:if test="${board.open == 0}">비공개</c:if>
+		                            	<c:if test="${board.open == 1}">공개</c:if>
+		                            </td>                           
+		                            <td>
+		                            	<button type="button" href="${board.boardNo}" class="offBoard">비공개 전환</button>
+		                            	<button type="button" href="${board.boardNo}" class="delBoard">삭제</button>
+		                            </td>	 	                            
 		                        </tr>
                     		</c:forEach>
                     	</c:if>
@@ -152,21 +165,21 @@
 						<!-- 이전 버튼 -->
 						<c:if test="${pc.prev}">
 					        <li>
-								<a href="<c:url value='/admin/member${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
+								<a href="<c:url value='/admin/board${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
 							</li>
 						</c:if>
 						
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 							<li>                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-							   <a href="<c:url value='/admin/member${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
+							   <a href="<c:url value='/admin/board${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
 							</li>
 						</c:forEach>
 						  
 					   <!-- 다음 버튼 -->
 					   <c:if test="${pc.next}">
 						   <li>
-						       <a href="<c:url value='/admin/member${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
+						       <a href="<c:url value='/admin/board${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
 						   </li>
 					   </c:if>
 					</ul>
@@ -185,14 +198,16 @@
 
 	$(function(){
 		
+		// 이미지 크기 처리
+		$("img").css("width", "180px").css("height", "120px");
+		
 		// 검색 버튼 이벤트 처리
 		$("#searchBtn").click(function(){
 			let keyword = $("#keywordInput").val();
 			let condition = $("#condition option:selected").val(); 
 			let order = $("#order option:selected").val();
-			//const condition = $("#condition").val();
 			
-			location.href="/admin/member?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;
+			location.href="/admin/board?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;
 		})
 				
 		// 엔터키 입력 이벤트
@@ -204,43 +219,86 @@
 			
 		})
 		
+		
 		// 정렬 기준 변경 이벤트
 		$("#order").change(function(){
 			let keyword = $("#keywordInput").val();
 			let condition = $("#condition option:selected").val(); 
 			let order = $("#order option:selected").val();   
-			location.href="/admin/member?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;          
+			location.href="/admin/board?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;          
         });
 		
 		
 		
 		
-		// 회원 삭제
-		$(".deleteUser").click(function(){			
-			if(confirm("회원 삭제시 모든 반려견 정보와 기록이 삭제됩니다. 그래도 삭제하시겠습니까?")){
+		// 게시글 비공개 전환
+        $(document).on("click", ".offBoard", function () {       	
+			if(confirm("게시글(boardNo=" + $(this).attr("href") + ")을 비공개로 전환하시겠습니까?")){	
 				
-				let userId = $(this).attr("href");           
-	    		let user = {userId: userId};
+				let boardNo = $(this).attr("href");
+	    		let BoardVO = {boardNo: boardNo};
 	    		
 	    		$.ajax({
 	                type: 'post',
 	                dataType : "text",
 	                contentType: 'application/json',
-	                url: '/user/deleteUser',
-	                data: JSON.stringify(user),
+	                url: '/admin/offBoard',
+	                data: JSON.stringify(BoardVO),
 	                success: function (response) {
 	         			if(response === 'success'){
-	         				alert("회원 삭제가 완료되었습니다.");
+	         				alert("비공개로 전환되었습니다.");
 	         				window.location.reload();
 	         			}else{
-	         				alert("회원 삭제에 실패했습니다.");
+	         				alert("비공개 전환에 실패했습니다.");
 	         			}
 	                }, 
 	                error: function() {
 	                    console.log("통신 실패"); 
 	                } 
 	            });
+	    		
 			}
+        })
+		
+		
+		
+		// 게시글 삭제
+		$(".delBoard").click(function(){
+		    if(confirm("해당 게시글(boardNo= " + $(this).attr('href') + ")를 삭제하시겠습니까?")){
+		    	
+		    	let boardNo = $(this).attr("href");   
+		    	let writer = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text();
+		   		let BoardVO = {
+		   			boardNo: boardNo,
+		   			writer: writer
+		        };
+		   		
+		   		$.ajax({
+		               type: 'post',
+		               dataType : "text",
+		               contentType: 'application/json',
+		               url: '/admin/delBoard',
+		               data: JSON.stringify(BoardVO),
+		               success: function (response) {
+		            	   if(response === "success"){
+		         				alert("게시글이 삭제되었습니다.");
+		         				window.location.reload();
+		         			}else{
+		         				alert("게시글 삭제에 실패했습니다.");
+		         			}                           
+		               }, 
+		               error: function() {
+		                   console.log("통신 실패!"); 
+		               } 
+		           });					   	   
+		    }    
+	   });
+		
+		
+		
+		// 검색 초기화(전체 콘텐츠 조회)
+		$(".reset").click(function(){
+			location.href="/admin/board";
 		})
 		
 		

@@ -165,7 +165,7 @@ public class DiaryService implements IDiaryService{
 	}
 
 
-
+	// 일기 수정
 	@Override
 	public void update(DiaryVO diary) {
 		
@@ -181,5 +181,20 @@ public class DiaryService implements IDiaryService{
 		mapper.update(diary);
 		
 	}
-
+	
+	
+	// 전체 일기(특정 계정) 조회
+	@Override
+	public List<DiaryVO> adAllDiary(SearchVO search) {
+		return mapper.adAllDiary(search);  //관리자 페이지
+	}
+	
+	
+	// 전체(특정 계정) 일기 갯수
+	@Override
+	public Integer diaryCnt(SearchVO search) {
+		return mapper.diaryCnt(search);  //관리자 페이지
+	}
+	
+	
 }

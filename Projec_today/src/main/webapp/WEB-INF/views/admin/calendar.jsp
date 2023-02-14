@@ -36,6 +36,7 @@
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
+	.content table button{margin: 3px 2px; font-size:12px;}
 	.deletePlan, .reset{cursor:pointer;}
 	
 	.paging{padding: 10px 0 0; text-align: center;}
@@ -70,10 +71,10 @@
                         <ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
                             <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
-                            <li><a href="#">갤러리</a></li>
+                            <li><a href="<c:url value='/admin/gallery'/>">갤러리</a></li>
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
-                            <li><a href="#">견주 일기</a></li>
-                            <li><a href="#">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
+                            <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
                         </ul>
                     </li>               
                     <li><a href="#">통계</a></li>    
@@ -84,7 +85,7 @@
                 <h3>캘린더 현황&nbsp;&nbsp; | &nbsp;&nbsp;
                 	<c:choose>
                 		<c:when test="${param.keyword == null || param.keyword ==''}">전체 캘린더 현황</c:when>
-                		<c:otherwise> ID : ${param.keyword}의 컨텐츠 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
+                		<c:otherwise> ID : ${param.keyword}의 캘린더 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
                 	</c:choose>              	
                 </h3> 
                 <div class="search">	                                        	            
@@ -117,7 +118,7 @@
 		                            <td><fmt:formatDate value="${plan.scheduleDate}" pattern="yyyy.MM.dd" /></td>
 		                            <td>${plan.scheduleNum}</td>
 		                            <td>${plan.scheduleDesc}</td>
-		                            <td><span href="${plan.scheduleId}" class=deletePlan>삭제</span></td>		                            
+		                            <td><button type="button" href="${plan.scheduleId}" class="deletePlan">삭제</button></td>				                                                        
 		                        </tr>
                     		</c:forEach>
                     	</c:if>

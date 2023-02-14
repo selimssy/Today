@@ -191,6 +191,22 @@
 	
 	
 	<!-- *** 관리자 페이지 ***-->
+	<!-- 전체 일기(특정 계정) 조회 -->	
+	<select id="adAllDiary" resultMap="DiaryMap">
+		SELECT *
+		FROM pet_diary			
+		<choose>
+			<when test = "keyword.equals('')">				
+			</when>
+			<otherwise>
+				WHERE writer = #{keyword}
+			</otherwise>
+		</choose>
+		ORDER BY reg_date DESC
+		LIMIT #{pageStart}, 10
+	</select>
+	
+	
 	<!-- 전체 일기 갯수 -->
 	<select id="diaryCnt" resultType="int">
 		SELECT COUNT(*)

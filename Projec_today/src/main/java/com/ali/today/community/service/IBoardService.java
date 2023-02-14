@@ -28,6 +28,16 @@ public interface IBoardService {
 	// # 검색, 페이징 기능이 포함된 게시물 수 조회
 	Integer countArticles(SearchVO search);
 	
+	
+	
+	// 관리자 페이지 전체 게시글(특정 계정, 공개여부별) 조회
+	List<BoardVO> adAllBoard(SearchVO search); // 관리자 페이지
+		
+	// 관리자 페이지 전체(특정 계정) 게시물 갯수
+	Integer boardCnt(SearchVO search); // 관리자 페이지
+	
+	// 게시글 비공개 전환
+	void offBoard(Integer boardNo); // 관리자 페이지
 		
 
 	

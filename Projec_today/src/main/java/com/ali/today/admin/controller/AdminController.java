@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ali.today.admin.service.IAdminService;
 import com.ali.today.common.PageCreator;
 import com.ali.today.common.SearchVO;
+import com.ali.today.community.model.BoardVO;
+import com.ali.today.community.service.IBoardService;
+import com.ali.today.diary.model.DiaryVO;
 import com.ali.today.diary.model.ScheduleVO;
 import com.ali.today.diary.service.IDiaryService;
 import com.ali.today.mypet.model.GalleryVO;
@@ -36,6 +39,8 @@ public class AdminController {
 	IDiaryService dService;
 	@Autowired
 	IMypetService lService;
+	@Autowired
+	IBoardService bService;
 	
 	
 	// 회원관리 페이지 열기
@@ -172,12 +177,7 @@ public class AdminController {
 		}else { // 전체조회
 			model.addAttribute("galleryList", galleryList);
 			model.addAttribute("pc", pc);
-		}			
-		
-		System.out.println(search.getCountPerPage());
-		System.out.println(pc.getBeginPage());
-		System.out.println(pc.getEndPage());
-		System.out.println(pc.getArticleTotalCount());
+		}					
 	}
 
 	
@@ -196,5 +196,60 @@ public class AdminController {
 		model.addAttribute("pc", pc);
 	}
 	
+	
+	
+	// 견주일기 관리 페이지 열기
+	@GetMapping("/diary")
+	public void diary(SearchVO search, Model model) {		
+		//search.setCountPerPage(20);
+		PageCreator pc = new PageCreator();
+		pc.setPaging(search); 
+		List<DiaryVO> diaryList = dService.adAllDiary(search);
+		pc.setArticleTotalCount(dService.diaryCnt(search));
+
+		model.addAttribute("diaryList", diaryList);
+		model.addAttribute("pc", pc);
+	}
+	
+		
+	// 견주일기 삭제 
+	@PostMapping("/delDiary")
+	@ResponseBody
+	public String delete(@RequestBody DiaryVO diary) {  		
+		dService.delete(diary);		
+		return "success";
+	}
+	
+	
+	
+	// 커뮤니티 게시판 관리 페이지 열기
+	@GetMapping("/board")
+	public void board(SearchVO search, Model model) {		
+		PageCreator pc = new PageCreator();
+		pc.setPaging(search); 
+		List<BoardVO> boardList = bService.adAllBoard(search);
+		pc.setArticleTotalCount(bService.boardCnt(search));
+
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pc", pc);
+	}
+	
+	
+	// 특정 게시글 비공개 전환 요청
+	@PostMapping("/offBoard")
+	@ResponseBody
+	public String offBoard(@RequestBody BoardVO board) {		
+		bService.offBoard(board.getBoardNo());				
+		return "success"; 
+	} 
+	
+	
+	// 게시글 삭제 
+	@PostMapping("/delBoard")
+	@ResponseBody
+	public String delete(@RequestBody BoardVO board) {  		
+		bService.delete(board);		
+		return "success";
+	}
 	
 }
