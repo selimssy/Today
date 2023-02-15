@@ -33,7 +33,8 @@
 	.content table{width: 80%; text-align: center; margin: 20px auto; }
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
-	.content table, td{font-size: 12px; padding: 5px 0;}
+	.content table, td{font-size: 12px; padding: 10px 0;}
+	.content table a{background:#aaa; color: #fff; text-decoration: none; padding: 3px 5px; font-size:11px; margin-left:15px;}
 	.reset, #searchBtn{cursor:pointer;}
 
 	@media all and (max-width:1065px){	
@@ -67,9 +68,9 @@
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
                             <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
                         </ul>
-                    </li>               
-                    <li><a href="#">통계</a></li>    
+                    </li>                   
                 </ul>
             </nav>
 
@@ -102,11 +103,11 @@
                     </thead>
                     <tbody>                   	
               			<tr>
-	                        <td>${contentStats.lifetimeCnt}</td>
-	                        <td>${contentStats.galleryCnt}</td>
-	                        <td>${contentStats.scheduleCnt}</td>
-	                        <td>${contentStats.diaryCnt}</td>
-	                        <td>${contentStats.boardCnt}</td>
+	                        <td>${contentStats.lifetimeCnt}<a href="<c:url value='/admin/lifetime?keyword=${param.keyword}&condition=userId'/>">상세</a></td>
+	                        <td>${contentStats.galleryCnt}<a href="<c:url value='/admin/gallery?keyword=${param.keyword}&condition=userId'/>">상세</a></td>
+	                        <td>${contentStats.scheduleCnt}<a href="<c:url value='/admin/calendar?keyword=${param.keyword}&condition=userId'/>">상세</a></td>
+	                        <td>${contentStats.diaryCnt}<a href="<c:url value='/admin/diary?keyword=${param.keyword}&condition=userId'/>">상세</a></td>
+	                        <td>${contentStats.boardCnt}<a href="<c:url value='/admin/board?keyword=${param.keyword}&condition=userId'/>">상세</a></td>
 	                        <td>${contentStats.lifetimeCnt + contentStats.galleryCnt + contentStats.scheduleCnt + contentStats.diaryCnt + contentStats.boardCnt}</td>
 	                        <!-- <td>${contentStats.replyCnt}</td> -->
              		   </tr>   

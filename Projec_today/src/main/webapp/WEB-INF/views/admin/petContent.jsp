@@ -34,6 +34,7 @@
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
+	.content table a{background:#aaa; color: #fff; text-decoration: none; padding: 3px 5px; font-size:11px; margin-left:15px;}
 	.reset, #searchBtn{cursor:pointer;}
 
 	@media all and (max-width:1065px){	
@@ -67,9 +68,9 @@
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
                             <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
                         </ul>
-                    </li>               
-                    <li><a href="#">통계</a></li>    
+                    </li>                 
                 </ul>
             </nav>
 
@@ -99,8 +100,8 @@
                     </thead>
                     <tbody>                   	
               			<tr>
-	                        <td>${petContent.lifePetCnt}</td>
-	                        <td>${petContent.galleryPetCnt}</td>	                        
+	                        <td>${petContent.lifePetCnt}<a href="<c:url value='/admin/lifetime?keyword=${param.keyword}&condition=petId'/>">상세</a></td>
+	                        <td>${petContent.galleryPetCnt}<a href="<c:url value='/admin/gallery?keyword=${param.keyword}&condition=petId'/>">상세</a></td>	                        
 	                        <td>${petContent.lifePetCnt + petContent.galleryPetCnt}</td>
              		   </tr>   
                     </tbody>

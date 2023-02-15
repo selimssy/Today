@@ -35,16 +35,17 @@
 	.content table{width: 80%; text-align: center; margin: 20px auto; }
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
-	.content table, td{font-size: 12px; padding: 5px 0;}
-	.content table th:nth-of-type(1){width:8%;}
-	.content table th:nth-of-type(2){width:15%;}
-	.content table th:nth-of-type(3){width:22%;}
-	.content table th:nth-of-type(4){width:35%;}
-	.content table th:nth-of-type(5){width:12%;}
-	.content table th:nth-of-type(6){width:8%;}
-	.content table button{margin: 3px 2px; font-size:12px;}
+	.content table, td{font-size: 12px; padding: 5px 2px;}	
+	.content table th:nth-of-type(1){width:7%;}
+	.content table th:nth-of-type(2){width:9%;}
+	.content table th:nth-of-type(3){width:15%;}
+	.content table th:nth-of-type(4){width:30%;}
+	.content table th:nth-of-type(5){width:16%;}
+	.content table th:nth-of-type(6){width:7%;}
+	.content table th:nth-of-type(7){width:16%;}	
+	.content table button{margin: 5px 2px; font-size:12px;}
 	.content img{width:300px; object-fit: cover;}
-	.deletePlan, .reset, .delDiary{cursor:pointer;}
+	.deletePlan, .reset, .delDiary, .offBoard, .delBoard, .offReply, .delReply{cursor:pointer;}
 	
 	.paging{padding: 10px 0 0; text-align: center;}
 	.paging ul li{list-style: none; display: inline-block;}
@@ -89,41 +90,65 @@
             </nav>
 
             <div class="content">
-                <h3>견주 일기 현황&nbsp;&nbsp; | &nbsp;&nbsp;
+                <h3>댓글 현황&nbsp;&nbsp; | &nbsp;&nbsp;
                 	<c:choose>
-                		<c:when test="${param.keyword == null || param.keyword ==''}">전체 견주 일기 현황</c:when>
-                		<c:otherwise> ID : ${param.keyword}의 견주 일기 현황 <button type="button" class="reset">초기화</button> </c:otherwise>
-                	</c:choose>              	
+                		<c:when test="${param.keyword == null || param.keyword ==''}">전체 댓글 현황</c:when>
+                		<c:otherwise> <button type="button" class="reset">초기화</button> </c:otherwise>
+                	</c:choose>               	
                 </h3> 
-                <div class="search">	                                        	            
+                <div class="search">	       
+                	<select class="select" id="condition" name="condition">                            	                           	                        
+                         <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>계정(userId)</option>
+                         <option value="open" ${param.condition == 'open' ? 'selected' : ''}>공개 여부</option>                                                                                
+                    </select>	                                      	            
                     <div class="keyword">
                         <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="계정(userId) 검색">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
-                    </div>	                                  	            
+                    </div>	 
+                    <!-- 
+                    <select class="select" id="order" name="order">                         	                           	
+                        <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>등록일순</option>
+                        <option value="viewCnt" ${param.order == 'viewCnt' ? 'selected' : ''}>조회순</option>  
+                        <option value="replyCnt" ${param.order == 'replyCnt' ? 'selected' : ''}>댓글순</option>    
+                   </select>	      
+                    -->                           	            
                 </div>    
                 <table>
                     <thead>
                         <tr>
-                            <th>diaryNo</th>
-                            <th>userId</th>
-                            <th>제목</th>
+                            <th>댓글 번호</th>
+                            <th>게시글 번호</th>
+                            <th>작성자</th>
                             <th>내용</th>
-                            <th>날짜</th>                           
+                            <th>작성일</th>                                
+                            <th>공개여부</th>                        
                             <th>관리</th>                           
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:if test="${diaryList.size() > 0}">
-                    		<c:forEach var="diary" items="${diaryList}">
+                    	<c:if test="${replyList.size() > 0}">
+                    		<c:forEach var="reply" items="${replyList}">
                     			<tr>
-		                            <td>${diary.diaryNo}</td>
-		                            <td>${diary.writer}</td>
-		                            <td>${diary.title}</td>		                            
-		                            <td>${diary.content}</td>
-		                            <td><fmt:formatDate value="${diary.regDate}" pattern="yyyy.MM.dd" /></td>
-		                            <td><button type="button" href="${diary.diaryNo}" class="delDiary">삭제</button></td>	 	                		                                       
+		                            <td>${reply.replyNo}</td>
+		                            <td>${reply.boardNo}</td>
+		                            <td>${reply.replyer}</td>		 
+		                            <td>${reply.content}</td>
+		                            <td><fmt:formatDate value="${reply.replyDate}" pattern="yyyy.MM.dd" /></td>		 
+		                            <td>
+		                            	<c:if test="${reply.open == 0}">비공개</c:if>
+		                            	<c:if test="${reply.open == 1}">공개</c:if>
+		                            </td>                           
+		                            <td>
+		                            	<c:if test="${reply.open == 0}">
+		                            		<button type="button" href="${reply.replyNo}" class="offReply on">공개 전환</button>
+		                            	</c:if>
+		                            	<c:if test="${reply.open == 1}">
+		                            		<button type="button" href="${reply.replyNo}" class="offReply">비공개 전환</button>
+		                            	</c:if>
+		                            	<button type="button" href="${reply.replyNo}" class="delReply">삭제</button>
+		                            </td>	 			                                                        
 		                        </tr>
                     		</c:forEach>
                     	</c:if>
@@ -139,21 +164,21 @@
 						<!-- 이전 버튼 -->
 						<c:if test="${pc.prev}">
 					        <li>
-								<a href="<c:url value='/admin/diary${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
+								<a href="<c:url value='/admin/reply${pc.makeURI(pc.beginPage - 1)}'/>">이전</a>
 							</li>
 						</c:if>
 						
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
-							<li>                                                        <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-							   <a href="<c:url value='/admin/diary${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
+							<li>                                                        
+							   <a href="<c:url value='/admin/reply${pc.makeURI(pageNum)}' />" class="${(pc.paging.page == pageNum) ? 'page-active' : ''}">${pageNum}</a>
 							</li>
 						</c:forEach>
 						  
 					   <!-- 다음 버튼 -->
 					   <c:if test="${pc.next}">
 						   <li>
-						       <a href="<c:url value='/admin/diary${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
+						       <a href="<c:url value='/admin/reply${pc.makeURI(pc.endPage + 1)}'/>">다음</a>
 						   </li>
 					   </c:if>
 					</ul>
@@ -171,14 +196,14 @@
 <script type="text/javascript">
 
 	$(function(){
-		
-		// 이미지 크기 처리
-		$("img").css("width", "300px").css("height", "225px");
+				
 		
 		// 검색 버튼 이벤트 처리
 		$("#searchBtn").click(function(){
-			let keyword = $("#keywordInput").val().trim();	
-			location.href="/admin/diary?keyword=" + encodeURI(keyword);
+			let keyword = $("#keywordInput").val();
+			let condition = $("#condition option:selected").val(); 
+			
+			location.href="/admin/reply?keyword=" + encodeURI(keyword) + "&condition=" + condition;
 		})
 				
 		// 엔터키 입력 이벤트
@@ -191,30 +216,75 @@
 		})
 		
 		
-		// 일기 삭제
-		$(".delDiary").click(function(){
-		    if(confirm("해당 견주일기(일기 번호: " + $(this).attr('href') + ")를 삭제하시겠습니까?")){
+		// 검색조건 변경 이벤트
+		$("#condition").change(function(){
+			let condition = $("#condition option:selected").val(); 
+			if(condition == "open"){
+				$("#keywordInput").attr("placeholder", "공개 : 1  ,  비공개 : 0");
+			}else if(condition == "userId"){
+				$("#keywordInput").attr("placeholder", "계정(userId) 검색");
+			}       
+        });
+		
+		
+		
+		// 댓글 공개/비공개 전환
+        $(document).on("click", ".offReply", function () {          	
+        	let open = 0, text="";
+        	if($(this).hasClass("on")){ // 공개전환 요청
+				open = 1; text="공개";
+			}else{ //비공개전환 요청
+				open = 0; text="비공개";
+			}
+			if(confirm("댓글(replyNo=" + $(this).attr("href") + ")을 " + text + "로 전환하시겠습니까?")){	
+				
+				let replyNo = $(this).attr("href");				
+	    		let ReplyVO = {replyNo: replyNo, open: open};
+
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/admin/offReply',
+	                data: JSON.stringify(ReplyVO),
+	                success: function (response) {
+	         			if(response === '0'){
+	         				alert("비공개로 전환되었습니다.");
+	         				window.location.reload();
+	         			}else if(response === '1'){
+	         				alert("공개로 전환되었습니다.");
+	         				window.location.reload();
+	         			}else{
+	         				alert("비공개 전환에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+	    		
+			}
+        })
+		
+		
+		
+		// 댓글 삭제
+		$(".delReply").click(function(){
+		    if(confirm("해당 댓글(replyNo= " + $(this).attr('href') + ")를 삭제하시겠습니까?")){
 		    	
-		    	let diaryNo = $(this).attr("href");   
-		    	let writer = $(this).parent().prev().prev().prev().prev().text();
-		   		let DiaryVO = {
-		   			diaryNo: diaryNo,
-		   			writer: writer
-		        };
+		    	let replyNo = $(this).attr("href");   
+		    	let boardNo = $(this).parent().prev().prev().prev().prev().prev().text();
+		   		let ReplyVO = {replyNo: replyNo, boardNo: boardNo};
 		   		
 		   		$.ajax({
 		               type: 'post',
 		               dataType : "text",
 		               contentType: 'application/json',
-		               url: '/admin/delDiary',
-		               data: JSON.stringify(DiaryVO),
+		               url: '/community/deleteReply',
+		               data: JSON.stringify(ReplyVO),
 		               success: function (response) {
-		            	   if(response === "success"){
-		         				alert("일기가 삭제되었습니다.");
-		         				window.location.reload();
-		         			}else{
-		         				alert("일기 삭제에 실패했습니다.");
-		         			}                           
+		            	   alert("댓글이 삭제되었습니다.");       
+		            	   window.location.reload();
 		               }, 
 		               error: function() {
 		                   console.log("통신 실패!"); 
@@ -227,7 +297,7 @@
 		
 		// 검색 초기화(전체 콘텐츠 조회)
 		$(".reset").click(function(){
-			location.href="/admin/diary";
+			location.href="/admin/reply";
 		})
 		
 		

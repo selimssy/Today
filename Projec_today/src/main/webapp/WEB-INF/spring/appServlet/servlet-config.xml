@@ -46,12 +46,13 @@
 	<!-- 인터셉터 빈 등록 -->
 	<beans:bean id="AutoLoginInterceptor" class="com.ali.today.common.Interceptor.AutoLoginInterceptor"/>
 	<beans:bean id="LoginInterceptor" class="com.ali.today.common.Interceptor.LoginInterceptor"/>
+	<beans:bean id="AdminInterceptor" class="com.ali.today.common.Interceptor.AdminInterceptor"/>
 	
 	<!-- 인터셉터 설정 -->
 	<interceptors>	
 		<interceptor>
 			<mapping path="/"/>   <!-- /ttubeok 제외하고 -->
-			<beans:ref bean="AutoLoginInterceptor"/>
+			<beans:ref bean="AutoLoginInterceptor"/> <!-- 자동 로그인 -->
 		</interceptor>
 		
 		<interceptor>
@@ -61,10 +62,14 @@
 			<mapping path="/community/modify"/> 
 			<mapping path="/mypage/profile"/>
 			<mapping path="/mypage/modifyUser"/>
-			<beans:ref bean="LoginInterceptor"/>
+			<beans:ref bean="LoginInterceptor"/>   <!-- 로그인 -->
 		</interceptor>
 		
-		
+		<interceptor>
+			<mapping path="/admin/**"/>   <!-- 관리자페이지 -->
+			<beans:ref bean="AdminInterceptor"/>
+		</interceptor>
+				
 	</interceptors>
 	
 </beans:beans>

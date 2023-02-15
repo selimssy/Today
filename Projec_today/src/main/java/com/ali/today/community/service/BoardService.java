@@ -130,8 +130,8 @@ public class BoardService implements IBoardService {
 	
 	// 게시글 비공개 전환
 	@Override
-	public void offBoard(Integer boardNo) {
-		mapper.offBoard(boardNo);  //관리자 페이지
+	public void offBoard(BoardVO board) {
+		mapper.offBoard(board);  //관리자 페이지
 	}
 	
 	
@@ -188,5 +188,27 @@ public class BoardService implements IBoardService {
 	public Integer countReplies(Integer boardNo) {
 		return mapper.countReplies(boardNo);
 	}
-
+	
+	
+	// 전체 댓글(특정 계정, 공개여부별) 조회
+	@Override
+	public List<ReplyVO> adAllReply(SearchVO search) {
+		return mapper.adAllReply(search);  //관리자 페이지
+	}
+	
+	
+	// 전체(특정 계정) 댓글 갯수
+	@Override
+	public Integer replyCnt(SearchVO search) {
+		return mapper.replyCnt(search);  //관리자 페이지
+	}
+	
+	
+	// 특정 댓글 공개/비공개 전환
+	@Override
+	public void offReply(ReplyVO reply) {
+		mapper.offReply(reply);  //관리자 페이지
+	}
+	
+	
 }

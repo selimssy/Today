@@ -26,6 +26,7 @@
 		<result property="replyer" column="replyer"/>
 		<result property="replyDate" column="reply_date"/>
 		<result property="updateDate" column="reply_date"/>	
+		<result property="open" column="open"/>	
 	</resultMap>
 
 
@@ -70,6 +71,23 @@
 	</sql>
 	
 	
+	<!-- 중복되는 동적 SQL문에 대한 처리(관리자 페이지 댓글 검색) -->
+	<sql id="adReplyBoard">  
+		<choose>
+			<when test = "keyword.equals('')">				
+			</when>
+			<otherwise>				
+				<if test="condition == 'userId'">  
+					WHERE replyer = #{keyword}
+				</if>
+				<if test="condition == 'open'">  
+					WHERE open = #{keyword}
+				</if>
+			</otherwise>
+		</choose>
+	</sql>
+	
+	
 	<!-- 중복되는 동적 SQL문에 대한 처리(관리자 페이지 게시글 정렬방법) -->
 	<sql id="orderAdBoard">  
 		<if test="order == 'regDate' or order.equals('')">  
@@ -78,6 +96,9 @@
 		<if test="order == 'viewCnt'">
 		ORDER BY view_cnt DESC
 		</if>		
+		<if test="order == 'replyCnt'">
+		ORDER BY reply_cnt DESC
+		</if>
 	</sql>
 	
 	
@@ -175,11 +196,11 @@
 		<include refid="adSearchBoard"/>
 	</select>
 	
-	<!-- 게시글 비공개 전환 -->
+	<!-- 게시글 공개/비공개 전환 -->
 	<update id="offBoard">
 		UPDATE board
-		SET open = 0
-		WHERE board_no = #{boardNO}
+		SET open = #{open}
+		WHERE board_no = #{boardNo}
 	</update>
 
 	
@@ -197,7 +218,7 @@
 		<!--SELECT * FROM reply 
 		WHERE board_no = #{boardNo}
 		LIMIT #{pageStart}, 10 -->
-		SELECT r.reply_no, r.board_no, r.content, r.replyer, r.reply_date, u.nickname
+		SELECT r.reply_no, r.board_no, r.content, r.replyer, r.reply_date, r.open, u.nickname
 		FROM reply r LEFT JOIN user u
 		ON r.replyer = u.user_id
 		WHERE r.board_no = #{boardNo}
@@ -252,18 +273,31 @@
 	
 	
 	
+	
+
+	
 	<!-- *** 관리자 페이지 ***-->
-	<!-- 전체 댓글 갯수 -->
+	<!-- 전체 댓글(특정 계정, 공개여부별) 조회 -->	
+	<select id="adAllReply" resultMap="ReplyMap">
+		SELECT *
+		FROM reply			
+		<include refid="adReplyBoard"/>
+		ORDER BY reply_no DESC 
+		LIMIT #{pageStart}, 20
+	</select>
+	
+	<!-- 전체 댓글(특정 계정, 공개여부별)  갯수 -->
 	<select id="replyCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM reply		
-		<choose>
-			<when test = "userId == null or userId.equals('')">				
-			</when>
-			<otherwise>
-				WHERE replyer = #{userId}
-			</otherwise>
-		</choose>
+		<include refid="adReplyBoard"/>
 	</select>
+	
+	<!-- 댓글 공개/비공개 전환 -->
+	<update id="offReply">
+		UPDATE reply
+		SET open = #{open}
+		WHERE reply_no = #{replyNo}
+	</update>
 	
 </mapper>

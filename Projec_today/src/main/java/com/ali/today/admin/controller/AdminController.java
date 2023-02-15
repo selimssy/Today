@@ -16,6 +16,7 @@ import com.ali.today.admin.service.IAdminService;
 import com.ali.today.common.PageCreator;
 import com.ali.today.common.SearchVO;
 import com.ali.today.community.model.BoardVO;
+import com.ali.today.community.model.ReplyVO;
 import com.ali.today.community.service.IBoardService;
 import com.ali.today.diary.model.DiaryVO;
 import com.ali.today.diary.model.ScheduleVO;
@@ -75,10 +76,10 @@ public class AdminController {
 	// 특정 반려견 비공개 전환 요청
 	@PostMapping("/offPet")
 	@ResponseBody
-	public String offPet(@RequestBody PetVO pet) {
+	public Integer offPet(@RequestBody PetVO pet) {
 		
-		uservice.offPet(pet.getPetId());				
-		return "success"; 
+		uservice.offPet(pet);				
+		return pet.getOpen(); 
 	} 
 	
 	
@@ -238,9 +239,9 @@ public class AdminController {
 	// 특정 게시글 비공개 전환 요청
 	@PostMapping("/offBoard")
 	@ResponseBody
-	public String offBoard(@RequestBody BoardVO board) {		
-		bService.offBoard(board.getBoardNo());				
-		return "success"; 
+	public Integer offBoard(@RequestBody BoardVO board) {
+		bService.offBoard(board);				
+		return board.getOpen(); 
 	} 
 	
 	
@@ -251,5 +252,28 @@ public class AdminController {
 		bService.delete(board);		
 		return "success";
 	}
+	
+	
+	// 커뮤니티 게시판 관리 페이지 열기
+	@GetMapping("/reply")
+	public void reply(SearchVO search, Model model) {	
+		search.setCountPerPage(20);
+		PageCreator pc = new PageCreator();
+		pc.setPaging(search); 
+		List<ReplyVO> replyList = bService.adAllReply(search);
+		pc.setArticleTotalCount(bService.replyCnt(search));
+
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("pc", pc);
+	}
+	
+	
+	// 특정 게시글 비공개 전환 요청
+	@PostMapping("/offReply")
+	@ResponseBody
+	public Integer offReply(@RequestBody ReplyVO reply) {
+		bService.offReply(reply);				
+		return reply.getOpen(); 
+	} 
 	
 }

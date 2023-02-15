@@ -101,7 +101,7 @@ public class UserPetController {
 	public String deletePet(@RequestBody PetVO pet, HttpSession session) {
 		
 		UserVO user = (UserVO)session.getAttribute("login");
-		Integer petId = user.getPet().getPetId(); 
+		Integer petId = user.getPet().getPetId(); // 현재 세션에 등록된 petId
 		
 		if(petId.equals(pet.getPetId())) { // 현재 세션에 있는 반려견을 삭제할 경우 세션도 같이 수정
 			service.deletePet(pet.getPetId());

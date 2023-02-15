@@ -212,10 +212,10 @@ public class UserService implements IUserService{
 		return mapper.countAllPet(search);  // 관리자 페이지
 	}
 	
-	// 특정 반려견 비공개 전환
+	// 특정 반려견 공개/비공개 전환
 	@Override
-	public void offPet(Integer petId) {
-		mapper.offPet(petId);
+	public void offPet(PetVO pet) {
+		mapper.offPet(pet);
 	}
 	
 }

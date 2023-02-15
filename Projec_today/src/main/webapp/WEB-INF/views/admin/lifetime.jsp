@@ -76,9 +76,9 @@
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
                             <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
                         </ul>
                     </li>               
-                    <li><a href="#">통계</a></li>    
                 </ul>
             </nav>
 
@@ -219,7 +219,7 @@
 		
 		// 생애기록 삭제
 		$(document).on("click", ".deleteCardBtn", function () {
-			if(confirm("생애기록을 삭제하시겠습니까?")){
+			if(confirm("생애기록(cardId: " + $(this).attr('href') + ")을 삭제하시겠습니까?")){
 				
 				let cardId = $(this).attr("href");	 
 				let userId = $(this).parent().prev().prev().prev().prev().prev().text();

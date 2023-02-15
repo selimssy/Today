@@ -43,6 +43,7 @@
 .comment .rpyW{margin-bottom:7px; background: url(/img/community/cbullet.png); background-size: contain; background-repeat: no-repeat; padding-left: 25px;}
 .comment #replyList .rpyW span{font-size:13px; color:#aaa}
 .comment button{width:35px; height: 20px; font-size:0.6em; padding: 2px; border-radius: 5px; border: none; cursor: pointer;}
+.comment .offReply{color:#555; background:#eee; padding: 20px 15px; font-size:13px;}
 .replyRgBox{width:750px; height: 125px; margin-top:40px; position: relative; display:block; margin-bottom: 40px}
 .replyRgBox textarea{width:700px; height: 100px; position: absolute; top: 10px; right:0; resize: none; overflow-y:auto; font-family: "NanumSquare","맑은 고딕", sans-serif; padding: 10px 10px 20px; box-sizing: border-box;}
 .replyRgBox button{position: absolute; bottom: -30px; right:0; width:85px; height: 30px; border:none; background: #F0F0F0; cursor: pointer;}
@@ -180,17 +181,24 @@
 				<ul id="replyList">
 					<c:if test="${replyList.size() > 0}">
 						<c:forEach var="reply" items="${replyList}">
-							<li>							
-								<div class="rpyW"><b>${reply.nickname}</b> &nbsp; &nbsp; &nbsp; &nbsp;
-								    <span><fmt:formatDate value="${reply.replyDate}" pattern="yyyy.MM.dd. HH:mm" /></span>
-								    <c:if test="${login.userId == reply.replyer}">
-								    	&nbsp;<div class="button_nav"><button href="${reply.replyNo}" type="button" class="replyModify">수정</button>&nbsp;<button href="${reply.replyNo}" type="button" class="replyDelete">삭제</button></div>
-									</c:if>
-								</div>
-								<div id="reply${reply.replyNo}" class="rpyContentBox">
-									<p>${reply.content}</p>
-								</div>
-							</li>
+							<c:if test="${reply.open == 0}"> <!-- 비공개 댓글 -->
+								<li class="offReply">관리자에 의해 비공개 처리된 댓글입니다.</li>
+							</c:if>
+							<c:if test="${reply.open == 1}"> <!-- 공개 댓글 -->
+								<li>							
+									<div class="rpyW"><b>${reply.nickname}</b> &nbsp; &nbsp; &nbsp; &nbsp;
+									    <span><fmt:formatDate value="${reply.replyDate}" pattern="yyyy.MM.dd. HH:mm" /></span>
+									    <c:if test="${login.userId == reply.replyer}">
+									    	&nbsp;<div class="button_nav"><button href="${reply.replyNo}" type="button" class="replyModify">수정</button>&nbsp;<button href="${reply.replyNo}" type="button" class="replyDelete">삭제</button></div>
+										</c:if>
+									</div>
+									<div id="reply${reply.replyNo}" class="rpyContentBox">
+										<p>${reply.content}</p>
+									</div>
+								</li>									
+							</c:if>
+							
+
 						</c:forEach>
 					</c:if>	
 				</ul>
@@ -586,18 +594,25 @@
 	                    	let replyDate = response[i]["replyDate"];
 	                    	let replyNo = response[i]["replyNo"];
 	                    	let content = response[i]["content"];
+	                    	let open = response[i]["open"];
+	                    	console.log(open);
+	                    	let html="";
+	                    	if(open == 1){
+	                    		html +='<li>';
+	                            html += '<div class="rpyW"><b>' + replyer + '</b> &nbsp; &nbsp; &nbsp; &nbsp;';
+	                            html += '<span>' + replyDate +  '</span>';
+	                            if(userId === replyer){
+	                                html += '&nbsp;<div class="button_nav"><button href="' + replyNo + '" type="button" class="replyModify">수정</button>&nbsp;<button href="' + replyNo + '" type="button" class="replyDelete">삭제</button></div>'  ;             
+	                            }
+	                            html += '</div>';
+	                            html += '<div id="reply' + replyNo + '" class="rpyContentBox">';
+	                            html += '<p>' + content + '</p>';
+	                            html += '</div>';
+	                            html += '</li>';
+	                    	}else{
+	                    		html +='<li class="offReply">관리자에 의해 비공개 처리된 댓글입니다.</li>';
+	                    	}
 	                    	
-	                    	let html ='<li>';
-                            html += '<div class="rpyW"><b>' + replyer + '</b> &nbsp; &nbsp; &nbsp; &nbsp;';
-                            html += '<span>' + replyDate +  '</span>';
-                            if(userId === replyer){
-                                html += '&nbsp;<div class="button_nav"><button href="' + replyNo + '" type="button" class="replyModify">수정</button>&nbsp;<button href="' + replyNo + '" type="button" class="replyDelete">삭제</button></div>'  ;             
-                            }
-                            html += '</div>';
-                            html += '<div id="reply' + replyNo + '" class="rpyContentBox">';
-                            html += '<p>' + content + '</p>';
-                            html += '</div>';
-                            html += '</li>';
 	                   		
 	                        $('#replyList').append(html);
 	                    }    

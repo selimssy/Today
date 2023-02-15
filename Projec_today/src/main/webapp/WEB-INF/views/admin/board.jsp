@@ -86,9 +86,9 @@
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
                             <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
                         </ul>
-                    </li>               
-                    <li><a href="#">통계</a></li>    
+                    </li>                   
                 </ul>
             </nav>
 
@@ -105,14 +105,15 @@
                          <option value="open" ${param.condition == 'open' ? 'selected' : ''}>공개 여부</option>                                                                                
                     </select>	                                      	            
                     <div class="keyword">
-                        <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
+                        <input type="text" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="계정(userId) 검색">
                         <span>
                             <input type="button" value="조회" id="searchBtn">                                       
                         </span>
                     </div>	 
                     <select class="select" id="order" name="order">                         	                           	
                         <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>등록일순</option>
-                        <option value="viewCnt" ${param.order == 'viewCnt' ? 'selected' : ''}>조회순</option>      
+                        <option value="viewCnt" ${param.order == 'viewCnt' ? 'selected' : ''}>조회순</option>  
+                        <option value="replyCnt" ${param.order == 'replyCnt' ? 'selected' : ''}>댓글순</option>    
                    </select>	                                 	            
                 </div>    
                 <table>
@@ -147,9 +148,14 @@
 		                            	<c:if test="${board.open == 1}">공개</c:if>
 		                            </td>                           
 		                            <td>
-		                            	<button type="button" href="${board.boardNo}" class="offBoard">비공개 전환</button>
+		                            	<c:if test="${board.open == 0}">
+		                            		<button type="button" href="${board.boardNo}" class="offBoard on">공개 전환</button>
+		                            	</c:if>
+		                            	<c:if test="${board.open == 1}">
+		                            		<button type="button" href="${board.boardNo}" class="offBoard">비공개 전환</button>
+		                            	</c:if>
 		                            	<button type="button" href="${board.boardNo}" class="delBoard">삭제</button>
-		                            </td>	 	                            
+		                            </td>	 			                                                        
 		                        </tr>
                     		</c:forEach>
                     	</c:if>
@@ -230,14 +236,31 @@
 		
 		
 		
+		// 검색조건 변경 이벤트
+		$("#condition").change(function(){
+			let condition = $("#condition option:selected").val(); 
+			if(condition == "open"){
+				$("#keywordInput").attr("placeholder", "공개 : 1  ,  비공개 : 0");
+			}else if(condition == "userId"){
+				$("#keywordInput").attr("placeholder", "계정(userId) 검색");
+			}       
+        });
 		
-		// 게시글 비공개 전환
-        $(document).on("click", ".offBoard", function () {       	
-			if(confirm("게시글(boardNo=" + $(this).attr("href") + ")을 비공개로 전환하시겠습니까?")){	
+		
+		
+		// 게시글 공개/비공개 전환
+        $(document).on("click", ".offBoard", function () {          	
+        	let open = 0, text="";
+        	if($(this).hasClass("on")){ // 공개전환 요청
+				open = 1; text="공개";
+			}else{ //비공개전환 요청
+				open = 0; text="비공개";
+			}
+			if(confirm("게시글(boardNo=" + $(this).attr("href") + ")을 " + text + "로 전환하시겠습니까?")){	
 				
-				let boardNo = $(this).attr("href");
-	    		let BoardVO = {boardNo: boardNo};
-	    		
+				let boardNo = $(this).attr("href");				
+	    		let BoardVO = {boardNo: boardNo, open: open};
+
 	    		$.ajax({
 	                type: 'post',
 	                dataType : "text",
@@ -245,8 +268,11 @@
 	                url: '/admin/offBoard',
 	                data: JSON.stringify(BoardVO),
 	                success: function (response) {
-	         			if(response === 'success'){
+	         			if(response === '0'){
 	         				alert("비공개로 전환되었습니다.");
+	         				window.location.reload();
+	         			}else if(response === '1'){
+	         				alert("공개로 전환되었습니다.");
 	         				window.location.reload();
 	         			}else{
 	         				alert("비공개 전환에 실패했습니다.");

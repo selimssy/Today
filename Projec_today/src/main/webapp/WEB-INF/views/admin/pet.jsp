@@ -36,6 +36,7 @@
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
+	.content table a{background:#aaa; color: #fff; text-decoration: none; padding: 3px 5px; font-size:11px; margin-left:15px;}
 	.content table button{margin: 5px 2px; font-size:12px;}
 	.deletePetBtn, .offPet{cursor:pointer;}
 	
@@ -75,9 +76,9 @@
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
                             <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
                         </ul>
-                    </li>               
-                    <li><a href="#">통계</a></li>    
+                    </li>                  
                 </ul>
             </nav>
 
@@ -131,13 +132,18 @@
 		                            <td>${pet.gender}</td>
 		                            <td>${pet.instagram}</td>
 		                            <td>${pet.youtube}</td>
-		                            <td>${pet.contents}&nbsp;&nbsp;(<a href="<c:url value='/admin/petContent?keyword=${pet.petId}&condition=petId'/>">상세</a>)</td>
+		                            <td>${pet.contents}<a href="<c:url value='/admin/petContent?keyword=${pet.petId}&condition=petId'/>">상세</a></td>
 		                            <td>
 		                            	<c:if test="${pet.open == 0}">비공개</c:if>
 		                            	<c:if test="${pet.open == 1}">공개</c:if>
 		                            </td>
-		                            <td>
-		                                <button type="button" href="${pet.petId}" class="offPet">비공개 전환</button>
+		                            <td>		                                
+		                                <c:if test="${pet.open == 0}">
+		                            		<button type="button" href="${pet.petId}" class="offPet on">공개 전환</button>
+		                            	</c:if>
+		                            	<c:if test="${pet.open == 1}">
+		                            		<button type="button" href="${pet.petId}" class="offPet">비공개 전환</button>
+		                            	</c:if>		                                
 		                            	<button type="button" href="${pet.petId}" class="deletePetBtn">삭제</button>
 		                            </td>
 		                        </tr>
@@ -217,6 +223,18 @@
 		
 		
 		
+		// 검색조건 변경 이벤트
+		$("#condition").change(function(){
+			let condition = $("#condition option:selected").val(); 
+			if(condition == "open"){
+				$("#keywordInput").attr("placeholder", "공개 : 1  ,  비공개 : 0");
+			}else{
+				$("#keywordInput").attr("placeholder", "검색어");
+			}       
+        });
+		
+		
+		
 		// 반려견 삭제
         $(document).on("click", ".deletePetBtn", function () {       	
 			if(confirm("반려견(petId=" + $(this).attr("href") + ")을 삭제하시겠습니까?")){	
@@ -252,12 +270,18 @@
         })
         
         
-        // 반려견 비공개 전환
-        $(document).on("click", ".offPet", function () {       	
-			if(confirm("반려견(petId=" + $(this).attr("href") + ")을 비공개로 전환하시겠습니까?")){	
+        // 반려견 공개/비공개 전환
+        $(document).on("click", ".offPet", function () { 
+        	let open = 0, text="";
+        	if($(this).hasClass("on")){ // 공개전환 요청
+				open = 1; text="공개";
+			}else{ //비공개전환 요청
+				open = 0; text="비공개";
+			}
+			if(confirm("반려견(petId=" + $(this).attr("href") + ")을 " + text + "로 전환하시겠습니까?")){	
 				
 				let petId = $(this).attr("href");
-	    		let petVO = {petId: petId};
+	    		let petVO = {petId: petId, open: open};
 	    		
 	    		$.ajax({
 	                type: 'post',
@@ -266,8 +290,11 @@
 	                url: '/admin/offPet',
 	                data: JSON.stringify(petVO),
 	                success: function (response) {
-	         			if(response === 'success'){
+	         			if(response === '0'){
 	         				alert("비공개로 전환되었습니다.");
+	         				window.location.reload();
+	         			}else if(response === '1'){
+	         				alert("공개로 전환되었습니다.");
 	         				window.location.reload();
 	         			}else{
 	         				alert("비공개 전환에 실패했습니다.");

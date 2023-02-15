@@ -37,7 +37,7 @@ public interface IBoardService {
 	Integer boardCnt(SearchVO search); // 관리자 페이지
 	
 	// 게시글 비공개 전환
-	void offBoard(Integer boardNo); // 관리자 페이지
+	void offBoard(BoardVO board); // 관리자 페이지
 		
 
 	
@@ -60,5 +60,14 @@ public interface IBoardService {
 	
 	// 특정 게시물 댓글 수
 	Integer countReplies(Integer boardNo);
+	
+	// 전체 댓글(특정 계정, 공개여부별) 조회
+	List<ReplyVO> adAllReply(SearchVO search); // 관리자 페이지
+	
+	// 전체(특정 계정) 댓글 갯수
+	Integer replyCnt(SearchVO search); // 관리자 페이지
+	
+	// 특정 댓글 공개/비공개 전환
+	void offReply(ReplyVO reply); // 관리자 페이지
 	
 }

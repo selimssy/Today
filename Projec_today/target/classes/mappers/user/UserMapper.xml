@@ -94,7 +94,10 @@
 		</if>
 		<if test="order == 'contents'">
 		ORDER BY contents_cnt DESC
-		</if>		
+		</if>	
+		<if test="order == 'replyCnt'">
+		ORDER BY reply_count DESC
+		</if>	
 	</sql>
 	
 	
@@ -313,10 +316,10 @@
 		<include refid="searchPet"/>
 	</select>
 	
-	<!-- 반려견 비공개 전환 -->
+	<!-- 반려견 공개/비공개 전환 -->
 	<update id="offPet">
 		UPDATE pet
-		SET open = 0
+		SET open = #{open}
 		WHERE pet_id = #{petId}
 	</update>
 	

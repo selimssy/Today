@@ -91,7 +91,7 @@ public interface IUserMapper {
 	// 공개 상태인 반려견 수 조회
 	Integer countAllPet(SearchVO search);  // 관리자 페이지
 	
-	// 특정 반려견 비공개 전환
-	void offPet(Integer petId); // 관리자 페이지 
+	// 특정 반려견 공개/비공개 전환
+	void offPet(PetVO pet); // 관리자 페이지 
 	
 }

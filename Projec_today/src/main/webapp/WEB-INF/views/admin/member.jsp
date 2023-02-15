@@ -36,6 +36,7 @@
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
+	.content table a{background:#aaa; color: #fff; text-decoration: none; padding: 3px 5px; font-size:11px; margin-left:15px;}
 	.content table button{margin: 3px 2px; font-size:12px;}
 	.deleteUser{cursor:pointer;}
 	
@@ -75,9 +76,9 @@
                             <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
                             <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
                             <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
+                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
                         </ul>
-                    </li>               
-                    <li><a href="#">통계</a></li>    
+                    </li>                  
                 </ul>
             </nav>
 
@@ -99,7 +100,8 @@
                     <select class="select" id="order" name="order">    
                     	<!--  <option value="regDate">--- 정렬 ---</option>   -->                      	                           	
                         <option value="regDate" ${param.order == 'regDate' ? 'selected' : ''}>가입일순</option>
-                        <option value="contents" ${param.order == 'contents' ? 'selected' : ''}>활동순</option>       
+                        <option value="contents" ${param.order == 'contents' ? 'selected' : ''}>컨텐츠순</option>  
+                        <option value="replyCnt" ${param.order == 'replyCnt' ? 'selected' : ''}>댓글순</option>     
                    </select>	          	            
                 </div>
                 <table>
@@ -133,9 +135,9 @@
 		                            <td>${member.name}</td>
 		                            <td>${member.nickname}</td>
 		                            <td>${member.email}</td>
-		                            <td>${member.petCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/pet?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
-		                            <td>${member.contentsCnt}&nbsp;&nbsp;(<a href="<c:url value='/admin/content?keyword=${member.userId}&condition=userId'/>">상세</a>)</td>
-		                            <td>${member.replyCnt}</td>
+		                            <td>${member.petCnt}<a href="<c:url value='/admin/pet?keyword=${member.userId}&condition=userId'/>">상세</a></td>
+		                            <td>${member.contentsCnt}<a href="<c:url value='/admin/content?keyword=${member.userId}&condition=userId'/>">상세</a></td>
+		                            <td>${member.replyCnt}<a href="<c:url value='/admin/reply?keyword=${member.userId}&condition=userId'/>">상세</a></td>
 		                            <td><button type="button" href="${member.userId}" class="deleteUser">삭제</button></td>		                            
 		                        </tr>
                     		</c:forEach>
@@ -212,8 +214,7 @@
 			location.href="/admin/member?keyword=" + encodeURI(keyword) + "&condition=" + condition + "&order=" + order;          
         });
 		
-		
-		
+				
 		
 		// 회원 삭제
 		$(".deleteUser").click(function(){			

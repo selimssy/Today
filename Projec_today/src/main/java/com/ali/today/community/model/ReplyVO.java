@@ -16,6 +16,7 @@ public class ReplyVO {
 	private Date replyDate;   // 댓글 작성일
 	
 	private Date updateDate;  // 댓글 수정일
+	private Integer open; // 공개 여부
 	
 	
 	public int getReplyNo() {
@@ -60,7 +61,24 @@ public class ReplyVO {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	public Integer getOpen() {
+		return open;
+	}
+	public void setOpen(Integer open) {
+		this.open = open;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "ReplyVO [replyNo=" + replyNo + ", boardNo=" + boardNo + ", content=" + content + ", replyer=" + replyer
+				+ ", nickname=" + nickname + ", replyDate=" + replyDate + ", updateDate=" + updateDate + ", open="
+				+ open + ", getReplyNo()=" + getReplyNo() + ", getBoardNo()=" + getBoardNo() + ", getContent()="
+				+ getContent() + ", getReplyer()=" + getReplyer() + ", getNickname()=" + getNickname()
+				+ ", getReplyDate()=" + getReplyDate() + ", getUpdateDate()=" + getUpdateDate() + ", getOpen()="
+				+ getOpen() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 		
-	
-	
+
 }
