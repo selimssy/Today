@@ -2,8 +2,13 @@ package com.ali.today.admin.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ali.today.admin.model.EmailVO;
 import com.ali.today.admin.service.IAdminService;
 import com.ali.today.common.PageCreator;
 import com.ali.today.common.SearchVO;
@@ -275,5 +281,39 @@ public class AdminController {
 		bService.offReply(reply);				
 		return reply.getOpen(); 
 	} 
+	
+	
+	
+	// 단체 메일 발송
+	@Autowired
+	private JavaMailSenderImpl mailSender;	
+	@PostMapping("/adminEmail")
+	@ResponseBody
+	public String adminEmail(@RequestBody EmailVO emailSend) {	
+		try {
+		System.out.println(emailSend.toString());
+		
+        String setFrom = "today.auth@gmail.com";
+        String[] toMail = emailSend.getEmailList();
+        String title = emailSend.getTitle();
+        String content = emailSend.getContent();
+   
+        //try {
+            
+        	MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return "success";
+ 
+	}
 	
 }

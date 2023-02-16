@@ -17,7 +17,7 @@
 	body{margin: 0; padding:0;}
 	header{background: #111; color: #fff; padding: 5px;}
 	/*.header_inner, .main_inner{width: 1050px; margin: 0 auto;}*/
-	.modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px; color: #fff; margin-right: 10px;}
+	.header_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px; color: #fff; margin-right: 10px;}
 	.main_inner{display: flex; align-content: space-between;}
 	.main_nav{width: 220px; background: #545456; padding-top: 10px; border-right: 1px solid #aaa; height: 100%; /*float: left;*/}
 	.main_nav ul{list-style: none;}
@@ -27,11 +27,13 @@
 	.sub_menu li a{font-size: 14px;}
 	.content{width: calc(100% - 220px); margin-top: 20px; position: relative;/*float: left;*/}
 	.content h3{padding-left: 10%;}
+	.content .emailOpen{margin-right:30px; cursor:pointer;}
 	.content .search{position: absolute; top: 15px; right: 10%;} 
 	.content .search .select{height: 25px; display: inline-block;}
 	.content .search .select[name='order']{margin-left: 20px;}
 	.content .search .keyword{height: 25px; display: inline-block;}
-	.content .search input[type='text']{height: 20px;}
+	.content input[type='checkbox']{cursor:pointer;}
+	.content input[type='text']{height: 20px;}
 	.content table{width: 80%; text-align: center; margin: 20px auto; }
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
@@ -45,6 +47,30 @@
 	.paging ul li a{text-decoration: none; color: #000; padding: 3px 8px;}
 	.paging ul li a.page-active{color: #fff; background: #384d75; border-radius: 15px}
 	
+
+	#emailSendModal{display:none; width:400px; height: 550px; border: 3.5px solid #777; border-radius: 15px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8;
+			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:10;}	
+	.closeEmail{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}	
+	#emailSendModal input:focus{outline: none;}, #emailSendModal textarea:focus{outline: none;}
+	.modal_header{border-bottom: 1px solid #dee2e6; padding: 15px 0; display: flex; position: relative;}
+	.modal-title{font-family: 'Jua', sans-serif; font-size:1.4em; margin:0;}
+	.modal_logo{font-size: 1.4em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
+	.modal_body{padding: 0 20px; display: block; width:100%; box-sizing: border-box;}
+	.modal_body ul{list-style: none; padding-left: 0; margin:0;}
+	.mlabel{margin-top:15px;}
+	.mlabel p{margin:10px 0;}
+	.modal_input{border: 1px solid #d9d9de; box-sizing: border-box; width: 100%; height: 40px; padding-left: 10px;}
+	.m_button{margin-top: 20px; width: 45%; height: 35px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
+	.m_button:nth-of-type(1){margin-right: 20px;}
+	.modal_textarea{resize: none; width: 100%; background: none; border: 1px solid #d9d9de; line-height: 22px; font-family: "NanumSquare","맑은 고딕", sans-serif; box-sizing: border-box; padding: 10px;}
+	.modal_input, .modal_textarea{margin-top:5px;}
+
+
+	.buttonBox{display:flex; justify-content: space-evenly;;}
+	
+	
+	
+	
 	@media all and (max-width:1065px){	
 	    /*.header_inner, .main_inner{width: 100%;}*/
 	}
@@ -54,7 +80,7 @@
     
     <header>
         <div class="header_inner">
-            <h3><span class="modal_logo">오늘의 너</span>관리자 페이지</h3> 
+            <h3><span class="header_logo">오늘의 너</span>관리자 페이지</h3> 
         </div>
     </header>
     <main>
@@ -83,8 +109,9 @@
             </nav>
 
             <div class="content">
-                <h3>회원 관리</h3>
-                <div class="search">	           
+                <h3>회원 관리</h3>                	
+                <div class="search">	 
+                	<button type="button" class="emailOpen">메일 발송</button>         
                     <select class="select" id="condition" name="condition">                            	                           	
                          <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>아이디</option>
                          <option value="name" ${param.condition == 'name' ? 'selected' : ''}>이름</option>
@@ -107,6 +134,7 @@
                 <table>
                     <thead>
                         <tr>
+                        	<th><input type='checkbox' id="allEmail" title="전체선택"/></th>
                             <th>아이디</th>
                             <th>가입일</th>
                             <th>이름</th>
@@ -130,6 +158,7 @@
                     	<c:if test="${userList.size() > 0}">
                     		<c:forEach var="member" items="${userList}">
                     			<tr>
+                    				<td><input type='checkbox' name='emailSend' value='${member.email}' /></td>
 		                            <td>${member.userId}</td>
 		                            <td><fmt:formatDate value="${member.regDate}" pattern="yyyy.MM.dd" /></td>
 		                            <td>${member.name}</td>
@@ -180,6 +209,57 @@
 
         </div>
     </main>
+    
+     
+    
+    
+    <!-- 메일 발송 모달 -->
+	<div id="emailSendModal">
+		<div class="modal_header">			
+			<p class="modal-title">
+                <span class="modal_logo">오늘의 너</span> 메일 발송
+            </p>
+            <div class="closeEmail">close</div>
+		</div>
+				
+		<div class="modal_body">
+	        <ul>	    
+	        	<li class="mlabel">
+                    <p>
+                        <strong>받는 사람</strong>
+                    </p>
+	            </li>
+	            <li>
+	                <input type="text" id="toMail" class="modal_input" disabled/>
+	            </li>	        
+	            <li class="mlabel">
+                    <p>
+                        <strong>제목</strong>
+                    </p>
+	            </li>
+	            <li>
+	                <input type="text" id="emailTitle" class="modal_input" placeholder="메일 제목"/>
+	            </li>	            
+	            <li class="mlabel">
+                    <p>
+                        <strong>내용</strong>
+                    </p>
+	            </li>
+	            <li>
+	                <textarea id="emailCont" class="modal_textarea" rows="7"></textarea>
+	            </li>
+	            
+	            <li>
+                   	<div class="buttonBox">
+                        <button type="button" id="adminEmail" class="m_button">발송</button>
+                        <button type="button" id="emailCancle" class="m_button">취소</button>
+                    </div>
+                </li>
+	        </ul>
+    	</div>
+	</div>
+    
+    
 
 </body>
 
@@ -242,6 +322,74 @@
 	                } 
 	            });
 			}
+		})
+		
+		
+		
+		// 메일 발송 모달 여닫기
+		$(".emailOpen").click(function(){
+			let emailList = [];
+			$('input[name="emailSend"]:checked').each(function(){ //체크된 리스트 저장
+				emailList.push($(this).val());
+            });
+			
+			if(emailList.length == 0){ // 받는 사람 체크 안 한 경우
+				alert("받는 사람을 체크해주세요.");
+				return false;
+			}
+			
+			let firstPerson = emailList[0];
+			$("#emailSendModal input").val("");
+			$("#emailSendModal textarea").val("");
+			$("#toMail").val(firstPerson + "외 " + parseInt(emailList.length-1) + "명");
+			$("#emailSendModal").css("display","block");
+		})
+		
+		$("#emailCancle").add(".closeEmail").click(function(){
+			$("#emailSendModal").css("display","none");
+		})
+		
+		
+		
+		// 단체 메일 발송
+		$("#adminEmail").click(function(){
+			let emailList = [];
+			$('input[name="emailSend"]:checked').each(function(){ //체크된 리스트 저장
+				emailList.push($(this).val());
+            });
+						
+			let emailSend = {
+				"title": $("#emailTitle").val(),
+				"content": $("#emailCont").val(),
+				"emailList" : emailList
+				};
+			console.log(emailList);
+			console.log($("#emailTitle").val());
+			console.log($("#emailCont").val());
+			$.ajax({
+				type : "POST",
+				url : "/admin/adminEmail",
+				headers: {
+                    "Content-Type": "application/json"
+                }, 
+				dataType: "text",
+				data: JSON.stringify(emailSend),
+				success: function(response){
+					if(response === 'success'){
+         				alert("메일이 발송되었습니다.");
+         				window.location.reload();
+         			}else{
+         				alert("메일 발송에 실패했습니다.");
+         			}									
+				},
+				error: function(data){
+					alert("메일 발송에 실패했습니다.");
+				}
+			});
+			
+			
+			
+			
 		})
 		
 		
