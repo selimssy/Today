@@ -1,6 +1,8 @@
 package com.ali.today.user.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -226,6 +228,29 @@ public class UserController {
 		service.modifyPw(userVO);
 		return "success";
 	}
+	
+	
+	
+	// 아이디 찾기 - 이메일, 이름 일치 확인
+	@PostMapping("/emailName")
+	public Map<String, Object> emailName(@RequestBody UserVO user) {
+		Map<String, Object> data = new HashMap<>();
+		System.out.println(user.getEmail());
+		UserVO findUser = service.emailName(user.getEmail());		
+		System.out.println(findUser);
+		if(findUser == null) { // 이메일 조회x
+			data.put("result", "noEmail");
+		}else {
+			String name =  findUser.getName();
+			String userId = findUser.getUserId();
+			data.put("result", "success");
+			data.put("name", name);
+			data.put("userId", userId);
+		}
+		return data;
+	}
+	
+	
 	
 	
 	

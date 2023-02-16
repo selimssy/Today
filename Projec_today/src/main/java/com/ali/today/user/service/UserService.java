@@ -127,6 +127,19 @@ public class UserService implements IUserService{
 		return mapper.getUserWithSessionId(sessionId);
 	}
 	
+	
+	// 아이디 찾기 - 이메일, 이름 일치 확인
+	@Override
+	public UserVO emailName(String email) {
+		return mapper.emailName(email);
+	}
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
 	// 새로운 반려동물 등록
 	@Override
 	public void registerPet(PetVO pet) {

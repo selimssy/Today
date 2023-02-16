@@ -45,7 +45,7 @@ body{margin:0; padding:0;}
 
 
 
-#login_modal{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}
+#login_modal, #findId_modal{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}
 #join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed;top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}    
 #login_modal .modal_table span, #join_modal .modal_table span{font-family: 'Noto Sans KR', sans-serif; padding-left:10px;}
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
@@ -61,7 +61,10 @@ body{margin:0; padding:0;}
 .emailAuth{display:flex}
 .emailAuth button{height: 40px; padding:5px 0; margin-left: 5px; border:none; /*font-size:20px; line-height:20px;*/ box-sizing: border-box; cursor: pointer; word-break: keep-all;}
 .emailAuth:nth-of-type(1) button{width:35%;}
-
+.login_nav{font-size:15px;}
+.login_nav p{display:inline-block; font-size:13px; cursor:pointer;}
+.login_nav p:nth-of-type(1){margin-left:50px;}
+.login_nav p:nth-of-type(1):after {content:"|"; display:inline-block; padding:0 10px;}
 
 @media all and (max-width:1300px) {	
 	.title{top: 50px; left: 10.5%;}
@@ -222,9 +225,11 @@ body{margin:0; padding:0;}
                         <td><input type="password" class="modal_input" id="signInPw" placeholder="PW"></td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="login_nav">
                             <input type="checkbox" id="auto_login" name="autoLogin"> 자동 로그인
-                        </td>
+                            <p id="findId">아이디 찾기</p>
+                            <p id="findPw">비밀번호 찾기</p>
+                        </td>                           
                     </tr>
                     <tr>
                         <td>
@@ -354,150 +359,83 @@ body{margin:0; padding:0;}
 	
 	
 	
+	 <!------------------------------ 아이디 찾기 모달 --------------------------------->
+    <div id="findId_modal">
+        <div class="modal_header">
+            <h2 class="modal-title">
+                <span class="modal_logo">오늘의 너</span> 아이디 찾기
+            </h2>
+            <div class="modal_close">close</div> 
+        </div>
+        <div class="modal_body">
+            <table class="modal_table">
+            	<tr>
+                    <td class="mlabel">
+                        <p style="font-size: 12px; margin:5px"><span style="color:red">*</span> 회원가입시 입력한 이름과 이메일을 기입해주세요.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <strong>이름</strong>
+                            <span id="if_nameChk"></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="modal_input" id="findId_name"></td>
+                </tr>
+                <tr>
+                    <td class="mlabel">
+                        <p>
+                            <strong>이메일</strong>
+                            <span id="if_pwChk"></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="emailAuth">
+	                    <input type="email" class="modal_input" id="findId_email">
+	                    <button type="button" class="if_authSend">인증번호 전송</button>
+                    </td>
+                </tr>               
+                <tr>
+                    <td class="mlabel">
+                        <p>
+                            <strong>인증번호</strong>
+                            <span id="if_authChk"></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="emailAuth">
+                   		<input type="text" id="findId_authNum" class="modal_input" placeholder="인증번호 6자리 입력">
+                   		<button type="button" class="if_authChkBtn">확인</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" id="showId" class="m_button" style="margin-top:30px;">다음</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 
     <script>
-
-        
-    	// 펫리스트창 열기
-    	function select_pet(){
-    		$(".petList").css("display","block");
-    		$('#petCards').empty();
-    		
-    		const id = "${login.userId}";
-    		console.log(id);
-    		const user = {
-                        userId: id
-                    };
-    		$.ajax({
-                type: 'post',
-                dataType : "json",
-                contentType: 'application/json',
-                url: '/user/petList',
-                data: JSON.stringify(user),
-                success: function (response) {
-                	console.log(response); // 리스트 
-                    //let rows = response  
-                    //console.log(row.length);
-                    for(let i = 0; i < response.length; i++){
-                    	let pet_id = response[i]['petId']
-                        let src = response[i]['imagePath']
-                        let pet_name = response[i]['petName']
-                        let age = response[i]['age']
-                        let gender = response[i]['gender']
-
-                        let temp_html = "<a href='javascript:;'><div class='pet'><div class='pet_in'><div class='pet_id'>" + pet_id + "</div><img src='" + src + "'><div><h3>" + pet_name + "</h3><p>" + age + "살 / <span>" + gender + "</span></p></div></div></div></a>" 
-
-                        $('#petCards').append(temp_html)
-                    }
-                }, 
-                error: function() {
-                    console.log("통신 실패!");
-                } 
-            });
-    		 
-    		
-    	}
-    	
-           
-        // 펫등록 모달 열기 
-        // 반려동물 추가
-        $("#petRgform_open").click(function(){
-            $("#petRg_modal").css("display","block");
-        })
-      
-        
-        
-        
-        
-        // 새로운 펫 추가 이벤트    
-        $("#petRg-btn").click(function(){
-            //formData 객체 생성
-            let formData = new FormData();
-        	formData.append("petImg", $("input[name=file]")[0].files[0]);
-        	// 넘겨줄 반려동물 데이터
-        	let petData = {
-        			"userId": "${login.userId}",
-        			"petName": $("#pet_name").val(),
-        			"age": $("#age").val(),
-        			"gender": $("input[name='gender']:checked").val(),
-        			"feature": $("#feature").val(),
-        			"instagram": $("#instagram").val(),
-        			"youtube": $("#youtube").val(),
-        			"open": $("input[name='open']:checked").val()
-        	}
-        	
-        	// formData에 json타입으로 petData 추가
-        	formData.append("petData", new Blob([ JSON.stringify(petData) ], {type : "application/json"}));
-        	
-        	// ajax 처리
-        	$.ajax({
-        		  type: "POST",
-        	      url: "/user/registerPet",
-        	      data: formData,
-        	      dataType: "text",
-        	      contentType: false,               // * 중요 *
-        	      processData: false,               // * 중요 *
-        	      enctype : 'multipart/form-data',  // * 중요 *
-        	      success: function(result) { 
-                      console.log("통신 성공!: ");
-                      if(result === "success") {
-                          alert("반려동물 등록이 완료되었습니다.");
-                          //location.href="/today/mypet/lifetime"; session petId등록 문제
-                      } else {
-                          alert("반려동물 등록에 실패했습니다.");
-                      }
-                  }, 
-                  error: function() {
-                      console.log("통신 실패!");
-                  } 
-        	});
-        })    
-
-        
-        
-        
-        
-        
-        // 반려동물 선택 이벤트(나의 펫 리다이렉트)
-        $(document).on("click", ".pet", function () {
-            const user_id = "${login.userId}";
-            const pet_id = $(this).find( ".pet_id" ).text();
-    		console.log(user_id);
-            console.log(pet_id);
-    		const pet = {
-                        userId: user_id,
-                        petId: pet_id
-                    };
-
-            $.ajax({
-                type: "POST", 
-                url: "/user/selectPet", 
-                headers: {
-                    "Content-Type": "application/json"
-                }, 
-                dataType: "text", 
-                data: JSON.stringify(pet), 
-                success: function(result) { 
-                    console.log("통신 성공!: ");
-                    if(result === "success") {
-                        location.href="/mypet/lifetime";
-                    } else {
-                        alert("반려동물 선택에 실패했습니다.");
-                    }
-                }, 
-                error: function() {
-                    console.log("통신 실패!");
-                } 
-            });        
-            
-        })
-        
-        
-        
-    	
-    	
+	
     	// 이거 그냥 밑으로 넣어도 되지 않나
         $("#login").click(function(){
             $("#login_modal").css("display", "block");
@@ -866,6 +804,108 @@ body{margin:0; padding:0;}
                     alert("입력정보를 다시 확인하세요!");
                 }
             });
+            
+            
+            
+            
+            // 아이디 찾기 모달 열기
+            $("#findId").click(function(){
+            	$("#login_modal").css("display", "none");
+            	$("#findId_modal input").val("");
+            	$('#if_pwChk').html("");
+            	$("#findId_modal").css("display", "block");
+            })
+            
+            
+            // 아이디찾기 이메일 인증번호 전송
+            $(".if_authSend").click(function(){	
+            	 let emailAuthNum = "";
+				 let email = $('#findId_email').val();
+				 let name = $('#findId_name').val();
+				 let user = {"email": email};
+				 
+				 if(!name || name.replace(/\s| /gi, "").length==0){ // 이름 입력값 체크
+						alert("이름을 입력해주세요.");
+						$("#findId_name").focus();
+					    return false;
+					}
+					 
+				 if(!getMail.test(email)){  // 이메일 입력값 체크
+				 	alert("이메일 입력값을 확인해주세요.");
+				 	return false;
+				 }else{
+					 $.ajax({
+							type : "POST",
+							url : "/user/emailName",
+							contentType: 'application/json; charset=UTF-8',
+							dataType: "json",
+							data : JSON.stringify(user),
+							success: function(response){
+								console.log(response);
+								if(response['result'] === 'noEmail'){ // 가입된 메일 아닐 경우
+									$('#if_pwChk').html('');
+									alert("조회되지 않는 이메일입니다.");									
+								}else if(response['result'] === 'success'){
+									let dbName = response['name'];
+									let userId = response['userId'];
+									if(name === dbName){ // 일치하게 입력한 경우 
+										findIdMail(email, userId); 
+										console.log(userId);
+									}else{ // 가입된 메일이지만 이름과 메일 일치x
+										$('#if_pwChk').html('');
+										alert("이름과 이메일이 일치하지 않습니다. 입력값을 확인해주세요.");									
+									}
+								}		
+							},
+							error: function(data){
+								alert("메일 발송에 실패했습니다.");
+							}
+						});
+				 }
+				 				 			  
+			});
+            
+            
+            
+            // 아이디찾기 인증번호 발송
+            function findIdMail(email, userId){
+            	
+            	 let emailAuthNum = "";
+				 
+            	 $.ajax({
+						type : "POST",
+						url : "/user/emailAuth",
+						data : {email : email},
+						success: function(data){
+							$('#if_pwChk').html('<b style="font-size:13px;color:blue;">인증번호가 발송되었습니다.</b>');
+							emailAuthNum = data;
+							//console.log(email_auth_cd);
+						},
+						error: function(data){
+							alert("메일 발송에 실패했습니다.");
+						}
+					});
+				 
+				 
+				 // 인증번호 일치 확인
+				 $(".if_authChkBtn").click(function(){
+					 if($("#findId_authNum").val() === emailAuthNum){
+						 //$('#if_authChk').html('<b style="font-size:13px;color:blue;">인증되었습니다.</b>');
+						 //chk7 = true;
+						 alert("인증되었습니다.");
+						 $('#findId_name').val(userId).attr("readonly", true);
+					 }else{
+						 $('#if_authChk').html('<b style="font-size:13px;color:#F05650;">인증번호가 일치하지 않습니다.</b>');
+						 //chk7 = false;
+					 }
+				 })
+            	
+            }
+            
+            
+
+            
+            
            
         });//end JQuery
 

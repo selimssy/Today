@@ -181,6 +181,14 @@
 	
 	
 	
+	<!-- 아이디 찾기 - 이메일, 이름 일치 확인 -->
+	<select id="emailName" resultMap="UserMap">
+		SELECT name, user_id 
+		FROM user 
+		WHERE email = #{email} 
+	</select>
+	
+	
 	
 	
 	<!-- ******관리자 페이지******* -->

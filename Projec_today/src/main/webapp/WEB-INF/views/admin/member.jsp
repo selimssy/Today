@@ -134,7 +134,7 @@
                 <table>
                     <thead>
                         <tr>
-                        	<th><input type='checkbox' id="allEmail" title="전체선택"/></th>
+                        	<th></th>
                             <th>아이디</th>
                             <th>가입일</th>
                             <th>이름</th>
@@ -334,7 +334,7 @@
             });
 			
 			if(emailList.length == 0){ // 받는 사람 체크 안 한 경우
-				alert("받는 사람을 체크해주세요.");
+				alert("수신인을 체크해주세요.");
 				return false;
 			}
 			
@@ -357,15 +357,14 @@
 			$('input[name="emailSend"]:checked').each(function(){ //체크된 리스트 저장
 				emailList.push($(this).val());
             });
-						
+			
+			let content = $("#emailCont").val().replace(/(?:\r\n|\r|\n)/g, '<br>');
 			let emailSend = {
 				"title": $("#emailTitle").val(),
-				"content": $("#emailCont").val(),
+				"content": content,
 				"emailList" : emailList
 				};
-			console.log(emailList);
-			console.log($("#emailTitle").val());
-			console.log($("#emailCont").val());
+
 			$.ajax({
 				type : "POST",
 				url : "/admin/adminEmail",

@@ -45,7 +45,8 @@ public interface IUserMapper {
 	// 세션아이디를 통한 회원정보 조회기능
 	UserVO getUserWithSessionId(String sessionId);
 
-	
+	// 아이디 찾기 - 이메일, 이름 일치 확인
+	UserVO emailName(String email);
 	
 	
 	
