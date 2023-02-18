@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
@@ -71,6 +72,61 @@ public class UserController {
 	}
 	
 	
+	/* 베포이걸로
+	// 회원가입 이메일 인증
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+	
+	@PostMapping("/emailAuth")
+	public Map<String, Object> emailAuth(String email) {
+		System.out.println(email);
+		Integer checkEmail = service.checkEmail(email);
+		Map<String, Object> data = new HashMap<>();
+		
+		if(checkEmail == 0) { // 중복 아닌 경우 			
+			System.out.println("중복아님");
+			Random random = new Random();
+			int checkNum = random.nextInt(888888) + 111111; // 111111 ~ 999999 범위의 인증번호			
+		
+	        String setFrom = "today.auth@gmail.com";
+	        String toMail = email;
+	        String title = "[오늘의 너] 회원가입 인증 메일입니다.";
+	        String content = 
+	                "<h1>이메일 인증번호</h1>" +
+	                "<hr>" +
+	                "'오늘의 너' 홈페이지를 방문해주셔서 감사합니다." +
+	                "<br>" +
+	                " 아래의 인증번호를 확인란에 기입하여 주십시오." +
+	                "<br><br><br>" +
+	                "<span style='line-height: 28px; font-size: 28px; background:#eee; padding:10px 20px;'><b>" + checkNum +  "</b></span>";
+	                       
+	        try {
+	            
+	        	MimeMessage message = mailSender.createMimeMessage();
+	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	            helper.setFrom(setFrom);
+	            helper.setTo(toMail);
+	            helper.setSubject(title);
+	            helper.setText(content,true);
+	            mailSender.send(message);
+	            
+	        }catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+	        data.put("result", "success");
+			data.put("checkNum", Integer.toString(checkNum));
+		
+		}else {	//이미 가입된 이메일인 경우		
+			data.put("result", "exist");
+			System.out.println("중복");
+		}
+		   
+        return data;
+	}*/
+	
+	
+	
 	
 	// 회원가입 이메일 인증
 	@Autowired
@@ -81,14 +137,13 @@ public class UserController {
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111; // 111111 ~ 999999 범위의 인증번호
 
-		/* 이메일 보내기 */
         String setFrom = "today.auth@gmail.com";
         String toMail = email;
-        String title = "[오늘의 너] 회원가입 인증 메일입니다.";
+        String title = "[오늘의 너] 인증번호 발송 메일입니다.";
         String content = 
                 "<h1>이메일 인증번호</h1>" +
                 "<hr>" +
-                "'오늘의 너' 홈페이지를 방문해주셔서 감사합니다." +
+                "'오늘의 너' 홈페이지를 이용해주셔서 감사합니다." +
                 "<br>" +
                 " 아래의 인증번호를 확인란에 기입하여 주십시오." +
                 "<br><br><br>" +
@@ -113,6 +168,7 @@ public class UserController {
         return Integer.toString(checkNum);
  
 	}
+	
 	
 	
 	
@@ -234,10 +290,10 @@ public class UserController {
 	// 아이디 찾기 - 이메일, 이름 일치 확인
 	@PostMapping("/emailName")
 	public Map<String, Object> emailName(@RequestBody UserVO user) {
+		
 		Map<String, Object> data = new HashMap<>();
-		System.out.println(user.getEmail());
 		UserVO findUser = service.emailName(user.getEmail());		
-		System.out.println(findUser);
+
 		if(findUser == null) { // 이메일 조회x
 			data.put("result", "noEmail");
 		}else {
@@ -250,6 +306,63 @@ public class UserController {
 		return data;
 	}
 	
+	
+	
+	// 비밀번호 찾기 - 아이디, 이름, 이메일 일치 확인
+	@PostMapping("/findPwInfo")
+	public String findPwInfo(@RequestBody UserVO user) {
+		
+		Integer findResult = service.findPwInfo(user);		
+
+		if(findResult == 0) { // 일치하는 회원x
+			return "noUser";
+		}else { // 정보 일치
+			return "success";
+		}
+	}
+	
+	
+	
+	// 임시 비밀번호 설정 및 알림메일 발송
+	@PostMapping("/findPw")
+	public String findPw(@RequestBody UserVO user) {	
+	
+		//임시 비밀번호 생성(UUID이용)
+		String tempPw = UUID.randomUUID().toString().replace("-", ""); // - 제거
+		tempPw = "&" + tempPw.substring(0,10) + "@"; // 앞에서부터 10자리
+		user.setPassword(tempPw);
+		service.modifyPw(user); // 비밀번호 변경
+
+		// 임시 비밀번호 알림 메일 발송
+        String setFrom = "today.auth@gmail.com";
+        String toMail = user.getEmail();
+        String title = "[오늘의 너] 임시 비밀번호 안내 메일입니다.";
+        String content = 
+                "<h2>임시 비밀번호 안내</h2>" +
+                "<hr>" +
+                "요청하신 임시 비밀번호를 발송해 드립니다. 계정 보안을 위해 로그인 후 필히 비밀번호를 변경해 주시기 바랍니다." +
+                "<br><br><br>" +
+                "<span style='line-height: 28px; font-size: 28px; background:#eee; padding:10px 20px;'><b>" + tempPw +  "</b></span>";
+                 
+                
+        
+        try {
+            
+        	MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return "success";
+ 
+	}
 	
 	
 	

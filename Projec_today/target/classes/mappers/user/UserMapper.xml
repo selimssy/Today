@@ -117,6 +117,14 @@
 	</select>
 	
 	
+	<!-- 이메일 중복확인 SQL -->
+	<select id="checkEmail" resultType="int">
+		SELECT COUNT(*)
+		FROM user
+		WHERE email = #{email}
+	</select>
+	
+	
 	<!-- 회원정보 수정 -->
 	<update id="modifyUser">
 		UPDATE user 
@@ -188,6 +196,12 @@
 		WHERE email = #{email} 
 	</select>
 	
+	
+	<!-- 비밀번호 찾기 - 아이디, 이름, 이메일 일치 확인 -->
+	<select id="findPwInfo" resultType="int">
+		SELECT count(*) FROM user
+		WHERE user_id = #{userId} AND name = #{name} AND email = #{email}
+	</select>
 	
 	
 	

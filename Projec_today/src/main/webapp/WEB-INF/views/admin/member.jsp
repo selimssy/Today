@@ -16,8 +16,14 @@
 <style type="text/css">
 	body{margin: 0; padding:0;}
 	header{background: #111; color: #fff; padding: 5px;}
+	.header_inner{width: 90%; position: relative;}
+	.header_inner h3{display:inline-block;}
+	.header_move{text-align:right; position: absolute; top:10px; right: 0;}
+	.header_move p{ display:inline-block; color:fff; font-size:14px;}
+	.header_move p:nth-of-type(1){margin-right:30px; padding-left:28px; background-image:url(/img/common/ad_logout.png); background-size: contain; background-repeat: no-repeat;}
+	.header_move p:nth-of-type(2){padding-left:22px; background-image:url(/img/common/tohome.png); background-size: contain; background-repeat: no-repeat;}
 	/*.header_inner, .main_inner{width: 1050px; margin: 0 auto;}*/
-	.header_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px; color: #fff; margin-right: 10px;}
+	.header_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px; color: #fff; margin-right: 10px; cursor:pointer;}
 	.main_inner{display: flex; align-content: space-between;}
 	.main_nav{width: 220px; background: #545456; padding-top: 10px; border-right: 1px solid #aaa; height: 100%; /*float: left;*/}
 	.main_nav ul{list-style: none;}
@@ -81,14 +87,18 @@
     <header>
         <div class="header_inner">
             <h3><span class="header_logo">오늘의 너</span>관리자 페이지</h3> 
+            <div class="header_move">
+            	<p>관리자 로그아웃</p>
+            	<p>홈으로 이동</p>
+            </div>
         </div>
     </header>
     <main>
         <div class="main_inner">
             <nav class="main_nav">
                 <ul>
-                    <li><a href="<c:url value='/admin/member'/>" class="checked">회원 관리</a></li>
-                    <li><a href="<c:url value='/admin/pet'/>"  class="checked">반려견 관리</a>
+                    <li><a href="<c:url value='/admin/member'/>">회원 관리</a></li>
+                    <li><a href="<c:url value='/admin/pet'/>">반려견 관리</a>
                     	<ul class="sub_menu">
                         	<li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>
                             <li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠</a></li>                            
@@ -246,7 +256,7 @@
                     </p>
 	            </li>
 	            <li>
-	                <textarea id="emailCont" class="modal_textarea" rows="7"></textarea>
+	                <textarea id="emailCont" class="modal_textarea" rows="7" spellcheck="false"></textarea>
 	            </li>
 	            
 	            <li>
@@ -391,6 +401,11 @@
 			
 		})
 		
+		
+		// 홈으로 이동
+		$(".header_logo").click(function(){
+			location.href="/";
+		})
 		
 		
 	})

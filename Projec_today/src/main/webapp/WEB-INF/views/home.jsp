@@ -45,7 +45,9 @@ body{margin:0; padding:0;}
 
 
 
-#login_modal, #findId_modal{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}
+#login_modal, #findId_modal, #findPw_modal1, #findPw_modal2{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}
+#findPw_modal1{height: 310px;}
+#findPw_modal2{height: 470px;}
 #join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed;top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}    
 #login_modal .modal_table span, #join_modal .modal_table span{font-family: 'Noto Sans KR', sans-serif; padding-left:10px;}
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
@@ -426,6 +428,101 @@ body{margin:0; padding:0;}
 	
 	
 	
+	 <!------------------------------ 비밀번호 찾기 모달1 --------------------------------->
+    <div id="findPw_modal1">
+        <div class="modal_header">
+            <h2 class="modal-title" style="margin:15px 0">
+                <span class="modal_logo">오늘의 너</span> 비밀번호 찾기
+            </h2>
+            <div class="modal_close">close</div> 
+        </div>
+        <div class="modal_body">
+            <table class="modal_table">
+            	<tr>
+                    <td class="mlabel">
+                        <p style="font-size: 12px; margin:5px"><span style="color:red">*</span> 비밀번호를 재설정할 아이디를 입력해주세요.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <strong>아이디</strong>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="modal_input" id="findPw_userId"></td>
+                </tr>
+                
+            
+                <tr>
+                    <td>
+                        <button type="button" id="findPwNext" class="m_button" style="margin-top:30px;">확인</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>			
+	
+	
+	
+	
+	 <!------------------------------ 비밀번호 찾기 모달2 --------------------------------->
+    <div id="findPw_modal2">
+        <div class="modal_header">
+            <h2 class="modal-title" style="margin:15px 0">
+                <span class="modal_logo">오늘의 너</span> 비밀번호 찾기
+            </h2>
+            <div class="modal_close">close</div> 
+        </div>
+        <div class="modal_body">
+            <table class="modal_table">
+            	<tr>
+                    <td class="mlabel">
+                        <p style="font-size: 12px; margin:5px"><span style="color:red">*</span>회원가입시 입력한 아이디, 이름, 이메일을 기입해주세요. 정보가 일치하면 인증번호가 발송됩니다.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <strong>이름</strong>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="modal_input" id="findPw_name"></td>
+                </tr>
+                <tr>
+                    <td class="mlabel">
+                        <p>
+                            <strong>이메일</strong>
+                            <span id="pf_emailChk"></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="emailAuth">
+	                    <input type="email" class="modal_input" id="findPw_email">
+	                    <button type="button" class="pf_authSend">인증번호 전송</button>
+                    </td>
+                </tr>               
+                <tr>
+                    <td class="mlabel">
+                        <p>
+                            <strong>인증번호</strong>
+                            <span id="pf_authChk"></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="emailAuth">
+                   		<input type="text" id="findPw_authNum" class="modal_input" placeholder="인증번호 6자리 입력">
+                   		<button type="button" class="pf_authChkBtn">확인</button>
+                    </td>
+            </table>
+        </div>
+    </div>		
+	
 	
 	
 	
@@ -483,7 +580,6 @@ body{margin:0; padding:0;}
                 else {
                     //ID 중복확인 비동기 통신
                     const userId = $(this).val();
-                    console.log(userId);
                    
                     $.ajax({
                         type: "POST",
@@ -617,6 +713,54 @@ body{margin:0; padding:0;}
             });
             
             
+            
+            /* 배포 이걸로
+            //이메일 인증번호 전송
+            $(".email_auth_btn").click(function(){	
+            	 let emailAuthNum = "";
+				 const email = $('#user_email').val();
+				 
+				 if(!chk6){ // 이메일 입력값 정규식 체크
+				 	alert("이메일 입력값을 확인해주세요.");
+				 	return false;
+				 }else{
+					 $.ajax({
+							type : "POST",
+							url : "/user/emailAuth",
+							dataType: "json",
+							data : {email : email},
+							success: function(response){
+								if(response['result'] === 'exist'){ // 이메일 중복인 경우
+									alert("이미 가입된 이메일입니다.");
+								}else if(response['result'] === 'success'){
+									$('#emailChk').html('<b style="font-size:14px;color:blue;">인증번호가 발송되었습니다.</b>');
+									emailAuthNum = response['checkNum'];
+									console.log(emailAuthNum);
+								} 
+							},
+							error: function(data){
+								alert("메일 발송에 실패했습니다.");
+							}
+						});
+				 }
+				 
+				 
+				 // 인증번호 일치 확인
+				 $(".authChkBtn").click(function(){
+					 if($("#authNum").val() === emailAuthNum){
+						 $('#authChk').html('<b style="font-size:14px;color:blue;">인증되었습니다.</b>');
+						 chk7 = true;
+						 //$('#user_email').attr("disabled" ,true); 나중에 하자 회원가입 페이지로 돌려서
+					 }else{
+						 $('#authChk').html('<b style="font-size:13px;color:#F05650;">인증번호가 일치하지 않습니다.</b>');
+						 chk7 = false;
+					 }
+				 })
+				  
+			});*/
+            
+            
+            
             //이메일 인증번호 전송
             $(".email_auth_btn").click(function(){	
             	 let emailAuthNum = "";
@@ -654,10 +798,6 @@ body{margin:0; padding:0;}
 				 })
 				  
 			});
-            
-            
-            
-            
            
            
 
@@ -808,18 +948,23 @@ body{margin:0; padding:0;}
             
             
             
-            // 아이디 찾기 모달 열기
+            // 아이디 찾기, 비밀번호 찾기 모달 열기
             $("#findId").click(function(){
             	$("#login_modal").css("display", "none");
             	$("#findId_modal input").val("");
             	$('#if_pwChk').html("");
             	$("#findId_modal").css("display", "block");
-            })
+            });
+            
+            $("#findPw").click(function(){
+            	$("#login_modal").css("display", "none");
+            	$("#findPw_modal1 input").val("");
+            	$("#findPw_modal1").css("display", "block");
+            });
             
             
-            // 아이디찾기 이메일 인증번호 전송
+            // 아이디찾기 입력값 정보 체크
             $(".if_authSend").click(function(){	
-            	 let emailAuthNum = "";
 				 let email = $('#findId_email').val();
 				 let name = $('#findId_name').val();
 				 let user = {"email": email};
@@ -841,7 +986,6 @@ body{margin:0; padding:0;}
 							dataType: "json",
 							data : JSON.stringify(user),
 							success: function(response){
-								console.log(response);
 								if(response['result'] === 'noEmail'){ // 가입된 메일 아닐 경우
 									$('#if_pwChk').html('');
 									alert("조회되지 않는 이메일입니다.");									
@@ -850,7 +994,6 @@ body{margin:0; padding:0;}
 									let userId = response['userId'];
 									if(name === dbName){ // 일치하게 입력한 경우 
 										findIdMail(email, userId); 
-										console.log(userId);
 									}else{ // 가입된 메일이지만 이름과 메일 일치x
 										$('#if_pwChk').html('');
 										alert("이름과 이메일이 일치하지 않습니다. 입력값을 확인해주세요.");									
@@ -903,7 +1046,141 @@ body{margin:0; padding:0;}
             }
             
             
-
+			// 비밀번호 찾기 아이디 조회
+            $("#findPwNext").click(function(){
+                    	
+            	let userId = $("#findPw_userId").val();
+            	if(!userId || userId.replace(/\s| /gi, "").length==0){ // 아이디 입력값 체크
+					alert("아이디를 입력해주세요.");
+					$("#findPw_userId").focus();
+				    return false;
+				}
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/user/checkId",  
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType: "text",
+                    data: userId,
+                    success: function(result) {
+                        if(result === "OK") { // 가입되지 않은 아이디
+                            alert("가입되지 않은 아이디입니다.");
+                        } else { // 가입된 아이디
+                        	$("#findPw_modal1").css("display", "none");
+                        	$("#findPw_modal2 input").val(""); $("#pf_authChk").html(""); $("#pf_emailChk").html(""); // 초기화                        	
+                        	$("#findPw_modal2").css("display", "block");                     	
+                        }
+                    },
+                    error: function() {
+                        console.log("통신 실패");
+                    }
+                });
+            	
+            })
+            
+            
+            
+         	// 비밀번호 찾기 입력값 정보 체크
+            $(".pf_authSend").click(function(){	
+            	 let userId = $("#findPw_userId").val();
+				 let email = $('#findPw_email').val();
+				 let name = $('#findPw_name').val();
+				 let user = {"userId": userId, "email": email, "name": name};
+				 
+				 if(!name || name.replace(/\s| /gi, "").length==0){ // 이름 입력값 체크
+						alert("이름을 입력해주세요.");
+						$("#findPw_name").focus();
+					    return false;
+					}
+					 
+				 if(!getMail.test(email)){  // 이메일 입력값 체크
+				 	alert("이메일 입력값을 확인해주세요.");
+				 	return false;
+				 }else{
+					 $.ajax({
+							type : "POST",
+							url : "/user/findPwInfo",
+							contentType: 'application/json; charset=UTF-8',
+							dataType: "text",
+							data : JSON.stringify(user),
+							success: function(response){
+								console.log(response);
+								if(response === 'noUser'){ // 일치하는 회원x
+									alert("회원 정보가 일치하지 않습니다. 입력값을 확인해주세요.");									
+								}else if(response === 'success'){
+									findPwMail(email, userId); 
+								}		
+							},
+							error: function(data){
+								alert("메일 발송에 실패했습니다.");
+							}
+						});
+				 }
+				 				 			  
+			});
+			
+			
+			
+         	// 비밀번호찾기 인증번호 발송
+            function findPwMail(email, userId){
+            	
+            	 let emailAuthNum = "";
+				 
+            	 $.ajax({
+						type : "POST",
+						url : "/user/emailAuth",
+						data : {email : email},
+						success: function(data){
+							$('#pf_emailChk').html('<b style="font-size:13px;color:blue;">인증번호가 발송되었습니다.</b>');
+							emailAuthNum = data;
+						},
+						error: function(data){
+							alert("메일 발송에 실패했습니다.");
+						}
+					});
+				 
+				 
+				 // 인증번호 일치 확인
+				 $(".pf_authChkBtn").click(function(){
+					 if($("#findPw_authNum").val() === emailAuthNum){
+						 alert("인증되었습니다.");
+						 modifyPw(email, userId); // 임시 비밀번호 설정 및 알림메일 발송
+					 }else{
+						 $('#pf_authChk').html('<b style="font-size:13px;color:#F05650;">인증번호가 일치하지 않습니다.</b>');
+					 }
+				 })
+            	
+            }
+         	
+         	
+         	// 임시 비밀번호 설정 및 알림메일 발송
+            function modifyPw(email, userId){
+            	let user = {"userId": userId, "email": email};
+            	
+            	$.ajax({
+					type : "POST",
+					url : "/user/findPw",
+					contentType: 'application/json; charset=UTF-8',
+					dataType: "text",
+					data : JSON.stringify(user),
+					success: function(response){
+						console.log(response);
+						if(response === 'success'){ 
+							alert("입력하신 이메일(" + email + ")로 임시 비밀번호가 발송되었습니다. 임시 비밀번호를 통해 로그인 후 비밀번호를 변경해 주시기 바랍니다.");	
+							$("#findPw_modal2").css("display", "none");							
+						}else{
+							alert("임시 비밀번호 발송에 실패하였습니다.");
+						}		
+					},
+					error: function(data){
+						alert("메일 발송에 실패했습니다.");
+					}
+				});
+            	
+            }
+            
             
             
            

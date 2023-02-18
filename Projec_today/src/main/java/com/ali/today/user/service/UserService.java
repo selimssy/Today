@@ -47,9 +47,18 @@ public class UserService implements IUserService{
 		
 	}
 
+	
+	// 아이디 중복확인 체크
 	@Override
 	public Integer checkId(String userId) {
 		return mapper.checkId(userId);
+	}
+	
+	
+	// 이메일 중복체크 기능
+	@Override
+	public Integer checkEmail(String email) {
+		return mapper.checkEmail(email);
 	}
 	
 	
@@ -135,6 +144,11 @@ public class UserService implements IUserService{
 	}
 	
 	
+	// 비밀번호 찾기 - 아이디, 이름, 이메일 일치 확인
+	@Override
+	public Integer findPwInfo(UserVO user) {
+		return mapper.findPwInfo(user);
+	}
 	
 	/////////////////////////////////////////////////////////////////////////////////
 	

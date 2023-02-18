@@ -15,6 +15,9 @@ public interface IUserMapper {
 	// 아이디 중복체크 기능
 	Integer checkId(String userId);
 	
+	// 이메일 중복체크 기능
+	Integer checkEmail(String email);
+	
 	// 회원정보 수정
 	void modifyUser(UserVO user);
 	
@@ -48,6 +51,8 @@ public interface IUserMapper {
 	// 아이디 찾기 - 이메일, 이름 일치 확인
 	UserVO emailName(String email);
 	
+	// 비밀번호 찾기 - 아이디, 이름, 이메일 일치 확인
+	Integer findPwInfo(UserVO user);
 	
 	
 	///////////////////////////////////////////////////////////
