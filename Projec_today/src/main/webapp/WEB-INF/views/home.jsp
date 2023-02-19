@@ -45,9 +45,11 @@ body{margin:0; padding:0;}
 
 
 
-#login_modal, #findId_modal, #findPw_modal1, #findPw_modal2{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}
+#login_modal, #findId_modal1, #findId_modal2, #findPw_modal1, #findPw_modal2, #findPw_modal3{display: none; width: 400px; height: 500px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}
 #findPw_modal1{height: 310px;}
-#findPw_modal2{height: 470px;}
+#findId_modal2{height: 280px;}
+#findPw_modal3{height: 340px;}
+#findId_modal1, #findPw_modal2{height: 470px;}
 #join_modal{display: none; width: 450px; height: 650px; overflow-y:scroll; position: fixed;top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8; background: #fff; border-radius: 10px;}    
 #login_modal .modal_table span, #join_modal .modal_table span{font-family: 'Noto Sans KR', sans-serif; padding-left:10px;}
 .modal_header{border-bottom: 1px solid #dee2e6; display: flex; position: relative;}
@@ -361,8 +363,8 @@ body{margin:0; padding:0;}
 	
 	
 	
-	 <!------------------------------ 아이디 찾기 모달 --------------------------------->
-    <div id="findId_modal">
+	 <!------------------------------ 아이디 찾기 모달1 --------------------------------->
+    <div id="findId_modal1">
         <div class="modal_header">
             <h2 class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 아이디 찾기
@@ -414,16 +416,45 @@ body{margin:0; padding:0;}
                    		<input type="text" id="findId_authNum" class="modal_input" placeholder="인증번호 6자리 입력">
                    		<button type="button" class="if_authChkBtn">확인</button>
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" id="showId" class="m_button" style="margin-top:30px;">다음</button>
-                    </td>
-                </tr>
+                </tr>                
             </table>
         </div>
     </div>	
 	
+
+
+
+	 <!------------------------------ 아이디 찾기 모달2 --------------------------------->
+    <div id="findId_modal2">
+        <div class="modal_header">
+            <h2 class="modal-title" style="margin:15px 0">
+                <span class="modal_logo">오늘의 너</span> 아이디 찾기
+            </h2>
+            <div class="modal_close">close</div> 
+        </div>
+        <div class="modal_body">
+            <table class="modal_table">
+            	<tr>
+                    <td class="mlabel">
+                        <p style="font-size: 14px;"><span style="color:red">*</span> <span id="if_nameRst" style="font-size:20px"></span>님의 아이디</p>
+                    </td>
+                </tr>               
+                <tr>               	
+                    <td>
+                    <div id="if_idRst" style="height:50px; font-size:32px; text-align:center;"></div>
+                    <!-- <input type="text" class="modal_input" id="if_idRst" disabled="disabled"> -->
+                    </td>
+                </tr>                           
+                <tr>
+                    <td>
+                        <button type="button" id="findId_pw" class="m_button" style="margin-top:30px;">비밀번호 찾기</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>		
+
+
 	
 	
 	
@@ -479,7 +510,7 @@ body{margin:0; padding:0;}
             <table class="modal_table">
             	<tr>
                     <td class="mlabel">
-                        <p style="font-size: 12px; margin:5px"><span style="color:red">*</span>회원가입시 입력한 아이디, 이름, 이메일을 기입해주세요. 정보가 일치하면 인증번호가 발송됩니다.</p>
+                        <p style="font-size: 12px; margin:5px"><span style="color:red">*</span> 회원가입시 입력한 아이디, 이름, 이메일을 기입해주세요. 정보가 일치하면 인증번호가 발송됩니다.</p>
                     </td>
                 </tr>
                 <tr>
@@ -525,7 +556,36 @@ body{margin:0; padding:0;}
 	
 	
 	
-	
+	 <!------------------------------ 비밀번호 찾기 모달3 --------------------------------->
+    <div id="findPw_modal3">
+        <div class="modal_header">
+            <h2 class="modal-title" style="margin:15px 0">
+                <span class="modal_logo">오늘의 너</span> 비밀번호 찾기
+            </h2>
+            <div class="modal_close">close</div> 
+        </div>
+        <div class="modal_body">
+            <table class="modal_table">
+            	<tr>
+                    <td class="mlabel">
+                        <p style="font-size: 28px;text-align:center;font-weight: bold;color: #555;margin: 20px 0;">임시 비밀번호 발송</p>
+                    </td>
+                </tr>               
+                <tr>               	
+                    <td>
+                    	<div style="height:80px;font-size: 16px;word-break: keep-all;line-height: 1.5;padding-left: 10px;">
+                    		입력하신 이메일(<span id="pf_Rst">email</span>)로 임시 비밀번호가 발송되었습니다. 임시 비밀번호를 통해 로그인 후 비밀번호를 변경해 주시기 바랍니다.
+                    	</div>
+                    </td>
+                </tr>                           
+                <tr>
+                    <td>
+                        <button type="button" class="m_button pClose" style="margin-top:30px;">닫기</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>		
 	
 	
 
@@ -949,17 +1009,28 @@ body{margin:0; padding:0;}
             
             
             // 아이디 찾기, 비밀번호 찾기 모달 열기
-            $("#findId").click(function(){
+            $("#findId").click(function(){ // 아이디 찾기
             	$("#login_modal").css("display", "none");
-            	$("#findId_modal input").val("");
+            	$("#findId_modal1 input").val("");
             	$('#if_pwChk').html("");
-            	$("#findId_modal").css("display", "block");
+            	$("#findId_modal1").css("display", "block");
             });
             
-            $("#findPw").click(function(){
+            $("#findPw").click(function(){ // 비밀번호 찾기(로그인 창에서)
             	$("#login_modal").css("display", "none");
             	$("#findPw_modal1 input").val("");
             	$("#findPw_modal1").css("display", "block");
+            });
+            
+            $("#findId_pw").click(function(){ // 비밀번호 찾기(아이디 찾기에서)
+            	$("#findId_modal2").css("display", "none");
+            	$("#findPw_modal2 input").val(""); $("#pf_authChk").html(""); $("#pf_emailChk").html(""); // 초기화  
+            	$("#findPw_userId").val($(this).attr("value")); // userId값 전달
+            	console.log($("#findPw_userId").val());
+            	$("#findPw_modal2").css("display", "block");     
+            });
+            $(".pClose").click(function(){           	
+            	$("#findPw_modal3").css("display", "none");
             });
             
             
@@ -993,7 +1064,7 @@ body{margin:0; padding:0;}
 									let dbName = response['name'];
 									let userId = response['userId'];
 									if(name === dbName){ // 일치하게 입력한 경우 
-										findIdMail(email, userId); 
+										findIdMail(email, userId, name); 
 									}else{ // 가입된 메일이지만 이름과 메일 일치x
 										$('#if_pwChk').html('');
 										alert("이름과 이메일이 일치하지 않습니다. 입력값을 확인해주세요.");									
@@ -1011,7 +1082,7 @@ body{margin:0; padding:0;}
             
             
             // 아이디찾기 인증번호 발송
-            function findIdMail(email, userId){
+            function findIdMail(email, userId, name){
             	
             	 let emailAuthNum = "";
 				 
@@ -1036,7 +1107,12 @@ body{margin:0; padding:0;}
 						 //$('#if_authChk').html('<b style="font-size:13px;color:blue;">인증되었습니다.</b>');
 						 //chk7 = true;
 						 alert("인증되었습니다.");
-						 $('#findId_name').val(userId).attr("readonly", true);
+						 $("#findId_modal1").css("display","none");
+						 $("#if_nameRst").add($("#if_idRst")).text(""); // 초기화						 
+						 $("#if_nameRst").text(name);
+						 $("#if_idRst").text(userId);
+						 $("#findId_pw").attr("value", userId); // 버튼 value값
+						 $("#findId_modal2").css("display","block");
 					 }else{
 						 $('#if_authChk').html('<b style="font-size:13px;color:#F05650;">인증번호가 일치하지 않습니다.</b>');
 						 //chk7 = false;
@@ -1146,6 +1222,10 @@ body{margin:0; padding:0;}
 				 $(".pf_authChkBtn").click(function(){
 					 if($("#findPw_authNum").val() === emailAuthNum){
 						 alert("인증되었습니다.");
+						 $("#findPw_modal2").css("display", "none");	
+						 $("#pf_Rst").text(""); //초기화
+						 $("#pf_Rst").text(email);
+						 $("#findPw_modal3").css("display", "block"); // 사용자 편의상 미리 모달창 띄우기(오류시 메일발송 실패 알림창)	
 						 modifyPw(email, userId); // 임시 비밀번호 설정 및 알림메일 발송
 					 }else{
 						 $('#pf_authChk').html('<b style="font-size:13px;color:#F05650;">인증번호가 일치하지 않습니다.</b>');
@@ -1168,8 +1248,11 @@ body{margin:0; padding:0;}
 					success: function(response){
 						console.log(response);
 						if(response === 'success'){ 
-							alert("입력하신 이메일(" + email + ")로 임시 비밀번호가 발송되었습니다. 임시 비밀번호를 통해 로그인 후 비밀번호를 변경해 주시기 바랍니다.");	
-							$("#findPw_modal2").css("display", "none");							
+							//alert("입력하신 이메일(" + email + ")로 임시 비밀번호가 발송되었습니다. 임시 비밀번호를 통해 로그인 후 비밀번호를 변경해 주시기 바랍니다.");	
+							/*$("#findPw_modal2").css("display", "none");	
+							$("#pf_Rst").text(""); //초기화
+							$("#pf_Rst").text(email);
+							$("#findPw_modal3").css("display", "block");*/	
 						}else{
 							alert("임시 비밀번호 발송에 실패하였습니다.");
 						}		

@@ -38,6 +38,7 @@
     <mybatis-spring:scan base-package="com.ali.today.user.repository"/>
     <mybatis-spring:scan base-package="com.ali.today.diary.repository"/>
     <mybatis-spring:scan base-package="com.ali.today.community.repository"/>
+    <mybatis-spring:scan base-package="com.ali.today.messenger.repository"/>
     
 	
 	
