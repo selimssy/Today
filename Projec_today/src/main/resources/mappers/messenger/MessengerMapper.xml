@@ -11,12 +11,12 @@
 		<result property="sendTime" column="send_time"/>
 		<result property="content" column="content"/>
 		<result property="readChk" column="read_chk"/>
+		<result property="nick" column="nick"/>
 	</resultMap>	
 
 	
 	<!-- 중복되는 동적 SQL문에 대한 처리(쪽지함 검색처리) -->
 	<sql id="searchMsg">  
-		<!-- 동적 SQL구문 -->
 		<if test="condition == 'sender'">  
 		AND sender_id LIKE CONCAT('%',#{keyword},'%')
 		</if>
@@ -40,12 +40,12 @@
 	
 	<!-- 받은 쪽지 리스트 -->
 	<select id="getRecvMsg" resultMap="MessengerMap">
-		SELECT m.msg_no, m.content, m.send_time, m.read_chk, m.recv_id,
+		SELECT m.msg_no, m.sender_id, m.content, m.send_time, m.read_chk, m.recv_id,
 	    (CASE
 		    WHEN m.classify = 'user' THEN (select nickname from user where user_id = m.sender_id)
 		    WHEN m.classify = 'pet' THEN (select pet_name from pet where pet_id = m.sender_id)
 		    WHEN m.classify = 'admin' THEN '관리자'
-	    END) AS sender_id
+	    END) AS nick
         FROM messenger m
         WHERE recv_id = #{userId}
         <include refid="searchMsg"/>

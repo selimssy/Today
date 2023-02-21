@@ -41,7 +41,7 @@
         .msgOpen button{width:35px; height:30px; background-color: transparent; border: none; background-image:url(/img/common/msg.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
     	.msgOpen span{position: absolute; bottom: -6px; right: 0px; color: #fff; background-color: #5CAD3D; height: 15px; width: 15px; font-size: 10px; display: inline-block; text-align: center; border-radius: 50%; line-height: 1.3;}
         
-        .submenu{position:absolute; left:0; top:115px; width:100%; background:#7AB730;; z-index:100; display:none;}
+        .submenu{position:absolute; left:0; top:115px; width:100%; background:#7AB730; z-index:100; display:none;}
         .submenu .submenu_list {width:1050px; margin:0 auto; text-align:left;}
         .sub_1 .submenu_list {box-sizing:border-box; padding-left:345px;}
         .sub_2 .submenu_list {box-sizing:border-box; padding-left:495px;}
@@ -346,13 +346,75 @@
 	
 	
 	
-	// 쪽지 모달 여닫기
-	$(".msgOpen button").click(function(){
+	// 쪽지 리스트 모달 여닫기
+	$(".msgOpen button").click(function(){	// 쪽지 리스트창 열기와 동시에 데이터 수신	
+		let senderId = "${login.userId}";  
+		if(senderId === ""){  // 로그아웃(세션 종료) 체크
+			alert("로그인 후 사용 가능합니다.");
+			window.location.reload();
+			return false;
+		}
+		
+		// 쪽지 리스트 불러오기
+		$('#msg_list').empty(); // 초기화
+			let page = 1;
+			let keyword = $("#Msearch").val();
+			let data = {page: page, keyword: keyword};
+	   		
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               contentType: 'application/json',
+	               url: '/msg/recvMsg',
+	               data: JSON.stringify(data),
+	               success: function (response) {
+	                    console.log(response); // MessengerVO 리스트 
+
+	                    for(let i = 0; i < response.length; i++){
+	                    	
+	                    	//let imagePath = response['imagePath']; 사용자 프로필 이미지 만든 후에
+	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
+	                    	let msgNo = response[i]["msgNo"];
+	                    	let nick = response[i]["nick"];
+	                    	let content = response[i]["content"];
+	                    	let sendTime = response[i]["sendTime"];
+	                    	let readChk = response[i]["readChk"];
+	                    	let senderId = response[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    		                    	
+	                    	let html='<li>';
+	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
+	                        html += '<div class="msg_info">';
+	                        html += '<p><b>' + nick + '</b></p>';
+	                        html += '<p>' + content + '</p>';
+	                        html += '<span>' + sendTime + '</span>';
+	                        html += '</div></div></li>';
+	                    		                   		
+	                        $('#msg_list').append(html);
+	                        
+	                    }    
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	           });
+			
+		$("#msgListModal").css("display", "block");
+	})
+	
+	$("#closeMsgList").click(function(){		
+		$("#msgListModal").css("display", "none");
+	})
+	
+	
+	
+	// 쪽지 보내기 모달 여닫기
+	$("#msgSendOpen").click(function(){
 		$("#toMsg").val("");
 		$("#msgContent").val("");
 		$("#msgSendModal").css("display", "block");
 	})
-	$(".McloseMsg").click(function(){		
+	$(".McloseMsg").add("#msgCancle").click(function(){		
 		$("#msgSendModal").css("display", "none");
 	})
 	
