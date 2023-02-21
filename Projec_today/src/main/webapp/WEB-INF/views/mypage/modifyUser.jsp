@@ -202,7 +202,12 @@
 	
 	    // 개인정보 수정
 	    $("#modifyUser-btn").click(function(){		
-        	let userId = "${login.userId}";	
+        	let userId = "${login.userId}";	 
+			if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
         	let name = $("#Muser_name").val();
         	let nickname = $("#Muser_nick").val();
     		let user = {
@@ -239,6 +244,11 @@
         	   	
         	let originPw = $("#originPw").val();
         	let userId = "${login.userId}";	
+        	if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
         	let user = {
         			userId: userId,
         			password: originPw

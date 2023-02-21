@@ -374,6 +374,11 @@
 			let boardNo = ${article.boardNo};			
 			let replyContent = $("#replyContent").val();
 			let replyer = "${login.userId}";
+			if(replyer === ""){
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
 			
 			let replyVO = {
 				boardNo: boardNo,

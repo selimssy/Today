@@ -449,6 +449,12 @@
 	        
 	 	// 갤러리 추가     
         $("#uploadGBtn").click(function(){
+        	let userId = "${login.userId}";  
+			if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
         	
         	if(!$("input[name=file]").val()){ // 사진 null인 경우
 				alert("사진을 첨부해주세요.");
@@ -698,13 +704,19 @@
         
         // 갤러리 삭제 요청		
 		$(document).on("click", ".deleteGCardBtn", function () {
+			let userId = "${login.userId}";  
+			if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
 			
 			if(confirm("사진을 삭제하시겠습니까?")){
 				
 				let imgId = $(this).attr("href");	            
 	    		let gallery = {
 	    				"imgId": imgId,
-	    				"userId": "${login.userId}"
+	    				"userId": userId
 	    				};
 	    		
 	    		$.ajax({

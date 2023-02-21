@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +37,10 @@
         .header_cont .main_nav li a.checked{color: #7AB730; font-weight: bold;}
         .header_cont .main_nav li:last-child a {padding-right:0;}
         .open{display:none;}
-    
+        .msgOpen{position: relative;}
+        .msgOpen button{width:35px; height:30px; background-color: transparent; border: none; background-image:url(/img/common/msg.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+    	.msgOpen span{position: absolute; bottom: -6px; right: 0px; color: #fff; background-color: #5CAD3D; height: 15px; width: 15px; font-size: 10px; display: inline-block; text-align: center; border-radius: 50%; line-height: 1.3;}
+        
         .submenu{position:absolute; left:0; top:115px; width:100%; background:#7AB730;; z-index:100; display:none;}
         .submenu .submenu_list {width:1050px; margin:0 auto; text-align:left;}
         .sub_1 .submenu_list {box-sizing:border-box; padding-left:345px;}
@@ -177,6 +181,7 @@
 					<c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
 	           			<ul>
 	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
+	           				<li class="msgOpen"><button>쪽지</button><span>N</span></li>
 	           			</ul>
 		           </c:if>
 				</ul>	
@@ -234,7 +239,7 @@
 
 
     <jsp:include page="../common/user_modal.jsp" />
-
+	<jsp:include page="../common/messenger.jsp" />
 
 
 
@@ -337,6 +342,18 @@
 	$(".mainMenu4 + .open").click(function(){
 		$(this).toggleClass("on");
 		$(".sub_4").slideToggle();			
+	})
+	
+	
+	
+	// 쪽지 모달 여닫기
+	$(".msgOpen button").click(function(){
+		$("#toMsg").val("");
+		$("#msgContent").val("");
+		$("#msgSendModal").css("display", "block");
+	})
+	$(".McloseMsg").click(function(){		
+		$("#msgSendModal").css("display", "none");
 	})
 	
 	

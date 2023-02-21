@@ -379,6 +379,13 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
      	
 	    // 생애기록 카드 추가     
         $("#uploadCardBtn").click(function(){
+        	  let userId = "${login.userId}";  
+			  if(userId === ""){  // 로그아웃(세션 종료) 체크
+				  alert("로그인 후 사용 가능합니다.");
+				  window.location.reload();
+				  return false;
+			  }	
+        	
         	  //formData 객체 생성
               let formData = new FormData();
         	  
@@ -652,12 +659,20 @@ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:
         
         // 생애기록 삭제 요청		
 		$(document).on("click", ".deleteCardBtn", function () {
+			
+			let userId = "${login.userId}";  
+			if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
+			
 			if(confirm("생애기록을 삭제하시겠습니까?")){
 				
 				let cardId = $(this).attr("href");	            
 	    		let lifetimeCard = {
 	    				"cardId": cardId,
-	    				"userId": "${login.userId}"
+	    				"userId": userId
 	    				};
 	    		
 	    		$.ajax({

@@ -232,7 +232,12 @@
 	$("#deleteUser").click(function(){			
 		if(confirm("회원 탈퇴시 모든 반려견 정보와 기록이 삭제됩니다. 그래도 탈퇴하시겠습니까?")){
 			
-			let userId = "${login.userId}";	            
+			let userId = "${login.userId}";	 
+			if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
     		let user = {userId: userId};
     		
     		$.ajax({

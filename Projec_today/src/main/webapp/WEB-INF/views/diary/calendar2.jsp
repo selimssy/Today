@@ -582,6 +582,11 @@
 	$("#scheRgBtn").click(function(){
 		
 		let userId = "${login.userId}";
+		if(userId === ""){   // 로그아웃(세션 종료) 체크
+			alert("로그인 후 사용 가능합니다.");
+			window.location.reload();
+			return false;
+		}
 		let scheduleNum = $("#schedule_num").val();		
 		let scheduleTitle = $("#schedule_title").val();	
 		if(!scheduleTitle || scheduleTitle.replace(/\s| /gi, "").length==0){ // null값이거나 공백만 입력한 경우
@@ -817,9 +822,7 @@
 		   let scheduleId = $(this).attr("href");
            console.log(scheduleId);
            
-   		let ScheduleVO = {
-   				scheduleId: scheduleId
-                   };
+   		let ScheduleVO = {scheduleId: scheduleId};
    		
    		$.ajax({
                type: 'post',
@@ -917,11 +920,19 @@
 		
 	    // 스케줄 삭제
 	    $("#deletePlan").click(function(){
+	    	
+	    	let userId = "${login.userId}";  
+			if(userId === ""){   // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
+			
 		    if(confirm("일정을 삭제하시겠습니까?")){
 		    	let scheduleId = $(this).attr("href");          
 		   		let ScheduleVO = {
 		   			scheduleId: scheduleId,
-		   			userId: "${login.userId}"
+		   			userId: userId
 		        };
 		   		
 		   		$.ajax({

@@ -53,7 +53,7 @@ public class UserController {
 	// 아이디 중복확인 요청 처리
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String userId) {
-		
+		System.out.println(userId);
 		//System.out.println("/user/checkId 요청 : POST");
 		//System.out.println("param : " + userId);
 		String result = null;
