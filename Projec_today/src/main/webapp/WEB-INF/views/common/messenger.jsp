@@ -18,6 +18,7 @@
 	#msgListModal ul li .msg_inner .msg_info p:nth-of-type(1){margin:10px 0; font-size:14.5px;}  
 	#msgListModal ul li .msg_inner .msg_info p:nth-of-type(2){margin:10px 0; overflow: hidden; text-overflow : ellipsis; white-space: nowrap; font-size: 13px;}
 	#msgListModal ul li .msg_inner .msg_info span{position:absolute; top: 12px; right: 0; font-size: 12px; color: #545456;}
+	#msgListModal ul li .msg_inner .msg_info .readChk{position: absolute; bottom: 20px; right: 0px; background-color: #ffa500; height: 6px; width: 6px; display: inline-block; text-align: center; border-radius: 50%;}
 	#msgListModal img{width: 48px; height: 48px; border-radius: 50%; object-fit: cover; display: inline-block;}
 	#msgListModal .msg_content{height:340px; overflow-y: auto;  -ms-overflow-style: none; /* IE and Edge */scrollbar-width: none; /* Firefox */}
 	#msgListModal .msg_content::-webkit-scrollbar{display: none; /* Chrome, Safari, Opera*/}
@@ -28,7 +29,7 @@
 	#msgSendModal input:focus{outline: none;}, #msgSendModal textarea:focus{outline: none;}
 	.Mmodal_header{border-bottom: 1px solid #dee2e6; padding: 15px 0; display: flex; position: relative;}
 	.Mmodal-title{font-family: 'Jua', sans-serif; font-size:1.4em; margin:0;}
-	.Mmodal_logo{font-size: 1.4em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
+	.Mmodal_logo{font-size: 28px; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
 	.Mmodal_body{padding: 0 20px; display: block; width:100%; box-sizing: border-box;}
 	.Mmodal_body ul{list-style: none; padding-left: 0; margin:0;}
 	.Mmlabel{margin-top:15px;}
@@ -41,7 +42,7 @@
 	.Mmodal_footer{padding: 0 20px; box-sizing: border-box; border-top: 1px solid #dee2e6;}
 	.Mmodal_footer button{width:40%; height:35px; margin-top: 13px; font-size: 13px;}
 	.MbuttonBox{display:flex; justify-content: space-evenly;}
-	#msgSendOpen{position: relative; padding-left: 20px; background: rgba(122, 183, 48, 0.45); font-family: 'Nanum Pen Script'; font-size: 19px;}
+	#msgSendOpen{position: relative; padding-left: 20px; background: rgba(122, 183, 48, 0.45); font-size: 19px;  font-family: 'Nanum Pen Script';}
 	#msgSendOpen div{width:20px; height:20px; position: absolute; left: 10px; background-image: url(/img/common/letter.png); background-repeat: no-repeat; background-size: contain; background-origin: content-box; text-indent: -9999px; box-sizing: border-box;}
  
 	
@@ -62,7 +63,7 @@
             </p>
             <!--  <div class="McloseMsg">close</div>-->
             <div class="Msearch">
-            	<input type="text" id="Msearch" placeholder="발신인, 내용 검색" />
+            	<input type="text" id="Msearch" placeholder="발신인, 내용 검색" spellcheck="false"/>
             	<button type="button" id="MsearchBtn">검색</button>
             </div>
 		</div>
@@ -77,6 +78,7 @@
 								<p><b>해피바라기</b></p>
 								<p>안녕하세요 저번에 감사했습니다. 덕분에 우리 해피 많이 좋아졌어요ㅠㅠ 너무 감사합니다!!ㅠ</p>
 								<span>2023.02.15</span>
+								<div class="readChk"></div>
 							</div>
 						</div>
 					</li>
@@ -192,7 +194,7 @@
 						
 						<!-- 페이지 정보 -->
 						<li class="MpageInfo">
-						1 / 9
+						<span class="nowPage"></span> / <span class="totalPage"></span>
 						</li>				
 						  
 					   <!-- 다음 버튼 -->
@@ -231,7 +233,7 @@
                     </p>
 	            </li>
 	            <li>
-	            	<input type="text" id="toMsg" class="Mmodal_input"/>
+	            	<input type="text" id="toMsg" class="Mmodal_input" spellcheck="false"/>
 	            	<!-- 
 	                <input type="text" id="toMsg" class="modal_input" disabled/>
 	                 -->
@@ -264,6 +266,8 @@
 <script type="text/javascript">
 
 	$(function(){
+		
+		
 		
 		// 쪽지 보내기
 		$("#msgSend").click(function(){			
@@ -343,13 +347,88 @@
 		
 		
 		
-		/*
-		// 받은 쪽지 리스트 수신 함수
-		function getRecvMsg(){
-			$('#msg_list').empty(); // 초기화
-			let page = 1;
-			let keyword = $("#Msearch").val();
-			let data = {page: page, keyword: keyword};
+		
+		
+		// 받은 쪽지 다음 페이지               
+        $(document).on("click", ".next_msg", function () {
+						   				
+			let keyword = $("#Msearch").attr("value");
+	   		let page = parseInt($(".nowPage").text()); //현재 페이지
+	   		page +=1; // 타겟 페이지	   			   		
+	   		if(page > parseInt($(".totalPage").text())){
+	   			alert("마지막 페이지입니다.");
+	   			return false;
+	   		}   			   		
+	   		let data = {page: page, keyword: keyword};
+	   		
+	   		//초기화
+			$('#msg_list').empty();
+	   		   		
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               contentType: 'application/json',
+	               url: '/msg/recvMsg',
+	               data: JSON.stringify(data),
+	               success: function (response) {
+	            	   //console.log(response); // Map
+	                    let list = response['list'];
+	                    let lastPage = response['lastPage'];
+	                    
+	                    for(let i = 0; i < list.length; i++){
+	                    	
+	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
+	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
+	                    	let msgNo = list[i]["msgNo"];
+	                    	let nick = list[i]["nick"];
+	                    	let content = list[i]["content"];
+	                    	let sendTime = list[i]["sendTime"];
+	                    	let readChk = list[i]["readChk"];
+	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    		                    	
+	                    	let html='<li>';
+	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
+	                        html += '<div class="msg_info">';
+	                        html += '<p><b>' + nick + '</b></p>';
+	                        html += '<p>' + content + '</p>';
+	                        html += '<span>' + sendTime + '</span>';
+	                        if(readChk == 0){ // 안 읽은 쪽지 표시
+	                            html += '<div class="readChk"></div>';    
+	                        }
+	                        html += '</div></div></li>';
+	                    		                   		
+	                        $('#msg_list').append(html);
+	                        $(".nowPage").html(page); // 현재 페이지
+	                        $(".totalPage").html(lastPage); // 총 페이지
+	                        
+	                    } 
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	        });
+    		 	
+        })
+        
+        
+        
+        
+        // 받은 쪽지 이전 페이지               
+        $(document).on("click", ".pre_msg", function () {
+						   				
+			let keyword = $("#Msearch").attr("value");
+	   		let page = parseInt($(".nowPage").text()); //현재 페이지
+	   		page -=1; // 타겟 페이지	   			   		
+	   		if(page <= 0){
+	   			alert("마지막 페이지입니다.");
+	   			return false;
+	   		}   			   
+	   		
+	   		let data = {page: page, keyword: keyword};
+	   		
+	   		//초기화
+			$('#msg_list').empty();
 	   		
 	   		$.ajax({
 	               type: 'post',
@@ -358,37 +437,108 @@
 	               url: '/msg/recvMsg',
 	               data: JSON.stringify(data),
 	               success: function (response) {
-	                    console.log(response); // MessengerVO 리스트 
-
-	                    for(let i = 0; i < response.length; i++){
+	            	   //console.log(response); // Map
+	                    let list = response['list'];
+	                    let lastPage = response['lastPage'];
+	                    
+	                    for(let i = 0; i < list.length; i++){
 	                    	
-	                    	//let imagePath = response['imagePath']; 사용자 프로필 이미지 만든 후에
+	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
 	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
-	                    	let msgNo = response[i]["msgNo"];
-	                    	let sender = response[i]["sender"];
-	                    	let content = response[i]["content"];
-	                    	let sendTime = response[i]["sendTime"];
-	                    	let readChk = response[i]["readChk"];
-	                    	let senderId = response[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    	let msgNo = list[i]["msgNo"];
+	                    	let nick = list[i]["nick"];
+	                    	let content = list[i]["content"];
+	                    	let sendTime = list[i]["sendTime"];
+	                    	let readChk = list[i]["readChk"];
+	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
 	                    		                    	
 	                    	let html='<li>';
 	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
 	                        html += '<div class="msg_info">';
-	                        html += '<p><b>' + sender + '</b></p>';
+	                        html += '<p><b>' + nick + '</b></p>';
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
+	                        if(readChk == 0){ // 안 읽은 쪽지 표시
+	                            html += '<div class="readChk"></div>';    
+	                        }
 	                        html += '</div></div></li>';
 	                    		                   		
 	                        $('#msg_list').append(html);
+	                        $(".nowPage").html(page); // 현재 페이지
+	                        $(".totalPage").html(lastPage); // 총 페이지
 	                        
-	                    }    
+	                    } 
 	               	   	   	                 
 	               }, 
 	               error: function() {
 	                   console.log("통신 실패!");
 	               } 
-	           });
-		}*/
+	        });
+    		 	
+        })
+		
+		
+        
+		
+        
+        // 받은 쪽지 검색               
+        $(document).on("click", "#MsearchBtn", function () {
+						   				
+			let keyword = $("#Msearch").val();
+			$("#Msearch").attr("value", keyword);
+			let page = 1;			   
+	   		let data = {"page": page, "keyword": keyword};
+	   		
+	   		//초기화
+			$('#msg_list').empty();
+	   		
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               contentType: 'application/json',
+	               url: '/msg/recvMsg',
+	               data: JSON.stringify(data),
+	               success: function (response) {
+	            	   //console.log(response); // Map
+	                    let list = response['list'];
+	                    let lastPage = response['lastPage'];
+	                    
+	                    for(let i = 0; i < list.length; i++){
+	                    	
+	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
+	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
+	                    	let msgNo = list[i]["msgNo"];
+	                    	let nick = list[i]["nick"];
+	                    	let content = list[i]["content"];
+	                    	let sendTime = list[i]["sendTime"];
+	                    	let readChk = list[i]["readChk"];
+	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    		                    	
+	                    	let html='<li>';
+	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
+	                        html += '<div class="msg_info">';
+	                        html += '<p><b>' + nick + '</b></p>';
+	                        html += '<p>' + content + '</p>';
+	                        html += '<span>' + sendTime + '</span>';
+	                        if(readChk == 0){ // 안 읽은 쪽지 표시
+	                            html += '<div class="readChk"></div>';    
+	                        }
+	                        html += '</div></div></li>';
+	                    		                   		
+	                        $('#msg_list').append(html);
+	                        $(".nowPage").html(page); // 현재 페이지
+	                        $(".totalPage").html(lastPage); // 총 페이지
+	                        
+	                    } 
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	        });
+    		 	
+        })
+        
 		
 		
 	

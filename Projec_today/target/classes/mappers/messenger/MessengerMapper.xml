@@ -15,7 +15,7 @@
 	</resultMap>	
 
 	
-	<!-- 중복되는 동적 SQL문에 대한 처리(쪽지함 검색처리) -->
+	<!-- 중복되는 동적 SQL문에 대한 처리(쪽지함 검색처리) 관리자 페이지? -->
 	<sql id="searchMsg">  
 		<if test="condition == 'sender'">  
 		AND sender_id LIKE CONCAT('%',#{keyword},'%')
@@ -48,18 +48,22 @@
 	    END) AS nick
         FROM messenger m
         WHERE recv_id = #{userId}
-        <include refid="searchMsg"/>
+        HAVING nick LIKE CONCAT('%',#{keyword},'%') or m.content LIKE CONCAT('%',#{keyword},'%')
         ORDER BY msg_no DESC
 		LIMIT #{pageStart}, 10
 	</select>
 	
 	
 	<!-- 받은 쪽지 수 -->
-	<select id="countRecvMsg" resultType="int">
-		SELECT COUNT(*)
-		FROM messenger
-		WHERE recv_id = #{userId}
-		<include refid="searchMsg"/>
+	<select id="countRecvMsg" resultType="int">	
+		SELECT count(*)	
+		FROM messenger m  
+		WHERE m.recv_id = #{userId} AND 
+		CASE
+			  WHEN m.classify = 'user' THEN ((SELECT nickname FROM user WHERE user_id = m.sender_id) LIKE CONCAT('%',#{keyword},'%') OR content LIKE CONCAT('%',#{keyword},'%'))        
+			  WHEN m.classify = 'pet' THEN ((SELECT pet_name FROM pet WHERE pet_id = m.sender_id) LIKE CONCAT('%',#{keyword},'%') OR content LIKE CONCAT('%',#{keyword},'%'))
+			  WHEN m.classify = 'admin' THEN m.classify LIKE CONCAT('%',#{keyword},'%') OR m.content LIKE CONCAT('%',#{keyword},'%')
+		END
 	</select>
 	
 

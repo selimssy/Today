@@ -41,8 +41,12 @@ public class MessengerService implements IMessengerService {
 	//받은 쪽지 갯수
 	@Override
 	public Integer countRecvMsg(String userId, SearchVO search) {
-		
-		return mapper.countRecvMsg(null);
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("userId", userId);
+		datas.put("pageStart", search.getPageStart());
+		datas.put("condition", search.getCondition());
+		datas.put("keyword", search.getKeyword());
+		return mapper.countRecvMsg(datas);
 	}
 	
 }

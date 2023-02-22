@@ -1,6 +1,8 @@
 package com.ali.today.messenger.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -45,19 +47,21 @@ public class MessengerController {
 	//받은 쪽지함 리스트
 	@PostMapping("recvMsg")
 	@ResponseBody
-	public List<MessengerVO> getRecvMsg(@RequestBody SearchVO search, HttpSession session){
-		if(session.getAttribute("login") == null) {  //로그인 안 한 경우			
-			return null;			
-		}else {	 //로그인 한 경우	
-			UserVO user = (UserVO)session.getAttribute("login");
-			String userId = user.getUserId();
-			PageCreator pc = new PageCreator();
-			pc.setPaging(search);  
-			pc.setArticleTotalCount(service.countRecvMsg(userId, search));					
-			List<MessengerVO> list = service.getRecvMsg(userId, search);
-			
-			return list;					
-		}
+	public Map<String, Object> getRecvMsg(@RequestBody SearchVO search, HttpSession session){
+		System.out.println("검색어 : " + search.getKeyword());
+		UserVO user = (UserVO)session.getAttribute("login");
+		String userId = user.getUserId();
+				 
+		Integer totalMsg =  service.countRecvMsg(userId, search);	
+		Integer lastPage = (int)Math.ceil(totalMsg / (double)10);  // 마지막 페이지
+		List<MessengerVO> list = service.getRecvMsg(userId, search);
+	
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", list);
+		data.put("lastPage", lastPage);
+		
+		return data;					
+		
 		
 		
 		

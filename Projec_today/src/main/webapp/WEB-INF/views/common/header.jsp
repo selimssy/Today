@@ -358,7 +358,7 @@
 		// 쪽지 리스트 불러오기
 		$('#msg_list').empty(); // 초기화
 			let page = 1;
-			let keyword = $("#Msearch").val();
+			let keyword = $("#Msearch").attr("value");
 			let data = {page: page, keyword: keyword};
 	   		
 	   		$.ajax({
@@ -368,18 +368,20 @@
 	               url: '/msg/recvMsg',
 	               data: JSON.stringify(data),
 	               success: function (response) {
-	                    console.log(response); // MessengerVO 리스트 
+	                    //console.log(response); // Map
+	                    let list = response['list'];
+	                    let lastPage = response['lastPage'];
 
-	                    for(let i = 0; i < response.length; i++){
+	                    for(let i = 0; i < list.length; i++){
 	                    	
-	                    	//let imagePath = response['imagePath']; 사용자 프로필 이미지 만든 후에
+	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
 	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
-	                    	let msgNo = response[i]["msgNo"];
-	                    	let nick = response[i]["nick"];
-	                    	let content = response[i]["content"];
-	                    	let sendTime = response[i]["sendTime"];
-	                    	let readChk = response[i]["readChk"];
-	                    	let senderId = response[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    	let msgNo = list[i]["msgNo"];
+	                    	let nick = list[i]["nick"];
+	                    	let content = list[i]["content"];
+	                    	let sendTime = list[i]["sendTime"];
+	                    	let readChk = list[i]["readChk"];
+	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
 	                    		                    	
 	                    	let html='<li>';
 	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
@@ -387,9 +389,14 @@
 	                        html += '<p><b>' + nick + '</b></p>';
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
+	                        if(readChk == 0){ // 안 읽은 쪽지 표시
+	                            html += '<div class="readChk"></div>';    
+	                        }
 	                        html += '</div></div></li>';
 	                    		                   		
 	                        $('#msg_list').append(html);
+	                        $(".nowPage").text(page); // 현재 페이지
+	                        $(".totalPage").text(lastPage); // 총 페이지
 	                        
 	                    }    
 	               	   	   	                 
@@ -402,9 +409,23 @@
 		$("#msgListModal").css("display", "block");
 	})
 	
+	
+	// 쪽지함 닫기
 	$("#closeMsgList").click(function(){		
 		$("#msgListModal").css("display", "none");
 	})
+	
+	
+		
+	// 엔터키 입력 이벤트
+	$("#Msearch").keydown(function(key){ 		
+		if(key.keyCode == 13){  // (=엔터키) 
+			$("#MsearchBtn").click();
+		}
+		
+	})
+	
+	
 	
 	
 	
