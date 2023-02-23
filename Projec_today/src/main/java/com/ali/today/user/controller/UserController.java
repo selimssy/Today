@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.ali.today.common.ImgUpload;
 import com.ali.today.user.model.PetVO;
 import com.ali.today.user.model.UserVO;
 import com.ali.today.user.service.IUserService;
@@ -53,7 +56,7 @@ public class UserController {
 	// 아이디 중복확인 요청 처리
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String userId) {
-		System.out.println(userId);
+		
 		//System.out.println("/user/checkId 요청 : POST");
 		//System.out.println("param : " + userId);
 		String result = null;
@@ -256,10 +259,18 @@ public class UserController {
 	
 	// 회원정보 수정
 	@PostMapping("/modifyUser")
-	public String modifyUser(@RequestBody UserVO user) {
+	public String modifyUser(
+			@RequestPart(value="userData") UserVO user, HttpServletRequest request,
+			@RequestPart(value = "userImg",required = false) MultipartFile file) throws Exception{
+		
+		if(file != null) { // 이미지 변경한 경우			
+			String fileName = ImgUpload.ImgFileUpload("user", file, request);
+			user.setImagePath("/resources/images/user/" + fileName);
+		}
 		service.modifyUser(user);
 		return "success";
 	}
+	
 	
 	
 	

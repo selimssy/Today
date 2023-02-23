@@ -11,7 +11,7 @@
 .siteInfo{width: 1050px; height: 375px; background-image: url(/img/mypage/mypage.png); background-size: contain; margin: 0 auto;  position: relative;}      
 .content{width: 100%;}
 .myProfile{width: 100%; margin: 0 auto;}
-.profileBox{width: 800px; height:600px; margin: 90px auto;  background: #fff;}   
+.profileBox{width: 800px; /*height:600px;*/ margin: 90px auto 200px;  background: #fff;}   
 .modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
 .profile_tb, .pet_tb{border-collapse: collapse; width: 100%;}
 .profile_tb th, .pet_tb th{border-bottom:2px solid #000; text-align: left; padding:20px 30px;}
@@ -25,6 +25,9 @@
 .prof_button{margin-top: 35px; width: 35%; height: 45px; font-size:16px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
 .prof_button:nth-of-type(1){margin-right: 25px;}
 .petListBox{width: 800px; margin: 0px auto;}
+.profile_img td{height:200px; position:relative;}
+.profile_img img{width:150px; height:150px; border-radius: 50%; object-fit:cover;}
+.profile_img button{width: 30px; height: 30px; position: absolute; top: 20px; right: 20px; background-color: transparent; border: none; background-image: url(/img/community/modify.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
  
  /*반응형*/
 @media all and (max-width:1065px) {			
@@ -91,6 +94,13 @@
 		                		</th>
 		                	</tr>
 		                	
+		                	<tr class="profile_img">		                       
+		                        <td colspan="2" style="background:#fff;">
+		                        	<img src="${user.imagePath}" alt="profileImg">
+		                        	<button type="button" onClick="location.href='/mypage/modifyUser'">변경</button>
+		                        </td>
+		                    </tr>
+		                	
 		                    <tr>
 		                        <td>
 		                            <p>
@@ -99,16 +109,7 @@
 		                        </td>
 		                        <td><input type="text" class="prof_input" readonly="readonly" value="${user.userId}"></td>
 		                    </tr>	
-		                    <!-- 
-		                    <tr>
-		                        <td>
-		                            <p>
-		                                <strong>비밀번호</strong>
-		                            </p>
-		                        </td>
-		                        <td style="background:#f5f5f5"><input type="password" class="prof_input password" value="********" disabled></td>
-		                    </tr>		
-		                      -->                  	                    		                    
+		                                   	                    		                    
 		                    <tr>
 		                        <td>
 		                            <p>

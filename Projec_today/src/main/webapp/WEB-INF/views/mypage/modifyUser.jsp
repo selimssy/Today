@@ -21,6 +21,7 @@
 #tab2:checked ~ #mdpassword{display: block;}
 
 .profile_tb{margin: 50px auto; border-collapse: collapse; width: 100%;}
+#userInfo .profile_tb{margin: 0 auto;}
 .profile_tb tr{height:80px; border-bottom: 1.5px solid #eee;}
 .profile_tb td:nth-of-type(1){width:25%; background: #f5f5f5; text-align: center;}
 .profile_tb tr:last-of-type{border-bottom: none;}   
@@ -28,6 +29,11 @@
 .prof_input{border: none; box-sizing: border-box; width: 100%; height: 40px; padding-left:20px;}
 .prof_input.none:focus{outline: none;}
 .prof_button{margin-top: 35px; width: 75%; height: 50px; font-size:16px; padding: 0 20px; border: none; border-radius: 5px; cursor:pointer}
+
+.profile_img td{height:200px; position:relative;}
+.profile_img img{width:150px; height:150px; border-radius: 50%; object-fit:cover;}
+.upload_prf {font-size: 18px; border: 1px solid #ddd; background: #f0f0f0; font-size:12px; position: absolute; top: 20px; right: 20px; cursor: pointer;}
+.profile_img input[type=file] {display:none}
 
  /*반응형*/
 @media all and (max-width:1065px) {			
@@ -88,7 +94,17 @@
                 
                 <!-- 개인정보 수정 -->
                 <div id="userInfo" class="tabContent">
-	                <table class="profile_tb">              	
+	                <table class="profile_tb">     
+	                	<tr class="profile_img">		                       
+	                        <td colspan="2" style="background:#fff;">
+	                        	<img src="${user.imagePath}" alt="profileImg" id="profileImg">
+	                        	<label for="profImg" class="upload_prf" style="width:auto; padding:5px 10px; color:#000;">
+				                    <input id="profImg" type="file" accept="image/*">
+				                    <span>사진 변경</span>
+				                </label>
+	                        </td>
+	                    </tr>
+	                         	
 	                    <tr>
 	                        <td>
 	                            <p>
@@ -104,7 +120,7 @@
 	                                <strong>이름</strong>
 	                            </p>
 	                        </td>
-	                        <td><input type="text" class="prof_input" id="Muser_name" value="${user.name}"></td>
+	                        <td><input type="text" class="prof_input" id="Muser_name" maxlength="6" value="${user.name}"></td>
 	                    </tr>
 
 	                    <tr>
@@ -113,7 +129,7 @@
 	                                <strong>닉네임</strong>
 	                            </p>
 	                        </td>
-	                        <td><input type="text" class="prof_input" id="Muser_nick" value="${user.nickname}"></td>
+	                        <td><input type="text" class="prof_input" id="Muser_nick" maxlength="10" value="${user.nickname}"></td>
 	                    </tr>
 
 	                    <tr>
@@ -199,7 +215,7 @@
 	})
 	
 	
-	
+		/*
 	    // 개인정보 수정
 	    $("#modifyUser-btn").click(function(){		
         	let userId = "${login.userId}";	 
@@ -235,9 +251,126 @@
                 } 
             });
 			
-        })
+        })*/
 	
 		
+        
+        // 개인정보 수정
+        $("#modifyUser-btn").click(function(){
+        	
+        	let userId = "${login.userId}";	 
+			if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
+        	
+        	const checkName= RegExp(/^[가-힣]+$/);
+            const checkNick= RegExp(/^[가-힣]+$/);
+        	
+	    	//이름
+            if(!$("#Muser_name").val() || $("#Muser_name").val().replace(/\s| /gi, "").length == 0){
+                alert("이름을 입력하세요.");
+                return false;
+            }else if(!checkName.test($("#Muser_name").val())){
+            	alert("한글 1-6자로 입력해주세요.");
+            	return false;
+			}
+	    	
+            //닉네임
+            if(!$("#Muser_nick").val() || $("#Muser_nick").val().replace(/\s| /gi, "").length == 0){
+                alert("닉네임을 입력하세요.");
+                return false;
+            }else if(!checkNick.test($("#Muser_nick").val())){
+            	alert("한글 1-10자로 입력해주세요.");
+            	return false;
+			}
+	    	
+        	
+            //formData 객체 생성
+            let formData = new FormData(); 	
+         	
+            // 이미지 리사이징	
+       	    if($("input[id='profImg']").val()){ // 사진 첨부한 경우에만 리사이징 진행				
+       		  let img = new Image;
+      	      img.src = MdPreviews.src; 
+      	
+      	      var canvas = document.createElement("canvas");
+ 	    	  canvas.getContext("2d").drawImage(img, 0, 0);
+ 	    	      	  
+ 	    	  // 최대 크기 지정과 리사이징
+ 	    	  let maxWidth = 300; //가로 최대 300px
+ 	    	  let maxHeight = 400; //세로 최대 400px
+ 	    	  let width = img.width; 
+ 	    	  let height = img.height; 
+ 	    	  if (width > height) { 
+ 	    	     if (width > maxWidth) {
+ 	    	         height *= maxWidth / width;
+ 	    	         width = maxWidth;
+ 	    	     }
+ 	    	  } else {
+ 	    	     if (height > maxHeight) {
+ 	    	         width *= maxHeight / height;
+ 	    	         height = maxHeight;
+ 	    	     }
+ 	    	  }
+ 	    	  canvas.width = width;
+ 	    	  canvas.height = height;
+ 	    	  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+ 	    	  //canvas의 dataurl를 blob(file)화 하는 과정
+ 	    	  var dataURI = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+ 	    	  var byteString = atob(dataURI.split(',')[1]);
+ 	    	  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+ 	    	  var ab = new ArrayBuffer(byteString.length);
+ 	    	  var ia = new Uint8Array(ab);
+ 	    	  for (var i = 0; i < byteString.length; i++) {
+ 	    	      ia[i] = byteString.charCodeAt(i);
+ 	    	  }
+ 	    	    //리사이징된 file 객체
+ 	    	    var tmpThumbFile = new Blob([ab], {type: mimeString});
+ 	               
+      	        formData.append("userImg", tmpThumbFile);  // formData에 저장
+       	    }
+            
+        	// 넘겨줄 사용자 데이터
+        	let name = $("#Muser_name").val();
+        	let nickname = $("#Muser_nick").val();
+    		let user = {
+    				"userId": userId,
+    				"name": name,
+    				"nickname": nickname
+    				};
+        	
+        	// formData에 json타입으로 petData 추가
+        	formData.append("userData", new Blob([ JSON.stringify(user) ], {type : "application/json"}));
+        	
+        	// ajax 처리
+        	$.ajax({
+        		  type: "POST",
+        	      url: "/user/modifyUser",
+        	      data: formData,
+        	      dataType: "text",
+        	      contentType: false,               
+        	      processData: false,              
+        	      enctype : 'multipart/form-data',  
+        	      success: function(result) { 
+                      if(result === "success") {
+                          alert("회원정보 수정이 완료되었습니다.");
+                          location.href="/mypage/profile";
+                          //location.reload();
+                      } else {
+                          alert("회원정보 수정에 실패했습니다.");
+                      }
+                  }, 
+                  error: function() {
+                      console.log("통신 실패");
+                  } 
+        	});
+        })
+        
+        
+        
         
         // 비밀번호 변경
         $("#modifyPw-btn").click(function(){
@@ -348,6 +481,36 @@
         	 	
         	
         })
+        
+        
+        
+        
+        
+        // 파일업로드(프로필사진 변경)
+		const fileDOM = document.querySelector('#profImg');
+		const MdPreviews = document.querySelector('#profileImg');
+		
+		fileDOM.addEventListener('change', () => {
+			// 이미지 확장자 체크
+			let ext = $("#profImg").val().split(".").pop().toLowerCase();		    
+			if($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp", "pdf", "webp"]) == -1) {
+				alert("이미지 파일(jpg, jpeg, png, gif, bmp, pdf, webp)만 업로드 가능합니다.");
+				fileDOM.value = ""; // 이미지 업로드 초기화
+				MdPreviews.src = "<c:url value='/img/community/boarduser.png'/>";
+				return false;
+			}	    	
+			// 이미지 용량 체크
+				if(fileDOM.files[0].size > 10485760){ // 10MB 초과
+		        alert("최대 10MB까지 업로드 가능합니다.");
+		        fileDOM.value = ""; // 이미지 업로드 초기화
+		        MdPreviews.src = "<c:url value='/img/community/boarduser.png'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
+		        return false; 
+		   }	    	
+			
+		    const imageSrc = URL.createObjectURL(fileDOM.files[0]);
+		    MdPreviews.src = imageSrc;
+		});
+        
         
         
         

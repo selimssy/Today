@@ -11,7 +11,9 @@
 		<result property="sendTime" column="send_time"/>
 		<result property="content" column="content"/>
 		<result property="readChk" column="read_chk"/>
+		<result property="classify" column="classify"/>
 		<result property="nick" column="nick"/>
+		<result property="imagePath" column="image_path"/>
 	</resultMap>	
 
 	
@@ -40,14 +42,14 @@
 	
 	<!-- 받은 쪽지 리스트 -->
 	<select id="getRecvMsg" resultMap="MessengerMap">
-		SELECT m.msg_no, m.sender_id, m.content, m.send_time, m.read_chk, m.recv_id,
+		SELECT m.msg_no, m.sender_id, m.content, m.send_time, m.read_chk, m.recv_id, m.classify, u.image_path,
 	    (CASE
 		    WHEN m.classify = 'user' THEN (select nickname from user where user_id = m.sender_id)
 		    WHEN m.classify = 'pet' THEN (select pet_name from pet where pet_id = m.sender_id)
 		    WHEN m.classify = 'admin' THEN '관리자'
 	    END) AS nick
-        FROM messenger m
-        WHERE recv_id = #{userId}
+        FROM messenger m, user u
+        WHERE u.user_id = m.sender_id AND recv_id = #{userId}
         HAVING nick LIKE CONCAT('%',#{keyword},'%') or m.content LIKE CONCAT('%',#{keyword},'%')
         ORDER BY msg_no DESC
 		LIMIT #{pageStart}, 10
@@ -65,6 +67,33 @@
 			  WHEN m.classify = 'admin' THEN m.classify LIKE CONCAT('%',#{keyword},'%') OR m.content LIKE CONCAT('%',#{keyword},'%')
 		END
 	</select>
+	
+	
+	
+	<!-- 읽은 쪽지 마크 해제 -->
+	<update id="readChk">
+		UPDATE messenger
+		SET read_chk = 1
+		WHERE msg_no = #{msgNo}
+	</update>
+	
+	
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="delMsg">
+		DELETE FROM messenger 
+		WHERE msg_no = #{msgNo}
+	</delete>
+	
+	
+	<!-- 새쪽지 여부 -->
+	<select id="newMsg" resultType="int">
+		SELECT count(*) 
+		FROM messenger 
+		WHERE recv_id = #{userId} AND read_chk = 0
+	</select>
+	
+	
 	
 
 </mapper>    

@@ -16,4 +16,13 @@ public interface IMessengerMapper {
 	//받은 쪽지 갯수
 	Integer countRecvMsg(Map<String, Object> datas);
 	
+	//쪽지 삭제
+	void delMsg(Integer msgNo);
+	
+	//읽은 쪽지 마크 해제
+	void readChk(Integer msgNo);
+	
+	//새쪽지 여부
+	Integer newMsg(String userId);
+	
 }

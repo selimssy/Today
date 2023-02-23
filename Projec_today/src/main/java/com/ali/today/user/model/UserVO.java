@@ -8,6 +8,7 @@ public class UserVO {
 	private String password;
 	private String name;
 	private String nickname;
+	private String imagePath;
 	private String email;
 	private Date regDate;	
 	private String sessionId;
@@ -119,13 +120,21 @@ public class UserVO {
 		this.replyCnt = replyCnt;
 	}
 
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", password=" + password + ", name=" + name + ", nickname=" + nickname
-				+ ", email=" + email + ", regDate=" + regDate + ", sessionId=" + sessionId + ", limitTime=" + limitTime
-				+ ", pet=" + pet + ", contentsCnt=" + contentsCnt + ", petCnt=" + petCnt + ", replyCnt=" + replyCnt
-				+ ", autoLogin=" + autoLogin + "]";
+				+ ", imagePath=" + imagePath + ", email=" + email + ", regDate=" + regDate + ", sessionId=" + sessionId
+				+ ", limitTime=" + limitTime + ", pet=" + pet + ", contentsCnt=" + contentsCnt + ", petCnt=" + petCnt
+				+ ", replyCnt=" + replyCnt + ", autoLogin=" + autoLogin + "]";
 	}
 
-
+	
 }

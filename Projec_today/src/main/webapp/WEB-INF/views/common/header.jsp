@@ -357,54 +357,57 @@
 		
 		// 쪽지 리스트 불러오기
 		$('#msg_list').empty(); // 초기화
-			let page = 1;
-			let keyword = $("#Msearch").attr("value");
-			let data = {page: page, keyword: keyword};
-	   		
-	   		$.ajax({
-	               type: 'post',
-	               dataType : "json",
-	               contentType: 'application/json',
-	               url: '/msg/recvMsg',
-	               data: JSON.stringify(data),
-	               success: function (response) {
-	                    //console.log(response); // Map
-	                    let list = response['list'];
-	                    let lastPage = response['lastPage'];
+		$("#Msearch").val("");
+		
+		let page = 1;
+		//let keyword = $("#Msearch").attr("value");
+		let data = {page: page};
+   		
+   		$.ajax({
+               type: 'post',
+               dataType : "json",
+               contentType: 'application/json',
+               url: '/msg/recvMsg',
+               data: JSON.stringify(data),
+               success: function (response) {
+                    //console.log(response); // Map
+                    let list = response['list'];
+                    let lastPage = response['lastPage'];
 
-	                    for(let i = 0; i < list.length; i++){
-	                    	
-	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
-	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
-	                    	let msgNo = list[i]["msgNo"];
-	                    	let nick = list[i]["nick"];
-	                    	let content = list[i]["content"];
-	                    	let sendTime = list[i]["sendTime"];
-	                    	let readChk = list[i]["readChk"];
-	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
-	                    		                    	
-	                    	let html='<li>';
-	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
-	                        html += '<div class="msg_info">';
-	                        html += '<p><b>' + nick + '</b></p>';
-	                        html += '<p>' + content + '</p>';
-	                        html += '<span>' + sendTime + '</span>';
-	                        if(readChk == 0){ // 안 읽은 쪽지 표시
-	                            html += '<div class="readChk"></div>';    
-	                        }
-	                        html += '</div></div></li>';
-	                    		                   		
-	                        $('#msg_list').append(html);
-	                        $(".nowPage").text(page); // 현재 페이지
-	                        $(".totalPage").text(lastPage); // 총 페이지
-	                        
-	                    }    
-	               	   	   	                 
-	               }, 
-	               error: function() {
-	                   console.log("통신 실패!");
-	               } 
-	           });
+                    for(let i = 0; i < list.length; i++){
+                    	
+                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
+                    	let imagePath = "/img/mypage/mypage.png"; // 임시
+                    	let msgNo = list[i]["msgNo"];
+                    	let nick = list[i]["nick"];
+                    	let content = list[i]["content"];
+                    	let sendTime = list[i]["sendTime"];
+                    	let readChk = list[i]["readChk"];
+                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+                    	let classify = list[i]["classify"];
+                    		                    	
+                    	let html='<li class="msgCard" href="' + msgNo + '" data-chk="' + readChk + '" data-csf="' + classify + '" >';
+                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
+                        html += '<div class="msg_info">';
+                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
+                        html += '<p>' + content + '</p>';
+                        html += '<span>' + sendTime + '</span>';
+                        if(readChk == 0){ // 안 읽은 쪽지 표시
+                            html += '<div class="readChk"></div>';    
+                        }
+                        html += '</div></div></li>';
+                    		                   		
+                        $('#msg_list').append(html);
+                        $(".nowPage").text(page); // 현재 페이지
+                        $(".totalPage").text(lastPage); // 총 페이지
+                        
+                    }    
+               	   	   	                 
+               }, 
+               error: function() {
+                   console.log("통신 실패!");
+               } 
+           });
 			
 		$("#msgListModal").css("display", "block");
 	})
@@ -431,7 +434,9 @@
 	
 	// 쪽지 보내기 모달 여닫기
 	$("#msgSendOpen").click(function(){
-		$("#toMsg").val("");
+		//쪽지 보내기와 답장 보내기 구분
+		$("#msgSendModal .MbuttonBox button:eq(0)").attr("id", "msgSend"); // 처음부터 쪽지 보내기
+		$("#toMsg").val("").attr("value", "").attr("disabled", false);
 		$("#msgContent").val("");
 		$("#msgSendModal").css("display", "block");
 	})
@@ -440,12 +445,42 @@
 	})
 	
 	
+	// 새쪽지 여부 함수
+	function newMsg(){
+		let userId = "${login.userId}";  
+		$.ajax({
+            type: "POST",
+            url: "/msg/newMsg",  
+            headers: {
+                "Content-Type": "application/json"
+            },
+            dataType: "text",
+            data: userId,
+            success: function(result) {
+            	let newMsg = parseInt(result);
+            	if(newMsg > 0){ // 새쪽지 존재
+            		$(".msgOpen span").css("display", "block");
+            	}else{
+            		$(".msgOpen span").css("display", "none");
+            	}
+            },
+            error: function() {
+                console.log("통신 실패");
+            }
+        });
+	}
+	
 	
 	$(document).ready(function(){
 	    // PC브라우저에서 좁혀서 메뉴 닫고 다시 넓힐 때 상단메뉴 노출되게.
 	    $(window).resize(function() {
 	        if ( parseInt($('header').css('width')) > 1065 ) $('.header_cont').show();
-	    }); 	    	   
+	    }); 	    	
+	    
+	    // 새쪽지 여부(로그인 한 경우에만)
+	    if("${login.userId}" !== ""){
+	    	newMsg();
+	    }
 	   
 	});
 

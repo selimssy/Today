@@ -12,6 +12,8 @@ public class MessengerVO {
 	private String recvId;
 	private String content;
 	private Integer readChk;
+	private String classify;
+	private String imagePath;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
 	private Date sendTime;
@@ -58,19 +60,25 @@ public class MessengerVO {
 	}
 	public void setNick(String nick) {
 		this.nick = nick;
+	}	
+	public String getClassify() {
+		return classify;
 	}
-	
+	public void setClassify(String classify) {
+		this.classify = classify;
+	}	
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	
 	@Override
 	public String toString() {
 		return "MessengerVO [msgNo=" + msgNo + ", senderId=" + senderId + ", nick=" + nick + ", recvId=" + recvId
-				+ ", content=" + content + ", readChk=" + readChk + ", sendTime=" + sendTime + ", getMsgNo()="
-				+ getMsgNo() + ", getSenderId()=" + getSenderId() + ", getRecvId()=" + getRecvId() + ", getSendTime()="
-				+ getSendTime() + ", getContent()=" + getContent() + ", getReadChk()=" + getReadChk() + ", getNick()="
-				+ getNick() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ ", content=" + content + ", readChk=" + readChk + ", classify=" + classify + ", imagePath="
+				+ imagePath + ", sendTime=" + sendTime + "]";
 	}
-	
-	
 	
 }

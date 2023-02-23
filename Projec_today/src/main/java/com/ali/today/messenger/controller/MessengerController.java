@@ -48,7 +48,7 @@ public class MessengerController {
 	@PostMapping("recvMsg")
 	@ResponseBody
 	public Map<String, Object> getRecvMsg(@RequestBody SearchVO search, HttpSession session){
-		System.out.println("검색어 : " + search.getKeyword());
+
 		UserVO user = (UserVO)session.getAttribute("login");
 		String userId = user.getUserId();
 				 
@@ -61,11 +61,42 @@ public class MessengerController {
 		data.put("lastPage", lastPage);
 		
 		return data;					
-		
-		
-		
-		
 	}
+	
+	
+	
+	// 읽은 쪽지 마크 해제
+	@PostMapping("/readChk")
+	@ResponseBody
+	public String readChk(@RequestBody Integer msgNo) {
+		service.readChk(msgNo);  		
+		return "success";
+	}
+	
+	
+	
+	// 새쪽지 여부
+	@PostMapping("/newMsg")
+	@ResponseBody
+	public String newMsg(@RequestBody String userId) {
+		Integer newMsg = service.newMsg(userId);  		
+		return Integer.toString(newMsg);
+	}
+	
+	
+	
+	
+	
+	//쪽지 삭제
+	@PostMapping("/delMsg")
+	@ResponseBody
+	public String delMsg(@RequestBody Integer msgNo) {
+		service.delMsg(msgNo);  		
+		return "success";
+	}
+	
+	
+	
 	
 	
 }
