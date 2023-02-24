@@ -134,4 +134,13 @@ public class MessengerController {
 	
 	
 	
+	//차단 해제
+	@PostMapping("/cancleBlock")
+	@ResponseBody
+	public String cancleBlock(@RequestBody BlockVO blockVO) {
+		service.cancleBlock(blockVO);
+		return "success";
+	}
+	
+	
 }

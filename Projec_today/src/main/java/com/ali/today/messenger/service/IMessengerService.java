@@ -36,4 +36,7 @@ public interface IMessengerService {
 	//차단한 회원 목록 조회
 	List<BlockVO> blockList(String userId);
 	
+	//차단 해제
+	void cancleBlock(BlockVO blockVO);
+	
 }

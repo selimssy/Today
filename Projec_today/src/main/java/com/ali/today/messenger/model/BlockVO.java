@@ -12,7 +12,7 @@ public class BlockVO {
 	private String imagePath;
 	private String nickname;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd HH:mm")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd HH:mm", timezone = "Asia/Seoul")
 	private Date blockDate;
 
 	

@@ -45,6 +45,7 @@
 	#msgListModal .Msearch input{width: 90px; height:25px; border: none; font-size:18px; background:#eee; padding-left: 10px; font-family: 'Nanum Pen Script';}
 	#msgListModal .Msearch button{width: 20px; height:20px; border: none; background-color: transparent; text-indent: -9999px; background-image: url(/img/common/search.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 	#msgListModal .MbuttonBox{justify-content: space-between;}
+	#msgListModal .blockCard button{width: 20px; height:20px; border: none; background-color: transparent; text-indent: -9999px; background-image: url(/img/common/join.png); background-size: contain; background-repeat: no-repeat; cursor: pointer; position: absolute; top: 25px; right: 20px;}   
 	.McloseMsg, .MRcloseMsg{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}	
 	#blockList, #backList{width: 25px; height:25px; margin-top:20px; margin-left:10px; border: none; background-color: transparent; background-image: url(/img/common/block.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor:pointer;}
 	#backList{background-image: url(/img/noticeImg/msg_letter.png);}
@@ -727,7 +728,7 @@
 	   		$("#delMsg").attr("data-no", imgNo);
 	   		
 	   		if(classify === 'user'){ // 사용자가 보낸 쪽지
-	   			$("#msgReadModal .msg_info button").attr("id", "offMsg").attr("data-id", senderId).text("차단").css("display", "inline-block");  // 수신 유형별 버튼 속성값
+	   			$("#msgReadModal .msg_info button").attr("id", "offMsg").attr("data-id", senderId).text("차단").attr("class", "").css("display", "inline-block");  // 수신 유형별 버튼 속성값
 	   			$("#msgReadModal .MbuttonBox button:eq(0)").attr("id", "replyMsg").attr("data-id", senderId).text("답장"); // 사용자 쪽지-답장 | 펫편지, 관리자-확인(닫기)
 	   			
 	   		}else if(classify === 'pet'){ // 펫편지
@@ -742,7 +743,7 @@
 	   		
 	   		
 	   		}else{ // 관리자 알림
-	   			$("#msgReadModal .msg_info button").attr("id", "").css("display", "none");
+	   			$("#msgReadModal .msg_info button").attr("id", "").attr("class", "").css("display", "none");
 	   			$("#msgReadModal .MbuttonBox button:eq(0)").attr("id", "MRclose").attr("data-id", "").text("확인");
 	   		}
 	   		
@@ -927,16 +928,25 @@
         	
         	$(this).attr("id","backList").attr("title", "쪽지 리스트").css("background-image", "url(/img/noticeImg/msg_letter.png)");
         	$(".Mpaging").css("display","none");
- 
-        	let userId = "${login.userId}";  
-			if(userId === ""){  // 로그아웃(세션 종료) 체크
+        	  
+			if("${login.userId}" === ""){  // 로그아웃(세션 종료) 체크
 				alert("로그인 후 사용 가능합니다.");
 				window.location.reload();
 				return false;
 			}
    		
-	   		//초기화
+			blockList();
+        	
+        	
+        })
+        
+        
+        // 차단 회원 목록 요청 함수
+        function blockList(){
+			
+        	//초기화
 			$('#msg_list').empty();
+			let userId = "${login.userId}";
 	   		
 	   		$.ajax({
 	               type: 'post',
@@ -961,8 +971,8 @@
 							html += imagePath; // 프로필 사진                                          	                        
 	                        html += '"><div class="msg_info">';
 	                        html += '<p>' + nickname + '</p>';
-	                        html += '<p>' + blockDate + '</p>';
-	                        html += '<button data-id="' + blockId + '">차단 해제</button>';	                        
+	                        html += '<p>차단 날짜: ' + blockDate + '</p>';
+	                        html += '<button id="cancleBlock" data-id="' + blockId + '" title="차단 해제">차단 해제</button>';	                        
 	                        html += '</div></div></li>';
 	                    		                   		
 	                        $('#msg_list').append(html);	                      
@@ -974,9 +984,54 @@
 	                   console.log("통신 실패!");
 	               } 
 	        });
+	
+		}
+        
+        
+        
+        
+        
+        // 차단 해제
+        $(document).on("click", "#cancleBlock", function () { 
+        	
+        	let userId = "${login.userId}";  
+			if(userId === ""){   // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
+        	
+        	let blockId = $(this).attr("data-id");       	
+			if(confirm(blockId + "님을 차단 해제하시겠습니까?")){	
+				
+	    		let blockVO = {userId: userId, blockId: blockId};
+	    		
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/msg/cancleBlock',
+	                data: JSON.stringify(blockVO),
+	                success: function (response) {
+	         			if(response === 'success'){	         				
+	         				alert("차단 해제되었습니다.");	         				
+	         				blockList(); // 차단 회원 리스트 reload
+	         			}else{
+	         				alert("요청 처리에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+	    		
+			}
         	
         	
         })
+        
+        
+        
         
 	
 	})

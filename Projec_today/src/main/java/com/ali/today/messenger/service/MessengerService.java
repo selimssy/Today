@@ -86,4 +86,11 @@ public class MessengerService implements IMessengerService {
 		return mapper.blockList(userId);
 	}
 	
+	//차단 해제
+	@Override
+	public void cancleBlock(BlockVO blockVO) {
+		mapper.cancleBlock(blockVO);
+	}
+	
+	
 }

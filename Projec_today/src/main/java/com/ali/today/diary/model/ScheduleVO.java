@@ -12,7 +12,7 @@ public class ScheduleVO {
 	private String scheduleTitle;
 	private String scheduleDesc;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date scheduleDate;
 	
 	public Integer getScheduleId() {

@@ -12,7 +12,7 @@ public class LifetimeVO {
 	private String content;
 	private String imagePath;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date date;
 	
 	
