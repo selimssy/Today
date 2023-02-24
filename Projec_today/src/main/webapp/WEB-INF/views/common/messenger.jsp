@@ -955,9 +955,7 @@
 	               url: '/msg/blockList',
 	               data: userId,
 	               success: function (response) { //list
-	            	   console.log(response);
-	                    
-	                    
+	                                         
 	                    for(let i = 0; i < response.length; i++){
 	                    	
 	                    	let blockId = response[i]['blockId'];
