@@ -3,7 +3,9 @@ package com.ali.today.messenger.service;
 import java.util.List;
 
 import com.ali.today.common.SearchVO;
+import com.ali.today.messenger.model.BlockVO;
 import com.ali.today.messenger.model.MessengerVO;
+import com.ali.today.user.model.UserVO;
 
 public interface IMessengerService {
 
@@ -24,5 +26,14 @@ public interface IMessengerService {
 	
 	//새쪽지 여부
 	Integer newMsg(String userId);
+	
+	//펫편지 수신 여부
+	Integer petLetter(String userId);
+	
+	//쪽지 차단
+	void blockUser(BlockVO blockVO);
+	
+	//차단한 회원 목록 조회
+	List<BlockVO> blockList(String userId);
 	
 }

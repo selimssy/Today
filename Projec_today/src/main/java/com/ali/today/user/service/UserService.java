@@ -150,6 +150,15 @@ public class UserService implements IUserService{
 		return mapper.findPwInfo(user);
 	}
 	
+	
+	// 펫편지 수신 여부 변경
+	@Override
+	public void mdPetLetter(UserVO user) {
+		mapper.mdPetLetter(user);
+	}
+	
+	
+	
 	/////////////////////////////////////////////////////////////////////////////////
 	
 	

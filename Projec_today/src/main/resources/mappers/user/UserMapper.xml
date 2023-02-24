@@ -18,6 +18,7 @@
 		<result property="contentsCnt" column="contents_cnt"/>
 		<result property="petCnt" column="pet_count"/>
 		<result property="replyCnt" column="reply_count"/>
+		<result property="petLetter" column="pet_letter"/>
 		<collection property="pet" resultMap="PetMap"/>	
 	</resultMap>
 	
@@ -206,6 +207,18 @@
 	
 	
 	
+	<!-- 펫편지 수신 여부 변경 -->
+	<update id="mdPetLetter">
+		UPDATE user
+		SET pet_letter = #{petLetter}
+		WHERE user_id = #{userId}
+	</update>
+	
+	
+	
+	
+	
+	
 	<!-- ******관리자 페이지******* -->
 	<!-- 전체회원 조회 (검색, 페이징, 정렬) -->
 	<select id="selectAll" resultMap="UserMap">
@@ -224,6 +237,8 @@
 		FROM user
 		<include refid="searchUser"/>
 	</select>
+	
+		
 	
 	<!-- //////////////////////////////////////////////////////////////////////////// -->
 	
@@ -345,5 +360,9 @@
 		SET open = #{open}
 		WHERE pet_id = #{petId}
 	</update>
+	
+	
+	
+	
 	
 </mapper>

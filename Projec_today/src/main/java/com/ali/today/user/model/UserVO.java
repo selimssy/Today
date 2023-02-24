@@ -17,6 +17,7 @@ public class UserVO {
 	private Integer contentsCnt;
 	private Integer petCnt;
 	private Integer replyCnt;
+	private Integer petLetter;
 	
 	public PetVO getPet() {
 		return pet;
@@ -127,14 +128,23 @@ public class UserVO {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+		
+	public Integer getPetLetter() {
+		return petLetter;
+	}
+
+	public void setPetLetter(Integer petLetter) {
+		this.petLetter = petLetter;
+	}
 
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", password=" + password + ", name=" + name + ", nickname=" + nickname
 				+ ", imagePath=" + imagePath + ", email=" + email + ", regDate=" + regDate + ", sessionId=" + sessionId
 				+ ", limitTime=" + limitTime + ", pet=" + pet + ", contentsCnt=" + contentsCnt + ", petCnt=" + petCnt
-				+ ", replyCnt=" + replyCnt + ", autoLogin=" + autoLogin + "]";
+				+ ", replyCnt=" + replyCnt + ", petLetter=" + petLetter + ", autoLogin=" + autoLogin + "]";
 	}
 
+	
 	
 }

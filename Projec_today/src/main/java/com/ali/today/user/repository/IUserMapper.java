@@ -54,6 +54,9 @@ public interface IUserMapper {
 	// 비밀번호 찾기 - 아이디, 이름, 이메일 일치 확인
 	Integer findPwInfo(UserVO user);
 	
+	// 펫편지 수신 여부 변경
+	void mdPetLetter(UserVO user);
+	
 	
 	///////////////////////////////////////////////////////////
 	

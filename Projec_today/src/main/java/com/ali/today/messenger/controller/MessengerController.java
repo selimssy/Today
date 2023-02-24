@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ali.today.common.PageCreator;
 import com.ali.today.common.SearchVO;
+import com.ali.today.messenger.model.BlockVO;
 import com.ali.today.messenger.model.MessengerVO;
 import com.ali.today.messenger.service.IMessengerService;
 import com.ali.today.user.model.UserVO;
+import com.ali.today.user.service.IUserService;
 
 @Controller
 @RequestMapping("/msg")
@@ -26,6 +28,9 @@ public class MessengerController {
 	
 	@Autowired
 	IMessengerService service;
+	@Autowired
+	IUserService uService;
+	
 	
 	
 	@GetMapping("/temp")
@@ -54,11 +59,13 @@ public class MessengerController {
 				 
 		Integer totalMsg =  service.countRecvMsg(userId, search);	
 		Integer lastPage = (int)Math.ceil(totalMsg / (double)10);  // 마지막 페이지
-		List<MessengerVO> list = service.getRecvMsg(userId, search);
+		List<MessengerVO> list = service.getRecvMsg(userId, search); // 쪽지 리스트
+		Integer petLetter = service.petLetter(userId); // 펫편지 수신 여부
 	
 		Map<String, Object> data = new HashMap<>();
 		data.put("list", list);
 		data.put("lastPage", lastPage);
+		data.put("petLetter", petLetter);
 		
 		return data;					
 	}
@@ -96,6 +103,34 @@ public class MessengerController {
 	}
 	
 	
+	
+	// 펫편지 수신여부 변경
+	@PostMapping("/mdPetLetter")
+	@ResponseBody
+	public String mdPetLetter(@RequestBody UserVO user) {
+		uService.mdPetLetter(user);
+		return Integer.toString(user.getPetLetter());
+	}
+	
+	
+	
+	//쪽지 차단
+	@PostMapping("/blockUser")
+	@ResponseBody
+	public String blockUser(@RequestBody BlockVO blockVO) {
+		service.blockUser(blockVO);
+		return "success";
+	}
+	
+	
+	
+	//차단한 회원 목록 조회
+	@PostMapping("/blockList")
+	@ResponseBody
+	public List<BlockVO> blockList(@RequestBody String userId) {
+		List<BlockVO> blockList = service.blockList(userId);
+		return blockList;
+	}
 	
 	
 	

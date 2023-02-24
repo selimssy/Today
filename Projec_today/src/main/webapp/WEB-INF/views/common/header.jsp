@@ -181,7 +181,7 @@
 					<c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
 	           			<ul>
 	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
-	           				<li class="msgOpen"><button>쪽지</button><span>N</span></li>
+	           				<li class="msgOpen"><button>쪽지</button></li>
 	           			</ul>
 		           </c:if>
 				</ul>	
@@ -373,11 +373,10 @@
                     //console.log(response); // Map
                     let list = response['list'];
                     let lastPage = response['lastPage'];
+                    let petLetter = response['petLetter']; $("#msg_list").attr("data-petLtr", petLetter); // 펫편지 수신 여부
 
                     for(let i = 0; i < list.length; i++){
-                    	
-                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
-                    	let imagePath = "/img/mypage/mypage.png"; // 임시
+                    	                    	
                     	let msgNo = list[i]["msgNo"];
                     	let nick = list[i]["nick"];
                     	let content = list[i]["content"];
@@ -385,10 +384,24 @@
                     	let readChk = list[i]["readChk"];
                     	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
                     	let classify = list[i]["classify"];
+                    	let imagePath = list[i]["imagePath"];
                     		                    	
                     	let html='<li class="msgCard" href="' + msgNo + '" data-chk="' + readChk + '" data-csf="' + classify + '" >';
-                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
-                        html += '<div class="msg_info">';
+                        html += '<div class="msg_inner"><img src="';
+                        
+                        if(classify == 'user'){ //사용자                       	
+                        	if(imagePath === '/resources/img/noticeImg/user.png'){ // 프로필사진 없는 경우 기본 이미지로
+                        		html += '/resources/img/noticeImg/msg_letter.png';
+                        	}else{
+                        		html += imagePath; // 프로필 사진
+                        	}
+                        }else if(classify == 'pet'){ //펫편지
+                        	html += '/resources/img/noticeImg/msg_pet.png';
+                        }else{ // 관리자
+                        	html += '/resources/img/noticeImg/msg_admin.png';
+                        }                        
+                        
+                        html += '"><div class="msg_info">';
                         html += '<p data-id="' + senderId + '">' + nick + '</p>';
                         html += '<p>' + content + '</p>';
                         html += '<span>' + sendTime + '</span>';
@@ -459,9 +472,7 @@
             success: function(result) {
             	let newMsg = parseInt(result);
             	if(newMsg > 0){ // 새쪽지 존재
-            		$(".msgOpen span").css("display", "block");
-            	}else{
-            		$(".msgOpen span").css("display", "none");
+            		$(".msgOpen").append("<span>N</span>");
             	}
             },
             error: function() {

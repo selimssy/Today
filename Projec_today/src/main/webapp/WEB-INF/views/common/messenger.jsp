@@ -22,7 +22,7 @@
 	.Mmodal_textarea{outline: none;resize: none; width: 100%; background: none; border: 1px solid #d9d9de; line-height: 22px; font-family: "NanumSquare","맑은 고딕", sans-serif; box-sizing: border-box; padding: 10px 10px 20px;}
 	.Mmodal_input, .Mmodal_textarea{margin-top:5px;}
 	.Mmodal_footer{padding: 0 20px; box-sizing: border-box; border-top: 1px solid #dee2e6;}
-	.Mmodal_footer button{width:40%; height:35px; margin-top: 13px;}
+	.Mmodal_footer button{width:37%; height:35px; margin-top: 15px;}
 	.MbuttonBox{display:flex; justify-content: space-evenly;}
 	#msgSendModal, #msgListModal, #msgReadModal{display:none; width:320px; height: 470px; border: 3.5px solid #777; border-radius: 15px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8;
 			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(40px, -50%); z-index:10;}	
@@ -30,6 +30,7 @@
 	#msgListModal .Mmodal_body{padding:0;}
 	#msgReadModal{z-index:11; transform: translate(380px, -50%);}
 	#msgListModal .msgCard{padding:5px 20px; position: relative; cursor: pointer;}
+	#msgListModal .blockCard{padding:5px 20px; position: relative;}
 	#msgListModal .msgCard:hover{background: #eee;}
 	.msg_inner{display: flex; align-content: space-between; align-items: center;}
 	.msg_inner .msg_info{width: calc(100% - 70px); padding-left: 15px; box-sizing: border-box;} 
@@ -43,10 +44,13 @@
 	#msgListModal .Msearch{position: absolute; top:20px; right: 20px; border-bottom:0.5px solid #eee; background:#eee; padding-right: 5px;}
 	#msgListModal .Msearch input{width: 90px; height:25px; border: none; font-size:18px; background:#eee; padding-left: 10px; font-family: 'Nanum Pen Script';}
 	#msgListModal .Msearch button{width: 20px; height:20px; border: none; background-color: transparent; text-indent: -9999px; background-image: url(/img/common/search.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+	#msgListModal .MbuttonBox{justify-content: space-between;}
 	.McloseMsg, .MRcloseMsg{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}	
+	#blockList, #backList{width: 25px; height:25px; margin-top:20px; margin-left:10px; border: none; background-color: transparent; background-image: url(/img/common/block.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor:pointer;}
+	#backList{background-image: url(/img/noticeImg/msg_letter.png);}
 	#msgSendModal input:focus{outline: none;}
 	#msgReadModal .sender_info{position: relative;}
-	#msgReadModal #offMsg{border:none; margin-left: 15px; background: #ffa500; color: #fff; font-size: 10px; padding: 2px; border-radius: 5px; cursor:pointer;}
+	#msgReadModal .msg_info button{border:none; margin-left: 15px; background: #ffa500; color: #fff; font-size: 10px; padding: 2px; border-radius: 5px; cursor:pointer;}
 	#msgReadModal img{width:50px; height:50px;}
 	#msgReadModal .sender_info{padding-top:25px;}
 	#msgReadModal .sender_info p{margin:0 0 7px 0;}
@@ -221,6 +225,7 @@
     		<div class="MbuttonBox">
                 <button type="button" id="msgSendOpen" class="Mm_button"><div>1</div>쪽지 보내기</button>
                 <button type="button" id="closeMsgList" class="Mm_button">닫기</button>
+                <button type="button" id="blockList" class="Mm_button" title="차단한 회원 목록">차단한 회원 목록</button>
             </div>
     	</div>
 	</div>
@@ -493,22 +498,35 @@
 	            	   //console.log(response); // Map
 	                    let list = response['list'];
 	                    let lastPage = response['lastPage'];
+	                    let petLetter = response['petLetter']; $("#msg_list").attr("data-petLtr", petLetter); // 펫편지 수신 여부
 	                    
 	                    for(let i = 0; i < list.length; i++){
 	                    	
-	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
-	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
 	                    	let msgNo = list[i]["msgNo"];
 	                    	let nick = list[i]["nick"];
 	                    	let content = list[i]["content"];
 	                    	let sendTime = list[i]["sendTime"];
 	                    	let readChk = list[i]["readChk"];
 	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
-	                    	let classify = list[i]["classify"];
-	                    		                    	
+	                    	let classify = list[i]["classify"];                    		                    	
+	                    	let imagePath = list[i]["imagePath"];
+	                    	
 	                    	let html='<li class="msgCard" href="' + msgNo + '" data-chk="' + readChk + '" data-csf="' + classify + '" >';
-	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
-	                        html += '<div class="msg_info">';
+	                        html += '<div class="msg_inner"><img src="';
+	                        
+	                        if(classify == 'user'){ //사용자                       	
+	                        	if(imagePath === '/resources/img/noticeImg/user.png'){ // 프로필사진 없는 경우 기본 이미지로
+	                        		html += '/resources/img/noticeImg/msg_letter.png';
+	                        	}else{
+	                        		html += imagePath; // 프로필 사진
+	                        	}
+	                        }else if(classify == 'pet'){ //펫편지
+	                        	html += '/resources/img/noticeImg/msg_pet.png';
+	                        }else{ // 관리자
+	                        	html += '/resources/img/noticeImg/msg_admin.png';
+	                        }                        
+	                        
+	                        html += '"><div class="msg_info">';
 	                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
@@ -560,11 +578,10 @@
 	            	   //console.log(response); // Map
 	                    let list = response['list'];
 	                    let lastPage = response['lastPage'];
+	                    let petLetter = response['petLetter']; $("#msg_list").attr("data-petLtr", petLetter); // 펫편지 수신 여부
 	                    
 	                    for(let i = 0; i < list.length; i++){
 	                    	
-	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
-	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
 	                    	let msgNo = list[i]["msgNo"];
 	                    	let nick = list[i]["nick"];
 	                    	let content = list[i]["content"];
@@ -572,10 +589,24 @@
 	                    	let readChk = list[i]["readChk"];
 	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
 	                    	let classify = list[i]["classify"];
+	                    	let imagePath = list[i]["imagePath"];
 	                    		                    	
 	                    	let html='<li class="msgCard" href="' + msgNo + '" data-chk="' + readChk + '" data-csf="' + classify + '" >';
-	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
-	                        html += '<div class="msg_info">';
+	                        html += '<div class="msg_inner"><img src="';
+	                        
+	                        if(classify == 'user'){ //사용자                       	
+	                        	if(imagePath === '/resources/img/noticeImg/user.png'){ // 프로필사진 없는 경우 기본 이미지로
+	                        		html += '/resources/img/noticeImg/msg_letter.png';
+	                        	}else{
+	                        		html += imagePath; // 프로필 사진
+	                        	}
+	                        }else if(classify == 'pet'){ //펫편지
+	                        	html += '/resources/img/noticeImg/msg_pet.png';
+	                        }else{ // 관리자
+	                        	html += '/resources/img/noticeImg/msg_admin.png';
+	                        }                        
+	                        
+	                        html += '"><div class="msg_info">';
 	                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
@@ -623,11 +654,10 @@
 	            	   //console.log(response); // Map
 	                    let list = response['list'];
 	                    let lastPage = response['lastPage'];
+	                    let petLetter = response['petLetter']; $("#msg_list").attr("data-petLtr", petLetter); // 펫편지 수신 여부
 	                    
 	                    for(let i = 0; i < list.length; i++){
 	                    	
-	                    	//let imagePath = list['imagePath']; 사용자 프로필 이미지 만든 후에
-	                    	let imagePath = "/img/mypage/mypage.png"; // 임시
 	                    	let msgNo = list[i]["msgNo"];
 	                    	let nick = list[i]["nick"];
 	                    	let content = list[i]["content"];
@@ -635,10 +665,24 @@
 	                    	let readChk = list[i]["readChk"];
 	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
 	                    	let classify = list[i]["classify"];
+	                    	let imagePath = list[i]["imagePath"];
 	                    		                    	
 	                    	let html='<li class="msgCard" href="' + msgNo + '" data-chk="' + readChk + '" data-csf="' + classify + '" >';
-	                        html += '<div class="msg_inner"><img src="' + imagePath + '">';
-	                        html += '<div class="msg_info">';
+	                        html += '<div class="msg_inner"><img src="';
+	                        
+	                        if(classify == 'user'){ //사용자                       	
+	                        	if(imagePath === '/resources/img/noticeImg/user.png'){ // 프로필사진 없는 경우 기본 이미지로
+	                        		html += '/resources/img/noticeImg/msg_letter.png';
+	                        	}else{
+	                        		html += imagePath; // 프로필 사진
+	                        	}
+	                        }else if(classify == 'pet'){ //펫편지
+	                        	html += '/resources/img/noticeImg/msg_pet.png';
+	                        }else{ // 관리자
+	                        	html += '/resources/img/noticeImg/msg_admin.png';
+	                        }                        
+	                        
+	                        html += '"><div class="msg_info">';
 	                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
@@ -683,16 +727,22 @@
 	   		$("#delMsg").attr("data-no", imgNo);
 	   		
 	   		if(classify === 'user'){ // 사용자가 보낸 쪽지
-	   			$("#offMsg").attr("data-id", senderId).text("차단"); // 수신 유형별 버튼 속성값
-	   			$("#offMsg").css("display", "inline-block");
+	   			$("#msgReadModal .msg_info button").attr("id", "offMsg").attr("data-id", senderId).text("차단").css("display", "inline-block");  // 수신 유형별 버튼 속성값
 	   			$("#msgReadModal .MbuttonBox button:eq(0)").attr("id", "replyMsg").attr("data-id", senderId).text("답장"); // 사용자 쪽지-답장 | 펫편지, 관리자-확인(닫기)
 	   			
 	   		}else if(classify === 'pet'){ // 펫편지
-	   			$("#offMsg").attr("data-id", "${login.userId}").text("펫편지 중단");
-	   			$("#offMsg").css("display", "inline-block");
+	   			
+	   			if($("#msg_list").attr("data-petLtr") == 1){ // 펫편지 수신중인 경우
+	   				$("#msgReadModal .msg_info button").attr("id", "").attr("class", "petLetter").attr("data-id", "").text("펫편지 중단").css("display", "inline-block");
+	   			}else{ // 펫편지 수신중x
+	   				$("#msgReadModal .msg_info button").attr("id", "").attr("class", "petLetter on").attr("data-id", "").text("펫편지 받기").css("display", "inline-block");
+	   			}
+	   			   			
 	   			$("#msgReadModal .MbuttonBox button:eq(0)").attr("id", "MRclose").attr("data-id", "").text("확인");
+	   		
+	   		
 	   		}else{ // 관리자 알림
-	   			$("#offMsg").css("display", "none");
+	   			$("#msgReadModal .msg_info button").attr("id", "").css("display", "none");
 	   			$("#msgReadModal .MbuttonBox button:eq(0)").attr("id", "MRclose").attr("data-id", "").text("확인");
 	   		}
 	   		
@@ -773,6 +823,160 @@
         })
         
         
+        
+        
+        
+        // 펫편지 수신 여부 변경
+        $(document).on("click", ".petLetter", function () { 
+        	let userId = "${login.userId}";  
+			if(userId === ""){   // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
+        	
+        	let petLetter = 0, text="";
+        	if($(this).hasClass("on")){ // 펫편지 수신 요청
+        		petLetter = 1; text="시작";
+			}else{ // 펫편지 수신 중단 요청
+				petLetter = 0; text="중단";
+			}
+			if(confirm("펫편지 수신을 " + text + "하시겠습니까?")){	
+				
+	    		let user = {userId: userId, petLetter: petLetter};
+	    		
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/msg/mdPetLetter',
+	                data: JSON.stringify(user),
+	                success: function (response) {
+	         			if(response === '0'){
+	         				$(".petLetter").addClass('on').text('펫편지 받기');
+	         				alert("펫편지 중단 요청 처리가 완료되었습니다.");	         				
+	         				$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         			}else if(response === '1'){
+	         				$(".petLetter").removeClass('on').text('펫편지 중단');
+	         				alert("펫편지 수신 요청 처리가 완료되었습니다.");	         				
+	         				$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         			}else{
+	         				alert("요청 처리에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+	    		
+			}
+        })
+        
+        
+        
+        
+        
+        // 쪽지 수신 차단
+        $(document).on("click", "#offMsg", function () { 
+        	let userId = "${login.userId}";  
+			if(userId === ""){   // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
+        	
+        	let blockId = $(this).attr("data-id");       	
+			if(confirm("회원 차단시 더 이상 해당 회원으로부터 쪽지가 수신되지 않으며 현재까지 해당 회원으로부터 수신된 모든 쪽지가 비공개 처리됩니다. 회원(" + blockId + ")을 차단하시겠습니까?")){	
+				
+	    		let blockVO = {userId: userId, blockId: blockId};
+	    		
+	    		$.ajax({
+	                type: 'post',
+	                dataType : "text",
+	                contentType: 'application/json',
+	                url: '/msg/blockUser',
+	                data: JSON.stringify(blockVO),
+	                success: function (response) {
+	         			if(response === 'success'){
+	         				$("#msgReadModal").css("display", "none");
+	         				alert("차단되었습니다. 차단한 회원 목록은 쪽지함 하단 메뉴 '차단한 회원 목록'에서 조회 가능합니다.");	         				
+	         				$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         			}else{
+	         				alert("요청 처리에 실패했습니다.");
+	         			}
+	                }, 
+	                error: function() {
+	                    console.log("통신 실패"); 
+	                } 
+	            });
+	    		
+			}
+        })
+        
+        
+        // 쪽지 리스트로 돌아가기
+        $(document).on("click", "#backList", function () {
+        	$(".msgOpen button").click(); // 쪽지 리스트 reload
+        	$(this).attr("id","blockList").attr("title", "차단한 회원 목록").css("background-image", "url(/img/common/block.png)");
+        	$(".Mpaging").css("display","block");
+        })
+        
+        
+        // 차단 회원 목록 조회
+        $(document).on("click", "#blockList", function () { 
+        	
+        	$(this).attr("id","backList").attr("title", "쪽지 리스트").css("background-image", "url(/img/noticeImg/msg_letter.png)");
+        	$(".Mpaging").css("display","none");
+ 
+        	let userId = "${login.userId}";  
+			if(userId === ""){  // 로그아웃(세션 종료) 체크
+				alert("로그인 후 사용 가능합니다.");
+				window.location.reload();
+				return false;
+			}
+   		
+	   		//초기화
+			$('#msg_list').empty();
+	   		
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "json",
+	               contentType: 'application/json',
+	               url: '/msg/blockList',
+	               data: userId,
+	               success: function (response) { //list
+	            	   console.log(response);
+	                    
+	                    
+	                    for(let i = 0; i < response.length; i++){
+	                    	
+	                    	let blockId = response[i]['blockId'];
+	                    	let nickname = response[i]['nickname'];
+	                    	let imagePath = response[i]['imagePath'];
+	                    	let blockDate = response[i]['blockDate'];
+	                    	
+	                    		                    	
+	                    	let html='<li class="blockCard">';
+	                        html += '<div class="msg_inner"><img src="';
+							html += imagePath; // 프로필 사진                                          	                        
+	                        html += '"><div class="msg_info">';
+	                        html += '<p>' + nickname + '</p>';
+	                        html += '<p>' + blockDate + '</p>';
+	                        html += '<button data-id="' + blockId + '">차단 해제</button>';	                        
+	                        html += '</div></div></li>';
+	                    		                   		
+	                        $('#msg_list').append(html);	                      
+	                        
+	                    } 
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	        });
+        	
+        	
+        })
         
 	
 	})

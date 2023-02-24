@@ -8,15 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ali.today.common.SearchVO;
+import com.ali.today.messenger.model.BlockVO;
 import com.ali.today.messenger.model.MessengerVO;
 import com.ali.today.messenger.repository.IMessengerMapper;
+import com.ali.today.user.model.UserVO;
+import com.ali.today.user.repository.IUserMapper;
 
 @Service
 public class MessengerService implements IMessengerService {
 	
 	@Autowired
 	IMessengerMapper mapper;
-	
+
 	
 	//쪽지 보내기
 	@Override
@@ -63,6 +66,24 @@ public class MessengerService implements IMessengerService {
 	@Override
 	public Integer newMsg(String userId) {
 		return mapper.newMsg(userId);
+	}
+	
+	//펫편지 수신 여부
+	@Override
+	public Integer petLetter(String userId) {
+		return mapper.petLetter(userId);
+	}
+	
+	//쪽지 차단
+	@Override
+	public void blockUser(BlockVO blockVO) {
+		mapper.blockUser(blockVO);
+	}
+	
+	//차단한 회원 목록 조회
+	@Override
+	public List<BlockVO> blockList(String userId) {
+		return mapper.blockList(userId);
 	}
 	
 }
