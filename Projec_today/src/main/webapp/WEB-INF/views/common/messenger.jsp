@@ -18,17 +18,18 @@
 	.Mmlabel p{margin:10px 0;}
 	.Mmodal_input{border: 1px solid #d9d9de; box-sizing: border-box; width: 100%; height: 40px; padding-left: 10px;}
 	.Mm_button{margin-top: 20px; width: 45%; height: 35px; border: none; border-radius: 5px; cursor:pointer;  font-family: 'Nanum Pen Script'; font-size: 19px;}
-	.Mm_button:nth-of-type(1){margin-right: 20px;}
+	.Mm_button:nth-of-type(1){/*margin-right: 20px;*/ margin-left:5px;}
 	.Mmodal_textarea{outline: none;resize: none; width: 100%; background: none; border: 1px solid #d9d9de; line-height: 22px; font-family: "NanumSquare","맑은 고딕", sans-serif; box-sizing: border-box; padding: 10px 10px 20px;}
 	.Mmodal_input, .Mmodal_textarea{margin-top:5px;}
 	.Mmodal_footer{padding: 0 20px; box-sizing: border-box; border-top: 1px solid #dee2e6;}
 	.Mmodal_footer button{width:37%; height:35px; margin-top: 15px;}
 	.MbuttonBox{display:flex; justify-content: space-evenly;}
-	#msgSendModal, #msgListModal, #msgReadModal{display:none; width:320px; height: 470px; border: 3.5px solid #777; border-radius: 15px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8;
-			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(40px, -50%); z-index:10;}	
-	#msgListModal, #msgReadModal{transform: translate(-380px, -50%);}
-	#msgListModal .Mmodal_body{padding:0;}
-	#msgReadModal{z-index:11; transform: translate(380px, -50%);}
+	#msgSendModal, #msgListModal, #msgReadModal{display:none; width:310px; height: 470px; border: 3.5px solid #777; border-radius: 15px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8;
+			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-320px, -50%); box-sizing: border-box;}	
+	#msgListModal{z-index:10;}
+	#msgSendModal{z-index:12;}
+	#msgReadModal{z-index:11; transform: translate(10px, -50%); z-index:11;}
+	#msgListModal .Mmodal_body{padding:0;}	
 	#msgListModal .msgCard{padding:5px 20px; position: relative; cursor: pointer;}
 	#msgListModal .blockCard{padding:5px 20px; position: relative;}
 	#msgListModal .msgCard:hover{background: #eee;}
@@ -47,27 +48,36 @@
 	#msgListModal .MbuttonBox{justify-content: space-between;}
 	#msgListModal .blockCard button{width: 20px; height:20px; border: none; background-color: transparent; text-indent: -9999px; background-image: url(/img/common/join.png); background-size: contain; background-repeat: no-repeat; cursor: pointer; position: absolute; top: 25px; right: 20px;}   
 	.McloseMsg, .MRcloseMsg{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}	
-	#blockList, #backList{width: 25px; height:25px; margin-top:20px; margin-left:10px; border: none; background-color: transparent; background-image: url(/img/common/block.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor:pointer;}
+	#blockList, #backList{width: 25px; height:25px; margin-top:20px; /*margin-left:10px;*/ border: none; background-color: transparent; background-image: url(/img/common/block.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor:pointer;}
 	#backList{background-image: url(/img/noticeImg/msg_letter.png);}
 	#msgSendModal input:focus{outline: none;}
 	#msgReadModal .sender_info{position: relative;}
-	#msgReadModal .msg_info button{border:none; margin-left: 15px; background: #ffa500; color: #fff; font-size: 10px; padding: 2px; border-radius: 5px; cursor:pointer;}
+	#msgReadModal .msg_info button{border:none; margin-left: 10px; background: #ffa500; color: #fff; font-size: 10px; padding: 2px; border-radius: 5px; cursor:pointer;}
 	#msgReadModal img{width:50px; height:50px;}
 	#msgReadModal .sender_info{padding-top:25px;}
 	#msgReadModal .sender_info p{margin:0 0 7px 0;}
 	#msgReadModal #sendTime{font-size: 12px; color: #545456;}
-	#msgReadCont{width:100%; height:220px; margin-top: 30px; width: 100%; border: 1px solid #d9d9de; line-height: 22px; font-family: "NanumSquare","맑은 고딕", sans-serif; font-size:13.5px; box-sizing: border-box; padding: 10px; overflow-y: auto;}
-	
+	#msgReadCont{width:100%; height:220px; margin-top: 30px; width: 100%; border: 1px solid #d9d9de; line-height: 22px; font-family: "NanumSquare","맑은 고딕", sans-serif; font-size:13.5px; box-sizing: border-box; padding: 10px; overflow-y: auto;}	
 	#msgSendOpen{position: relative; padding-left: 20px; background: rgba(122, 183, 48, 0.45);}
-	#msgSendOpen div{width:20px; height:20px; position: absolute; left: 10px; background-image: url(/img/common/letter.png); background-repeat: no-repeat; background-size: contain; background-origin: content-box; text-indent: -9999px; box-sizing: border-box;}
- 
-	
+	#msgSendOpen div{width:20px; height:20px; position: absolute; left: 7px; background-image: url(/img/common/letter.png); background-repeat: no-repeat; background-size: contain; background-origin: content-box; text-indent: -9999px; box-sizing: border-box;}	
 	.Mpaging{padding: 15px 0 10px; text-align: center;}
 	.MpageInfo{font-family: 'Jua', sans-serif;}
 	.Mpaging ul li{list-style: none; display: inline-block;}
 	.Mpaging ul li button{display: inline-block; width: 20px; height:20px; border: none; background-color: transparent; background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor:pointer;}
 	.pre_msg{background-image: url(/img/common/Mprev.png); margin-right: 10px;}
 	.next_msg{background-image: url(/img/common/Mnext.png); margin-left: 10px;}
+	
+	
+	@media all and (max-width:650px) {
+		#msgSendModal, #msgListModal, #msgReadModal{transform: translate(-50%, -50%);}
+	}
+	@media all and (max-width:320px) {
+		#msgSendModal, #msgListModal, #msgReadModal{width:95%;}
+		.Mmodal_body{padding:0 10px;}
+		#fromMsg{font-size:15px;}
+	}
+	
+	
 </style>
 
 	
@@ -367,7 +377,7 @@
                 success: function (response) {
          			if(response === 'success'){
          				alert("쪽지 보내기가 완료되었습니다.");
-         				window.location.reload();
+         				$("#msgSendModal").css('display', 'none');
          			}else{
          				alert("쪽지 보내기에 실패했습니다.");
          			}
@@ -710,7 +720,11 @@
 		
         // 쪽지 읽기
         $(document).on("click", ".msgCard", function () {
-        	 
+        	
+        	if($('.msgCard[data-chk="0"]').length == 1 && $(this).attr('data-chk') == 0){ //현제 페이지에 안 읽은 쪽지 없는 경우만 확인(나름의 리소스 낭비 방지...)
+	   			checkNewMsg(); // 모든 쪽지 다 읽었을 경우 new 마크 해제
+	   		}	   		       
+        
         	
         	let imgNo = $(this).attr("href");
         	let imgSrc = $(this).find('img').attr("src");
@@ -754,6 +768,7 @@
 	   			$.ajax({
                     type: "POST",
                     url: "/msg/readChk",  
+                    async: false,
                     headers: {
                         "Content-Type": "application/json"
                     },
@@ -769,8 +784,8 @@
 	   		}
         
 	   		$(this).find('.readChk').css("display", "none"); //마크 해제
-            $(this).attr("data-chk", 1);
-        
+            $(this).attr("data-chk", 1); // 읽음으로 전환	   		
+	   		
         })	
 		
         
@@ -810,7 +825,8 @@
                     	if(response === 'success'){
 	         				alert("쪽지가 삭제되었습니다.");
 	         				$("#msgReadModal").css("display", "none");
-	         				$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				//$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				$(".user_nav .msgOpen button").click();
 	         			}else{
 	         				alert("쪽지 삭제에 실패했습니다.");
 	         			}
@@ -856,11 +872,13 @@
 	         			if(response === '0'){
 	         				$(".petLetter").addClass('on').text('펫편지 받기');
 	         				alert("펫편지 중단 요청 처리가 완료되었습니다.");	         				
-	         				$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				//$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				$(".user_nav .msgOpen button").click();
 	         			}else if(response === '1'){
 	         				$(".petLetter").removeClass('on').text('펫편지 중단');
 	         				alert("펫편지 수신 요청 처리가 완료되었습니다.");	         				
-	         				$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				//$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				$(".user_nav .msgOpen button").click();
 	         			}else{
 	         				alert("요청 처리에 실패했습니다.");
 	         			}
@@ -885,9 +903,9 @@
 				window.location.reload();
 				return false;
 			}
-        	
+			let nick = $("#fromMsg").text()
         	let blockId = $(this).attr("data-id");       	
-			if(confirm("회원 차단시 더 이상 해당 회원으로부터 쪽지가 수신되지 않으며 현재까지 해당 회원으로부터 수신된 모든 쪽지가 비공개 처리됩니다. 회원(" + blockId + ")을 차단하시겠습니까?")){	
+			if(confirm("회원 차단시 더 이상 해당 회원으로부터 쪽지가 수신되지 않으며 현재까지 해당 회원으로부터 수신된 모든 쪽지가 비공개 처리됩니다. 회원(" + nick + ")을 차단하시겠습니까?")){	
 				
 	    		let blockVO = {userId: userId, blockId: blockId};
 	    		
@@ -901,7 +919,8 @@
 	         			if(response === 'success'){
 	         				$("#msgReadModal").css("display", "none");
 	         				alert("차단되었습니다. 차단한 회원 목록은 쪽지함 하단 메뉴 '차단한 회원 목록'에서 조회 가능합니다.");	         				
-	         				$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				//$(".msgOpen button").click(); // 쪽지 리스트 reload
+	         				$(".user_nav .msgOpen button").click();
 	         			}else{
 	         				alert("요청 처리에 실패했습니다.");
 	         			}
@@ -917,7 +936,8 @@
         
         // 쪽지 리스트로 돌아가기
         $(document).on("click", "#backList", function () {
-        	$(".msgOpen button").click(); // 쪽지 리스트 reload
+        	//$(".msgOpen button").click(); // 쪽지 리스트 reload
+        	$(".user_nav .msgOpen button").click();
         	$(this).attr("id","blockList").attr("title", "차단한 회원 목록").css("background-image", "url(/img/common/block.png)");
         	$(".Mpaging").css("display","block");
         })
@@ -935,8 +955,7 @@
 				return false;
 			}
    		
-			blockList();
-        	
+			blockList();      	
         	
         })
         
@@ -969,7 +988,7 @@
 							html += imagePath; // 프로필 사진                                          	                        
 	                        html += '"><div class="msg_info">';
 	                        html += '<p>' + nickname + '</p>';
-	                        html += '<p>차단 날짜: ' + blockDate + '</p>';
+	                        html += '<p>차단일: ' + blockDate + '</p>';
 	                        html += '<button id="cancleBlock" data-id="' + blockId + '" title="차단 해제">차단 해제</button>';	                        
 	                        html += '</div></div></li>';
 	                    		                   		
@@ -998,9 +1017,9 @@
 				window.location.reload();
 				return false;
 			}
-        	
+			let nick = $(this).prev().prev().text();
         	let blockId = $(this).attr("data-id");       	
-			if(confirm(blockId + "님을 차단 해제하시겠습니까?")){	
+			if(confirm(nick + "님을 차단 해제하시겠습니까?")){	
 				
 	    		let blockVO = {userId: userId, blockId: blockId};
 	    		
@@ -1028,6 +1047,32 @@
         	
         })
         
+        
+        
+        
+     	// 남은 새쪽지 확인 
+        function checkNewMsg(){      	
+			let userId = "${login.userId}";
+	   		
+	   		$.ajax({
+	               type: 'post',
+	               dataType : "text",
+	               contentType: 'application/json',
+	               url: '/msg/newMsg',
+	               data: userId,
+	               success: function(response) { 
+                      
+	                   if(parseInt(response) == 1){ // 쪽지 다 읽었으면 new마크 해제
+	                	   $(".msgOpen span").css('display', 'none');
+	                   }
+	               	   	   	                 
+	               }, 
+	               error: function() {
+	                   console.log("통신 실패!");
+	               } 
+	        });
+	
+		}
         
         
         

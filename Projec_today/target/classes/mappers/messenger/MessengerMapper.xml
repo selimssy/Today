@@ -74,7 +74,7 @@
 	<select id="countRecvMsg" resultType="int">	
 		SELECT count(*)	
 		FROM messenger m  
-		WHERE m.recv_id = #{userId} AND 
+		WHERE m.recv_id = #{userId} AND sender_id NOT IN(SELECT block_id FROM off_msg WHERE user_id = #{userId}) AND 
 		CASE
 			  WHEN m.classify = 'user' THEN ((SELECT nickname FROM user WHERE user_id = m.sender_id) LIKE CONCAT('%',#{keyword},'%') OR content LIKE CONCAT('%',#{keyword},'%'))        
 			  WHEN m.classify = 'pet' THEN ((SELECT pet_name FROM pet WHERE pet_id = m.sender_id) LIKE CONCAT('%',#{keyword},'%') OR content LIKE CONCAT('%',#{keyword},'%'))

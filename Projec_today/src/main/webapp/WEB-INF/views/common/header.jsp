@@ -28,7 +28,8 @@
         .header_cont .user_nav{text-align: right; padding-top:10px;}
         .header_cont .user_nav li{display:inline;}
         .header_cont .user_nav li:after {content:"|"; display:inline-block; padding:0 10px; font-size:10px; color:#555; position:relative; top:-2px;}
-        .header_cont .user_nav li:last-child:after {content:""; display:none;}
+        .header_cont .user_nav li:last-child:after{content:""; display:none;}
+        .header_cont .user_nav .msgOpen:after{content:""; display:none;}
         .header_cont .user_nav li a {font-size:14px; color:#555;}
         .header_cont .main_nav {float:right; box-sizing:border-box; padding-top:5px; /*height:113px;*/}
         .header_cont .main_nav li {float: left;}
@@ -37,7 +38,7 @@
         .header_cont .main_nav li a.checked{color: #7AB730; font-weight: bold;}
         .header_cont .main_nav li:last-child a {padding-right:0;}
         .open{display:none;}
-        .msgOpen{position: relative;}
+        .msgOpen{position: relative; margin-right: 15px;}
         .msgOpen button{width:35px; height:30px; background-color: transparent; border: none; background-image:url(/img/common/msg.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
     	.msgOpen span{position: absolute; bottom: -6px; right: 0px; color: #fff; background-color: #5CAD3D; height: 15px; width: 15px; font-size: 10px; display: inline-block; text-align: center; border-radius: 50%; line-height: 1.3;}
         
@@ -87,6 +88,8 @@
         .upload-btn {font-size: 18px; border: 1px solid #ddd; padding:10px 20px;display: inline-block; cursor: pointer; }
         .upload-btn input[type=file] {display:none}
         
+        .mob_msgBox{width:35px; height:21.6px; position: absolute; top:25px; right: 20px; display:none;}
+        .msgOpen.mob{}
         
         /* 태블릿 기준 */
 @media all and (max-width:1065px) {			/* ipad가로, ipadPro가로세로, gallexyTab가로 */
@@ -123,7 +126,8 @@
 	.otherP{width:95%;}	
 	.mainContent{width:100%;}
 	
-	
+	.mob_msgBox{display:block;}
+	.header_cont .user_nav .msgOpen{display:none;}
 }
 
 
@@ -145,6 +149,8 @@
     #mdImage-box{width:100%; height: 100%; ;position: absolute; top: 0; left: 0; object-fit: cover;  box-sizing: border-box; display: block; margin: 0 auto;}
     .img_wrapper{width:70%; position: relative; box-sizing: border-box; margin:10px auto;}
     .img_wrapper::after {display: block; content: ""; padding-bottom: 100%;}
+    
+    .mob_msgBox{right:20px; top:50%; transform: translate(0, -60%);}
 }
 
 @media all and (max-width:600px) {
@@ -165,6 +171,7 @@
 		<div class="header_innerBox">	
 			<!-- 모바일메뉴	-->
 			<button type="button" class="mob_menu">menu</button>
+			<c:if test="${login != null}"><div class="mob_msgBox"><div class="msgOpen mob" style="width:100%; height:100%;"><button>쪽지</button></div></div></c:if>
 			
 			<!-- logo -->
 			<h1><a href="<c:url value='/'/>">오늘의 너</a></h1>
@@ -172,7 +179,8 @@
 			<!-- header_cont -->
 			<div class="header_cont">
 				<!-- 모바일메뉴	-->
-				<div class="mob_close">close</div>
+				<div class="mob_close">close</div>				
+				
 				<ul class="user_nav">
 				    <c:if test="${login == null}" >  <!-- 로그인 안되어있을 경우 -->
 						<li><a href="javascript:;" id="login">로그인</a></li>
@@ -180,8 +188,8 @@
 					</c:if>
 					<c:if test="${login != null}">  <!-- 로그인 되어있을 경우 -->
 	           			<ul>
-	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
 	           				<li class="msgOpen"><button>쪽지</button></li>
+	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>	           				
 	           			</ul>
 		           </c:if>
 				</ul>	

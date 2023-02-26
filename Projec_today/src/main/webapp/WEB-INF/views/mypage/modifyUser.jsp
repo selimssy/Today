@@ -129,7 +129,7 @@
 	                                <strong>닉네임</strong>
 	                            </p>
 	                        </td>
-	                        <td><input type="text" class="prof_input" id="Muser_nick" maxlength="10" value="${user.nickname}"></td>
+	                        <td><input type="text" class="prof_input" id="Muser_nick" maxlength="8" value="${user.nickname}"></td>
 	                    </tr>
 
 	                    <tr>
@@ -282,7 +282,7 @@
                 alert("닉네임을 입력하세요.");
                 return false;
             }else if(!checkNick.test($("#Muser_nick").val())){
-            	alert("한글 1-10자로 입력해주세요.");
+            	alert("한글 1-8자로 입력해주세요.");
             	return false;
 			}
 	    	

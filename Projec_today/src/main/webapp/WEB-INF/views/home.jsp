@@ -319,7 +319,7 @@ body{margin:0; padding:0;}
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="user_nick" class="modal_input" maxlength="10" placeholder="한글 최대 10자"></td>
+                        <td><input type="text" id="user_nick" class="modal_input" maxlength="8" placeholder="한글 최대 8자"></td>
                     </tr>
                     <tr>
                         <td class="mlabel">
