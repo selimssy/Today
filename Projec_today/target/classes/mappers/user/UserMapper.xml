@@ -7,6 +7,7 @@
 	<!-- DB 컬럼명과 VO 클래스의 필드명 맵핑작업 -->
 	<resultMap id="UserMap" type="com.ali.today.user.model.UserVO">		
 		<id property="userId" column="user_id" />
+		<result property="userCode" column="user_code"/>
 		<result property="password" column="password"/>
 		<result property="name" column="name"/>
 		<result property="nickname" column="nickname"/>
@@ -106,8 +107,8 @@
 	
 	<!-- 회원가입 SQL -->
 	<insert id="register">
-		INSERT INTO user (user_id, password, name, nickname, email)
-		VALUES (#{userId}, #{password}, #{name}, #{nickname}, #{email})	
+		INSERT INTO user (user_id, password, name, nickname, email, user_code)
+		VALUES (#{userId}, #{password}, #{name}, #{nickname}, #{email}, #{userCode})	
 	</insert>
 	
 	
@@ -216,7 +217,18 @@
 	
 	
 	
+	<!-- user_code 중복확인 -->
+	<select id="checkCode" resultType="int">
+		SELECT COUNT(*) FROM user 
+		WHERE user_code = #{userCode}
+	</select>
 	
+	
+	<!--  user_code -> user_id  -->
+	<select id="CodeToId" resultType="string">
+		SELECT user_id from user 
+		WHERE user_code = #{userCode}
+	</select>
 	
 	
 	<!-- ******관리자 페이지******* -->

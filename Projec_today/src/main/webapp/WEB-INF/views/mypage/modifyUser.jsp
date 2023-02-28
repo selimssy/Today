@@ -32,7 +32,7 @@
 
 .profile_img td{height:200px; position:relative;}
 .profile_img img{width:150px; height:150px; border-radius: 50%; object-fit:cover;}
-.upload_prf {font-size: 18px; border: 1px solid #ddd; background: #f0f0f0; font-size:12px; position: absolute; top: 20px; right: 20px; cursor: pointer;}
+.upload_prf {border: 1px solid #ddd; background: #f0f0f0; font-size:12px; position: absolute; top: 20px; right: 20px; cursor: pointer;}
 .profile_img input[type=file] {display:none}
 
  /*반응형*/
@@ -61,6 +61,7 @@
 	.prof_input{font-size:2.667vw;}
 	.profile_tb td:nth-of-type(1){font-size:2.667vw;}
 	.prof_button{height:8.33vw; font-size:2.667vw;}
+	.upload_prf{top:3vw; right:3vw;}
 }
 </style>
 </head>

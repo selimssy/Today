@@ -340,7 +340,7 @@ public class UserController {
 	
 		//임시 비밀번호 생성(UUID이용)
 		String tempPw = UUID.randomUUID().toString().replace("-", ""); // - 제거
-		tempPw = "&" + tempPw.substring(0,10) + "@"; // 앞에서부터 10자리
+		tempPw = "@" + tempPw.substring(0,10); // 앞에서부터 10자리
 		user.setPassword(tempPw);
 		service.modifyPw(user); // 비밀번호 변경
 

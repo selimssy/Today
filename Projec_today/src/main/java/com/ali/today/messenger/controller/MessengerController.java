@@ -42,7 +42,7 @@ public class MessengerController {
 	//쪽지 보내기
 	@PostMapping("/sendMsg")
 	@ResponseBody
-	public String sendMsg(@RequestBody MessengerVO message) {
+	public String sendMsg(@RequestBody MessengerVO message) {				
 		service.sendMsg(message);  
 		
 		return "success";

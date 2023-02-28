@@ -366,6 +366,8 @@
 		// 쪽지 리스트 불러오기
 		$('#msg_list').empty(); // 초기화
 		$("#Msearch").val("");
+		$('.Mpaging').css('display', 'block');
+		$("#backList").attr("id","blockList").attr("title", "차단한 회원 목록");
 		
 		let page = 1;
 		//let keyword = $("#Msearch").attr("value");
@@ -382,7 +384,13 @@
                     let list = response['list'];
                     let lastPage = response['lastPage'];
                     let petLetter = response['petLetter']; $("#msg_list").attr("data-petLtr", petLetter); // 펫편지 수신 여부
-
+					
+                    if(list.length == 0){ // 받은 쪽지 없는 경우
+                    	$('.Mpaging').css('display', 'none');
+                    	$('#msg_list').append('<p style="text-align: center; font-size: 13.5px; padding-top: 20px;">저장된 쪽지가 없습니다.</p>');
+                    	return false;
+                    }
+                    
                     for(let i = 0; i < list.length; i++){
                     	                    	
                     	let msgNo = list[i]["msgNo"];
@@ -390,7 +398,7 @@
                     	let content = list[i]["content"];
                     	let sendTime = list[i]["sendTime"];
                     	let readChk = list[i]["readChk"];
-                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+                    	let senderId = list[i]["userCode"]; // 사용자에게 쪽지 보내는 경우
                     	let classify = list[i]["classify"];
                     	let imagePath = list[i]["imagePath"];
                     		                    	
@@ -409,8 +417,13 @@
                         	html += '/resources/img/noticeImg/msg_admin.png';
                         }                        
                         
-                        html += '"><div class="msg_info">';
-                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
+                        html += '"><div class="msg_info">';                        
+                        if(classify == 'user'){
+                        	html += '<p data-id="' + senderId + '">' + nick + '</p>';
+                        }else{
+                        	html += '<p>' + nick + '</p>';
+                        }
+                        
                         html += '<p>' + content + '</p>';
                         html += '<span>' + sendTime + '</span>';
                         if(readChk == 0){ // 안 읽은 쪽지 표시
@@ -419,11 +432,10 @@
                         html += '</div></div></li>';
                     		                   		
                         $('#msg_list').append(html);
-                        $(".nowPage").text(page); // 현재 페이지
-                        $(".totalPage").text(lastPage); // 총 페이지
-                        
-                    }    
-               	   	   	                 
+                    }
+                    $(".nowPage").text(page); // 현재 페이지
+                    $(".totalPage").text(lastPage); // 총 페이지
+            	   	   	                 
                }, 
                error: function() {
                    console.log("통신 실패!");

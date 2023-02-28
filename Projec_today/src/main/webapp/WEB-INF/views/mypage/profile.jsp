@@ -43,7 +43,7 @@
 }
 
 @media all and (max-width:800px) {
-	.profileBox{height:75vw; margin:11.25vw auto;}
+	.profileBox{/*height:75vw;*/ margin:11.25vw auto 25vw;}
 	.profile_tb th, .pet_tb th{padding:2.5vw 3.75vw;}
 	.profile_tb td:nth-of-type(1){width:35%;}
 	/*.prof_input{height:5vw;}*/
@@ -53,7 +53,7 @@
 
 @media all and (max-width:500px) {
 	.container{padding-bottom:14vw;}
-	.profileBox{height:100vw;}
+	.profileBox{/*height:100vw;*/}
 	.profile_tb td:nth-of-type(1){width:35%; font-size:3.2vw;}
 	.prof_button:nth-of-type(1){margin-right:0; margin-top:7vw;}
 	.prof_button{width:75%; height: 8.5vw; font-size:3vw;}

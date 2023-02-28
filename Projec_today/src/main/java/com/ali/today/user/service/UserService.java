@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,18 +32,29 @@ public class UserService implements IUserService{
 	private IDiaryMapper dmapper;
 	
 	
+	//회원가입
 	@Override
 	public void register(UserVO user) {
 		
 		// 회원 비밀번호 암호화 인코딩
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		//System.out.println("암호화 전 PW : " + user.getPassword());
-		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();				
 		// 비밀번호를 암호화하여 다시 user 객체에 저장
 		String securePw = encoder.encode(user.getPassword());
 		user.setPassword(securePw);
-		//System.out.println("암호화 후 PW : " + securePw);
 		
+		// user_code 생성
+		String userCode = UUID.randomUUID().toString().replace("-", ""); // - 제거
+		userCode = userCode.substring(0,20); // 앞에서부터 20자리
+
+		//혹시모를 중복 방지 
+		while(mapper.checkCode(userCode) > 0) { // user_code 중복 아닐 때까지 반복
+			//System.out.println("중복");
+			userCode = UUID.randomUUID().toString().replace("-", "");
+			userCode = userCode.substring(0,20);
+			if(mapper.checkCode(userCode) == 0) {break;}
+		}				
+		user.setUserCode(userCode);
+
 		mapper.register(user);		
 		
 	}
@@ -157,6 +169,19 @@ public class UserService implements IUserService{
 		mapper.mdPetLetter(user);
 	}
 	
+	
+	// user_code 중복확인
+	@Override
+	public Integer checkCode(String userCode) {
+		return mapper.checkCode(userCode);
+	}
+	
+	
+	// user_code -> user_id
+	@Override
+	public String CodeToId(String userCode) {
+		return mapper.CodeToId(userCode);
+	}
 	
 	
 	/////////////////////////////////////////////////////////////////////////////////

@@ -15,6 +15,7 @@
 		<result property="classify" column="classify"/>
 		<result property="nick" column="nick"/>
 		<result property="imagePath" column="image_path"/>
+		<result property="userCode" column="user_code"/>
 	</resultMap>	
 	
 	
@@ -55,7 +56,7 @@
 	
 	<!-- 받은 쪽지 리스트 -->
 	<select id="getRecvMsg" resultMap="MessengerMap">
-		SELECT m.msg_no, m.sender_id, m.content, m.send_time, m.read_chk, m.recv_id, m.classify, u.image_path,
+		SELECT m.msg_no, m.content, m.send_time, m.read_chk, m.recv_id, m.classify, u.image_path, u.user_code,
 	    (CASE
 		    WHEN m.classify = 'user' THEN (select nickname from user where user_id = m.sender_id)
 		    WHEN m.classify = 'pet' THEN (select pet_name from pet where pet_id = m.sender_id)

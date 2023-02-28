@@ -19,11 +19,18 @@ public class MessengerService implements IMessengerService {
 	
 	@Autowired
 	IMessengerMapper mapper;
+	@Autowired
+	IUserMapper uMapper;
 
 	
 	//쪽지 보내기
 	@Override
 	public void sendMsg(MessengerVO message) {
+		
+		if(message.getUserCode() != null) { //답장보내기로 전송
+			String userId = uMapper.CodeToId(message.getUserCode());
+			message.setRecvId(userId);
+		}				
 		mapper.sendMsg(message);
 	}
 	

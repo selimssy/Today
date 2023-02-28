@@ -5,6 +5,7 @@ import java.util.Date;
 public class UserVO {
 	
 	private String userId;
+	private String userCode;
 	private String password;
 	private String name;
 	private String nickname;
@@ -36,6 +37,14 @@ public class UserVO {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
 	}
 
 	public String getPassword() {
@@ -139,10 +148,11 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [userId=" + userId + ", password=" + password + ", name=" + name + ", nickname=" + nickname
-				+ ", imagePath=" + imagePath + ", email=" + email + ", regDate=" + regDate + ", sessionId=" + sessionId
-				+ ", limitTime=" + limitTime + ", pet=" + pet + ", contentsCnt=" + contentsCnt + ", petCnt=" + petCnt
-				+ ", replyCnt=" + replyCnt + ", petLetter=" + petLetter + ", autoLogin=" + autoLogin + "]";
+		return "UserVO [userId=" + userId + ", userCode=" + userCode + ", password=" + password + ", name=" + name
+				+ ", nickname=" + nickname + ", imagePath=" + imagePath + ", email=" + email + ", regDate=" + regDate
+				+ ", sessionId=" + sessionId + ", limitTime=" + limitTime + ", pet=" + pet + ", contentsCnt="
+				+ contentsCnt + ", petCnt=" + petCnt + ", replyCnt=" + replyCnt + ", petLetter=" + petLetter
+				+ ", autoLogin=" + autoLogin + "]";
 	}
 
 	

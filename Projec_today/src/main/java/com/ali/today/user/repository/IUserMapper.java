@@ -57,6 +57,12 @@ public interface IUserMapper {
 	// 펫편지 수신 여부 변경
 	void mdPetLetter(UserVO user);
 	
+	// user_code 중복확인
+	Integer checkCode(String userCode);
+	
+	// user_code -> user_id
+	String CodeToId(String userCode);
+	
 	
 	///////////////////////////////////////////////////////////
 	

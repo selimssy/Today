@@ -414,22 +414,23 @@
 				return false;
 			}
 			
-			let recvId = $("#toMsg").attr("value");	
-			if(!recvId || recvId.replace(/\s| /gi, "").length==0){ //수신인 입력값 체크
+			let userCode = $("#toMsg").attr("value");	
+			/*
+			if(!userCode || userCode.replace(/\s| /gi, "").length==0){ //수신인 입력값 체크
 				alert("수신인을 입력해주세요.");
 			    return false;
 			}
-			if(userIdChk(recvId) == 0){  //수신인 존재 체크
+			if(userIdChk(userCode) == 0){  //수신인 존재 체크
 				alert("존재하지 않는 사용자입니다.");
 				return false;
-			}
+			}*/
 			
 			let content = $("#msgContent").val().replace(/(?:\r\n|\r|\n)/g, '<br>');				
 			if(!content || content.replace(/\s| /gi, "").length==0){  // 내용 입력값 체크
 				alert("내용을 입력해주세요.");
 			    return false;
 			}
-    		let message = {"senderId": senderId, "recvId": recvId, "content": content};
+    		let message = {"senderId": senderId, "userCode": userCode, "content": content};
     		
     		$.ajax({
                 type: 'post',
@@ -440,7 +441,7 @@
                 success: function (response) {
          			if(response === 'success'){
          				alert("쪽지 보내기가 완료되었습니다.");
-         				window.location.reload();
+         				//window.location.reload();
          			}else{
          				alert("쪽지 보내기에 실패했습니다.");
          			}
@@ -518,7 +519,7 @@
 	                    	let content = list[i]["content"];
 	                    	let sendTime = list[i]["sendTime"];
 	                    	let readChk = list[i]["readChk"];
-	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    	let senderId = list[i]["userCode"]; // 사용자에게 쪽지 보내는 경우
 	                    	let classify = list[i]["classify"];                    		                    	
 	                    	let imagePath = list[i]["imagePath"];
 	                    	
@@ -538,7 +539,13 @@
 	                        }                        
 	                        
 	                        html += '"><div class="msg_info">';
-	                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
+	                        
+	                        if(classify == 'user'){
+	                        	html += '<p data-id="' + senderId + '">' + nick + '</p>';
+	                        }else{
+	                        	html += '<p>' + nick + '</p>';
+	                        }
+	                        
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
 	                        if(readChk == 0){ // 안 읽은 쪽지 표시
@@ -598,7 +605,7 @@
 	                    	let content = list[i]["content"];
 	                    	let sendTime = list[i]["sendTime"];
 	                    	let readChk = list[i]["readChk"];
-	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    	let senderId = list[i]["userCode"]; // 사용자에게 쪽지 보내는 경우
 	                    	let classify = list[i]["classify"];
 	                    	let imagePath = list[i]["imagePath"];
 	                    		                    	
@@ -618,7 +625,13 @@
 	                        }                        
 	                        
 	                        html += '"><div class="msg_info">';
-	                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
+
+	                        if(classify == 'user'){
+	                        	html += '<p data-id="' + senderId + '">' + nick + '</p>';
+	                        }else{
+	                        	html += '<p>' + nick + '</p>';
+	                        }
+	                        
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
 	                        if(readChk == 0){ // 안 읽은 쪽지 표시
@@ -674,7 +687,7 @@
 	                    	let content = list[i]["content"];
 	                    	let sendTime = list[i]["sendTime"];
 	                    	let readChk = list[i]["readChk"];
-	                    	let senderId = list[i]["senderId"]; // 사용자에게 쪽지 보내는 경우
+	                    	let senderId = list[i]["userCode"]; // 사용자에게 쪽지 보내는 경우
 	                    	let classify = list[i]["classify"];
 	                    	let imagePath = list[i]["imagePath"];
 	                    		                    	
@@ -694,7 +707,13 @@
 	                        }                        
 	                        
 	                        html += '"><div class="msg_info">';
-	                        html += '<p data-id="' + senderId + '">' + nick + '</p>';
+
+	                        if(classify == 'user'){
+	                        	html += '<p data-id="' + senderId + '">' + nick + '</p>';
+	                        }else{
+	                        	html += '<p>' + nick + '</p>';
+	                        }
+	                        
 	                        html += '<p>' + content + '</p>';
 	                        html += '<span>' + sendTime + '</span>';
 	                        if(readChk == 0){ // 안 읽은 쪽지 표시
@@ -938,7 +957,7 @@
         $(document).on("click", "#backList", function () {
         	//$(".msgOpen button").click(); // 쪽지 리스트 reload
         	$(".user_nav .msgOpen button").click();
-        	$(this).attr("id","blockList").attr("title", "차단한 회원 목록").css("background-image", "url(/img/common/block.png)");
+        	$(this).attr("id","blockList").attr("title", "차단한 회원 목록");
         	$(".Mpaging").css("display","block");
         })
         
@@ -946,7 +965,7 @@
         // 차단 회원 목록 조회
         $(document).on("click", "#blockList", function () { 
         	
-        	$(this).attr("id","backList").attr("title", "쪽지 리스트").css("background-image", "url(/img/noticeImg/msg_letter.png)");
+        	$(this).attr("id","backList").attr("title", "쪽지 리스트");
         	$(".Mpaging").css("display","none");
         	  
 			if("${login.userId}" === ""){  // 로그아웃(세션 종료) 체크

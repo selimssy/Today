@@ -14,6 +14,7 @@ public class MessengerVO {
 	private Integer readChk;
 	private String classify;
 	private String imagePath;
+	private String userCode;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd", timezone = "Asia/Seoul")
 	private Date sendTime;
@@ -72,13 +73,23 @@ public class MessengerVO {
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}	
+	public String getUserCode() {
+		return userCode;
 	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	
 	
 	@Override
 	public String toString() {
 		return "MessengerVO [msgNo=" + msgNo + ", senderId=" + senderId + ", nick=" + nick + ", recvId=" + recvId
 				+ ", content=" + content + ", readChk=" + readChk + ", classify=" + classify + ", imagePath="
-				+ imagePath + ", sendTime=" + sendTime + "]";
+				+ imagePath + ", userCode=" + userCode + ", sendTime=" + sendTime + "]";
 	}
+	
+	
+	
 	
 }
