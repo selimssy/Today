@@ -55,7 +55,7 @@
 	.profile_tb tr{height:10vw;}
 	.prof_button{margin-top:4.375vw; padding:0;}
 }
-
+   
 @media all and (max-width:600px) {
 	#tabMenu label{width:48.5%; padding:2.5vw 0; font-size:2.667vw;}
 	.prof_input{font-size:2.667vw;}
