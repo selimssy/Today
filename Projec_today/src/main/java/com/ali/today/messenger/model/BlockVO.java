@@ -11,6 +11,7 @@ public class BlockVO {
 	private String blockId;
 	private String imagePath;
 	private String nickname;
+	private String userCode;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd HH:mm", timezone = "Asia/Seoul")
 	private Date blockDate;
@@ -53,15 +54,21 @@ public class BlockVO {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}		
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
 	}
 	
 	
 	@Override
 	public String toString() {
 		return "BlockVO [blockNo=" + blockNo + ", userId=" + userId + ", blockId=" + blockId + ", imagePath="
-				+ imagePath + ", nickname=" + nickname + ", blockDate=" + blockDate + "]";
-	}	
+				+ imagePath + ", nickname=" + nickname + ", userCode=" + userCode + ", blockDate=" + blockDate + "]";
+	}
 	
-
+	
 	
 }

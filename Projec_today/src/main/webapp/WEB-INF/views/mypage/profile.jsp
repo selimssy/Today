@@ -28,6 +28,7 @@
 .profile_img td{height:200px; position:relative;}
 .profile_img img{width:150px; height:150px; border-radius: 50%; object-fit:cover;}
 .profile_img button{width: 30px; height: 30px; position: absolute; top: 20px; right: 20px; background-color: transparent; border: none; background-image: url(/img/community/modify.png); background-size: contain; background-repeat: no-repeat; text-indent: -9999px; cursor: pointer;}
+.prof_petLetter button{border: none; margin-left: 10px; background: #ffa500; color: #fff; font-size: 10px; padding: 2px; border-radius: 5px; cursor: pointer;}
  
  /*반응형*/
 @media all and (max-width:1065px) {			
@@ -136,7 +137,19 @@
 		                        </td>
 		                        <td><input type="email" class="prof_input" readonly="readonly" value="${user.email}"></td>
 		                    </tr>	
-		                    
+		                    <!-- 
+		                    <tr>
+		                        <td>
+		                            <p>
+		                                <strong>펫편지 수신</strong>
+		                            </p>
+		                        </td>
+		                        <td style="padding-left:20px;" class="prof_petLetter">
+		                        	<c:if test="${user.petLetter == 0}">X <button type="button" class="prof_petLtr on">펫편지 수신</button> </c:if>
+		                        	<c:if test="${user.petLetter == 1}">O <button type="button" class="prof_petLtr">펫편지 중단</button></c:if>
+		                        </td>
+		                    </tr>
+		                     -->
 		                    <tr>
 		                		<td colspan="2">
 		                			<button type="button" id="modifyUser" class="prof_button"><b>개인정보 수정</b></button>

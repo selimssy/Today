@@ -354,6 +354,86 @@
 	
 	
 	
+	// 쪽지 리스트 불러오기 함수
+	function messenger(){
+		
+		let page = 1;
+		let keyword = $("#Msearch").attr("value");
+		let data = {page: page, keyword: keyword};
+		
+		$.ajax({
+            type: 'post',
+            dataType : "json",
+            contentType: 'application/json',
+            url: '/msg/recvMsg',
+            data: JSON.stringify(data),
+            success: function (response) {
+                 //console.log(response); // Map
+                 let list = response['list'];
+                 let lastPage = response['lastPage'];
+                 let petLetter = response['petLetter']; $("#msg_list").attr("data-petLtr", petLetter); // 펫편지 수신 여부
+					
+                 if(list.length == 0){ // 받은 쪽지 없는 경우
+                 	$('.Mpaging').css('display', 'none');
+                 	$('#msg_list').append('<p style="text-align: center; font-size: 13.5px; padding-top: 20px;">저장된 쪽지가 없습니다.</p>');
+                 	return false;
+                 }
+                 
+                 for(let i = 0; i < list.length; i++){
+                 	                    	
+                 	let msgNo = list[i]["msgNo"];
+                 	let nick = list[i]["nick"];
+                 	let content = list[i]["content"];
+                 	let sendTime = list[i]["sendTime"];
+                 	let readChk = list[i]["readChk"];
+                 	let senderId = list[i]["userCode"]; // 사용자에게 쪽지 보내는 경우
+                 	let classify = list[i]["classify"];
+                 	let imagePath = list[i]["imagePath"];
+                 		                    	
+                 	let html='<li class="msgCard" href="' + msgNo + '" data-chk="' + readChk + '" data-csf="' + classify + '" >';
+                     html += '<div class="msg_inner"><img src="';
+                     
+                     if(classify == 'user'){ //사용자                       	
+                     	if(imagePath === '/resources/img/noticeImg/user.png'){ // 프로필사진 없는 경우 기본 이미지로
+                     		html += '/resources/img/noticeImg/msg_letter.png';
+                     	}else{
+                     		html += imagePath; // 프로필 사진
+                     	}
+                     }else if(classify == 'pet'){ //펫편지
+                     	html += '/resources/img/noticeImg/msg_pet.png';
+                     }else{ // 관리자
+                     	html += '/resources/img/noticeImg/msg_admin.png';
+                     }                        
+                     
+                     html += '"><div class="msg_info">';                        
+                     if(classify == 'user'){
+                     	html += '<p data-id="' + senderId + '">' + nick + '</p>';
+                     }else{
+                     	html += '<p>' + nick + '</p>';
+                     }
+                     
+                     html += '<p>' + content + '</p>';
+                     html += '<span>' + sendTime + '</span>';
+                     if(readChk == 0){ // 안 읽은 쪽지 표시
+                         html += '<div class="readChk"></div>';    
+                     }
+                     html += '</div></div></li>';
+                 		                   		
+                     $('#msg_list').append(html);
+                 }
+                 $(".nowPage").text(page); // 현재 페이지
+                 $(".totalPage").text(lastPage); // 총 페이지
+         	   	   	                 
+            }, 
+            error: function() {
+                console.log("통신 실패!");
+            } 
+        });
+		
+	}
+	
+	
+	
 	// 쪽지 리스트 모달 여닫기
 	$(".msgOpen button").click(function(){	// 쪽지 리스트창 열기와 동시에 데이터 수신	
 		let senderId = "${login.userId}";  
@@ -368,79 +448,8 @@
 		$("#Msearch").val("");
 		$('.Mpaging').css('display', 'block');
 		$("#backList").attr("id","blockList").attr("title", "차단한 회원 목록");
-		
-		let page = 1;
-		//let keyword = $("#Msearch").attr("value");
-		let data = {page: page};
-   		
-   		$.ajax({
-               type: 'post',
-               dataType : "json",
-               contentType: 'application/json',
-               url: '/msg/recvMsg',
-               data: JSON.stringify(data),
-               success: function (response) {
-                    //console.log(response); // Map
-                    let list = response['list'];
-                    let lastPage = response['lastPage'];
-                    let petLetter = response['petLetter']; $("#msg_list").attr("data-petLtr", petLetter); // 펫편지 수신 여부
-					
-                    if(list.length == 0){ // 받은 쪽지 없는 경우
-                    	$('.Mpaging').css('display', 'none');
-                    	$('#msg_list').append('<p style="text-align: center; font-size: 13.5px; padding-top: 20px;">저장된 쪽지가 없습니다.</p>');
-                    	return false;
-                    }
-                    
-                    for(let i = 0; i < list.length; i++){
-                    	                    	
-                    	let msgNo = list[i]["msgNo"];
-                    	let nick = list[i]["nick"];
-                    	let content = list[i]["content"];
-                    	let sendTime = list[i]["sendTime"];
-                    	let readChk = list[i]["readChk"];
-                    	let senderId = list[i]["userCode"]; // 사용자에게 쪽지 보내는 경우
-                    	let classify = list[i]["classify"];
-                    	let imagePath = list[i]["imagePath"];
-                    		                    	
-                    	let html='<li class="msgCard" href="' + msgNo + '" data-chk="' + readChk + '" data-csf="' + classify + '" >';
-                        html += '<div class="msg_inner"><img src="';
-                        
-                        if(classify == 'user'){ //사용자                       	
-                        	if(imagePath === '/resources/img/noticeImg/user.png'){ // 프로필사진 없는 경우 기본 이미지로
-                        		html += '/resources/img/noticeImg/msg_letter.png';
-                        	}else{
-                        		html += imagePath; // 프로필 사진
-                        	}
-                        }else if(classify == 'pet'){ //펫편지
-                        	html += '/resources/img/noticeImg/msg_pet.png';
-                        }else{ // 관리자
-                        	html += '/resources/img/noticeImg/msg_admin.png';
-                        }                        
-                        
-                        html += '"><div class="msg_info">';                        
-                        if(classify == 'user'){
-                        	html += '<p data-id="' + senderId + '">' + nick + '</p>';
-                        }else{
-                        	html += '<p>' + nick + '</p>';
-                        }
-                        
-                        html += '<p>' + content + '</p>';
-                        html += '<span>' + sendTime + '</span>';
-                        if(readChk == 0){ // 안 읽은 쪽지 표시
-                            html += '<div class="readChk"></div>';    
-                        }
-                        html += '</div></div></li>';
-                    		                   		
-                        $('#msg_list').append(html);
-                    }
-                    $(".nowPage").text(page); // 현재 페이지
-                    $(".totalPage").text(lastPage); // 총 페이지
-            	   	   	                 
-               }, 
-               error: function() {
-                   console.log("통신 실패!");
-               } 
-           });
+
+		messenger();
 			
 		$("#msgListModal").css("display", "block");
 	})

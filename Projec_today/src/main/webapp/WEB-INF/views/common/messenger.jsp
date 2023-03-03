@@ -996,7 +996,7 @@
 	                                         
 	                    for(let i = 0; i < response.length; i++){
 	                    	
-	                    	let blockId = response[i]['blockId'];
+	                    	let blockId = response[i]['userCode'];
 	                    	let nickname = response[i]['nickname'];
 	                    	let imagePath = response[i]['imagePath'];
 	                    	let blockDate = response[i]['blockDate'];

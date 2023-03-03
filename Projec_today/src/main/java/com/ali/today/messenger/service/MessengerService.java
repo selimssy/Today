@@ -84,6 +84,7 @@ public class MessengerService implements IMessengerService {
 	//쪽지 차단
 	@Override
 	public void blockUser(BlockVO blockVO) {
+		blockVO.setBlockId(uMapper.CodeToId(blockVO.getBlockId())); // 유저코드 -> 아이디
 		mapper.blockUser(blockVO);
 	}
 	
@@ -96,6 +97,7 @@ public class MessengerService implements IMessengerService {
 	//차단 해제
 	@Override
 	public void cancleBlock(BlockVO blockVO) {
+		blockVO.setBlockId(uMapper.CodeToId(blockVO.getBlockId())); // 유저코드 -> 아이디
 		mapper.cancleBlock(blockVO);
 	}
 	
