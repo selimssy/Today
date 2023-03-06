@@ -75,7 +75,7 @@ public class UserController {
 	}
 	
 	
-	/* 베포이걸로
+	/*
 	// 회원가입 이메일 인증
 	@Autowired
 	private JavaMailSenderImpl mailSender;
@@ -87,7 +87,7 @@ public class UserController {
 		Map<String, Object> data = new HashMap<>();
 		
 		if(checkEmail == 0) { // 중복 아닌 경우 			
-			System.out.println("중복아님");
+			//System.out.println("중복아님");
 			Random random = new Random();
 			int checkNum = random.nextInt(888888) + 111111; // 111111 ~ 999999 범위의 인증번호			
 		
@@ -122,7 +122,7 @@ public class UserController {
 		
 		}else {	//이미 가입된 이메일인 경우		
 			data.put("result", "exist");
-			System.out.println("중복");
+			//System.out.println("중복");
 		}
 		   
         return data;

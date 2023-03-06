@@ -103,7 +103,7 @@ public class UserService implements IUserService{
 		dmapper.deleteAllSchedule(userId); // 캘린더
 		dmapper.deleteAllDiary(userId); // 일기
 		mapper.deleteUserPet(userId);  // 반려견
-		mapper.delete(userId);
+		mapper.delete(userId); // 회원 삭제
 		// 게시판은 알 수 없음으로?
 	}
 	

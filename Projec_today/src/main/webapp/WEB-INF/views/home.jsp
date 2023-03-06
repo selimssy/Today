@@ -925,7 +925,7 @@ body{margin:0; padding:0;}
                 //아이디 유효성검사
                 else if(!getIdCheck.test($("#signInId").val())){
                     //$('#signInId').css("background-color", "pink");
-                    $('#idCheck').html('<b style="font-size:13px;color:#F05650;">영문자/숫자 4-14자로 입력해주세요.</b>');  
+                    $('#idCheck').html('<b style="font-size:13px;color:#F05650;">영문자/숫자 6-14자로 입력해주세요.</b>');  
                     chk1 = false;
                 } else {
                     $('#signInId').css("background-color", "#e8f0fe");
