@@ -10,6 +10,7 @@ public class DiaryVO {
 	private String writer;
 	private Date regDate;
 	private String thumbImg;
+	private String diaryCode;
 	
 	private boolean newMark; // 새로운 게시물에 new마크
 	
@@ -55,14 +56,22 @@ public class DiaryVO {
 	}
 	public void setNewMark(boolean newMark) {
 		this.newMark = newMark;
+	}		
+	public String getDiaryCode() {
+		return diaryCode;
+	}
+	public void setDiaryCode(String diaryCode) {
+		this.diaryCode = diaryCode;
 	}
 	
 	
 	@Override
 	public String toString() {
 		return "DiaryVO [diaryNo=" + diaryNo + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regDate=" + regDate + ", thumbImg=" + thumbImg + "]";
+				+ ", regDate=" + regDate + ", thumbImg=" + thumbImg + ", diaryCode=" + diaryCode + ", newMark="
+				+ newMark + "]";
 	}
+	
 	
 	
 }

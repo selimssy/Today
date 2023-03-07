@@ -162,7 +162,7 @@
 								</td>
 								-->		
 																						<!-- 처음 게시판 들어갔을 때 page 파라미터 -->
-								<td class="tableTitle"><a href="<c:url value='/diary/content/${diary.diaryNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
+								<td class="tableTitle"><a href="<c:url value='/diary/content/${diary.diaryCode}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
 										${diary.title}		
 									</a>
 									<c:if test="${diary.newMark}">    

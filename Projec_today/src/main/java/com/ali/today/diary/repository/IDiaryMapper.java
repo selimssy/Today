@@ -3,6 +3,8 @@ package com.ali.today.diary.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ali.today.common.SearchVO;
 import com.ali.today.diary.model.DiaryVO;
 import com.ali.today.diary.model.ScheduleVO;
@@ -46,19 +48,25 @@ public interface IDiaryMapper {
 	void insert(DiaryVO diary);
 	
 	// 일기 상세 조회
-	DiaryVO getDiary(Integer diaryNo);
+	DiaryVO getDiary(String diaryCode);
 	
 	// 일기 목록 조회기능(검색, 페이징 기능 포함)
 	List<DiaryVO> getDiaryList(Map<String, Object> datas);
 	
 	// 일기 삭제
-	void delete(Integer diaryNo);
+	void delete(String diaryCode);
 	
 	// 일기 수정
 	void update(DiaryVO diary);
 	
 	// 게시물 수 조회(검색, 페이징 기능 포함)
 	Integer countDiaries(Map<String, Object> datas);
+	
+	// 특정 계정 가장 최근에 등록한 일기 diaryNo 
+	Integer recentDiary(String userId);
+	
+	// diary_code 입력
+	void diaryCode(@Param("diaryCode") String diaryCode, @Param("diaryNo") Integer diaryNo);
 	
 	// 회원탈퇴시 모든 일기 삭제
 	void deleteAllDiary(String userId);

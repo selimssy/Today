@@ -232,11 +232,11 @@ public class DiaryController {
 	
 	
 	// 일기 상세보기 요청
-	@GetMapping("/content/{diaryNo}")
-	public String content(@PathVariable Integer diaryNo, SearchVO search, Model model, RedirectAttributes ra, HttpSession session) {
+	@GetMapping("/content/{diaryCode}")
+	public String content(@PathVariable String diaryCode, SearchVO search, Model model, RedirectAttributes ra, HttpSession session) {
 		
 		//System.out.println(diaryNo + "번 게시물 조회 요청");
-		DiaryVO diary = service.getDiary(diaryNo);
+		DiaryVO diary = service.getDiary(diaryCode);
 		UserVO user = (UserVO)session.getAttribute("login");
 		if(user == null) { // 로그인 안 한 경우
 			ra.addFlashAttribute("noAccess", "notLogin");
@@ -272,20 +272,20 @@ public class DiaryController {
 	
 	// 일기 수정페이지 요청
 	@GetMapping("/modify")
-	public String modify(Integer diaryNo, PageVO paging, Model model) {
+	public String modify(String diaryCode, PageVO paging, Model model) {
 		//System.out.println(diaryNo + "번 게시물 수정 요청 : GET");
-		model.addAttribute("diary", service.getDiary(diaryNo));
+		model.addAttribute("diary", service.getDiary(diaryCode));
 		model.addAttribute("p", paging); 
 		return "diary/diary_modify";
 	}
 	
 	// 일기 수정 요청
 	@PostMapping("/modify")
-	public String modify(Integer diaryNo, DiaryVO diary, RedirectAttributes ra) { 
+	public String modify(String diaryCode, DiaryVO diary, RedirectAttributes ra) { 
 		//System.out.println(diaryNo + "번 게시물 수정 요청 : POST");
 		service.update(diary);
 		ra.addFlashAttribute("msg", "modSuccess");
-		return "redirect:/diary/content/" + diary.getDiaryNo();
+		return "redirect:/diary/content/" + diary.getDiaryCode();
 	}
 	
 	

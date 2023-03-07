@@ -83,7 +83,8 @@
 				<div class="navBox">
 					<form id="formObj"  role="form" action="<c:url value='/diary/delete'/>" method="post">  
 					
-						<input type="hidden" name="diaryNo" value="${diary.diaryNo}">
+						<!-- <input type="hidden" name="diaryNo" value="${diary.diaryNo}">  -->
+						<input type="hidden" name="diaryCode" value="${diary.diaryCode}">
 						<input type="hidden" name="writer" value="${diary.writer}">
 						<input type="hidden" name="page" value="${p.page}">
 										        										

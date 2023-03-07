@@ -3,12 +3,12 @@ package com.ali.today.diary.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ali.today.common.SearchVO;
 import com.ali.today.diary.model.DateData;
@@ -94,7 +94,7 @@ public class DiaryService implements IDiaryService{
 	// 일기 추가
 	@Override
 	public void insert(DiaryVO diary) {
-		
+		/*
 		// 썸네일 경로 넣는 작업
 		String content = diary.getContent();
 		String imgReg = "(<img[^>]*src\s*=\s*[\"']?([^>\"\']+)[\"']?[^>]*>)";
@@ -102,9 +102,23 @@ public class DiaryService implements IDiaryService{
 		Matcher matcher = pattern.matcher(content);
 		if(matcher.find()) {
 			diary.setThumbImg(matcher.group(2));
-		}		
+		}*/		
 		
-		mapper.insert(diary);
+		mapper.insert(diary); // 일기 insert
+		
+		// diary_code 작업
+		Integer diaryNo = mapper.recentDiary(diary.getWriter());  // diaryNo
+		String rctNo = Integer.toString(diaryNo); 
+		Integer length = rctNo.length(); //자리수 
+		String diaryCode = "";
+		for(int i=0; i<length; i++) {
+			diaryCode += rctNo.substring(i, i+1); 
+			Random random = new Random();
+			int checkNum = random.nextInt(9); // 0~9 사이의 숫자
+			diaryCode += checkNum; 
+		}
+		//System.out.println("최종 일기코드 : " + diaryCode);
+		mapper.diaryCode(diaryCode, diaryNo); // diary_code 업데이트
 		umapper.upContentsCnt(diary.getWriter()); // 컨텐츠 수 증가
 	}
 
@@ -112,15 +126,15 @@ public class DiaryService implements IDiaryService{
 	
 	// 일기 상세조회
 	@Override
-	public DiaryVO getDiary(Integer diaryNo) {
-		return mapper.getDiary(diaryNo);
+	public DiaryVO getDiary(String diaryCode) {
+		return mapper.getDiary(diaryCode);
 	}
 
 
 	// 일기 삭제
 	@Override
 	public void delete(DiaryVO diary) {
-		mapper.delete(diary.getDiaryNo());
+		mapper.delete(diary.getDiaryCode());
 		umapper.downContentsCnt(diary.getWriter()); // 컨텐츠 수 감소
 	}
 
@@ -182,6 +196,15 @@ public class DiaryService implements IDiaryService{
 		
 	}
 	
+	
+	
+	// 특정 계정 가장 최근에 등록한 일기 diaryNo 
+	@Override
+	public Integer recentDiary(String userId) {
+		return mapper.recentDiary(userId);
+	}
+	
+			
 	
 	// 전체 일기(특정 계정) 조회
 	@Override

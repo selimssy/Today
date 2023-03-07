@@ -40,7 +40,7 @@ public interface IDiaryService {
 	void insert(DiaryVO diary);
 	
 	// 게시글 상세 조회
-	DiaryVO getDiary(Integer diaryNo);
+	DiaryVO getDiary(String diaryCode);
 	
 	// 일기 목록 조회기능(검색, 페이징 기능 포함)
 	List<DiaryVO> getDiaryList(String userId, SearchVO search);	
@@ -54,6 +54,9 @@ public interface IDiaryService {
 	// 일기 수 조회(검색, 페이징 기능 포함)
 	Integer countDiaries(String userId, SearchVO search);
 	
+	// 특정 계정 가장 최근에 등록한 일기 diaryNo 
+	Integer recentDiary(String userId);
+		
 	// 전체 일기(특정 계정) 조회
 	List<DiaryVO> adAllDiary(SearchVO search); // 관리자 페이지
 		

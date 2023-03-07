@@ -43,7 +43,8 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
     <div class="boardBox">    	
         <h2 style="border-bottom: 1px solid #000"><span class="boardwt">오늘의 너</span>다이어리 수정</h2>
         <form role="form" action="<c:url value='/diary/modify' />" method="post" id="Mform">
-        	<input type="hidden" name="diaryNo" value="${diary.diaryNo}" >
+        	<!-- <input type="hidden" name="diaryNo" value="${diary.diaryNo}" >  -->
+        	<input type="hidden" name="diaryCode" value="${diary.diaryCode}" >
             <div class="titleBox">
             	<input type="text" name='title' required="required" value="${diary.title}">
 			</div>
@@ -115,7 +116,7 @@ input[type=submit]{width:120px; height: 35px; border:none; background: #F3F3F3; 
 	
 	$("#diaryMC").click(function(){
 		if(confirm('다이어리 수정을 취소하시겠습니까?')){
-			location.href='/diary/content/'+${diary.diaryNo};
+			location.href='/diary/content/'+ ${diary.diaryCode};
 			//window.history.back();
 		}
 	})

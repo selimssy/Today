@@ -20,7 +20,8 @@
 		<result property="content" column="content"/>
 		<result property="writer" column="writer"/>
 		<result property="regDate" column="reg_date"/>
-		<result property="thumbImg" column="thumb_img"/>		
+		<result property="thumbImg" column="thumb_img"/>	
+		<result property="diaryCode" column="diary_code"/>		
 	</resultMap>
 
 	
@@ -133,8 +134,8 @@
 	
 	<!-- 일기 추가 -->
 	<insert id="insert">
-		INSERT INTO pet_diary (title, content, writer, thumb_img)
-		VALUES (#{title}, #{content}, #{writer}, #{thumbImg})
+		INSERT INTO pet_diary (title, content, writer, thumb_img, diary_code)
+		VALUES (#{title}, #{content}, #{writer}, #{thumbImg}, #{diaryCode})
 	</insert>
 	
 	
@@ -142,7 +143,7 @@
 	<select id="getDiary" resultMap="DiaryMap">
 		SELECT *
 		FROM pet_diary
-		WHERE diary_no = #{diaryNo}
+		WHERE diary_code = #{diaryCode}
 	</select>
 
 	
@@ -160,7 +161,7 @@
 	<!-- 일기 삭제 -->
 	<delete id="delete">
 		DELETE FROM pet_diary
-		WHERE diary_no = #{diaryNo}
+		WHERE diary_code = #{diaryCode}
 	</delete>
 	
 	
@@ -168,7 +169,7 @@
 	<update id="update">
 		UPDATE pet_diary
 		SET title = #{title}, content = #{content}
-		WHERE diary_no = #{diaryNo}
+		WHERE diary_code = #{diaryCode}
 	</update>
 	
 	
@@ -180,6 +181,22 @@
 		<include refid="searchDiary"/>
 	</select>
 	
+	
+	<!-- 특정 계정 가장 최근에 등록한 일기 diaryNo -->
+	<select id="recentDiary" resultType="int">
+		SELECT diary_no FROM pet_diary
+		WHERE writer= #{userId}
+		ORDER BY diary_no DESC
+		LIMIT 1
+	</select>
+	
+	
+	<!-- diary_code 입력 -->
+	<update id="diaryCode">
+		UPDATE pet_diary 
+		SET diary_code = #{diaryCode}
+		WHERE diary_no = #{diaryNo}
+	</update>
 	
 	
 	<!-- 회원탈퇴시 모든 일기 삭제 -->
