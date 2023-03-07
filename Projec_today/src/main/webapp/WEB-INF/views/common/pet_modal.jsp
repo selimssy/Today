@@ -42,8 +42,8 @@
 .petBox{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0; position: relative;}
 .pet{cursor: pointer;}
 .pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
-.pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-.pet_in p{margin: 0;}
+.pet_in h3{margin: 8px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap; font-family: 'Nanum Pen Script', cursive; font-size:28px;}
+.pet_in p{margin: 0; font-family: 'Nanum Pen Script', cursive; font-size:20px;}
 /* petId 안보이게 */
 .pet_id{display:none} 
 .select{width: 20px; height: 10px; background-image: url(/img/community/more3.png); background-size: contain; background-repeat: no-repeat; position: absolute; top: 7px; right:12px; cursor: pointer;}
@@ -76,9 +76,18 @@ input[type=file] {display: none;}
 	#petCards{margin-top:2vw;}
 	.petBox{width:22vw; height:21vw; margin-left:3.5vw; border-radius:2vw; padding:1.5vw 0;}
 	.pet_in img{width:14vw; height:14vw;}
-	.pet_in h3{margin:1vw 0; padding:0 3vw; font-size:1.872vw;}
-	.pet_in p{font-size:1.6vw;}
+	.pet_in h3{margin:1vw 0; padding:0 3vw; font-size:2.8vw;}
+	.pet_in p{font-size:2vw;}
 	.close{top:2.5vw; right:2.5vw;}
+}
+
+
+@media all and (max-width:820px) {
+	.changePet2{top:-37vw; left:90%;}
+}
+
+@media all and (max-width:700px) {
+	.changePet2{width:7.5vw; height:7.5vw;}
 }
 
 @media all and (max-width:500px) {
@@ -88,7 +97,7 @@ input[type=file] {display: none;}
 	#petRgform_open{width:80%; margin: 3.75vw auto 2.5vw; font-size:5.25vw;}
 	.petBox{float:none; margin:3.75vw auto; width:33vw; height:27.5vw; border-radius:3vw; padding:2.25vw 0;}
 	.pet_in img{width:21vw; height:21vw;}
-	.pet_in h3{margin:1.5vw 0; padding:0 4.5vw; font-size:2.8vw;}
+	.pet_in h3{margin:1.5vw 0; padding:0 4.5vw; font-size:4.2vw;}
 	.pet_in p{/*font-size:2.4vw;*/ display:none;}
 	.close{width:6vw; height:6vw; top:3vw;}
 	#petRg_modal, #petMf_modal{width:80%;}
@@ -108,7 +117,7 @@ input[type=file] {display: none;}
         	<div class="close">1</div>         
             <p>반려동물 선택</p>
             <div class="bdiv">
-                <button id="petRgform_open">+ 반려동물 추가</button>
+                <button id="petRgform_open">+ 반려견 추가</button>
             </div>      
             <div id="petCards">
 
@@ -395,6 +404,7 @@ input[type=file] {display: none;}
 	        $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
 	        $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
 	        $("#petRg_modal input[type='radio']").prop("checked", false);
+	        $("#petRgForm .mlabel span").html("");
 	        $(".mdpop").css("display","block");
 	        /*
 	        $("#pet_name").val("");
@@ -925,11 +935,11 @@ input[type=file] {display: none;}
 				return false;
 			}	    	
 			// 이미지 용량 체크
-				if(fileDOM_modal1.files[0].size > 10485760){ // 10MB 초과
-		        alert("최대 10MB까지 업로드 가능합니다.");
-		        fileDOM_modal1.value = ""; // 이미지 업로드 초기화
-		        previews_modal1.src = "<c:url value='/img/common/no_image.webp'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
-		        return false; 
+			if(fileDOM_modal1.files[0].size > 10485760){ // 10MB 초과
+	        alert("최대 10MB까지 업로드 가능합니다.");
+	        fileDOM_modal1.value = ""; // 이미지 업로드 초기화
+	        previews_modal1.src = "<c:url value='/img/common/no_image.webp'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
+	        return false; 
 		   }	    	
 	    	
 	      const reader = new FileReader();
@@ -954,11 +964,11 @@ input[type=file] {display: none;}
 				return false;
 			}	    	
 			// 이미지 용량 체크
-				if(fileDOM2_modal2.files[0].size > 10485760){ // 10MB 초과
-		        alert("최대 10MB까지 업로드 가능합니다.");
-		        fileDOM2_modal2.value = ""; // 이미지 업로드 초기화
-		        MdPreviews_modal2.src = "<c:url value='/img/common/no_image.webp'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
-		        return false; 
+			if(fileDOM2_modal2.files[0].size > 10485760){ // 10MB 초과
+	        alert("최대 10MB까지 업로드 가능합니다.");
+	        fileDOM2_modal2.value = ""; // 이미지 업로드 초기화
+	        MdPreviews_modal2.src = "<c:url value='/img/common/no_image.webp'/>";  // 수정할 때는 그냥 기존 이미지로 하고싶다
+	        return false; 
 		   }	    	
 	    	
     	   const imageSrc = URL.createObjectURL(fileDOM2_modal2.files[0]);

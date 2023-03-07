@@ -42,8 +42,8 @@
 /*.pet{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0;}*/       
 .petBox{float:left; margin-left:35px; width: 220px; height: 210px; border: transparent; border-radius: 20px; background: #F3F3F3; text-align: center; padding: 15px 0; position: relative;}
 .pet_in img{width: 140px; height: 140px; border-radius: 50%; object-fit: cover;}    		
-.pet_in h3{margin: 10px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap;}
-.pet_in p{margin: 0;}
+.pet_in h3{margin: 8px 0; padding: 0 30px; overflow: hidden; text-overflow : ellipsis; white-space: nowrap; font-family: 'Nanum Pen Script', cursive; font-size:28px;}
+.pet_in p{margin: 0; font-family: 'Nanum Pen Script', cursive; font-size:20px;}
 /* petId 안보이게 */
 .pet_id{display:none} 
 .select{width: 20px; height: 10px; background-image: url(/img/community/more3.png); background-size: contain; background-repeat: no-repeat; position: absolute; top: 7px; right:12px; cursor: pointer;}
@@ -68,8 +68,8 @@ input[type=file] {display: none;}
 	#petCards{margin-top:2vw; padding-top:2vw;}
 	.petBox{width:22vw; height:21vw; margin-left:3.5vw; border-radius:2vw; padding:1.5vw 0;}
 	.pet_in img{width:14vw; height:14vw;}
-	.pet_in h3{margin:1vw 0; padding:0 3vw; font-size:1.872vw;}
-	.pet_in p{font-size:1.6vw;}
+	.pet_in h3{margin:1vw 0; padding:0 3vw; font-size:2.8vw;}
+	.pet_in p{font-size:2vw;}
 	.close{top:2.5vw; right:2.5vw;}
 }
 
@@ -374,6 +374,7 @@ input[type=file] {display: none;}
         $("#image-box-modal1").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg");
         $("#petRg_modal input[type='text']").add($("input[type='url']")).val("");
         $("#petRg_modal input[type='radio']").prop("checked", false);
+        $("#petRgForm .mlabel span").html("");
         $(".mdpop").css("display","block");
     })
   
