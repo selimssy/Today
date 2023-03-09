@@ -119,7 +119,7 @@
 		
 		.scheduleRgModal{display:none;width: 350px; height: 480px;  border: 3.5px solid #BBD996; border-radius: 15px; position: relative;
 			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:10;}			
-		.closeSchedule{width:20px; height: 20px; position: absolute; top: 20px; right: 15px;}
+		.closeSchedule{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 17px; right: 20px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 		#plan_modal, #plan_MFmodal{display: none; width: 350px; height: 470px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px 0 #e8e8e8;background: #fff; border-radius: 10px; z-index:10;}    
 		
 		#plan_modal input:focus{outline: none;}
@@ -127,7 +127,7 @@
 		.modal_header{border-bottom: 1px solid #dee2e6; padding: 10px 0; display: flex; position: relative;}
 		.modal-title{font-family: 'Jua', sans-serif; font-size:1.4em;}
 		.modal_logo{font-size: 1.4em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px;}
-		.modal_close{width:20px; height: 20px; position: absolute; top: 20px; right: 15px;}
+		.modal_close{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 17px; right: 20px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
 		.eachPlan{border-collapse: collapse; width: 100%;}
 		.modal_body{padding: 0 20px; display: block;}
 		.mlabel{padding-top: 10px;}
@@ -284,7 +284,7 @@
 			<p class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 일정 등록
             </p>
-            <button type="button" class="closeSchedule">X</button>
+            <div class="closeSchedule">X</div>
 		</div>
 				
 		<div class="modal_body">
@@ -355,7 +355,7 @@
             <p class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 스케줄
             </p>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">X</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body">
             <table class="eachPlan">
@@ -422,7 +422,7 @@
             <p class="modal-title">
                 <span class="modal_logo">오늘의 너</span> 스케줄 수정
             </p>
-            <button type="button" class="modal_close">X</button> <!--닫기 버튼-->
+            <div class="modal_close">X</div> <!--닫기 버튼-->
         </div>
         <div class="modal_body">
             <table class="eachPlan">
@@ -956,6 +956,12 @@
 		           });					   	   
 		    }    
 	   });		
+	   
+	   
+	   
+	   
+	   
+	   
 		
 	   
 </script>

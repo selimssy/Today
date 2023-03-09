@@ -128,8 +128,6 @@
 	
 	<!-- 특정 게시물 조회 -->
 	<select id="getArticle" resultMap="BoardMap">
-		<!-- SELECT *
-		FROM board -->
 		SELECT b.board_no, b.title, b.content, b.reg_date, b.writer, b.view_cnt, b.reply_cnt, b.hashtag, u.nickname
 		FROM board b LEFT JOIN user u
 		ON b.writer = u.user_id
