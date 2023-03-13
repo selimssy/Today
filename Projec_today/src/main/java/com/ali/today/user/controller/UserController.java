@@ -234,7 +234,7 @@ public class UserController {
 	
 	// 로그아웃 요청 처리
 	@GetMapping("/logout")
-	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {  // @RestController 에서 뷰리졸버 사용시 ModelAndView로
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {  
 		
 		UserVO user = (UserVO)session.getAttribute("login"); // getAttribute 반환타입이 Object라서 다운캐스팅
 		
@@ -252,7 +252,7 @@ public class UserController {
 			
 		}
 		
-		return new ModelAndView("redirect:/");  
+		return "success";  
 	}
 		
 	

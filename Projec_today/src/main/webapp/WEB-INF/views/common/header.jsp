@@ -375,7 +375,7 @@
 					
                  if(list.length == 0){ // 받은 쪽지 없는 경우
                  	$('.Mpaging').css('display', 'none');
-                 	$('#msg_list').append('<p style="text-align: center; font-size: 13.5px; padding-top: 20px;">저장된 쪽지가 없습니다.</p>');
+                 	$('#msg_list').append('<p style="text-align: center; font-family: '+'Nanum Pen Script'+', cursive;font-size: 22px; padding-top: 20px;">저장된 쪽지가 없습니다.</p>');
                  	return false;
                  }
                  

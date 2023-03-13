@@ -14,17 +14,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">    
 <style type="text/css">
-	body{margin: 0; padding:0;}
-	header{background: #111; color: #fff; padding: 5px;}
-	/*.header_inner, .main_inner{width: 1050px; margin: 0 auto;}*/
-	.modal_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px; color: #fff; margin-right: 10px;}
-	.main_inner{display: flex; align-content: space-between;}
-	.main_nav{width: 220px; background: #545456; padding-top: 10px; border-right: 1px solid #aaa; height: 100%; /*float: left;*/}
-	.main_nav ul{list-style: none;}
-	.main_nav li{padding: 20px 0;}
-	.main_nav li a{text-decoration: none; color: #fff;}
-	.sub_menu li{padding: 15px 0;}
-	.sub_menu li a{font-size: 14px;}
 	.content{width: calc(100% - 220px); margin-top: 20px; position: relative;/*float: left;*/}
 	.content h3{padding-left: 10%;}
 	.content .search{position: absolute; top: 15px; right: 10%;} 
@@ -57,36 +46,10 @@
 </style>
 </head>
 <body>
-    
-    <header>
-        <div class="header_inner">
-            <h3><span class="modal_logo">오늘의 너</span>관리자 페이지</h3> 
-        </div>
-    </header>
+    <jsp:include page="./admin_header.jsp" />   
     <main>
         <div class="main_inner">
-            <nav class="main_nav">
-                <ul>
-                    <li><a href="<c:url value='/admin/member'/>" class="checked">회원 관리</a></li>
-                    <li><a href="<c:url value='/admin/pet'/>"  class="checked">반려견 관리</a>
-                    	<ul class="sub_menu">
-                        	<li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>
-                            <li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<c:url value='/admin/content'/>">컨텐츠 관리</a>
-                        <ul class="sub_menu">
-                        	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
-                            <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
-                            <li><a href="<c:url value='/admin/gallery'/>">갤러리</a></li>
-                            <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
-                            <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
-                            <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
-                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
-                        </ul>
-                    </li>                 
-                </ul>
-            </nav>
+            <jsp:include page="./admin_nav.jsp" />
 
             <div class="content">
                 <h3>견주 일기 현황&nbsp;&nbsp; | &nbsp;&nbsp;

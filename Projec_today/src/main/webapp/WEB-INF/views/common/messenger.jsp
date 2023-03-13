@@ -993,8 +993,13 @@
 	               url: '/msg/blockList',
 	               data: userId,
 	               success: function (response) { //list
-	                                         
-	                    for(let i = 0; i < response.length; i++){
+	                                         	                    
+	            	   if(response.length == 0){ // 차단한 회원 없는 경우
+	                    	$('#msg_list').append('<p style="text-align: center; font-family: '+'Nanum Pen Script'+', cursive;font-size: 22px; padding-top: 20px;">차단한 회원이 존재하지 않습니다.</p>');
+	                    	return false;
+	                    }
+	            	   	            	   
+	            	   for(let i = 0; i < response.length; i++){
 	                    	
 	                    	let blockId = response[i]['userCode'];
 	                    	let nickname = response[i]['nickname'];

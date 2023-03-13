@@ -14,23 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">    
 <style type="text/css">
-	body{margin: 0; padding:0;}
-	header{background: #111; color: #fff; padding: 5px;}
-	.header_inner{width: 90%; position: relative;}
-	.header_inner h3{display:inline-block;}
-	.header_move{text-align:right; position: absolute; top:10px; right: 0;}
-	.header_move p{ display:inline-block; color:fff; font-size:14px;}
-	.header_move p:nth-of-type(1){margin-right:30px; padding-left:28px; background-image:url(/img/common/ad_logout.png); background-size: contain; background-repeat: no-repeat;}
-	.header_move p:nth-of-type(2){padding-left:22px; background-image:url(/img/common/tohome.png); background-size: contain; background-repeat: no-repeat;}
-	/*.header_inner, .main_inner{width: 1050px; margin: 0 auto;}*/
-	.header_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px; color: #fff; margin-right: 10px; cursor:pointer;}
-	.main_inner{display: flex; align-content: space-between;}
-	.main_nav{width: 220px; background: #545456; padding-top: 10px; border-right: 1px solid #aaa; height: 100%; /*float: left;*/}
-	.main_nav ul{list-style: none;}
-	.main_nav li{padding: 20px 0;}
-	.main_nav li a{text-decoration: none; color: #fff;}
-	.sub_menu li{padding: 15px 0;}
-	.sub_menu li a{font-size: 14px;}
+		
 	.content{width: calc(100% - 220px); margin-top: 20px; position: relative;/*float: left;*/}
 	.content h3{padding-left: 10%;}
 	.content .emailOpen{margin-right:30px; cursor:pointer;}
@@ -82,42 +66,11 @@
 	}
 </style>
 </head>
-<body>
-    
-    <header>
-        <div class="header_inner">
-            <h3><span class="header_logo">오늘의 너</span>관리자 페이지</h3> 
-            <div class="header_move">
-            	<p>관리자 로그아웃</p>
-            	<p>홈으로 이동</p>
-            </div>
-        </div>
-    </header>
+<body>   
+    <jsp:include page="./admin_header.jsp" />   
     <main>
-        <div class="main_inner">
-            <nav class="main_nav">
-                <ul>
-                    <li><a href="<c:url value='/admin/member'/>">회원 관리</a></li>
-                    <li><a href="<c:url value='/admin/pet'/>">반려견 관리</a>
-                    	<ul class="sub_menu">
-                        	<li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>
-                            <li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<c:url value='/admin/content'/>">컨텐츠 관리</a>
-                        <ul class="sub_menu">
-                        	<li><a href="<c:url value='/admin/content'/>">컨텐츠 현황</a></li>
-                            <li><a href="<c:url value='/admin/lifetime'/>">반려견 생애기록</a></li>
-                            <li><a href="<c:url value='/admin/gallery'/>">갤러리</a></li>
-                            <li><a href="<c:url value='/admin/calendar'/>">캘린더</a></li>
-                            <li><a href="<c:url value='/admin/diary'/>">견주 일기</a></li>
-                            <li><a href="<c:url value='/admin/board'/>">커뮤니티 게시판</a></li>
-                            <li><a href="<c:url value='/admin/reply'/>">댓글</a></li>
-                        </ul>
-                    </li>                  
-                </ul>
-            </nav>
-
+        <div class="main_inner">           
+            <jsp:include page="./admin_nav.jsp" />
             <div class="content">
                 <h3>회원 관리</h3>                	
                 <div class="search">	 
@@ -402,10 +355,6 @@
 		})
 		
 		
-		// 홈으로 이동
-		$(".header_logo").click(function(){
-			location.href="/";
-		})
 		
 		
 	})
