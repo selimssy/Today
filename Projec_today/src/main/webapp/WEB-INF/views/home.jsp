@@ -149,7 +149,7 @@ body{margin:0; padding:0;}
 	           <c:if test="${login != null}">  
 	           		<nav class="main_nav">
 	           			<ul>
-	           				<li><a href="<c:url value='/user/logout'/>" id="logout" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>
+	           				<li><a href="javascript:;" id="logout">로그아웃</a></li>
 	           			</ul>
 	           		</nav>
 	           </c:if>
@@ -1263,6 +1263,38 @@ body{margin:0; padding:0;}
 				});
             	
             }
+         	
+         	
+         	
+         	
+         	
+         	
+         	// 로그아웃
+        	$("#logout").click(function(){			
+       		if(confirm("로그아웃 하시겠습니까?")){
+       						
+           		$.ajax({
+                       type: 'get',
+                       dataType : "text",
+                       contentType: 'application/json',
+                       url: '/user/logout',
+                       success: function (response) {
+                			if(response === 'success'){
+                				alert("로그아웃 되었습니다.");
+                				window.location.reload();
+                			}else{
+                				alert("로그아웃에 실패했습니다.");
+                			}
+                       }, 
+                       error: function() {
+                           console.log("통신 실패"); 
+                       } 
+                   });
+       		}
+       	})
+         	
+         	
+         	
             
             
             
