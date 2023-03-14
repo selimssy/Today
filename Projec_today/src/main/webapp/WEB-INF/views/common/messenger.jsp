@@ -366,7 +366,7 @@
 				alert("내용을 입력해주세요.");
 			    return false;
 			}
-    		let message = {"senderId": senderId, "recvId": recvId, "content": content};
+    		let message = {"senderId": senderId, "recvId": recvId, "content": content, "classify": "user"};
     		
     		$.ajax({
                 type: 'post',
@@ -430,7 +430,7 @@
 				alert("내용을 입력해주세요.");
 			    return false;
 			}
-    		let message = {"senderId": senderId, "userCode": userCode, "content": content};
+    		let message = {"senderId": senderId, "userCode": userCode, "content": content, "classify": "user"};
     		
     		$.ajax({
                 type: 'post',
@@ -441,6 +441,7 @@
                 success: function (response) {
          			if(response === 'success'){
          				alert("쪽지 보내기가 완료되었습니다.");
+         				$("#msgSendModal").css('display', 'none');
          				//window.location.reload();
          			}else{
          				alert("쪽지 보내기에 실패했습니다.");

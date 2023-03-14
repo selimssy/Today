@@ -316,4 +316,16 @@ public class AdminController {
  
 	}
 	
+	
+	
+	
+	// 쪽지 관리 페이지 열기
+	@GetMapping("/admin_pet_msg")
+	public void admin_pet_msg() {	
+		
+	}
+	
+	
+	
+	
 }

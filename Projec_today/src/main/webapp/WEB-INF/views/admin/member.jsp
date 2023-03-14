@@ -18,6 +18,7 @@
 	.content{width: calc(100% - 220px); margin-top: 20px; position: relative;/*float: left;*/}
 	.content h3{padding-left: 10%;}
 	.content .emailOpen{margin-right:30px; cursor:pointer;}
+	.content .msgOpen{margin-right:10px; cursor:pointer;}
 	.content .search{position: absolute; top: 15px; right: 10%;} 
 	.content .search .select{height: 25px; display: inline-block;}
 	.content .search .select[name='order']{margin-left: 20px;}
@@ -39,7 +40,7 @@
 	
 
 	#emailSendModal{display:none; width:400px; height: 550px; border: 3.5px solid #777; border-radius: 15px; position: relative; box-shadow: 0 0 15px 0 #e8e8e8;
-			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index:10;}	
+			background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); /*z-index:10;*/}	
 	.closeEmail{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 25px; right: 25px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}	
 	#emailSendModal input:focus{outline: none;}, #emailSendModal textarea:focus{outline: none;}
 	.modal_header{border-bottom: 1px solid #dee2e6; padding: 15px 0; display: flex; position: relative;}
@@ -74,7 +75,7 @@
             <div class="content">
                 <h3>회원 관리</h3>                	
                 <div class="search">	 
-                	<button type="button" class="emailOpen">메일 발송</button>         
+                	<button type="button" class="emailOpen">메일 발송</button>                 	        
                     <select class="select" id="condition" name="condition">                            	                           	
                          <option value="userId" ${param.condition == 'userId' ? 'selected' : ''}>아이디</option>
                          <option value="name" ${param.condition == 'name' ? 'selected' : ''}>이름</option>
@@ -130,7 +131,10 @@
 		                            <td>${member.petCnt}<a href="<c:url value='/admin/pet?keyword=${member.userId}&condition=userId'/>">상세</a></td>
 		                            <td>${member.contentsCnt}<a href="<c:url value='/admin/content?keyword=${member.userId}&condition=userId'/>">상세</a></td>
 		                            <td>${member.replyCnt}<a href="<c:url value='/admin/reply?keyword=${member.userId}&condition=userId'/>">상세</a></td>
-		                            <td><button type="button" href="${member.userId}" class="deleteUser">삭제</button></td>		                            
+		                            <td>
+		                            	<button type="button" class="msgOpen" data-id="${member.userId}">관리자 알림</button>
+		                            	<button type="button" href="${member.userId}" class="deleteUser">삭제</button>		                            	
+		                            </td>		                            
 		                        </tr>
                     		</c:forEach>
                     	</c:if>
@@ -223,7 +227,8 @@
 	</div>
     
     
-
+	<jsp:include page="./admin_pet_msg.jsp" />
+	
 </body>
 
 <script type="text/javascript">
@@ -348,10 +353,18 @@
 					alert("메일 발송에 실패했습니다.");
 				}
 			});
-			
-			
-			
-			
+						
+		})
+		
+		
+		
+		
+		// 관리자 알림 쪽지 모달 열기
+		$(".msgOpen").click(function(){
+			reset();
+			let recvId = $(this).attr("data-id"); // 알림 대상
+			$("#msgSendAdmin #toMsg").val(recvId).attr("readonly", true);
+			$("#msgSendAdmin").css("display", "block");									
 		})
 		
 		

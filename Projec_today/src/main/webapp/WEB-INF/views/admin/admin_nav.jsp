@@ -9,7 +9,7 @@
 <style type="text/css">
 	.main_inner{display: flex; align-content: space-between;}
 	.main_nav{width: 220px; background: #545456; padding-top: 10px; border-right: 1px solid #aaa; height: 100%; /*float: left;*/}
-	.main_nav ul{list-style: none;}
+	.main_nav ul{list-style: none; padding-left:35px;}
 	.main_nav li{padding: 20px 0;}
 	.main_nav li a{text-decoration: none; color: #fff;}
 	.sub_menu li{padding: 15px 0;}
@@ -23,8 +23,8 @@
         <li><a href="<c:url value='/admin/member'/>">회원 관리</a></li>
         <li><a href="<c:url value='/admin/pet'/>">반려견 관리</a>
         	<ul class="sub_menu">
-            	<li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>
-                <li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠</a></li>                            
+        		<li><a href="<c:url value='/admin/petContent'/>">반려견 콘텐츠 현황</a></li>
+            	<li><a href="<c:url value='/admin/pet'/>">반려견 관리</a></li>                                          
             </ul>
         </li>
         <li><a href="<c:url value='/admin/content'/>">컨텐츠 관리</a>
