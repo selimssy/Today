@@ -14,6 +14,7 @@ public class PetVO {
 	private String youtube;
 	private Integer open;
 	private Integer contents; // 생애기록 + 갤러리 게시물 수
+	private Integer petLetter;
 	
 	
 	public String getImagePath() {
@@ -51,15 +52,13 @@ public class PetVO {
 	}
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-	
+	}	
 	public String getFeature() {
 		return feature;
 	}
 	public void setFeature(String feature) {
 		this.feature = feature;
-	}
-	
+	}	
 	public String getGender() {
 		return gender;
 	}
@@ -89,7 +88,14 @@ public class PetVO {
 	}
 	public void setContents(Integer contents) {
 		this.contents = contents;
+	}		
+	public Integer getPetLetter() {
+		return petLetter;
 	}
+	public void setPetLetter(Integer petLetter) {
+		this.petLetter = petLetter;
+	}
+	
 	
 	
 	@Override
@@ -97,7 +103,7 @@ public class PetVO {
 		return "PetVO [petId=" + petId + ", userId=" + userId + ", petSpecies=" + petSpecies + ", petName=" + petName
 				+ ", age=" + age + ", gender=" + gender + ", feature=" + feature + ", imagePath=" + imagePath
 				+ ", instagram=" + instagram + ", youtube=" + youtube + ", open=" + open + ", contents=" + contents
-				+ "]";
+				+ ", petLetter=" + petLetter + "]";
 	}
 
 	

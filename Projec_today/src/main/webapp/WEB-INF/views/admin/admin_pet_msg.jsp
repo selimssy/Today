@@ -21,6 +21,10 @@
 .Mmodal_footer button{width:37%; height:35px; margin-top: 15px;}
 .MbuttonBox{display:flex; justify-content: space-evenly;}
 .McloseMsg{width: 25px; height: 25px; text-indent: -9999px; position: absolute; top: 20px; right: 20px; background-image: url(/img/common/close.png); background-size: contain; background-repeat: no-repeat; cursor: pointer;}
+
+.fromLabel{font-family: 'Nanum Pen Script'; font-size:20px;}
+#fromPet, #toUser{width:80%; height:35px; border:none; padding-left:40px; /*font-weight: bold;*/}
+#fromPet{margin-top:15px; padding-left:22px;}
 </style>
 
 
@@ -45,20 +49,20 @@
             </li>	        
                       
             <li class="Mmlabel">
-                   <p>
-                       <strong>내용</strong>
-                   </p>
+                 <p>
+                     <strong>내용</strong>
+                 </p>
             </li>
             <li>
-                <textarea id="msgContent" class="Mmodal_textarea" rows="7" spellcheck="false"></textarea>
+                <textarea id="msgContent1" class="Mmodal_textarea" rows="7" spellcheck="false"></textarea>
             </li>
             
             <li>
-                  	<div class="MbuttonBox">
-                       <button type="button" id="msgSend1" class="Mm_button">보내기</button>
-                       <button type="button" id="msgCancle1" class="Mm_button">초기화</button>
-                   </div>
-               </li>
+               	<div class="MbuttonBox">
+                    <button type="button" id="msgSend1" class="Mm_button">보내기</button>
+                    <button type="button" class="Mm_button Mclose">닫기</button>
+                </div>
+            </li>
         </ul>
    	</div>
 </div>
@@ -74,31 +78,31 @@
 	</div>
 			
 	<div class="Mmodal_body">
-        <ul>	    
-        	<li class="Mmlabel">
-                   <p>
-                       <strong>받는 사람</strong>
-                   </p>
+        <ul>	           	
+             <li>
+             	<span class="fromLabel">From.</span>
+            	<input type="text" id="fromPet" class="Mmodal_input" spellcheck="false"/>	            	
             </li>
             <li>
-            	<input type="text" id="toMsg" class="Mmodal_input" spellcheck="false"/>	            	
+            	<span class="fromLabel">To.</span>
+            	<input type="text" id="toUser" class="Mmodal_input" spellcheck="false"/>	            	
             </li>	        
-                      
+            <!--           
             <li class="Mmlabel">
-                   <p>
-                       <strong>내용</strong>
-                   </p>
-            </li>
+                 <p>
+                     <strong>내용</strong>
+                 </p>
+            </li> -->
             <li>
-                <textarea id="msgContent" class="Mmodal_textarea" rows="7" spellcheck="false"></textarea>
+                <textarea id="msgContent2" class="Mmodal_textarea" rows="8" spellcheck="false" style="margin-top:20px;"></textarea>
             </li>
             
             <li>
-                  	<div class="MbuttonBox">
-                       <button type="button" id="msgSend2" class="Mm_button">보내기</button>
-                       <button type="button" id="msgCancle2" class="Mm_button">초기화</button>
-                   </div>
-               </li>
+               	<div class="MbuttonBox">
+                    <button type="button" id="msgSend2" class="Mm_button">보내기</button>
+                    <button type="button" class="Mm_button Mclose">닫기</button>
+                </div>
+            </li>
         </ul>
    	</div>
 </div>
@@ -107,7 +111,7 @@
 
 <script type="text/javascript">
 
-	//쪽지 보내기
+	//관리지 알림 보내기
 	$(document).on("click", "#msgSend1", function () {					
 			
 		let senderId = "${login.userId}";  
@@ -129,7 +133,7 @@
 		
 		let recvId = $("#msgSendAdmin #toMsg").val();
 		
-		let content = $("#msgContent").val().replace(/(?:\r\n|\r|\n)/g, '<br>');				
+		let content = $("#msgContent1").val().replace(/(?:\r\n|\r|\n)/g, '<br>');				
 		if(!content || content.replace(/\s| /gi, "").length==0){  // 내용 입력값 체크
 			alert("내용을 입력해주세요.");
 		    return false;
@@ -189,9 +193,57 @@
 	
 	
 	
+	//펫편지 보내기
+	$(document).on("click", "#msgSend2", function () {					
+			
+		let userId = "${login.userId}";  
+		if(userId === ""){  // 로그아웃(세션 종료) 체크
+			alert("로그인 후 사용 가능합니다.");
+			window.location.reload();
+			return false;
+		}		
+		
+		let senderId = $("#msgSendPet #fromPet").attr("data-petId"); // 반려견 번호 
+		let recvId = $("#msgSendPet #toUser").val(); // 수신인(견주)
+		
+		let content = $("#msgContent2").val().replace(/(?:\r\n|\r|\n)/g, '<br>');				
+		if(!content || content.replace(/\s| /gi, "").length==0){  // 내용 입력값 체크
+			alert("내용을 입력해주세요.");
+		    return false;
+		}
+		let message = {"senderId": senderId, "recvId": recvId, "content": content, "classify": "pet"};
+		
+		$.ajax({
+	        type: 'post',
+	        dataType : "text",
+	        contentType: 'application/json',
+	        url: '/msg/sendMsg',
+	        data: JSON.stringify(message),
+	        success: function (response) {
+	 			if(response === 'success'){
+	 				alert("펫편지 발송이 완료되었습니다.");
+	 				window.location.reload();
+	 			}else{
+	 				alert("펫편지 발송에 실패했습니다.");
+	 			}
+	        }, 
+	        error: function() {
+	            console.log("통신 실패"); 
+	        } 
+	    });
+		
+	})
+	
+	
+	
+	
+	
 	// 모달 닫기
-	$(".McloseMsg").add("#msgCancle").click(function(){		
-		$(this).prev().parent().parent().css("display", "none");
+	$("#msgSendAdmin .McloseMsg").add("#msgSendAdmin .Mclose").click(function(){		
+		$("#msgSendAdmin").css("display", "none");
+	})
+	$("#msgSendPet .McloseMsg").add("#msgSendPet .Mclose").click(function(){		
+		$("#msgSendPet").css("display", "none");
 	})
 	
 	

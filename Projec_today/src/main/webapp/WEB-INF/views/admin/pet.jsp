@@ -28,6 +28,7 @@
 	.content table a{background:#aaa; color: #fff; text-decoration: none; padding: 3px 5px; font-size:11px; margin-left:15px;}
 	.content table button{margin: 5px 2px; font-size:12px;}
 	.deletePetBtn, .offPet{cursor:pointer;}
+	.offPet{width:80px;}
 	
 	.paging{padding: 10px 0 0; text-align: center;}
 	.paging ul li{list-style: none; display: inline-block;}
@@ -79,6 +80,7 @@
                             <th>인스타그램</th>
                             <th>유튜브</th>
                             <th>컨텐츠 수</th>
+                            <th>펫편지</th>
                             <th>공개 여부</th>                          
                             <th>관리</th>                            
                         </tr>
@@ -97,6 +99,12 @@
 		                            <td>${pet.youtube}</td>
 		                            <td>${pet.contents}<a href="<c:url value='/admin/petContent?keyword=${pet.petId}&condition=petId'/>">상세</a></td>
 		                            <td>
+		                            	<c:if test="${pet.petLetter == 0}"></c:if>
+		                            	<c:if test="${pet.petLetter == 1}">
+		                            		<button type="button" class="petLetterOpen" data-user="${pet.userId}" data-petName="${pet.petName}" data-petId="${pet.petId}">펫편지 발송</button>
+		                            	</c:if>
+		                            </td>
+		                            <td>
 		                            	<c:if test="${pet.open == 0}">비공개</c:if>
 		                            	<c:if test="${pet.open == 1}">공개</c:if>
 		                            </td>
@@ -107,6 +115,7 @@
 		                            	<c:if test="${pet.open == 1}">
 		                            		<button type="button" href="${pet.petId}" class="offPet">비공개 전환</button>
 		                            	</c:if>		                                
+		                            	
 		                            	<button type="button" href="${pet.petId}" class="deletePetBtn">삭제</button>
 		                            </td>
 		                        </tr>
@@ -150,7 +159,9 @@
 
         </div>
     </main>
-
+	
+	<jsp:include page="./admin_pet_msg.jsp" />
+	
 </body>
 
 <script type="text/javascript">
@@ -270,6 +281,21 @@
 	    		
 			}
         })
+        
+        
+        
+        // 펫편지 모달 열기
+		$(".petLetterOpen").click(function(){
+			reset(); // 초기화
+			let recvId = $(this).attr("data-user"); // 수신인
+			let petName = $(this).attr("data-petName"); // 반려견명
+			let petId = $(this).attr("data-petId"); // petId
+			$("#msgSendPet #toUser").val(recvId).attr("readonly", true);
+			$("#msgSendPet #fromPet").val(petName + ' (petId=' + petId + ')').attr("data-petId", petId).attr("readonly", true);
+			$("#msgSendPet").css("display", "block");									
+		})
+        
+        
 		
 		
 		

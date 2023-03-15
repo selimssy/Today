@@ -37,6 +37,7 @@
 		<result property="youtube" column="youtube"/>
 		<result property="open" column="open"/>	
 		<result property="contents" column="contents"/>
+		<result property="petLetter" column="pet_letter"/>
 	</resultMap>
 	
 
@@ -350,9 +351,14 @@
 	<!-- ******관리자 페이지******* -->
 	<!-- 전체 반려견 조회 -->
 	<select id="AllPet" resultMap="PetMap">
-		SELECT *, ((SELECT count(*) FROM lifetime_card WHERE pet_id=p.pet_id) + (SELECT count(*) FROM gallery WHERE pet_id=p.pet_id)) contents
-		FROM pet p
-		WHERE pet_id=p.pet_id   
+		<!-- SELECT *, ((SELECT count(*) FROM lifetime_card WHERE pet_id=p.pet_id) + (SELECT count(*) FROM gallery WHERE pet_id=p.pet_id)) contents
+		FROM pet p 
+		WHERE pet_id=p.pet_id --> 
+		SELECT p.pet_id, p.pet_name, p.user_id, p.pet_species, p.age, p.gender, p.instagram, p.youtube, p.open, 
+		((SELECT count(*) FROM lifetime_card WHERE pet_id=p.pet_id) + (SELECT count(*) FROM gallery WHERE pet_id=p.pet_id)) contents, u.pet_letter  
+		FROM pet p LEFT JOIN user u
+		ON p.user_id = u.user_id
+		WHERE pet_id=p.pet_id
 		<include refid="searchPet"/>
 		<include refid="orderPet"/>	
 		LIMIT #{pageStart}, 20
