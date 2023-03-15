@@ -15,14 +15,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">    
 <style type="text/css">
 	body{margin: 0; padding:0;}
-	header{background: #111; color: #fff; padding: 5px;}
-	.header_inner{width: 90%; position: relative;}
+	header{background: #111; color: #fff; padding: 5px; min-width:1450px;}
+	.header_inner{width: 90%; position: relative; }
 	.header_inner h3{display:inline-block;}
 	.header_move{text-align:right; position: absolute; top:10px; right: 0;}
 	.header_move p{ display:inline-block; color:fff; font-size:14px;}
 	.header_move p:nth-of-type(1){margin-right:30px; padding-left:28px; background-image:url(/img/common/ad_logout.png); background-size: contain; background-repeat: no-repeat; cursor:pointer;}
 	.header_move p:nth-of-type(2){padding-left:22px; background-image:url(/img/common/tohome.png); background-size: contain; background-repeat: no-repeat; cursor:pointer;}
 	.header_logo{font-size: 1.25em; font-family: 'Nanum Pen Script', cursive; padding-left: 15px; color: #fff; margin-right: 10px; cursor:pointer;}
+
+	.content{width: calc(100% - 250px); margin-top: 20px; position: relative; min-width:1200px;}
+	.content h3{padding-left: 5%;}	
+	.content .search{position: absolute; top: 15px; right: 5%;} 	
+	.content .search .select{height: 25px; display: inline-block;}
+	.content .search .select[name='order']{margin-left: 20px;}
+	.content .search .keyword{height: 25px; display: inline-block;}
+	.content .search input[type='text']{height: 20px;}
+	.content table{width: 90%; text-align: center; margin: 20px auto;}
+	.content.statistics h3{padding-left: 10%;}
+	.content.statistics .search{right: 10%;}
+	.content.statistics table{width: 80%;}
 </style>
 </head>
 

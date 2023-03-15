@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.main_inner{display: flex; align-content: space-between;}
-	.main_nav{width: 220px; background: #545456; padding-top: 10px; border-right: 1px solid #aaa; height: 100%; /*float: left;*/}
-	.main_nav ul{list-style: none; padding-left:35px;}
+	.main_nav{width: 250px; background: #545456; padding-top: 10px; border-right: 1px solid #aaa; height: 100%; min-width:250px;}
+	.main_nav ul{list-style: none;}
 	.main_nav li{padding: 20px 0;}
 	.main_nav li a{text-decoration: none; color: #fff;}
 	.sub_menu li{padding: 15px 0;}

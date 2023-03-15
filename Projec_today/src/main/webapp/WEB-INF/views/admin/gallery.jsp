@@ -13,15 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&family=Maven+Pro:wght@500&family=Nanum+Pen+Script&family=Nunito&display=swap" rel="stylesheet">    
-<style type="text/css">
-	.content{width: calc(100% - 220px); margin-top: 20px; position: relative;/*float: left;*/}
-	.content h3{padding-left: 10%;}
-	.content .search{position: absolute; top: 15px; right: 10%;} 
-	.content .search .select{height: 25px; display: inline-block;}
-	.content .search .select[name='order']{margin-left: 20px;}
-	.content .search .keyword{height: 25px; display: inline-block;}
-	.content .search input[type='text']{height: 20px;}
-	.content table{width: 80%; text-align: center; margin: 20px auto; }
+<style type="text/css">	
 	.content table, th, td{border: 1px solid #aaa; border-collapse: collapse;}
 	.content table, th{font-size: 15px; padding: 8px 0;}
 	.content table, td{font-size: 12px; padding: 5px 0;}
